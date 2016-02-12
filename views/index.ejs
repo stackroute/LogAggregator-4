@@ -1,0 +1,110 @@
+<!--Copyright 2016 Wipro Limited, NIIT Limited
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday Kumar Mydam, Nirup TNL, Sandeep Reddy G, Deepak Kumar
+ and updated by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan -->
+
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" ng-controller='mainController' ng-init="showContent = false">
+  <head>
+    <%include header_includes.ejs%>
+  </head>
+  <body>
+
+    <div class="homepage">
+      <!--nav bar start -------->
+      <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="navbar-header">
+            <!-- Logo -->
+            <a href="/#/" class="logo">
+              <!-- logo for regular state and mobile devices -->
+              <span class="logo-lg"><b>Tattva</b> | <b> Wipro </span>
+            </a>
+            <button type="button" class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div> <!-- end navbar-header -->
+
+          <div class="navbar-collapse collapse navbar-responsive-collapse navbar-right">
+
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="#logListing" ng-click="selection='nginxLogStatistics'" class="home">
+                  Home <i class="fa fa-home fa-fw"></i>
+                </a>
+              </li>
+              <li>
+                <a ng-click="aboutus()">
+                  About us <i class="fa fa-book fa-fw"></i>
+                </a>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  Dashboard <i class="fa fa-dashboard"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="value in config.dashboard">
+                    <a href="#/{{value.name.split(' ').join('')}}" ng-click="setDashName(value.name);setTab(value.name);">
+                      {{value.name}}
+                    </a>
+                  </li>
+                </ul> <!-- end dropdown-menu -->
+              </li>
+<!--
+              <li class="" >
+                <a ng-href="#changePassword" class="change-pass btn btn-link">
+                  Change Password <i class="fa fa-unlock"></i>
+                </a>
+              </li> -->
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown   user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="../stylesheets/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  Alexander Pierce
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="../stylesheets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <p>
+                      Alexander Pierce - Web Developer
+                      <small>Member since Nov. 2012</small>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#profile" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a class="btn btn-default btn-flat" ng-click="logout()">Log out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul> <!-- end navbar-right -->
+
+          </div> <!-- end navbar-responsive-collapse -->
+        </nav> <!-- end Nav -->
+      </div> <!-- end container-fluid -->
+    </div> <!-- end homepage -->
+
+    <div ui-view> </div>
+
+  <%include footer_includes.ejs%>
+  </body>
+</html>
