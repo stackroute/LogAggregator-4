@@ -84,10 +84,12 @@ module.exports = function(passport){
 					newUser.email=req.body.email;
 					newUser.firstName=req.body.firstName;
 					newUser.lastName=req.body.lastName;
-
+					newUser.organization=req.body.organization;
+console.log(req.body.organization+"---------------");
 					// save the user
 					newUser.save(function(err) {
 						if (err){
+							console.log(err+"errrrrrrrrrr");
 							throw err;
 						}
 						return done(null, newUser);

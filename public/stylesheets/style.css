@@ -608,7 +608,7 @@ serverdown{
   text-indent: 14px;
 }
 
-.left-inner-addon .fa-user,.fa-lock,.fa-envelope,.fa-key {
+.left-inner-addon .fa-user,.fa-lock,.fa-envelope,.fa-key ,.fa-institution{
   color: #979faf;
   position: absolute;
   font-size: 20px;
@@ -810,7 +810,7 @@ h4.error{
 /*User Logo and user image*/
 .logo .logo-lg {
   display: inline-block;
-  font-size: 26px;
+  font-size: initial;
   color: #fff;
 }
 .logo {

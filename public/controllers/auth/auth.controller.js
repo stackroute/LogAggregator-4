@@ -53,21 +53,12 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
       }
     });
   };
-
   $scope.register = function(){
-    $scope.userDetails={
-      firstName:$scope.firstName,
-      lastName:$scope.lastName,
-      username:$scope.username,
-      email:$scope.email,
-      password:$scope.password
-    };
 
-    if (!$scope.firstName || !$scope.lastName || !$scope.username || !$scope.email || !$scope.password || !$scope.confirmPassword){
 
+    if (!$scope.firstName || !$scope.lastName || !$scope.username || !$scope.email || !$scope.password || !$scope.confirmPassword || !$scope.organization){
       $scope.checkData = "*Please fill all the fields";
     }
-
 
     if ($scope.password && (""+$scope.password.length)<6){
       $scope.checkData = "Password should be of minimum 6 characters";
@@ -75,21 +66,31 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
 
     if($scope.email){
       var isMatchRegex = EMAIL_REGEXP.test($scope.email);
-      if(isMatchRegex == false){
+      if(isMatchRegex === false){
         $scope.checkData="Invalid email id";
       }
       else{
         check = true;
+        $scope.userDetails={
+          firstName:$scope.firstName,
+          lastName:$scope.lastName,
+          username:$scope.username,
+          email:$scope.email,
+          password:$scope.password,
+          organization:$scope.organization
+        };
       }
     }
 
-    if(check==true) {
-      if ($scope.password && $scope.confirmPassword && $scope.password==$scope.confirmPassword){
+    if(check===true) {
+      console.log("fhnnnhnbhn");
+      if ($scope.password && $scope.confirmPassword && $scope.password===$scope.confirmPassword){
         $http.post('/auth/signup', $scope.userDetails).success(function(data){
-          if(data.state == 'success'){
+          if(data.state === 'success'){
             $rootScope.authenticated = true;
             $scope.checkData="";
             $rootScope.current_user = data.user.username;
+            console.log("ncgfghfgh");
             $rootScope.loginMessage="Sign up successful. Please login to continue.";
             $location.path('/login');
           }
@@ -98,7 +99,7 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
           }
         });
       }
-      else if ($scope.password && $scope.confirmPassword && $scope.password != $scope.confirmPassword){
+      else if ($scope.password && $scope.confirmPassword && $scope.password !== $scope.confirmPassword){
         $scope.checkData="Password didn't match";
 
       }

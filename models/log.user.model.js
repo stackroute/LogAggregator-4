@@ -39,6 +39,11 @@ var LogUserSchema = new Schema({
       }, 'Password should be longer'
     ]
   },
+  organization : {
+    type : String,
+    required : 'Organization is required',
+    trim : true
+  },
    hash : String,
   created: {
     type: Date,
