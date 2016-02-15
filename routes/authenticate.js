@@ -24,7 +24,7 @@ console.log("in authenticate");
 
 
 	router.get('/success', function(req, res){
-
+		req.session.user=req.user;
 		res.send({state: 'success', user: req.user ? req.user : null});
 	});
 

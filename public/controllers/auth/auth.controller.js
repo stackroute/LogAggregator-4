@@ -15,8 +15,8 @@ limitations under the License.
 This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday Kumar Mydam, Nirup TNL, Sandeep Reddy G, Deepak Kumar
  and updated by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan*/
 
-angular.module('logAggregator').controller('authController', ['$scope','$cookies' ,'$http','$rootScope','$location',
-function($scope,$cookies, $http, $rootScope, $location) {
+angular.module('logAggregator').controller('authController', ['$scope','$cookies' ,'$http','$rootScope','$location','$window',
+function($scope,$cookies, $http, $rootScope, $location,$window) {
   var EMAIL_REGEXP = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
   var check = false;
   $scope.error_message = '';
@@ -37,7 +37,9 @@ function($scope,$cookies, $http, $rootScope, $location) {
       if(response.data.state == 'success'){
         $rootScope.authenticated = true;
         $rootScope.loginMessage="";
-        $rootScope.current_user = response.data.user.username;
+        $window.localStorage["userInfo"] = JSON.stringify(response.data.user);
+        $rootScope.current_user = JSON.parse($window.localStorage["userInfo"]);
+        // $rootScope.current_user = response.data.user.username;
         // $rootScope.tab = "logListing";
         var result=document.getElementsByClassName('homepage');
         angular.element(result).css('display','block');

@@ -52,6 +52,7 @@ angular.module('logAggregator').controller('mainController', ['$scope','$cookies
     if($cookies.get('login')==='true'){
       var result=document.getElementsByClassName('homepage');
       angular.element(result).css('display','block');
+      $rootScope.current_user = JSON.parse($window.localStorage["userInfo"]);
       $location.path($location.path());
     }
     else{
