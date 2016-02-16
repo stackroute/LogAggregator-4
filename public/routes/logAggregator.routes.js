@@ -43,6 +43,11 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     templateUrl: 'views/nginx/NginxLogStatisticsTabs/NginxLogStatisticsTabs.html',
     controller : 'NginxLogStatisticsController'
   })
+  .state('GitLogStatistics',{
+    url: '/GitLogStatistics',
+    templateUrl: 'views/gitLog/mainPage/mainPage.view.html',
+    controller : 'myController'
+  })
   .state('profile',{
     url: '/profile',
     templateUrl: 'views/gitLog/profile/profile.view.html',

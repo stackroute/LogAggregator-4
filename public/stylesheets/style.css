@@ -13,6 +13,35 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  * Core: General Layout Style
  * -------------------------
  */
+
+ svg {
+   font: 10px sans-serif;
+ }
+
+ /*.axis path,
+ .axis line {
+   fill: none;
+   stroke: #000;
+   shape-rendering: crispEdges;
+ }*/
+
+ .bar {
+   fill: orange;
+ }
+
+ .bar:hover {
+   fill: orangered ;
+ }
+
+.wrapper{
+  margin-top:60px;
+  margin-left:20px;
+}
+ .buttom_css{
+   height:50px;
+   width:200px;
+ }
+
 html,
 body {
   min-height: 100%;

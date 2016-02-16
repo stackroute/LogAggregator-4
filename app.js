@@ -49,6 +49,11 @@ var repRoutes = require('./routes/aptCache/repository');
 var getInfo = require('./routes/aptCache/getInfo');
 //end wave 2 code
 
+//wave 3 routes starts
+var getFilterData = require('./routes/gitLog/getFilterData');
+var plotTheGraph = require('./routes/gitLog/plot_the_graph');
+//wave 3 routes ends
+
 var app = express();
 
 // view engine setup
@@ -98,6 +103,11 @@ app.use('/packageanalytics', packageAnalytics);
 app.use('/repository/mode',repRoutes);
 app.use('/getInfo',getInfo);
 //end wave 2 code
+
+//start of wave 3 code
+app.use('/getFilterData',getFilterData);
+app.use('/plotgraph',plotTheGraph);
+//end of wave3 code
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
