@@ -19,6 +19,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  console.log("data from config.js",config);
   res.json(config);
 });
 

@@ -19,7 +19,7 @@ var fs = require('fs');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-var Logs = require('../../models/dbConfig').aptLogModel;
+var Logs = require('../../models/dbConfig').getModel;
 
 
 var data=new Object();
@@ -91,7 +91,7 @@ router.get('/:year=?/:modetype=?',function(req,res,next){
   // ])
 
 
-  Logs.aggregate([
+  Logs(req.session.user.organization,'aptLogModel').aggregate([
     {$match :{timestamp:{$gte:startTimestamp,$lte:endTimestamp},path:{$regex:".deb$"},mode:mode}},
     {$group:{_id:{filename:"$path"}}}],
     function(err,result){

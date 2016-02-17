@@ -18,7 +18,7 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 
-var Logs = require('../../models/dbConfig').aptLogModel;
+var Logs = require('../../models/dbConfig').getModel;
 
 
 router.get('/year/year_month/:year_month=?', function(req, res, next) {
@@ -56,7 +56,7 @@ router.get('/year/year_month/:year_month=?', function(req, res, next) {
 
   console.log(matchObj);
 
-  Logs.aggregate([
+  Logs(req.session.user.organization,'aptLogModel').aggregate([
     { $match : matchObj},
     { $group:{_id:{package:"$path"},count:{$sum:1}}}],
     function(err,doc){

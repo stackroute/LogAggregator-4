@@ -1,76 +1,131 @@
-/*Copyright 2016 Wipro Limited, NIIT Limited
+var mongoose = require('mongoose');
+var masterDB = mongoose.createConnection("mongodb://localhost/masterDB");
+//var db1 = mongoose.createConnection("mongodb://localhost/nginx");
+//var db2 = mongoose.createConnection("mongodb://localhost/LogAggregate");
+// var db1 = mongoose.createConnection("mongodb://172.23.238.253:27018/nginx");
+//var db2 = mongoose.createConnection("mongodb://172.23.238.253:27018/LogAggregate");
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+var userSchema = require('./log.user.model');
+var organizationSchema=require('./log.organization.model');
+var gitServiceConfigSchema=require('./gitServiceInfo');
+var nginxServiceConfigSchema=require('./nginxServiceConfig');
+var appgitServiceConfigSchema=require('./appgitServiceConfig');
 
-http://www.apache.org/licenses/LICENSE-2.0
+var serverSchema = require('./log.server.model');
+var configSchema = require('./log.config.model');
+var aptLogSchema = require('./logSchema');
+var aptConfigSchema = require('./configSchema');
+var commitDataSchema = require('./org_data_schema');
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-This code is written by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan*/
+var organizationModel = masterDB.model('Organization',organizationSchema);
+var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
+var nginxServiceModel= masterDB.model('nginxServiceConfig',nginxServiceConfigSchema);
+var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfigSchema);
 
-var fs = require('fs');
-var rl = require('readline').createInterface({
-  input: require('fs').createReadStream('apt-cacher.log')
-});
+org(organizationModel);
+var models={};
 
-/************************************** Global variables ********************************/
-months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-log_json = new Array();
-function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  timeObj = new Object();
-  timeObj["date"] = date;
-  timeObj["month"] = month;
-  timeObj["year"] = year;
-  timeObj["time"] = hour + ':' + min + ':' + sec;
-  return timeObj;
+function setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel){
+  if(i>=services.length){
+    var dbModels=
+    {
+      serverModel : serverModel,
+      aptLogModel : aptLogModel,
+      aptConfigModel : aptConfigModel,
+      commitDataModel:commitDataModel
+
+    };
+    return dbModels;
+  }
+//  console.log("Insetdbconnectionservices"+services,orgName);
+  //console.log("services_length"+services.length);
+  //for (var i = 0; i < services.length; i++) {
+    //console.log(services[i]+"-------------serivies");
+
+    if(services[i]=="nginx"){
+    //  console.log("before------------");
+      nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+      //  console.log(docs[0]+"----------------------------nginxdocs");
+        for (var j = 0; j < docs.length; j++) {
+
+        db1 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+        serverModel = db1.model('Logs',serverSchema);
+        i++;
+        setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+        break;
+      }
+      });
+
+    }
+    else if(services[i]=="appgit"){
+
+    appgitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+    // console.log(docs[0]+"----------------------------appgitdocs");
+     for (var j = 0; j < docs.length; j++) {
+     db2 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+       aptLogModel = db2.model('aptLog',aptLogSchema);
+        aptConfigModel = db2.model('aptConfig', aptConfigSchema);
+        i++;
+        setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+    break;
+  }
+     });
+
+    }
+    else if (services[i]=="git") {
+      nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+        // console.log(orgName);
+        // console.log(docs.length+"lengtttttttttttttttttttttttttttt");
+        // console.log(docs[0]+"doc Zero");
+        //console.log(docs[0]["dbDetails"]["host"]);
+        for (var j = 0; j < docs.length; j++) {
+      db3 = mongoose.createConnection("mongodb://"+docs[0]["dbDetails"]["host"]+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+      commitDataModel=db3.model('someOtherCollectionName',commitDataSchema);
+      models[docs[i].organizationName]
+      i++;
+      setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+
+break;
+}
+    });
+    }
+  //}
+}
+module.exports = {
+  userModel : masterDB.model('User',userSchema),
+  configModel : masterDB.model('Config',configSchema),
+  organizationModel : organizationModel,
+  getModel:getModel
+};
+
+function org(organizationModel){
+  organizationModel.find({}, 'organizationName services', function (err, docs) {
+    for(var i=0;i<docs.length;i++){
+    //console.log("Organizationname"+docs[i].organizationName+"Services"+docs[i].services);
+    var db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel;
+  models[docs[i].organizationName]=setDbConnection(docs[i].services,docs[i].organizationName,0,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel);
+  console.log(JSON.stringify(models[docs[i].organizationName])+"--------------------Models");
 }
 
-
-rl.on('line',function(line){
-  var arr = line.split('|');
-  tempObj = new Object();
-  var tempTime = timeConverter(parseInt(arr[0]));
-  tempObj["date"] = tempTime["date"];
-  tempObj["month"] = tempTime["month"];
-  tempObj["year"] = tempTime["year"];
-  tempObj["time"] = tempTime["time"];
-  tempObj["mode"] = arr[1];
-  tempObj["size"] = parseInt(arr[2]);
-  tempObj["source_ip"] = arr[3];
-  tempObj["download"] = arr[4];
-  log_json.push(tempObj);
 });
+}
 
-rl.on('close',function(){
-  //  writeJson(log_json,'../json/apt-cacher.json');
-  var MongoClient = require('mongodb').MongoClient
-      , format = require('util').format;
-  MongoClient.connect('mongodb://172.23.238.253:27018/LogAggregate', function (err, db) {
-      if (err) {
-          throw err;
-      } else {
-          console.log("successfully connected to the database");
-      }
-
-  var collection = db.collection('AllLogsData');
-  var LENGTH = log_json.length;
-  for(var i = 0 ; i<LENGTH; i++)
-  {
-      collection.insert(log_json[i]);
-  }
-    db.close();
-});
-});
+function getModel(organization,model){
+//  console.log("org:"+organization+"Model:"+model);
+//console.log(models[organization][model]+"-------------");
+console.log(JSON.stringify(models)+"mooodddddddddddddd");
+  // if(models[organization][model]==undefined){
+  //   organizationModel.find({}, 'organizationName services', function (err, docs){
+  //     for(var i=0;i<docs.length;i++){
+  //       console.log(docs[i].organizationName+"---------------------"+docs[i].services+"-------------");
+  //   models[docs[i].organizationName]=setDbConnection(docs[i].services);
+  // }
+  //   return models[organization][model];
+  // });
+  //
+  // }
+  // else{
+    return models[organization][model];
+//  }
+}

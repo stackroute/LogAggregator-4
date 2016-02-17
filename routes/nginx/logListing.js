@@ -14,25 +14,26 @@ limitations under the License.
 
 This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday Kumar Mydam, Nirup TNL, Sandeep Reddy G, Deepak Kumar*/
 
-var Log = require('../../models/dbConfig.js').serverModel;
+var Log = require('../../models/dbConfig.js').getModel;
 var express = require('express');
 var router = express.Router();
 
 /*----------Response for All data and particular path data-------------------------------------*/
 
 router.get('/:pathId/:pgno', function(req, res) {
+  console.log("--------------"+req.session.user.organization);
   temp = req.params.pathId;
   pgno = req.params.pgno;
   limit = config.listingLimit;
   var counts = 0;
   skip = pgno > 1 ? ((pgno-1) * limit) : 0;
   if(temp == "All") {
-    Log.count({}, function(er,c) {
+    Log(req.session.user.organization,'serverModel').count({}, function(er,c) {
       counts=c;
     });
 
 
-    Log.find({}, 'remote host path user method code size referer agent time', {skip : skip,limit : limit,sort:{time: -1} }, function(err, serverhits) {
+    Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', {skip : skip,limit : limit,sort:{time: -1} }, function(err, serverhits) {
       var obj = {
         "collection_data" : serverhits,
         "count" : counts
@@ -55,10 +56,10 @@ router.get('/:pathId/:pgno', function(req, res) {
       else {
       paths = "/";
       }
-      Log.count({path:paths},function(er,c){
+      Log(req.session.user.organization,'serverModel').count({path:paths},function(er,c){
           counts = c;
       });
-      Log.find({path : paths},'remote host path user method code size referer agent time',{skip : skip, limit : limit,sort:{time: -1} }, function(err,serverhits) {
+      Log(req.session.user.organization,'serverModel').find({path : paths},'remote host path user method code size referer agent time',{skip : skip, limit : limit,sort:{time: -1} }, function(err,serverhits) {
           var obj = {"collection_data" : serverhits,
                     "count" : counts
                   };
@@ -75,8 +76,9 @@ router.get('/:pathId/:pgno', function(req, res) {
 /*-------------Response for path and count object--------------------------------------------------------*/
 
 router.get('/', function(req, res  ) {
-
-  Log.find({}, 'remote host path user method code size referer agent time', function(err, serverhits) {
+console.log("--------------"+req.session.user.organization);
+console.log(Log(req.session.user.organization,'serverModel'));
+  Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', function(err, serverhits) {
 
 
         var obj = serverhits;

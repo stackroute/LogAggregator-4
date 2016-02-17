@@ -18,7 +18,7 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 
-var Logs = require('../../models/dbConfig').aptLogModel;
+var Logs = require('../../models/dbConfig').getModel;
 
 
 var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -166,7 +166,7 @@ router.get('/:charttype=?/:urldata=?',function(req,res,next){
         periodName = param[0]+"_"+param[1];
     }
     var queryParams = makeQuery(packageType,periodType,periodName);
-    Logs.find(queryParams,
+    Logs(req.session.user.organization,'aptLogModel').find(queryParams,
       function(err,result){
         var jsonData = undefined;
         if(periodType==="yearly"){

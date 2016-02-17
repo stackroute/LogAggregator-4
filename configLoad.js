@@ -17,5 +17,6 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 var Config = require('./models/dbConfig').configModel;
 config = {};
 Config.find({},{'_id': 0},function(err, data) {
+  console.log("Data from config_load"+data[0]);
   config = data[0];
 });

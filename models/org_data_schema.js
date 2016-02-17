@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 module.exports = new mongoose.Schema({
     commitDate:{
-            type:Date,
-            required:true
+            type:Date
         },
         noOfFiles:{
           type:Number
@@ -61,4 +60,4 @@ module.exports = new mongoose.Schema({
         time : {
           type: Date
         }
-},{strict:false});
+},{collection:"someOtherCollectionName"});

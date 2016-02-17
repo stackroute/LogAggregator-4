@@ -18,7 +18,7 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 
-var Logs = require('../../models/dbConfig').aptLogModel;
+var Logs = require('../../models/dbConfig').getModel;
 
 function makeQuery(period){
     // var match = new Object();
@@ -113,7 +113,7 @@ router.get('/package/:packinfo=?/:period=?',function(req,res,next){
     var period = req.params.period;
     if(packinfo === "package_bz2_info"){
         var matchParam = makeQuery(period);
-        Logs.aggregate([
+        Logs(req.session.organization,'aptLogModel').aggregate([
           {$match:matchParam},
           {$group:{_id: {"download":"$path"},count:{$sum:1}}}],
           function(err,result){
