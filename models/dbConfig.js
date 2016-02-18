@@ -56,8 +56,10 @@ models[orgName]={};
     else if (services[i]=="git") {
       gitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
         for (var i = 0; i < docs.length; i++) {
-      db3 = mongoose.createConnection("mongodb://"+docs[0]["dbDetails"]["host"]+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+          if(docs[0].dbDetails.host){
+      db3 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
       models[orgName]['commitDataModel']=db3.model('someOtherCollectionName',commitDataSchema);
+    }
 
 break;
 }
@@ -78,6 +80,9 @@ module.exports = {
   userModel : masterDB.model('User',userSchema),
   configModel : masterDB.model('Config',configSchema),
   organizationModel : organizationModel,
+  gitServiceModel: gitServiceModel,
+  nginxServiceModel: nginxServiceModel,
+  appgitServiceModel:appgitServiceModel,
   getModel:getModel
 };
 
@@ -91,21 +96,15 @@ function org(organizationModel){
 }
 
 function getModel(organization,model){
-// console.log("org:"+organization+"Model:"+model);
-// console.log(models);
-// console.log(models[organization][model]+"-------------getModel");
-//console.log(JSON.stringify(models)+"moood");
-  // if(models[organization][model]==undefined){
-  //   organizationModel.find({}, 'organizationName services', function (err, docs){
-  //     for(var i=0;i<docs.length;i++){
-  //       console.log(docs[i].organizationName+"---------------------"+docs[i].services+"-------------");
-  //   models[docs[i].organizationName]=setDbConnection(docs[i].services);
-  // }
-  //   return models[organization][model];
-  // });
-  //
-  // }
-  // else{
+  if(models[organization][model]==undefined){
+    organizationModel.findOne({organizationName:organization}, 'organizationName services', function (err, docs){
+      for(var i=0;i<docs.length;i++){
+    setDbConnection(docs[i].services,docs[i].organizationName);
+  }
+   return models[organization][model];
+  });
+  }
+  else{
     return models[organization][model];
-//  }
+}
 }

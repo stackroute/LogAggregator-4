@@ -16,6 +16,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 
 var mongoose = require('mongoose');
 var User = require('./models/dbConfig.js').userModel;
+var organizationModel = require('./models/dbConfig.js').organizationModel;
 var LocalStrategy   = require('passport-local').Strategy;
 var crypto = require('crypto');
 
@@ -89,9 +90,22 @@ console.log(req.body.organization+"---------------");
 					// save the user
 					newUser.save(function(err) {
 						if (err){
-							console.log(err+"errrrrrrrrrr");
 							throw err;
 						}
+						organizationModel.findOne({ 'organizationName' :  newUser.organization }, function(err, organizationName) {
+							// In case of any error, return using the done method
+							if (err){
+								return done(err);
+							}
+							if(organizationName){
+								return done(null, false);
+							}
+							var newOrganization= new organizationModel();
+							newOrganization.organizationName=newUser.organization;
+							newOrganization.save(function(err) {
+								//console.log(err+"error in organiz");
+							});
+						});
 						return done(null, newUser);
 					});
 				}

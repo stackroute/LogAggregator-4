@@ -35,6 +35,7 @@ var flash = require('connect-flash');
 var routes = require('./routes/index');
 
 var configRoute = require('./routes/config');
+var serviceConfigRoute = require('./routes/serviceConfig');
 var authenticate = require('./routes/authenticate')(passport);
 var userAgent = require('./routes/nginx/userAgent');
 var logListing = require('./routes/nginx/logListing');
@@ -87,6 +88,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/config', configRoute);
+app.use('/serviceConfig',serviceConfigRoute);
 var initPassport = require('./passport-init');
 initPassport(passport);
 app.use('/', routes);
