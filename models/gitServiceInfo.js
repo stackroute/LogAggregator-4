@@ -12,7 +12,7 @@ var gitServiceConfigSchema = new Schema(
     collection: String
   },
   gitHost: String,
-  gitOauthSets: [{authID: String ,gitOauth:String}],
+  gitauthSets: [{gitOauth:String}],
   repositoryData : [
     {
       gitUserName : String,

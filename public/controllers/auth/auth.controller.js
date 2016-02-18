@@ -85,14 +85,17 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
     if(check===true) {
       console.log("fhnnnhnbhn");
       if ($scope.password && $scope.confirmPassword && $scope.password===$scope.confirmPassword){
-        $http.post('/auth/signup', $scope.userDetails).success(function(data){
-          if(data.state === 'success'){
+        $http.post('/auth/signup', $scope.userDetails).success(function(response){
+          console.log(response.user+"---------");
+          if(response.state === 'success'){
             $rootScope.authenticated = true;
+            $rootScope.loginMessage="";
+            $window.localStorage["userInfo"] = JSON.stringify(response.user);
+            $rootScope.current_user = JSON.parse($window.localStorage["userInfo"]);
             $scope.checkData="";
-            $rootScope.current_user = data.user.username;
             console.log("ncgfghfgh");
-            $rootScope.loginMessage="Sign up successful. Please login to continue.";
-            $location.path('/login');
+            $cookies.put('login','true');
+            $location.path('/serviceConfig');
           }
           else{
             $scope.error_message = data.message;

@@ -23,6 +23,11 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     templateUrl : 'views/auth/auth.view.html',
     controller : 'authController'
   })
+  .state('serviceConfig',{
+    url: '/serviceConfig',
+    templateUrl : 'views/auth/serviceConfig.view.html',
+    controller : 'serviceConfigController'
+  })
   .state('changePassword',{
     url: '/changePassword',
     templateUrl : 'views/auth/changePassword.view.html',
