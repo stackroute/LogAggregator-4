@@ -58,6 +58,11 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     templateUrl: 'views/gitLog/profile/profile.view.html',
     controller : 'profile'
   })
+  .state('profileEdit',{
+    url: '/profileEdit',
+    templateUrl: 'views/gitLog/profileEdit/profileEdit.view.html',
+    controller : 'profile'
+  })
   .state('NginxLogStatistics.useragent',{
     url: '/useragent',
     templateUrl : 'views/nginx/userAgent/userAgent.view.html',

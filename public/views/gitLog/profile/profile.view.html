@@ -13,69 +13,65 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 This code is written by Sridharan -->
-<div class="container-fluid ">
-  <div class="tabbable" id="main-tab">
-    <div class="login-main-tabs">
-      <div class="tabbable login-tabbable">
-        <ul class="nav nav-tabs login-tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab">Profile</a></li>
-          <li><a href="#tab2" data-toggle="tab">User Creation</a></li>
-        </ul>
-
-        <div class="tab-content login-content">
-          <div class="tab-pane active" id="tab1">
-            <form ng-submit="login(uName,pwd)">
-            <div class="left-inner-addon ">
-              <span class="fa fa-user"></span>
-              <input type="text" ng-model="uName"
-              class="form-control"
-              placeholder="User Name" required/>
+<div class="container profileStyle">
+    <h1>Profile</h1>
+    <hr>
+        <div class="row" id= "profileForm">
+            <div class="panel panel-info profilePanel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{current_user.username}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+                            </div>
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                            <tr>
+                                                <td>Username:</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>First Name:</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Name:</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <tr>
+                                                    <td>Organization</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Home Address</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email</td>
+                                                    <td></td>
+                                                </tr>
+                                                <td>Phone Number</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="#changePassword" data-original-title="Edit this user" type="button" class="btn btn-sm btn-warning">
+                                <i class="glyphicon glyphicon-lock"></i> Change Password
+                            </a>
+                            <span class="pull-right">
+                                <a href="#profileEdit" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary">
+                                    <i class="glyphicon glyphicon-edit"></i> Edit
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="left-inner-addon ">
-              <span class="fa fa-lock"></span>
-              <input type="password" ng-model="pwd"
-              class="form-control"
-              placeholder="Enter Password" required />
-            </div>
-            <button type="submit" class="btn btn-success btn-lg active login-button">Log In</button>
-            <!-- <a ng-click="login(uName,pwd)" class="btn btn-success btn-lg active login-button" role="button">Log In</a> -->
-            <center><h4>{{loginMessage}}</h4></center>
-            </form>
-          </div><!-- end tab-pane -->
-
-          <div class="tab-pane" id="tab2">
-            <form ng-submit = "register()" name="sign-up-form">
-            <div class="left-inner-addon">
-              <input type="text" id="fname" ng-model="firstName" placeholder="First Name" class="form-control" required />
-
-              <input type="text" id="lname" ng-model="lastName" placeholder="Last Name" class="form-control" required />
-            </div>
-            <div class="left-inner-addon ">
-              <span class="fa fa-user"></span>
-              <input type="text" ng-model="username" placeholder="User Name" class="form-control" required />
-            </div>
-            <div class="left-inner-addon">
-              <span class="fa fa-envelope"></span>
-              <input type='email' name='email' placeholder="Example@gmail.com" class="form-control" ng-model="email" required>
-            </div>
-            <div class="left-inner-addon ">
-              <span class="fa fa-lock"></span>
-              <input type="password" ng-model="password" placeholder="Password" class="form-control" required />
-            </div>
-            <div class="left-inner-addon ">
-              <span class="fa fa-key"></span>
-              <input type="password" ng-model="confirmPassword"placeholder="Confirm Password" class="form-control" required />
-
-             </div>
-             <button type="submit" class="btn btn-success btn-lg active sign-button" id="create">Create Account</button>
-              <!-- <a ng-click='register()' class="btn btn-success btn-lg active sign-button" id="create" role="button">Create Account</a> -->
-               <center><h4 class="error">{{checkData}}</h4></center>
-
-             </form>
-            </div><!-- end tab-pane -->
-
-          </div><!-- end tab-content -->
-        </div><!-- end tabbable -->
-      </div>
-    </div>
-  </div>

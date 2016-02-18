@@ -49,7 +49,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 html,
 body {
   min-height: 100%;
-  background-color: #f9f9f9;
+  background-color: #fff;
 }
 body {
   -webkit-font-smoothing: antialiased;
@@ -531,7 +531,7 @@ serverdown{
   padding-right: 0px;
 }
 .login-main{
-  background-color: #f9f9f9;
+  background-color: #fff;
 }
 .login-page{
   width: 100%;
@@ -951,4 +951,24 @@ h4.error{
     margin-top: -8px;
     line-height: 10px;
   }
+}
+
+/*Profile Page*/
+
+.profileStyle{
+margin-top: 150px;
+margin-left: auto;
+margin-right: auto;
+}
+.profileStyle h2{
+  padding-top: 50px;
+}
+#profileForm{
+margin: 30px;
+}
+.profilePanelfooter{
+  padding-bottom: 45px !important;
+}
+.profilePanel {
+  width: 100%;
 }
