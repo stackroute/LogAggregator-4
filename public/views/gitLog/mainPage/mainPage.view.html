@@ -6,23 +6,57 @@
     <div id="sidebar-wrapper">
 
         <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
-          <li class="sidebar-brand"> Start Bootstrap </li>
+          <li class="sidebar-brand"> Watch Dogs </li>
           <li> <!-- home item in menu started-->
              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
-                Graphs Category without time and without filter
+                Parent
              </a>
              <ul class="nav nav-pills nav-stacked collapse out" id="p1"><!-- submenu started-->
                <li class="active" data-toggle="collapse" data-parent="#p1" href="#pv1" data-yparam="insertion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">
-                  Top 10 insertions done in Repository
+                  Button 1
                </li>
                <li data-toggle="collapse" data-parent="#p1" href="#pv2" data-yparam="insertion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">
-                  Least 10 insertion done in Repository<
+                  Button 2
                </li>
                <li data-toggle="collapse" data-parent="#p1" href="#pv3" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
-                  Top 10 Commiters who inserted data
+                  Button 3
+               </li>
+               <li data-toggle="collapse" data-parent="#p1" href="#pv4" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                  Button 4
+               </li>
+               <li data-toggle="collapse" data-parent="#p1" href="#pv5" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                  Button 5
+               </li>
+               <li data-toggle="collapse" data-parent="#p1" href="#pv6" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                  Button 6
                </li>
             </ul>
            </li>
+           <li> <!-- home item in menu started-->
+              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
+                 Parent
+              </a>
+           <ul class="nav nav-pills nav-stacked collapse out" id="p2"><!-- submenu started-->
+             <li class="active" data-toggle="collapse" data-parent="#p2" href="#pv11" data-yparam="insertion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">
+                Button 1
+             </li>
+             <li data-toggle="collapse" data-parent="#p2" href="#pv22" data-yparam="insertion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">
+                Button 2
+             </li>
+             <li data-toggle="collapse" data-parent="#p2" href="#pv33" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                Button 3
+             </li>
+             <li data-toggle="collapse" data-parent="#p2" href="#pv44" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                Button 4
+             </li>
+             <li data-toggle="collapse" data-parent="#p2" href="#pv55" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                Button 5
+             </li>
+             <li data-toggle="collapse" data-parent="#p2" href="#pv66" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+                Button 6
+             </li>
+          </ul>
+        </li>
             <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Graphs Category without time and without filter<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -110,8 +144,8 @@
                       <div class="col-sm-12">
                         <div class="tabbable">
                           <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1" data-toggle="tab"><span style="color:#000">Bar Chart</span></a></li>
-                            <li><a href="#tab2" data-toggle="tab"><span style="color:#000">Pie chart</span></a></li>
+                            <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-pie-chart"></i><span style="color:#000">Bar Chart</span></a></li>
+                            <li><a href="#tab2" data-toggle="tab"><span style="color:#000"><i class="fa fa-pie-chart"></i> Pie chart</span></a></li>
                           </ul>
                         </div><!--end of tabbable section-->
                         <div class="tab-content">
