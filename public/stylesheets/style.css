@@ -29,6 +29,10 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
    fill: orange;
  }
 
+ .simply{
+   margin-top: 40px;
+ }
+
  .bar:hover {
    fill: orangered ;
  }
