@@ -11,7 +11,7 @@
              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
                 Multi Dimentional Graph
              </a>
-             <ul class="nav nav-pills nav-stacked collapse out" id="p1"><!-- submenu started-->
+             <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p1"><!-- submenu started-->
                <li class="active" data-toggle="collapse" data-parent="#p1" href="#pv1" data-json="json_param1" data-ng-click="plot_graph($event)">
                   Type1
                </li>
@@ -36,7 +36,7 @@
               <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
                  Single Dimentional Graph
               </a>
-           <ul class="nav nav-pills nav-stacked collapse out" id="p2"><!-- submenu started-->
+           <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p2"><!-- submenu started-->
              <li class="active" data-toggle="collapse" data-parent="#p2" href="#pv11" data-json="json_param7" data-ng-click="plot_graph($event)">
                 Button 1
              </li>
@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col-12 simply">
                 <div class="col-6">
-                      <a id="menu-toggle"><i class="fa fa-bars" style="font-size:34px;"></i></a>
+                      <a id="menu-toggle"><i id = "iMenu" class="fa fa-chevron-right" style="font-size:34px;"></i></a>
                 </div>
                 </div>
                 <div>
@@ -77,8 +77,8 @@
                           <div class="col-sm-12">
                             <div class="tabbable">
                               <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab1" data-toggle="tab"><span style="color:#000">Bar Chart</span></a></li>
-                                <li><a href="#tab2" data-toggle="tab"><span style="color:#000">Pie chart</span></a></li>
+                                <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-bar-chart"></i><span style="color:#000"> Bar Chart</span></a></li>
+                                <li><a href="#tab2" data-toggle="tab"><i class="fa fa-pie-chart"></i><span style="color:#000"> Pie chart</span></a></li>
                               </ul>
                             </div><!--end of tabbable section-->
                             <div class="tab-content">
@@ -175,5 +175,13 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+        if($("#iMenu").hasClass("fa-chevron-right")){
+        $("#iMenu").removeClass("fa-chevron-right");
+        $("#iMenu").addClass("fa-chevron-left");
+      }
+      else{
+        $("#iMenu").removeClass("fa-chevron-left");
+        $("#iMenu").addClass("fa-chevron-right");
+      }
     });
     </script>

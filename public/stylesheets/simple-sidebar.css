@@ -21,11 +21,15 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #333;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+#sidebar-wrapper > a{
+  color: #fff;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -86,6 +90,11 @@
   margin-top: 38px;
 }
 
+.sidebar-brand {
+  padding-top: 20px;
+  padding-bottom: 65px;
+}
+
 .sidebar-nav > .sidebar-brand li {
     color: #999999;
 }
@@ -93,6 +102,10 @@
 .sidebar-nav > .sidebar-brand li:hover {
     color: #fff;
     background: none;
+}
+
+.leftPad > li {
+  padding-left: 15px;
 }
 
 @media(min-width:768px) {
