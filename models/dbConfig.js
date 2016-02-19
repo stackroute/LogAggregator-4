@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
+var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
 //var db1 = mongoose.createConnection("mongodb://localhost/nginx");
 //var db2 = mongoose.createConnection("mongodb://localhost/LogAggregate");
 // var db1 = mongoose.createConnection("mongodb://172.23.238.253:27018/nginx");
