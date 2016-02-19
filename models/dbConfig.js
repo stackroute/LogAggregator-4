@@ -90,12 +90,13 @@ function org(organizationModel){
 }
 
 function getModel(organization,model){
-  if(models[organization][model]==undefined){
-    organizationModel.findOne({organizationName:organization}, 'organizationName services', function (err, docs){
-      for(var i=0;i<docs.length;i++){
-        setDbConnection(docs[i].services,docs[i].organizationName);
+  if(models[organization]==undefined||models[organization][model]==undefined){
+    organizationModel.findOne({'organizationName':organization}, 'organizationName services', function (err, doc){
+      if(err){
+        return;
       }
-      return models[organization][model];
+        setDbConnection(doc.services,doc.organizationName);
+      return;
     });
   }
   else{
