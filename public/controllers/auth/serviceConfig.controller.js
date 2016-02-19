@@ -1,8 +1,10 @@
 
-angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http',
-function($scope,$http) {
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state'
+function($scope,$http,$state) {
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];
+  $state.go('serviceConfig.gittab');
+  $scope.activeTab = "gittab";
   $scope.applyUserName = function(userName){
     if(!userName){
       return;
