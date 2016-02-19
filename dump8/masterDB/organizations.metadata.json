@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"masterDB.organizations"},{"v":1,"unique":true,"key":{"organizationName":1},"name":"organizationName_1","ns":"masterDB.organizations","background":true,"safe":null}]}

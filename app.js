@@ -53,6 +53,7 @@ var getInfo = require('./routes/aptCache/getInfo');
 //wave 3 routes starts
 var getFilterData = require('./routes/gitLog/getFilterData');
 var plotTheGraph = require('./routes/gitLog/plot_the_graph');
+var plotTheGraph = require('./routes/gitLog/plot_the_graph');
 //wave 3 routes ends
 
 var app = express();
