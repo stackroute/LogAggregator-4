@@ -21,7 +21,7 @@ var Log = require('../../models/dbConfig.js').getModel;
 
 /* GET home page. */
 router.get('/:year/:month', function(req, res, next) {
-
+console.log("--------------"+req.session.user.organization,"OrganizationRate");
   var year = req.params.year;
   var month = req.params.month;
   var fromDate, toDate;

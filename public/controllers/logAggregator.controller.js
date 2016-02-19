@@ -19,7 +19,8 @@ angular.module('logAggregator').controller('mainController', ['$scope','$cookies
 '$timeout',function($scope,$cookies,$rootScope, $window,$http,$location, loadConfig, $state,$timeout ) {
       loadConfig.getdata( function(data) {
         $scope.config = data;
-        $window.config = $scope.config;
+        $window.localStorage['config'] = $scope.config;
+        $rootScope.config = $window.localStorage['config'];
       });
 
       $scope.aptLogTabs=['Request Rate','Data Rate','Package Count','Package Analytics','Package Repository'];
@@ -62,6 +63,7 @@ angular.module('logAggregator').controller('mainController', ['$scope','$cookies
     $scope.logout=function(){
       $rootScope.loginMessage="";
       $rootScope.checkData="";
+        $rootScope.current_user ="";
    $http.get('/auth/signout').then(function(response){
       var result=document.getElementsByClassName('homepage');
       angular.element(result).css('display','none');

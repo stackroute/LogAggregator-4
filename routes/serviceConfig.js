@@ -10,7 +10,7 @@ var appgitServiceModel = require('../models/dbConfig.js').appgitServiceModel;
 router.post('/:service', function(req, res){
   req.body['organizationName']=req.session.user.organization;
   req.body['service']=req.params.service;
-  console.log(req.body);
+  console.log(req.body,"bodyyyyyyyyyy");
   organizationModel.findOne({organizationName:req.session.user.organization}, function (err, organization) {
     if (err) {
       res.send({state: 'failure'});

@@ -28,6 +28,18 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     templateUrl : 'views/auth/serviceConfig.view.html',
     controller : 'serviceConfigController'
   })
+  .state('serviceConfig.gittab',{
+    url: '/gittab',
+    templateUrl : 'views/auth/gitServiceConfig.html'
+  })
+  .state('serviceConfig.nginxtab',{
+    url: '/nginxtab',
+    templateUrl : 'views/auth/nginxServiceConfig.html'
+  })
+  .state('serviceConfig.appgittab',{
+    url: '/appgittab',
+    templateUrl : 'views/auth/appgitServiceConfig.html'
+  })
   .state('changePassword',{
     url: '/changePassword',
     templateUrl : 'views/auth/changePassword.view.html',

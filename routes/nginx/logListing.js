@@ -21,7 +21,6 @@ var router = express.Router();
 /*----------Response for All data and particular path data-------------------------------------*/
 
 router.get('/:pathId/:pgno', function(req, res) {
-  console.log("--------------"+req.session.user.organization);
   temp = req.params.pathId;
   pgno = req.params.pgno;
   limit = config.listingLimit;
@@ -31,8 +30,6 @@ router.get('/:pathId/:pgno', function(req, res) {
     Log(req.session.user.organization,'serverModel').count({}, function(er,c) {
       counts=c;
     });
-
-
     Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', {skip : skip,limit : limit,sort:{time: -1} }, function(err, serverhits) {
       var obj = {
         "collection_data" : serverhits,
@@ -75,12 +72,9 @@ router.get('/:pathId/:pgno', function(req, res) {
 
 /*-------------Response for path and count object--------------------------------------------------------*/
 
-router.get('/', function(req, res  ) {
-console.log("--------------"+req.session.user.organization);
-console.log(Log(req.session.user.organization,'serverModel'));
+router.get('/', function(req, res) {
+console.log("--------------"+req.session.user.organization,"Organization");
   Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', function(err, serverhits) {
-
-
         var obj = serverhits;
         final = {
          arr : []

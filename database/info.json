@@ -1,15 +1,27 @@
-{ gitauthSets:
-   [ { authID: 'asd', authStr: 'sdf' },
-     { authID: 'asdf', authStr: 'asdf' } ],
-  repositoryData:
-   [ { gitUserName: 'nodejs',
-       repo: 'nodejs/http-parser',
-       gitRepoId: 186749 },
-     { gitUserName: 'nodejs',
-       repo: 'nodejs/node-v0.x-archive',
-       gitRepoId: 211666 } ],
-  userName: 'nodejs',
-  host: 'local',
-  port: '27017',
-  dbName: 'db',
-  gitHost: 'api' }
+organizationModel.findOne({ 'organizationName' :  user.organization }, function(err, organizationName) {
+  // In case of any error, return using the done method
+  if (err){
+    return done(err);
+  }
+  if(organizationName){
+    return done(null, false);
+  }
+  for (var i = 0; i < organizationName.services.length; i++) {
+    if(organizationName.services[i]=="git"){
+
+    }
+    else if (organizationName.services[i]=="nginx") {
+
+    }
+    else if (organizationName.services[i]=="appgit") {
+
+    }
+  }
+
+  var newOrganization= new organizationModel();
+  newOrganization.organizationName=newUser.organization;
+
+    //console.log(err+"error in organiz");
+    return done(null, user);
+
+});

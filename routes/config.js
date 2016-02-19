@@ -16,11 +16,42 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 
 var express = require('express');
 var router = express.Router();
-
+var organizationModel = require('../models/dbConfig.js').organizationModel;
 /* GET home page. */
 router.get('/', function(req, res) {
   console.log("data from config.js",config);
-  res.json(config);
+  console.log(req.session.user.organization);
+  organizationModel.findOne({ 'organizationName' :  req.session.user.organization }, function(err, organizationName) {
+    if (err){
+      console.log("erorrrrrrrrrrrrrr");
+      res.json(config);
+    }
+    var userconfig = JSON.parse(JSON.stringify(config));
+    console.log(userconfig.dashboard,"----------------------------");
+    userconfig.dashboard=[];
+    for (var i = 0; i < organizationName.services.length; i++) {
+      if(organizationName.services[i]=="git"){
+        userconfig.dashboard.push({ target: '#gitLogStatistics',
+        selection: 'gitLogStatistics',
+        name: 'Git Log Statistics' });
+        console.log("git");
+      }
+      else if (organizationName.services[i]=="nginx") {
+        userconfig.dashboard.push({ target: '#logListing',
+        selection: 'nginxLogStatistics',
+        name: 'Nginx Log Statistics' });
+        console.log("ng");
+      }
+      else if (organizationName.services[i]=="appgit") {
+        userconfig.dashboard.push({ target: '#requestrate',
+        selection: 'aptLogStatistics',
+        name: 'Apt Log Statistics' });
+        console.log("app");
+      }
+    }
+    console.log(userconfig);
+    res.json(userconfig);
+  });
 });
 
 module.exports = router;

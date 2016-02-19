@@ -19,6 +19,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/:showBy/:year/:month', function(req, res, next) {
+  console.log("--------------"+req.session.user.organization,"OrganizationUser");
   var year = req.params.year;
   var month = req.params.month;
   var showBy = req.params.showBy;

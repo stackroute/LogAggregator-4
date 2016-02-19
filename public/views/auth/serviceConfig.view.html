@@ -1,161 +1,17 @@
-<div class="col-md-10 col-md-offset-1" id="main-tab" style="margin-top:80px;">
+<div class="col-md-12" style="margin-top:50px;" id="serviceTab">
   <h1>
     <small>Configure the Database details for the below available services.</small>
   </h1>
-  <br>
-<ul class="nav nav-tabs">
-  <li role="Git" class="active"><a data-target="#gitTab" data-toggle="tab">GIT</a></li>
-  <li role="NGINX"><a data-target="#nginxTab" data-toggle="tab">NGINX</a></li>
-  <li role="APP GIT"><a data-target="#appTab" data-toggle="tab">APP GIT</a></li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane active" id="gitTab">
-    <br>
-    <br>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label for="gitUserName" class="col-sm-2 control-label">Enter User Name</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="gitUserName" ng-model="gitUserName" placeholder="Enter User Name" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary" ng-click="applyUserName(gitUserName)">Submit</button>
-        </div>
-      </div>
+  <div class="tabbable">
 
-      <div ng-show="userCorrect">
-
-        <div class="form-group">
-          <label for="repoTable" class="col-sm-2 control-label">Select the repositories to Configure</label>
-          <div style="height:200px;overflow:auto;" class="col-md-4">
-            <table class="table table-striped" id="repoTable">
-              <tr ng-repeat="gitRepo in gitRepos">
-                <td class="col-md-1"><input type="checkbox" ng-model="gitRepo.selected"></td>
-                <td class="text-left col-md-4">{{gitRepo.full_name}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="host" class="col-sm-2 control-label">Host</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="host" ng-model="gitInfo.dbDetails.host" placeholder="Host">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="gitUserName" class="col-sm-2 control-label">Port</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="port" ng-model="gitInfo.dbDetails.port" placeholder="Port">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="gitUserName" class="col-sm-2 control-label">DB Name</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="dbName" ng-model="gitInfo.dbDetails.dbName" placeholder="DB Name">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="gitHost" class="col-sm-2 control-label">Git Host</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="gitHost" ng-model="gitInfo.gitHost" placeholder="DB Name">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="auth" class="col-sm-2 control-label">Enter Five Git Auth Codes</label>
-      <div class="col-sm-6" id="auth">
-          <div class="input-group">
-            <span class="input-group-addon">GitOauth</span>
-            <input type="text" class="form-control" id="gitUserName" ng-model="gitInfo.gitauthSets[0].gitOauth" placeholder="GIT Auth Code">
-            </div>
-          <div class="input-group">
-            <span class="input-group-addon">GitOauth</span>
-            <input type="text" class="form-control" id="gitUserName" ng-model="gitInfo.gitauthSets[1].gitOauth" placeholder="GIT Auth Code">
-            </div>
-          <div class="input-group">
-            <span class="input-group-addon">GitOauth</span>
-            <input type="text" class="form-control" id="gitUserName" ng-model="gitInfo.gitauthSets[2].gitOauth" placeholder="GIT Auth Code">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">GitOauth</span>
-            <input type="text" class="form-control" id="gitUserName" ng-model="gitInfo.gitauthSets[3].gitOauth" placeholder="GIT Auth Code">
-              </div>
-          <div class="input-group">
-            <span class="input-group-addon">GitOauth</span>
-            <input type="text" class="form-control" id="gitUserName" ng-model="gitInfo.gitauthSets[4].gitOauth" placeholder="GIT Auth Code">
-          </div>
-        </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary" ng-click="serviceConfig('git')">Submit</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+      <ul class="nav nav-tabs" >
+        <li ng-repeat="tabs in serviceTabs" ng-class="{active:(activeTab==='{{tabs | showLinks}}')}">
+          <a ng-click="setActiveClass(tabs)" ui-sref=".{{tabs | showLinks}}" >{{tabs}}</a>
+        </li>
+      </ul>
 
 
-  <!---nginx Configurations -->
-  <div class="tab-pane" id="nginxTab">
-    <br>
-    <br>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label for="host" class="col-sm-2 control-label">Host</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="host" ng-model="nginxInfo.dbDetails.host" placeholder="Host">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="port" class="col-sm-2 control-label">Port</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="port" ng-model="nginxInfo.dbDetails.port" placeholder="Port">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="dbName" class="col-sm-2 control-label">Database Name</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="dbName" ng-model="nginxInfo.dbDetails.dbName" placeholder="Database">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary" ng-click="serviceConfig('nginx')">Submit</button>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <!---appgit Configurations -->
-  <div class="tab-pane" id="appTab">
-    <br>
-    <br>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <label for="host" class="col-sm-2 control-label">Host</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="host" ng-model="appgit.dbDetails.host" placeholder="Host">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="port" class="col-sm-2 control-label">Port</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="port" ng-model="appgit.dbDetails.port" placeholder="Port">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="dbName" class="col-sm-2 control-label">Database Name</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="dbName" ng-model="appgit.dbDetails.dbName" placeholder="Database">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary" ng-click="serviceConfig('nginx')">Submit</button>
-        </div>
-      </div>
-    </form>
-</div>
-</div>
+    <div class="tab-pane" ui-view>
+    </div> <!-- end tab-pane -->
+  </div> <!-- end main-tab -->
+</div> <!-- end container-fluid -->

@@ -972,3 +972,22 @@ margin: 30px;
 .profilePanel {
   width: 100%;
 }
+
+#serviceTab .tab-pane{
+  background-color: white !important;
+}
+
+#serviceTab .nav-tabs li a {
+    width: 200px;
+}
+
+#serviceTab .nav-tabs>li>a {
+    text-align: center;
+    color:  #777;
+}
+
+#serviceTab .nav-tabs>li.active>a, #serviceTab .nav-tabs>li.active>a:focus, #serviceTab .nav-tabs>li.active>a:hover {
+    color: blue !important;
+    cursor: default;
+    background-color: white !important;
+}

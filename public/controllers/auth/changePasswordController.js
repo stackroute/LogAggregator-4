@@ -22,6 +22,7 @@ function($scope,$cookies, $http, $rootScope, $location) {
   $scope.$parent.clicked="";
 
   $scope.changePassword = function(){
+    //$scope.current_user=$rootscope.current_user.userName;
     var password=$scope.password;
     var newPassword=$scope.newPassword;
     var confirmNewPassword=$scope.confirmNewPassword;
@@ -32,7 +33,7 @@ function($scope,$cookies, $http, $rootScope, $location) {
       newPassword:password,
       confirmNewPassword:confirmNewPassword
     };
-    
+
 
   }
 

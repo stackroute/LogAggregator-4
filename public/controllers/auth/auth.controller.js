@@ -16,7 +16,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  and updated by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan*/
 
 angular.module('logAggregator').controller('authController', ['$scope','$cookies' ,'$http','$rootScope','$location','$window',
-function($scope,$cookies, $http, $rootScope, $location,$window) {
+'loadConfig',function($scope,$cookies, $http, $rootScope, $location,$window,loadConfig) {
   var EMAIL_REGEXP = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
   var check = false;
   $scope.error_message = '';
@@ -45,7 +45,13 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
         angular.element(result).css('display','block');
         $cookies.put('login','true');
         $scope.$parent.clicked="";
-        $location.path('/NginxLogStatistics');
+        loadConfig.getdata( function(data) {
+          $scope.config = data;
+          console.log(data);
+          $window.localStorage['config']=$scope.config;
+          $rootScope.config = $window.localStorage['config'];
+        });
+        $location.path('/aboutus');
       }
       else{
         $scope.error_message = response.data.message;
@@ -93,6 +99,8 @@ function($scope,$cookies, $http, $rootScope, $location,$window) {
             $window.localStorage["userInfo"] = JSON.stringify(response.user);
             $rootScope.current_user = JSON.parse($window.localStorage["userInfo"]);
             $scope.checkData="";
+            var result=document.getElementsByClassName('homepage');
+            angular.element(result).css('display','block');
             console.log("ncgfghfgh");
             $cookies.put('login','true');
             $location.path('/serviceConfig');

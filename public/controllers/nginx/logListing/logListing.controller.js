@@ -21,7 +21,6 @@ function($scope,$cookies,$location, $rootScope, logService, $interval) {
     angular.element(result).css('display','block');
   // if $scope.$parent
   $scope.$parent.clicked="";
-console.log("-----------------------------");
   $scope.$parent.tab= 'logListing';
   $rootScope.tab = 'none'
   $scope.showLogProgress = true;
