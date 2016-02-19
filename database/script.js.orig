@@ -1,0 +1,164 @@
+<<<<<<< HEAD
+{ noOfYears: 7,
+  paths: 30,
+  listingLimit: 100,
+  months:
+   [ { value: '1', month: 'January' },
+     { value: '2', month: 'February' },
+     { value: '3', month: 'March' },
+     { value: '4', month: 'April' },
+     { value: '5', month: 'May' },
+     { value: '6', month: 'June' },
+     { value: '7', month: 'July' },
+     { value: '8', month: 'August' },
+     { value: '9', month: 'September' },
+     { value: '10', month: 'October' },
+     { value: '11', month: 'November' },
+     { value: '12', month: 'December' } ],
+  refreshInterval: 5000,
+  dashboard:
+   [ { target: '#requestrate',
+       selection: 'aptLogStatistics',
+       name: 'Apt Log Statistics' },
+     { target: '#logListing',
+       selection: 'nginxLogStatistics',
+       name: 'Nginx Log Statistics' },
+     { target: '#gitLogStatistics',
+       selection: 'gitLogStatistics',
+       name: 'Git Log Statistics' } ],
+  userAgentFilters:
+   { browser: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+     os: [ [Object], [Object], [Object], [Object], [Object] ] } }
+=======
+var mongoose = require('mongoose');
+var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
+//var db1 = mongoose.createConnection("mongodb://localhost/nginx");
+//var db2 = mongoose.createConnection("mongodb://localhost/LogAggregate");
+// var db1 = mongoose.createConnection("mongodb://172.23.238.253:27018/nginx");
+//var db2 = mongoose.createConnection("mongodb://172.23.238.253:27018/LogAggregate");
+
+var userSchema = require('./log.user.model');
+var organizationSchema=require('./log.organization.model');
+var gitServiceConfigSchema=require('./gitServiceInfo');
+var nginxServiceConfigSchema=require('./nginxServiceConfig');
+var appgitServiceConfigSchema=require('./appgitServiceConfig');
+
+var serverSchema = require('./log.server.model');
+var configSchema = require('./log.config.model');
+var aptLogSchema = require('./logSchema');
+var aptConfigSchema = require('./configSchema');
+var commitDataSchema = require('./org_data_schema');
+
+
+var organizationModel = masterDB.model('Organization',organizationSchema);
+var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
+var nginxServiceModel= masterDB.model('nginxServiceConfig',nginxServiceConfigSchema);
+var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfigSchema);
+
+org(organizationModel);
+var models={};
+
+function setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel){
+  if(i>=services.length){
+    var dbModels=
+    {
+      serverModel : serverModel,
+      aptLogModel : aptLogModel,
+      aptConfigModel : aptConfigModel,
+      commitDataModel:commitDataModel
+
+    };
+    return dbModels;
+  }
+//  console.log("Insetdbconnectionservices"+services,orgName);
+  //console.log("services_length"+services.length);
+  //for (var i = 0; i < services.length; i++) {
+    //console.log(services[i]+"-------------serivies");
+
+    if(services[i]=="nginx"){
+    //  console.log("before------------");
+      nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+      //  console.log(docs[0]+"----------------------------nginxdocs");
+        for (var j = 0; j < docs.length; j++) {
+
+        db1 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+        serverModel = db1.model('Logs',serverSchema);
+        i++;
+        setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+        break;
+      }
+      });
+
+    }
+    else if(services[i]=="appgit"){
+
+    appgitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+    // console.log(docs[0]+"----------------------------appgitdocs");
+     for (var j = 0; j < docs.length; j++) {
+     db2 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+       aptLogModel = db2.model('aptLog',aptLogSchema);
+        aptConfigModel = db2.model('aptConfig', aptConfigSchema);
+        i++;
+        setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+    break;
+  }
+     });
+
+    }
+    else if (services[i]=="git") {
+      nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+        // console.log(orgName);
+        // console.log(docs.length+"lengtttttttttttttttttttttttttttt");
+        // console.log(docs[0]+"doc Zero");
+        //console.log(docs[0]["dbDetails"]["host"]);
+        for (var j = 0; j < docs.length; j++) {
+      db3 = mongoose.createConnection("mongodb://"+docs[0]["dbDetails"]["host"]+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName);
+      commitDataModel=db3.model('someOtherCollectionName',commitDataSchema);
+      models[docs[i].organizationName]
+      i++;
+      setDbConnection(services,orgName,i,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel)
+
+break;
+}
+    });
+    }
+  //}
+}
+module.exports = {
+  userModel : masterDB.model('User',userSchema),
+  configModel : masterDB.model('Config',configSchema),
+  organizationModel : organizationModel,
+  getModel:getModel
+};
+
+function org(organizationModel){
+  organizationModel.find({}, 'organizationName services', function (err, docs) {
+    for(var i=0;i<docs.length;i++){
+    //console.log("Organizationname"+docs[i].organizationName+"Services"+docs[i].services);
+    var db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel;
+  models[docs[i].organizationName]=setDbConnection(docs[i].services,docs[i].organizationName,0,db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel);
+  console.log(JSON.stringify(models[docs[i].organizationName])+"--------------------Models");
+}
+
+});
+}
+
+function getModel(organization,model){
+//  console.log("org:"+organization+"Model:"+model);
+//console.log(models[organization][model]+"-------------");
+console.log(JSON.stringify(models)+"mooodddddddddddddd");
+  // if(models[organization][model]==undefined){
+  //   organizationModel.find({}, 'organizationName services', function (err, docs){
+  //     for(var i=0;i<docs.length;i++){
+  //       console.log(docs[i].organizationName+"---------------------"+docs[i].services+"-------------");
+  //   models[docs[i].organizationName]=setDbConnection(docs[i].services);
+  // }
+  //   return models[organization][model];
+  // });
+  //
+  // }
+  // else{
+    return models[organization][model];
+//  }
+}
+>>>>>>> 9e9cb1f523e365b655078e9ff071518b33379029

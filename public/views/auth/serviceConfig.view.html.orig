@@ -1,0 +1,42 @@
+<div class="col-md-12" style="margin-top:50px;" id="serviceTab">
+  <h1>
+    <small>Configure the Database details for the below available services.</small>
+  </h1>
+<<<<<<< HEAD
+  <div class="tabbable">
+=======
+  <br>
+<ul class="nav nav-tabs">
+  <li role="Git" class="active"><a data-target="#gitTab" data-toggle="tab">GIT</a></li>
+  <li role="NGINX"><a data-target="#nginxTab" data-toggle="tab">NGINX</a></li>
+  <li role="APP GIT"><a data-target="#appTab" data-toggle="tab">APP GIT</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="gitTab">
+    <br>
+    <br>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="gitUserName" class="col-sm-2 control-label">Enter User Name</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="gitUserName" ng-model="gitUserName" placeholder="Enter User Name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary" ng-click="applyUserName(gitUserName)">Submit</button>
+        </div>
+      </div>
+>>>>>>> 9e9cb1f523e365b655078e9ff071518b33379029
+
+      <ul class="nav nav-tabs" >
+        <li ng-repeat="tabs in serviceTabs" ng-class="{active:(activeTab==='{{tabs | showLinks}}')}">
+          <a ng-click="setActiveClass(tabs)" ui-sref=".{{tabs | showLinks}}" >{{tabs}}</a>
+        </li>
+      </ul>
+
+
+    <div class="tab-pane" ui-view>
+    </div> <!-- end tab-pane -->
+  </div> <!-- end main-tab -->
+</div> <!-- end container-fluid -->
