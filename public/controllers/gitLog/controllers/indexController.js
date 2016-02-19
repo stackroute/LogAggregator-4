@@ -2,164 +2,314 @@ var app = angular.module('logAggregator');
 
 app.controller('myController', function($scope, $http) {
     $scope.toggle_list = function(){
-      //$scope.listToggle = $scope.listToggle==true?false:true;
-      // var bodyE = $('.left-nav-div'),
-      //   navToggleBtn = bodyE.find('.nav-toggle-btn');
-      //
-      // navToggleBtn.on('click', function(e){
-      //   bodyE.toggleClass('active-nav');
-      //   e.preventDefault();
-      // });
       $('.left-nav-div').slideToggle();
     }
 
-    $scope.plot_graph = function(){
-      console.log("we are in plot_top_repos function");
-      console.log(event.target.getAttribute('data-yparam'));
-      console.log(event.target.getAttribute('data-xparam'));
-      console.log(event.target.getAttribute('data-type'));
-      var y_axis_dim = event.target.getAttribute('data-yparam');
-      var x_axis_dim = event.target.getAttribute('data-xparam');
-      var type = event.target.getAttribute('data-type');
-      var filter_by = event.target.getAttribute('data-filterby');
-      console.log("FilterBy" + filter_by);
-      var to_date = $scope.to_date;
-      var from_date = $scope.from_date;
+    var obj={};
 
-      if(x_axis_dim == 'time' && (filter_by === null || filter_by ==="")){
-        if($scope.to_date === undefined && $scope.from_date === undefined){
-          $scope.submit_yparam = y_axis_dim;
-          $scope.submit_xparam = x_axis_dim;
-          $scope.submit_type = type;
-          $scope.submit_filterby = filter_by;
-          $('#my_modal1').modal('show');
-          return;
-        }
+    var json_param1 ={                                                           //RT-U
+                      "primaryGroupByField" : "repo",
+                      "secondaryGroupByField": {"name":"commitYear","values":[2014,2015,2016,2017]},
+                      "aggregator": {
+                        "function": "top",
+                        "argument": 5
+                      },
+                      "filters": [
+                          {"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
+                        ]
+    }
 
-        var to_year = to_date.getFullYear();
-        var to_month= to_date.getMonth();
-        var from_year = from_date.getFullYear();
-        var from_month = from_date.getMonth();
-        var obj = {
-            "y_axis_dim": y_axis_dim,
-            "x_axis_dim": x_axis_dim,
-            "type": type,
-            "from_date" : from_date,
-            "to_date" : to_date,
-            "from_year" : from_year,
-            "from_month" : from_month,
-            "to_year":  to_year,
-            "to_month" : to_month
-        }
-        plotthedata(obj);
-      }
-      else if(x_axis_dim == 'time' && filter_by !== null){
+    var json_param2 ={                                             //RU-T
+      "primaryGroupByField" : "repo",
+      "secondaryGroupByField": {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]},
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"commitYear", "values":[2015,2016]},
+        {"name":"commitMonth", "values":[0,1,2,3,4,5,6,7,8,9,10,11]}
+        ]
+    }
 
+    var json_param3={                                              //TR-U
+      "primaryGroupByField" : "commitYear",
+      "secondaryGroupByField": {"name":"repo","values":["node","LogAggregator-Git"]},
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+          {"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
+        ]
+    }
 
-            if($scope.value === undefined || $scope.filterbydata!=filter_by)
-            {
-              var obj={
-                  "filterby" : filter_by
-              }
-              $scope.filterbydata = filter_by;
-              $scope.submit_yparam = y_axis_dim;
-              $scope.submit_xparam = x_axis_dim;
-              $scope.submit_type = type;
-              $scope.submit_filterby = filter_by;
-              fetchfilteringdata(obj);
-            }
-            else{
-              console.log("we are in the filtered section");
-              $('#my_modal1').modal('show');
-              if($scope.to_date === undefined && $scope.from_date === undefined){
-                alert("Please select the date range");
-                return;
-              }
-              var fetch_data = $scope.value;
-              var obj = {
-                  "y_axis_dim": y_axis_dim,
-                  "x_axis_dim": x_axis_dim,
-                  "type": type,
-                  "from_date" : from_date,
-                  "to_date" : to_date,
-                  "from_year" : from_year,
-                  "from_month" : from_month,
-                  "to_year":  to_year,
-                  "to_month" : to_month,
-                  "filterby" : filter_by,
-                  "filterdata" : fetch_data
-              }
-              console.log(obj);
-              plotthedata(obj);
-            }
-      }
-      else if(x_axis_dim != 'time' && filter_by !== null){
+    var json_param4={                                              //TU-R
+      "primaryGroupByField" : "commitYear",
+      "secondaryGroupByField":{"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]} ,
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"repo","values":["node","LogAggregator-Git"]}
 
+        ]
+    }
 
-            if($scope.value === undefined || $scope.filterbydata!=filter_by)
-            {
-              var obj={
-                  "filterby" : filter_by
-              }
-              $scope.filterbydata = filter_by;
-              $scope.submit_yparam = y_axis_dim;
-              $scope.submit_xparam = x_axis_dim;
-              $scope.submit_type = type;
-              $scope.submit_filterby = filter_by;
-              fetchfilteringdata(obj);
-            }
-            else{
-              console.log("we are in the filtered section");
-              var fetch_data = $scope.value;
-              var obj = {
-                  "y_axis_dim": y_axis_dim,
-                  "x_axis_dim": x_axis_dim,
-                  "type": type,
-                  "filterby" : filter_by,
-                  "filterdata" : fetch_data
-              }
-              console.log(obj);
-              plotthedata(obj);
-            }
-      }
-      else{
-        var obj = {
-            "y_axis_dim": y_axis_dim,
-            "x_axis_dim": x_axis_dim,
-            "type": type
-        }
-        plotthedata(obj);
-      }
+    var json_param5={                                            //UT-R
+      "primaryGroupByField" : "committer.name",
+      "secondaryGroupByField":{"name":"commitYear","values":[2014,2015,2016]},
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"repo","values":["node","LogAggregator-Git"]}
+
+        ]
+    }
+    //////type of json that is used to plot the stacked bar graph
+
+    var json_param6={                                              //T-RU
+      "primaryGroupByField" : "commitYear",
+      "secondaryGroupByField":"",
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"repo","values":["node","LogAggregator-Git"]},
+        {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
+        ]
+    }
+
+    var json_param7={                                              //R-TU
+      "primaryGroupByField" : "repo",
+      "secondaryGroupByField":"",
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"commitYear","values":[2014,2015,2016]},
+        {"name":"commitMonth","values":[0,1,2,3,4,5,6,7,8,9,10,11]},
+        {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
+        ]
+    }
+
+    var json_param8={                                              //U-TR
+      "primaryGroupByField" : "committer.name",
+      "secondaryGroupByField":"",
+      "aggregator": {
+        "function": "top",
+        "argument": 5
+      },
+      "filters": [
+        {"name":"commitYear","values":[2014,2015,2016]},
+        {"name":"commitMonth","values":[0,1,2,3,4,5,6,7,8,9,10,11]},
+        {"name":"repo","values":["node","LogAggregator-Git"]}
+        ]
     }
 
 
-    var plotthedata = function(obj) {
-        console.log("we are in the function");
+
+
+    $scope.plot_graph = function(){
+      $('#my_modal1').modal('show');
+      console.log("we are in plot_top_repos function");
+      console.log($scope.selectedRepoDataDisplay);
+      console.log($scope.selectedUserDataDisplay);
+      console.log(event.target.getAttribute('data-json'));
+      data_json = event.target.getAttribute('data-json');
+      if(data_json=="json_param1"){
+        obj=json_param1;
+      }
+      else if(data_json=="json_param2"){
+        obj=json_param2;
+      }
+      else if(data_json=="json_param3"){
+        obj=json_param3;
+      }
+      else if(data_json=="json_param4"){
+        obj=json_param4;
+      }else if(data_json=="json_param5"){
+        obj=json_param5;
+      }else if(data_json=="json_param6"){
+        obj=json_param6;
+      }else if(data_json=="json_param7"){
+        obj=json_param7;
+      }else if(data_json=="json_param8"){
+        obj=json_param8;
+      }
+      else{
+        console.log("No matched data found");
+      }
+      console.log(obj);
+      $('#box1').hide();
+      $('#box2').hide();
+      $('#box3').hide();
+      $('#box4').hide();
+      for(var j=0;j<obj["filters"].length;j++)
+      {
+        if(obj["filters"][j]["name"]=="commitMonth"){
+          $('#box1').show();
+        }
+        if(obj["filters"][j]["name"]=="commitYear"){
+          $('#box2').show();
+        }if(obj["filters"][j]["name"]=="repo"){
+          $('#box3').show();
+        }if(obj["filters"][j]["name"]=="committer.name"){
+          $('#box4').show();
+        }
+      }
+      console.log(obj);
+      plotthedata(obj);
+    }
+
+
+    $scope.plotthedata = function() {
         $('#my_modal1').modal('hide');
+        console.log("we are in plot the data function");
+
+        for(var i=0;j<obj["filters"].length;j++)
+        {
+          obj["filters"][i]["values"]=[];
+        }
+        for(var j=0;j<obj["filters"].length;j++)
+        {
+          if(obj["filters"][j]["name"]=="commitMonth"){
+            for(var m=0;m < $scope.selectedMonthDataDisplay.length;m++){
+              obj["filters"][j]["values"][m]=parseInt($scope.selectedMonthDataDisplay[m]);
+            }
+          }
+          if(obj["filters"][j]["name"]=="commitYear"){
+            console.log("selected data length");
+            for(var m=0;m < $scope.selectedYearDataDisplay.length;m++){
+              obj["filters"][j]["values"][m]=parseInt($scope.selectedYearDataDisplay[m]);
+            }
+          }if(obj["filters"][j]["name"]=="repo"){
+            obj["filters"][j]["values"]=$scope.selectedRepoDataDisplay;
+          }if(obj["filters"][j]["name"]=="committer.name"){
+            obj["filters"][j]["values"]=$scope.selectedUserDataDisplay;
+          }
+        }
+        //$('#my_modal1').modal('show');
         console.log(obj);
 
             $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
                 success(function(data, status, headers, config) {
                       console.log(data);
-                      plotting_graph(data);
+                      if(obj["secondaryGroupByField"]!==""){
+                        console.log(obj["secondaryGroupByField"]["values"]);
+                        plotting_stacked_graph(data,obj["secondaryGroupByField"]["values"]);
+                      }
+                      else{
+                        plotting_graph(data);
+                      }
                 });
     }
 
-    var fetchfilteringdata = function(obj) {
+    $scope.$on('$viewContentLoaded', function() {
         console.log("we are in the fetching function calling function");
-        console.log(obj);
+        //console.log(obj);
 
-            $http({method: 'Post', url: '/getFilterData', data:{data:obj}}).
+        $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];
+        //$scope.selected_json_param = event.target.getAttribute('data-json');
+            $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"repo"}}}).
                 success(function(data, status, headers, config) {
-                      console.log(data);
+                      //console.log(data);
                       var display_data=[];
                       for(var i=0; i<data.length;i++){
                         display_data[i]=data[i]["_id"];
                       }
-                      $scope.fetchedDataDisplay=display_data;
-                      console.log($scope.fetchedDataDisplay);
-                      $('#my_modal1').modal('show');
+                      $scope.fetchedRepoDataDisplay=display_data;
+                      console.log($scope.fetchedRepoDataDisplay);
+
                 });
+                $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"committer.name"}}}).
+                    success(function(data, status, headers, config) {
+                          //console.log(data);
+                          var display_data=[];
+                          for(var i=0; i<data.length;i++){
+                            display_data[i]=data[i]["_id"];
+                          }
+                          $scope.fetchedUserDataDisplay=display_data;
+                          console.log($scope.fetchedUserDataDisplay);
+                          //$('#my_modal1').modal('show');
+
+                    });
+                    $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"commitYear"}}}).
+                        success(function(data, status, headers, config) {
+                              //console.log(data);
+                              var display_data=[];
+                              for(var i=0; i<data.length;i++){
+                                display_data[i]=data[i]["_id"];
+                              }
+                              $scope.fetchedYearDataDisplay=display_data;
+                              console.log($scope.fetchedYearDataDisplay);
+
+
+                        });
+    });
+
+    // $scope.fetchfilteringdata = function() {
+    //     console.log("we are in the fetching function calling function");
+    //     //console.log(obj);
+    //
+    //     $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];
+    //     $scope.selected_json_param = event.target.getAttribute('data-json');
+    //         $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"repo"}}}).
+    //             success(function(data, status, headers, config) {
+    //                   //console.log(data);
+    //                   var display_data=[];
+    //                   for(var i=0; i<data.length;i++){
+    //                     display_data[i]=data[i]["_id"];
+    //                   }
+    //                   $scope.fetchedRepoDataDisplay=display_data;
+    //                   console.log($scope.fetchedRepoDataDisplay);
+    //
+    //             });
+    //             $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"committer.name"}}}).
+    //                 success(function(data, status, headers, config) {
+    //                       //console.log(data);
+    //                       var display_data=[];
+    //                       for(var i=0; i<data.length;i++){
+    //                         display_data[i]=data[i]["_id"];
+    //                       }
+    //                       $scope.fetchedUserDataDisplay=display_data;
+    //                       console.log($scope.fetchedUserDataDisplay);
+    //                       //$('#my_modal1').modal('show');
+    //
+    //                 });
+    //                 $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"commitYear"}}}).
+    //                     success(function(data, status, headers, config) {
+    //                           //console.log(data);
+    //                           var display_data=[];
+    //                           for(var i=0; i<data.length;i++){
+    //                             display_data[i]=data[i]["_id"];
+    //                           }
+    //                           $scope.fetchedYearDataDisplay=display_data;
+    //                           console.log($scope.fetchedYearDataDisplay);
+    //
+    //
+    //                     });
+    // }
+    $scope.add_repo= function(){
+      console.log("we are in add_repo function");
+      $scope.selectedRepoDataDisplay = $scope.value;
+    }
+    $scope.add_user= function(){
+      console.log("we are in add_user function");
+      $scope.selectedUserDataDisplay = $scope.value2;
+    }
+    $scope.add_year= function(){
+      console.log("we are in add_year function");
+      $scope.selectedYearDataDisplay = $scope.value7;
+    }
+    $scope.add_month= function(){
+      console.log("we are in add_month function");
+      $scope.selectedMonthDataDisplay = $scope.value5;
     }
   });
 

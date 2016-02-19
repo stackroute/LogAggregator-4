@@ -1,128 +1,63 @@
   <link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
 
-  <div id="wrapper" class="toggled">
+  <div id="wrapper" class="toggled" ng-controller="myController">
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
 
         <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
-          <li class="sidebar-brand"> Watch Dogs </li>
+          <li class="sidebar-brand"> Plot Widgets </li>
           <li> <!-- home item in menu started-->
              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
-                Parent
+                Multi Dimentional Graph
              </a>
              <ul class="nav nav-pills nav-stacked collapse out" id="p1"><!-- submenu started-->
-               <li class="active" data-toggle="collapse" data-parent="#p1" href="#pv1" data-yparam="insertion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">
-                  Button 1
+               <li class="active" data-toggle="collapse" data-parent="#p1" href="#pv1" data-json="json_param1" data-ng-click="plot_graph($event)">
+                  Type1
                </li>
-               <li data-toggle="collapse" data-parent="#p1" href="#pv2" data-yparam="insertion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">
+               <li data-toggle="collapse" data-parent="#p1" href="#pv2" data-json="json_param2"  data-ng-click="plot_graph($event)">
                   Button 2
                </li>
-               <li data-toggle="collapse" data-parent="#p1" href="#pv3" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+               <li data-toggle="collapse" data-parent="#p1" href="#pv3" data-json="json_param3" data-ng-click="plot_graph($event)">
                   Button 3
                </li>
-               <li data-toggle="collapse" data-parent="#p1" href="#pv4" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+               <li data-toggle="collapse" data-parent="#p1" href="#pv4" data-json="json_param4" data-ng-click="plot_graph($event)">
                   Button 4
                </li>
-               <li data-toggle="collapse" data-parent="#p1" href="#pv5" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+               <li data-toggle="collapse" data-parent="#p1" href="#pv5" data-json="json_param5" data-ng-click="plot_graph($event)">
                   Button 5
                </li>
-               <li data-toggle="collapse" data-parent="#p1" href="#pv6" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+               <li data-toggle="collapse" data-parent="#p1" href="#pv6" data-json="json_param6" data-ng-click="plot_graph($event)">
                   Button 6
                </li>
             </ul>
            </li>
            <li> <!-- home item in menu started-->
               <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
-                 Parent
+                 Single Dimentional Graph
               </a>
            <ul class="nav nav-pills nav-stacked collapse out" id="p2"><!-- submenu started-->
-             <li class="active" data-toggle="collapse" data-parent="#p2" href="#pv11" data-yparam="insertion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">
+             <li class="active" data-toggle="collapse" data-parent="#p2" href="#pv11" data-json="json_param7" data-ng-click="plot_graph($event)">
                 Button 1
              </li>
-             <li data-toggle="collapse" data-parent="#p2" href="#pv22" data-yparam="insertion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">
+             <li data-toggle="collapse" data-parent="#p2" href="#pv22" data-json="json_param8" data-ng-click="plot_graph($event)">
                 Button 2
              </li>
-             <li data-toggle="collapse" data-parent="#p2" href="#pv33" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+             <li data-toggle="collapse" data-parent="#p2" href="#pv33" data-json="json_param9"  data-ng-click="plot_graph($event)">
                 Button 3
              </li>
-             <li data-toggle="collapse" data-parent="#p2" href="#pv44" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+             <li data-toggle="collapse" data-parent="#p2" href="#pv44" data-json="json_param10"  data-ng-click="plot_graph($event)">
                 Button 4
              </li>
-             <li data-toggle="collapse" data-parent="#p2" href="#pv55" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+             <li data-toggle="collapse" data-parent="#p2" href="#pv55" data-json="json_param11"  data-ng-click="plot_graph($event)">
                 Button 5
              </li>
-             <li data-toggle="collapse" data-parent="#p2" href="#pv66" class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
+             <li data-toggle="collapse" data-parent="#p2" href="#pv66" data-json="json_param712" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">
                 Button 6
              </li>
           </ul>
         </li>
-            <!-- <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Graphs Category without time and without filter<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li data-yparam="insertion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 insertions done in Repository</li>
-                  <li data-yparam="insertion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 insertion done in Repository</li>
-                  <li data-yparam="insertion" data-xparam="committer.name" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who inserted data</li>
-                  <li data-yparam="insertion" data-xparam="committer.name" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who inserted data</li>
-                  <li data-yparam="deletion" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 deletion done in Repository</li>
-                  <li data-yparam="deletion" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 deletion done in Repository</li>
-                  <li data-yparam="deletion" data-xparam="committer.name" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who deleted data</li>
-                  <li data-yparam="deletion" data-xparam="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who deleted data</li>
-                  <li data-yparam="noOfFiles" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 deletion done in Repository</li>
-                  <li data-yparam="noOfFiles" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 deletion done in Repository</li>
-                  <li data-yparam="noOfFiles" data-xparam="committer.name" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who deleted data</li>
-                  <li data-yparam="noOfFiles" data-xparam="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who deleted data</li>
-                  <li data-yparam="noOfCommits" data-xparam="repo" data-type="top 10" data-ng-click="plot_graph($event)">10 Repository haivng max commits</li>
-                  <li data-yparam="noOfCommits" data-xparam="repo" data-type="bottom 10" data-ng-click="plot_graph($event)">10 repo with min commits</li>
-                  <li data-yparam="noOfCommits" data-xparam="committer.name" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-                  <li data-yparam="noOfCommits" data-xparam="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-                </ul>
-            </li>
-          <p>
-            Plotting all the with respect to time with in two date range
-          </p>
-          <li class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 insertions done in Repository</li>
-          <li class="button_css" data-yparam="insertion" data-xparam="time" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 insertion done in Repository</li>
-          <li class="button_css" data-yparam="insertion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who inserted data</li>
-          <li class="button_css" data-yparam="insertion" data-xparam="time" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who inserted data</li>
-          <li class="button_css" data-yparam="deletion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 deletion done in Repository</li>
-          <li class="button_css" data-yparam="deletion" data-xparam="time" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 deletion done in Repository</li>
-          <li class="button_css" data-yparam="deletion" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who deleted data</li>
-          <li class="button_css" data-yparam="deletion" data-xparam="time" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who deleted data</li>
-          <li class="button_css" data-yparam="noOfFiles" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 deletion done in Repository</li>
-          <li class="button_css" data-yparam="noOfFiles" data-xparam="time" data-type="bottom 10" data-ng-click="plot_graph($event)">Least 10 deletion done in Repository</li>
-          <li class="button_css" data-yparam="noOfFiles" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters who deleted data</li>
-          <li class="button_css" data-yparam="noOfFiles" data-xparam="time" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters who deleted data</li>
-          <li class="button_css" data-yparam="noOfCommits" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">10 Repository haivng max commits</li>
-          <li class="button_css" data-yparam="noOfCommits" data-xparam="time" data-type="bottom 10" data-ng-click="plot_graph($event)">10 repo with min commits</li>
-          <li class="button_css" data-yparam="noOfCommits" data-xparam="time" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li class="button_css" data-yparam="noOfCommits" data-xparam="time" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <p>
-            This is type of graph with in a range of the time and filtered by one parameter
-          </p>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="insertion" data-xparam="time" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="insertion" data-xparam="time" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="deletion" data-xparam="time" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="deletion" data-xparam="time" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfCommits" data-xparam="time" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfCommits" data-xparam="time" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfFiles" data-xparam="time" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfFiles" data-xparam="time" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <p>
-            This is type of graph and filtered by one parameter
-          </p>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="insertion" data-xparam="committer.name" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="insertion" data-xparam="repo" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="deletion" data-xparam="committer.name" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="deletion" data-xparam="repo" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfCommits" data-xparam="committer.name" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfCommits" data-xparam="repo" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfFiles" data-xparam="committer.name" data-filterby="repo" data-type="top 10" data-ng-click="plot_graph($event)">Top 10 Commiters</li>
-          <li href="#my_modal" role="li" data-toggle="modal" class="button_css" data-yparam="noOfFiles" data-xparam="repo" data-filterby="committer.name" data-type="buttom 10" data-ng-click="plot_graph($event)">Least 10 Commiters</li> -->
-
           </ul>
-
-
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -135,75 +70,100 @@
                       <a id="menu-toggle"><i class="fa fa-bars" style="font-size:34px;"></i></a>
                 </div>
                 </div>
-                <div ng-controller="myController">
+                <div>
 
-                  <div class="row" style="text-align:center">
-
-                  <div class="col-sm-11 pull-right">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="tabbable">
-                          <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-pie-chart"></i><span style="color:#000">Bar Chart</span></a></li>
-                            <li><a href="#tab2" data-toggle="tab"><span style="color:#000"><i class="fa fa-pie-chart"></i> Pie chart</span></a></li>
-                          </ul>
-                        </div><!--end of tabbable section-->
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="tab1">
-                              <div id="graph"> </div>
-                          </div><!--end of tab pane-->
-                          <div class="tab-pane" id="tab2">
-                              <div id="graph1"> </div>
-                          </div><!--end of tab pane-->
-                      </div><!--end of tab content-->
-
+                  <div class="col-sm-11  pull-right">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="tabbable">
+                              <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab"><span style="color:#000">Bar Chart</span></a></li>
+                                <li><a href="#tab2" data-toggle="tab"><span style="color:#000">Pie chart</span></a></li>
+                              </ul>
+                            </div><!--end of tabbable section-->
+                            <div class="tab-content">
+                              <div class="tab-pane active" id="tab1">
+                                  <div id="graph"> </div>
+                              </div><!--end of tab pane-->
+                              <div class="tab-pane" id="tab2">
+                                  <div id="graph1"> </div>
+                              </div><!--end of tab pane-->
+                          </div><!--end of tab content-->
+                        </div>
+                        </div>
+                      </div>
                     </div>
+                    <section>
+                      <div class="modal" id="my_modal1" visible=true>
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button class="close" data-dismiss="modal">&times;</button>
+                              <h2>Select the option</h2>
+                          </div><!--end of modal content-->
+                          <div class="modal-body">
+                            <form class="form-horizontal">
+                              <div class="form-group" id="box1">
+                                <label class="col-lg-2 control-label" for="inputMessage">Select Month</label>
+                                <div class="col-lg-10">
+                                  <select multiple ng-model="value5">
+                                      <option value={{value5}} ng-repeat="value5 in fetchedMonthDataDisplay">{{value5}}</option>
+                                  </select>
+                                  <button ng-click="add_month()">Add Month</button>
+                                  <select multiple ng-model="value6">
+                                      <option value={{value6}} ng-repeat="value6 in selectedMonthDataDisplay">{{value6}}</option>
+                                  </select>
+                                </div>
+                              </div>
 
-                    </div>
-                  </div>
-                </div>
+                              <div class="form-group" id="box2">
+                                <label class="col-lg-2 control-label" for="inputMessage">Select Year</label>
+                                <div class="col-lg-10">
+                                  <select multiple ng-model="value7">
+                                      <option value={{value7}} ng-repeat="value7 in fetchedYearDataDisplay">{{value7}}</option>
+                                  </select>
+                                  <button ng-click="add_year()">Add Year</button>
+                                  <select multiple ng-model="value8">
+                                      <option value={{value8}} ng-repeat="value8 in selectedYearDataDisplay">{{value8}}</option>
+                                  </select>
+                                </div>
+                              </div>
 
-                <section>
-                  <div class="modal" id="my_modal1" visible=true>
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <li class="close" data-dismiss="modal">&times;</li>
-                          <h2>Enter your details for Registration</h2>
+                              <div class="form-group" id="box3">
+                                <label class="col-lg-2 control-label" for="inputMessage">Select Repo</label>
+                                <div class="col-lg-10">
+                                  <select multiple ng-model="value">
+                                      <option value={{value}} ng-repeat="value in fetchedRepoDataDisplay">{{value}}</option>
+                                  </select>
+                                  <button ng-click="add_repo()">Add Repo</button>
+                                  <select multiple ng-model="value1">
+                                      <option value={{value1}} ng-repeat="value1 in selectedRepoDataDisplay">{{value1}}</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group" id="box4">
+                                <label class="col-lg-2 control-label" for="inputMessage">Select Users</label>
+                                <div class="col-lg-10">
+                                  <select multiple ng-model="value2">
+                                      <option value={{value2}} ng-repeat="value2 in fetchedUserDataDisplay">{{value2}}</option>
+                                  </select>
+                                  <button ng-click="add_user()">Add User</button>
+                                  <select multiple ng-model="value3">
+                                      <option value={{value3}} ng-repeat="value3 in selectedUserDataDisplay">{{value3}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </form><!--end of the form-->
+                          </div><!--end of modal body-->
+                          <div class="modal-footer">
+                            <button class="buttom_css" ng-click="plotthedata()">Submit</button>
+                          </div><!--end of modal footer-->
+                        </div><!--end of modal dialog-->
                       </div><!--end of modal content-->
-                      <div class="modal-body">
-                        <form class="form-horizontal">
-                          <div class="form-group">
-                            <label class="col-lg-2 control-label" for="inputName">FROM DATE</label>
-                            <div class="col-lg-10">
-                              <input type="date" ng-model="from_date" data-date-inline-picker="true" />
-                            </div>
-                          </div>
+                      </div><!--Modal window ends here-->
+                    </section><!--modal window ends here-->
 
-                          <div class="form-group">
-                            <label class="col-lg-2 control-label" for="inputEmail">TO DATE</label>
-                            <div class="col-lg-10">
-                              <input type="date" ng-model="to_date" data-date-inline-picker="true" />
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label class="col-lg-2 control-label" for="inputMessage">Message</label>
-                            <div class="col-lg-10">
-                              <select multiple ng-model="value">
-                                  <option value={{value}} ng-repeat="value in fetchedDataDisplay">{{value}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </form><!--end of the form-->
-                      </div><!--end of modal body-->
-                      <div class="modal-footer">
-                        <li class="button_css" data-yparam={{submit_yparam}} data-xparam={{submit_xparam}} data-filterby={{submit_filterby}} data-type={{submit_type}}  ng-click="plot_graph($event)">Submit</li>
-                      </div><!--end of modal footer-->
-                    </div><!--end of modal dialog-->
-                  </div><!--end of modal content-->
-                  </div><!--Modal window ends here-->
-                </section><!--modal window ends here-->
                 </div>
             </div>
         </div>
@@ -211,26 +171,9 @@
     <!-- /#page-content-wrapper -->
 
 </div>
-<!-- /#wrapper -->
-
-
-      <!-- <li type="li" name="li" style="float:left">clickme</li> -->
-      <!-- <h1>Graph Plotter as per the Widgets</h1> -->
-
-
-
-
-
-    <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-  <!-- </body>
-  <script src="javascripts/controllers/indexController.js" type="text/javascript"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-  <script src= "/javascripts/plotGraph.js" type="text/javascript"></script>
-</html> -->
