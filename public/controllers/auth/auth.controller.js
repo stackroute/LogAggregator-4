@@ -50,6 +50,7 @@ angular.module('logAggregator').controller('authController', ['$scope','$cookies
           console.log(data);
           $window.localStorage['config']=$scope.config;
           $rootScope.config = $window.localStorage['config'];
+          $window.location.reload();
         });
         $location.path('/aboutus');
       }

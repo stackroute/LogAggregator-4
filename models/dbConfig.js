@@ -90,6 +90,7 @@ function org(organizationModel){
 }
 
 function getModel(organization,model){
+  console.log(organization,model);
   if(models[organization][model]==undefined){
     organizationModel.findOne({organizationName:organization}, 'organizationName services', function (err, docs){
       for(var i=0;i<docs.length;i++){
