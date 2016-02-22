@@ -22,9 +22,9 @@ router.get('/', function(req, res) {
   console.log("data from config.js",config);
   console.log(req.session.user.organization);
   organizationModel.findOne({ 'organizationName' :  req.session.user.organization }, function(err, organizationName) {
-    if (err){
-      console.log("erorrrrrrrrrrrrrr");
-      res.json(config);
+    if (err || !organizationName){
+      res.json("Yet to configure");
+      return;
     }
     var userconfig = JSON.parse(JSON.stringify(config));
     console.log(userconfig.dashboard,"----------------------------");
