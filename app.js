@@ -53,6 +53,9 @@ var getInfo = require('./routes/aptCache/getInfo');
 //wave 3 routes starts
 var getFilterData = require('./routes/gitLog/getFilterData');
 var plotTheGraph = require('./routes/gitLog/plot_the_graph');
+var getProfile = require('./routes/gitLog/getProfile');
+var getDashBoardJson = require('./routes/gitLog/getDashBoardJson');
+var onPageLoadDashBoard = require('./routes/gitLog/onPageLoadDashBoard');
 //wave 3 routes ends
 
 var app = express();
@@ -109,6 +112,9 @@ app.use('/getInfo',getInfo);
 //start of wave 3 code
 app.use('/getFilterData',getFilterData);
 app.use('/plotgraph',plotTheGraph);
+app.use('/getProfile',getProfile);
+app.use('/getDashBoardJson',getDashBoardJson);
+app.use('/onPageLoadDashBoard',onPageLoadDashBoard);
 //end of wave3 code
 
 // catch 404 and forward to error handler

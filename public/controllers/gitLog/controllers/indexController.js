@@ -1,175 +1,57 @@
 var app = angular.module('logAggregator');
-
+var dashBoardJson = [];
+var obj={};
 app.controller('myController', function($scope, $http) {
-    $scope.toggle_list = function(){
-      $('.left-nav-div').slideToggle();
-    }
-
-    var obj={};
-
-    var json_param1 ={                                                           //RT-U
-                      "primaryGroupByField" : "repo",
-                      "secondaryGroupByField": {"name":"commitYear","values":[2014,2015,2016,2017]},
-                      "aggregator": {
-                        "function": "top",
-                        "argument": 5
-                      },
-                      "filters": [
-                          {"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
-                        ]
-    }
-
-    var json_param2 ={                                             //RU-T
-      "primaryGroupByField" : "repo",
-      "secondaryGroupByField": {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]},
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"commitYear", "values":[2015,2016]},
-        {"name":"commitMonth", "values":[0,1,2,3,4,5,6,7,8,9,10,11]}
-        ]
-    }
-
-    var json_param3={                                              //TR-U
-      "primaryGroupByField" : "commitYear",
-      "secondaryGroupByField": {"name":"repo","values":["node","LogAggregator-Git"]},
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-          {"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
-        ]
-    }
-
-    var json_param4={                                              //TU-R
-      "primaryGroupByField" : "commitYear",
-      "secondaryGroupByField":{"name":"committer.name", "values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]} ,
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"repo","values":["node","LogAggregator-Git"]}
-
-        ]
-    }
-
-    var json_param5={                                            //UT-R
-      "primaryGroupByField" : "committer.name",
-      "secondaryGroupByField":{"name":"commitYear","values":[2014,2015,2016]},
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"repo","values":["node","LogAggregator-Git"]}
-
-        ]
-    }
-    //////type of json that is used to plot the stacked bar graph
-
-    var json_param6={                                              //T-RU
-      "primaryGroupByField" : "commitYear",
-      "secondaryGroupByField":"",
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"repo","values":["node","LogAggregator-Git"]},
-        {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
-        ]
-    }
-
-    var json_param7={                                              //R-TU
-      "primaryGroupByField" : "repo",
-      "secondaryGroupByField":"",
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"commitYear","values":[2014,2015,2016]},
-        {"name":"commitMonth","values":[0,1,2,3,4,5,6,7,8,9,10,11]},
-        {"name":"committer.name","values":["abhinavtdgp","Arul","Brian White","Rich Trott","Roman Reiss"]}
-        ]
-    }
-
-    var json_param8={                                              //U-TR
-      "primaryGroupByField" : "committer.name",
-      "secondaryGroupByField":"",
-      "aggregator": {
-        "function": "top",
-        "argument": 5
-      },
-      "filters": [
-        {"name":"commitYear","values":[2014,2015,2016]},
-        {"name":"commitMonth","values":[0,1,2,3,4,5,6,7,8,9,10,11]},
-        {"name":"repo","values":["node","LogAggregator-Git"]}
-        ]
+    $scope.close_model = function(){
+        $('#my_modal1').slideUp(700);
     }
 
 
-
-
+    //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
-      $('#my_modal1').modal('show');
-      console.log("we are in plot_top_repos function");
-      console.log($scope.selectedRepoDataDisplay);
-      console.log($scope.selectedUserDataDisplay);
-      console.log(event.target.getAttribute('data-json'));
-      data_json = event.target.getAttribute('data-json');
-      if(data_json=="json_param1"){
-        obj=json_param1;
-      }
-      else if(data_json=="json_param2"){
-        obj=json_param2;
-      }
-      else if(data_json=="json_param3"){
-        obj=json_param3;
-      }
-      else if(data_json=="json_param4"){
-        obj=json_param4;
-      }else if(data_json=="json_param5"){
-        obj=json_param5;
-      }else if(data_json=="json_param6"){
-        obj=json_param6;
-      }else if(data_json=="json_param7"){
-        obj=json_param7;
-      }else if(data_json=="json_param8"){
-        obj=json_param8;
-      }
-      else{
-        console.log("No matched data found");
-      }
-      console.log(obj);
-      $('#box1').hide();
-      $('#box2').hide();
-      $('#box3').hide();
-      $('#box4').hide();
-      for(var j=0;j<obj["filters"].length;j++)
+    $('#my_modal1').slideDown(700);
+    console.log("we are in plot_top_repos function");
+    console.log($scope.selectedRepoDataDisplay);
+    console.log($scope.selectedUserDataDisplay);
+    $scope.clear_repo();
+    $scope.clear_user();
+    $scope.clear_year();
+    $scope.clear_month();
+    console.log(event.target.getAttribute('data-json'));
+    data_json = event.target.getAttribute('data-json');
+    console.log("From plot graph function",dashBoardJson);
+    for(var m=0;m<dashBoardJson.length;m++){
+      if(data_json == dashBoardJson[m]["graph-type"])
       {
-        if(obj["filters"][j]["name"]=="commitMonth"){
-          $('#box1').show();
-        }
-        if(obj["filters"][j]["name"]=="commitYear"){
-          $('#box2').show();
-        }if(obj["filters"][j]["name"]=="repo"){
-          $('#box3').show();
-        }if(obj["filters"][j]["name"]=="committer.name"){
-          $('#box4').show();
-        }
+        obj = dashBoardJson[m];
+        break;
       }
-      console.log(obj);
-      plotthedata(obj);
     }
+    console.log(obj);
+    $('#box1').hide();
+    $('#box2').hide();
+    $('#box3').hide();
+    $('#box4').hide();
+    for(var j=0;j<obj["filters"].length;j++)
+    {
+      if(obj["filters"][j]["name"]=="commitMonth"){
+        $('#box1').show();
+      }
+      if(obj["filters"][j]["name"]=="commitYear"){
+        $('#box2').show();
+      }if(obj["filters"][j]["name"]=="repo"){
+        $('#box3').show();
+      }if(obj["filters"][j]["name"]=="committer.name"){
+        $('#box4').show();
+      }
+    }
+    console.log(obj);
+  }
+  //end of the function
 
-
-    $scope.plotthedata = function() {
-        $('#my_modal1').modal('hide');
+  //function to set the filter values depending on the selection
+        $scope.plotthedata= function() {
+        $('#my_modal1').slideUp(700);
         console.log("we are in plot the data function");
 
         for(var i=0;j<obj["filters"].length;j++)
@@ -195,27 +77,66 @@ app.controller('myController', function($scope, $http) {
           }
         }
         //$('#my_modal1').modal('show');
-        console.log(obj);
-
-            $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
-                success(function(data, status, headers, config) {
-                      console.log(data);
-                      if(obj["secondaryGroupByField"]!==""){
-                        console.log(obj["secondaryGroupByField"]["values"]);
-                        plotting_stacked_graph(data,obj["secondaryGroupByField"]["values"]);
-                      }
-                      else{
-                        plotting_graph(data);
-                      }
-                });
+        getgitdata(obj);
     }
+    //end of the function
 
+    //function to fetch the data from the git database and call the plotting graph function
+    function getgitdata(obj){
+      console.log("we are in getgit data function");
+      console.log("getgitdata",obj);
+
+          $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
+              success(function(data, status, headers, config) {
+                    console.log("plotgraph"+data);
+                    if(obj["secondaryGroupByField"]!==""){
+                      console.log(obj["secondaryGroupByField"]["values"]);
+                      plotting_stacked_graph(data,obj);
+                      plot_multibar_graph(data,obj);
+                    }
+                    else{
+                      console.log("calling the plotting graph function");
+                      plotting_graph(data,obj);
+                      plot_pie_chart(data,obj)
+                    }
+              });
+    }
+    //end of the function
+
+    //all the inner content will be executed while loading the page
     $scope.$on('$viewContentLoaded', function() {
         console.log("we are in the fetching function calling function");
-        //console.log(obj);
 
-        $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];
-        //$scope.selected_json_param = event.target.getAttribute('data-json');
+        $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];  //adding values to the months filter
+
+        //fetching the data from
+        // var filter_option =[{"filterby":"commitMonth"},{"filterby":"repo"},{"filterby":"committer.name"},{"filterby":"commitYear"}];
+        //
+        // for(var i=0;i<filter_option.length;i++){
+        //   var obj =filter_option[i];
+        //   $http({method: 'Post', url: '/getFilterData', data:{data:obj}}).
+        //       success(function(data, status, headers, config) {
+        //             //console.log(data);
+        //             var display_data=[];
+        //             console.log("obj",obj);
+        //             console.log("data",data);
+        //             for(var j=0; j<data.length;j++){
+        //               display_data[j]=data[j]["_id"];
+        //             }
+        //             console.log("display_data",display_data);
+        //             console.log(obj["filterby"]=="commitMonth");
+        //           if(obj["filterby"]=="commitMonth"){
+        //             $scope.fetchedMonthDataDisplay=display_data;
+        //           }
+        //           if(obj["filterby"]=="repo"){$scope.fetchedRepoDataDisplay=display_data;}
+        //           if(obj["filterby"]=="committer.name"){$scope.fetchedUserDataDisplay=display_data;}
+        //           if(obj["filterby"]=="commitYear"){$scope.fetchedYearDataDisplay=display_data;}
+        //           console.log("fecthedrepo",$scope.fetchedRepoDataDisplay);
+        //           console.log("fecthedUser",$scope.fetchedUserDataDisplay);
+        //           console.log("fecthedyear",$scope.fetchedYearDataDisplay);
+        //           console.log("fecthedmonth",$scope.fetchedMonthDataDisplay);
+        //       });
+        // }
             $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"repo"}}}).
                 success(function(data, status, headers, config) {
                       //console.log(data);
@@ -251,50 +172,39 @@ app.controller('myController', function($scope, $http) {
 
 
                         });
+                        $http({method: 'Post', url: '/getDashBoardJson'}).
+                            success(function(data, status, headers, config) {
+                                  //console.log(data);
+                                  console.log("form getDashBoardJson");
+                                  //console.log(data);
+                                  dashBoardJson = data;
+                                  var multidimensional = [];
+                                  var singledimensional =[];
+                                  console.log("DashBorad",dashBoardJson);
+                                  console.log(dashBoardJson.length);
+                                  for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
+                                    if(dashBoardJson[i]["secondaryGroupByField"]!==""){
+                                      multidimensional[j]=dashBoardJson[i]["graph-type"];
+                                      j++;
+                                    }else{
+                                      singledimensional[k]=dashBoardJson[i]["graph-type"];
+                                    }
+                                  }
+                                  $scope.multigraphdashboard=multidimensional;
+                                  $scope.singlegraphdashboard = singledimensional;
+                                  console.log("multidimension",$scope.multigraphdashboard);
+                            });
+                        $http({method: 'Post', url: '/onPageLoadDashBoard'}).
+                            success(function(data, status, headers, config) {
+                                      //console.log(data);
+                                console.log("form onPageLoadDashBoard");
+                                console.log(data);
+                                getgitdata(data[0]);
+                              });
     });
+    //end og the laoding page function
 
-    // $scope.fetchfilteringdata = function() {
-    //     console.log("we are in the fetching function calling function");
-    //     //console.log(obj);
-    //
-    //     $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];
-    //     $scope.selected_json_param = event.target.getAttribute('data-json');
-    //         $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"repo"}}}).
-    //             success(function(data, status, headers, config) {
-    //                   //console.log(data);
-    //                   var display_data=[];
-    //                   for(var i=0; i<data.length;i++){
-    //                     display_data[i]=data[i]["_id"];
-    //                   }
-    //                   $scope.fetchedRepoDataDisplay=display_data;
-    //                   console.log($scope.fetchedRepoDataDisplay);
-    //
-    //             });
-    //             $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"committer.name"}}}).
-    //                 success(function(data, status, headers, config) {
-    //                       //console.log(data);
-    //                       var display_data=[];
-    //                       for(var i=0; i<data.length;i++){
-    //                         display_data[i]=data[i]["_id"];
-    //                       }
-    //                       $scope.fetchedUserDataDisplay=display_data;
-    //                       console.log($scope.fetchedUserDataDisplay);
-    //                       //$('#my_modal1').modal('show');
-    //
-    //                 });
-    //                 $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"commitYear"}}}).
-    //                     success(function(data, status, headers, config) {
-    //                           //console.log(data);
-    //                           var display_data=[];
-    //                           for(var i=0; i<data.length;i++){
-    //                             display_data[i]=data[i]["_id"];
-    //                           }
-    //                           $scope.fetchedYearDataDisplay=display_data;
-    //                           console.log($scope.fetchedYearDataDisplay);
-    //
-    //
-    //                     });
-    // }
+    //functions to select the selected content in different filter option
     $scope.add_repo= function(){
       console.log("we are in add_repo function");
       $scope.selectedRepoDataDisplay = $scope.value;
@@ -311,6 +221,23 @@ app.controller('myController', function($scope, $http) {
       console.log("we are in add_month function");
       $scope.selectedMonthDataDisplay = $scope.value5;
     }
+    $scope.clear_repo= function(){
+      console.log("we are in add_repo function");
+      $scope.selectedRepoDataDisplay = "";
+    }
+    $scope.clear_user= function(){
+      console.log("we are in add_user function");
+      $scope.selectedUserDataDisplay = "";
+    }
+    $scope.clear_year= function(){
+      console.log("we are in add_year function");
+      $scope.selectedYearDataDisplay = "";
+    }
+    $scope.clear_month= function(){
+      console.log("we are in add_month function");
+      $scope.selectedMonthDataDisplay = "";
+    }
+    //enf of the set of functions
   });
 
 

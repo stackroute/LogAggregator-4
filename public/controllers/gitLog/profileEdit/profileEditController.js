@@ -14,8 +14,42 @@ limitations under the License.
 
 This code is written by Sridharan M*/
 
-angular.module('logAggregator').controller('profileEdit', ['$scope','$rootScope',
-function($scope,$rootScope) {
+angular.module('logAggregator').controller('profileEdit', ['$scope','$rootScope','$http',
+function($scope,$rootScope,$http) {
 $scope.usr = $rootScope.current_user;
-}
+
+$scope.editProfile =  function() {
+    console.log("Calling from profile function");
+    //var obj ={"username": $scope.usr.username};
+    var obj = {};
+    obj["username"]=$rootScope.current_user;
+    obj["data_set"]={};
+    if($scope.firstName !== undefined && $scope.firstName!== "")
+    {
+      obj["data_set"]["firstName"] = $scope.firstName;
+    }
+    if($scope.lastName !== undefined && $scope.lastName !== "")
+    {
+      obj["data_set"]["lastName"] = $scope.lastName;
+    }
+    if($scope.organization !== undefined && $scope.organization !== "")
+    {
+      obj["data_set"]["organization"] = $scope.organization;
+    }
+    if($scope.homeAddress !== undefined && $scope.homeAddress !== "")
+    {
+      obj["data_set"]["homeAddress"] = $scope.homeAddress;
+    }
+    if($scope.phoneno !== undefined && $scope.phoneno !== "")
+    {
+      obj["data_set"]["phoneno"] = $scope.phoneno;
+    }
+    console.log(obj);
+
+    $http({method: 'Post', url: '/getProfile/edit', data:{data:obj}}).
+        success(function(data, status, headers, config) {
+        console.log(data);
+        });
+    }
+  }
 ]);

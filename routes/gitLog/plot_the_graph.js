@@ -47,6 +47,12 @@ Logs(req.session.user.organization,"commitDataModel").aggregate([
                           "_id":grouping_object,
                           "recommendCount": {"$sum": 1}
                         }
+                      },
+                      {
+                        "$sort":{"recommendCount":-1}
+                      },
+                      {
+                        "$limit":5
                       }
                     ],function(error,result){
                       if(error){

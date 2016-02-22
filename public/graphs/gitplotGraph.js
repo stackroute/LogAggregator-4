@@ -2,11 +2,12 @@
 //   console.log("we are inside the function test");
 // }
 
-function plotting_stacked_graph(data,sec_grouped_data){
+function plotting_stacked_graph(data,graph_details){
     //console.log(data);
-    var margin = {top: 60, right: 20, bottom: 200, left: 40},
+    console.log(graph_details);
+    var margin = {top: 60, right: 20, bottom: 200, left: 60},
         width = 900 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
+        height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .3);
@@ -27,8 +28,8 @@ function plotting_stacked_graph(data,sec_grouped_data){
         .tickFormat(d3.format(".2s"));
         console.log(data);
 
-    var grouped_data=sec_grouped_data;
-    console.log(sec_grouped_data);
+    var grouped_data=graph_details["secondaryGroupByField"]["values"];
+    //console.log(sec_grouped_data);
 
     d3.selectAll("svg").remove();
     var svg = d3.select("#graph").append("svg")
@@ -58,20 +59,23 @@ function plotting_stacked_graph(data,sec_grouped_data){
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
           .selectAll('text')
-          .attr("transform","rotate(-65)")
-          .attr("x",-90)
+          .attr("transform","rotate(-35)")
+          .attr("x",-50)
           .attr("font-size",15);
+
 
 
       svg.append("g")
           .attr("class", "y axis")
           .call(yAxis)
         .append("text")
+          .attr("font-size",15)
           .attr("transform", "rotate(-90)")
-          .attr("y", -36)
+          .attr("y",-40)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text("GDP+GNI");
+          .text(graph_details["measure"]);
+
 
       var country = svg.selectAll(".country")
           .data(data)
@@ -83,6 +87,8 @@ function plotting_stacked_graph(data,sec_grouped_data){
           .data(function(d) { return d.ages; })
         .enter().append("rect")
           .attr("width", x.rangeBand())
+          .transition()
+          .delay(1000)
           .attr("y", function(d) { return y(d.y1); })
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
           .style("fill", function(d) { return color(d.name); });
@@ -109,11 +115,12 @@ function plotting_stacked_graph(data,sec_grouped_data){
   //  });
   }
 
-function plotting_graph(data){
+function plotting_graph(data,graph_details){
 
-    var margin = {top: 40, right: 20, bottom: 200, left: 40},
+  console.log(graph_details);
+    var margin = {top: 40, right: 20, bottom: 200, left: 60},
       width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      height = 470 - margin.top - margin.bottom;
 
   //var formatPercent = d3.format(".0%");
 
@@ -157,8 +164,8 @@ function plotting_graph(data){
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         .selectAll('text')
-        .attr("transform","rotate(-65)")
-        .attr("x",-90)
+        .attr("transform","rotate(-35)")
+        .attr("x",-50)
         .attr("font-size",15);;
 
     svg.append("g")
@@ -166,21 +173,24 @@ function plotting_graph(data){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
+        .attr("y", -36)
+        .attr("dx", -50)
+        .attr("dy", ".35em")
         //.style("text-anchor", "end")
-        .text("Frequency");
+        .text(graph_details["measure"]);
 
     svg.selectAll(".bar")
         .data(data)
-      .enter().append("rect")
+        .enter().append("rect").on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
         .attr("class", "bar")
+        .transition()
+        .delay(1000)
         .attr("x", function(d) { return x(d["_id"]["primaryGroupByField"]); })
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d["recommendCount"]); })
-        .attr("height", function(d) { return height - y(d["recommendCount"]); })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide)
+        .attr("height", function(d) { return height - y(d["recommendCount"]); });
+
 
   //});
 }
