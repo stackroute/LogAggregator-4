@@ -1,5 +1,5 @@
 
-angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state'
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state',
 function($scope,$http,$state) {
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];

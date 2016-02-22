@@ -5,8 +5,12 @@
 function plotting_stacked_graph(data,graph_details){
     //console.log(data);
     console.log(graph_details);
-    var margin = {top: 60, right: 20, bottom: 200, left: 60},
-        width = 900 - margin.left - margin.right,
+
+    var element = document.getElementById("graph-container");
+    console.log(element.clientWidth);
+    console.log(element.clientHeight);
+    var margin = {top: 60, right: 60, bottom: 80, left: 60},
+        width = (0.9*parseInt(element.clientWidth)) - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -76,6 +80,11 @@ function plotting_stacked_graph(data,graph_details){
           .style("text-anchor", "end")
           .text(graph_details["measure"]);
 
+          svg.append("text")
+             .attr("font-size",15)
+             .attr("x",width-70)
+             .attr("y",height+20)
+             .text(graph_details["primaryGroupByField"]);
 
       var country = svg.selectAll(".country")
           .data(data)
@@ -88,7 +97,7 @@ function plotting_stacked_graph(data,graph_details){
         .enter().append("rect")
           .attr("width", x.rangeBand())
           .transition()
-          .delay(1000)
+          .delay(500)
           .attr("y", function(d) { return y(d.y1); })
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
           .style("fill", function(d) { return color(d.name); });
@@ -118,9 +127,11 @@ function plotting_stacked_graph(data,graph_details){
 function plotting_graph(data,graph_details){
 
   console.log(graph_details);
-    var margin = {top: 40, right: 20, bottom: 200, left: 60},
-      width = 900 - margin.left - margin.right,
-      height = 470 - margin.top - margin.bottom;
+  var element = document.getElementById("graph-container");
+  console.log(element.clientWidth);
+    var margin = {top: 40, right: 60, bottom: 80, left: 60},
+      width = (0.9*parseInt(element.clientWidth)) - margin.left - margin.right,
+      height =470 - margin.top - margin.bottom;
 
   //var formatPercent = d3.format(".0%");
 
@@ -166,7 +177,13 @@ function plotting_graph(data,graph_details){
         .selectAll('text')
         .attr("transform","rotate(-35)")
         .attr("x",-50)
-        .attr("font-size",15);;
+        .attr("font-size",15);
+
+    svg.append("text")
+       .attr("font-size",15)
+       .attr("x",width-70)
+       .attr("y",height+20)
+       .text(graph_details["primaryGroupByField"]);
 
     svg.append("g")
         .attr("class", "y axis")
@@ -185,7 +202,7 @@ function plotting_graph(data,graph_details){
         .on('mouseout', tip.hide)
         .attr("class", "bar")
         .transition()
-        .delay(1000)
+        .delay(500)
         .attr("x", function(d) { return x(d["_id"]["primaryGroupByField"]); })
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d["recommendCount"]); })

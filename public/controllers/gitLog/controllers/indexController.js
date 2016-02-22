@@ -2,14 +2,25 @@ var app = angular.module('logAggregator');
 var dashBoardJson = [];
 var obj={};
 app.controller('myController', function($scope, $http) {
-    $scope.close_model = function(){
-        $('#my_modal1').slideUp(700);
+
+    // $scope.show_pie = function(){
+    //   $('#graph').addClass('hidden');
+    //   $('#graph1').removeClass('hidden');
+    // }
+    $scope.toggle_graph = function(){
+      if($('#graph').attr("class")=='hidden'){
+        $('#graph').removeClass('hidden');
+        $('#graph1').addClass('hidden');
+      }
+      else{
+        $('#graph').addClass('hidden');
+        $('#graph1').removeClass('hidden');
+      }
+
     }
-
-
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
-    $('#my_modal1').slideDown(700);
+    $scope.open_model();
     console.log("we are in plot_top_repos function");
     console.log($scope.selectedRepoDataDisplay);
     console.log($scope.selectedUserDataDisplay);
@@ -51,7 +62,8 @@ app.controller('myController', function($scope, $http) {
 
   //function to set the filter values depending on the selection
         $scope.plotthedata= function() {
-        $('#my_modal1').slideUp(700);
+        $scope.close_model();
+
         console.log("we are in plot the data function");
 
         for(var i=0;j<obj["filters"].length;j++)
@@ -83,6 +95,7 @@ app.controller('myController', function($scope, $http) {
 
     //function to fetch the data from the git database and call the plotting graph function
     function getgitdata(obj){
+      $scope.graph_type_details=obj["graph-type"];
       console.log("we are in getgit data function");
       console.log("getgitdata",obj);
 
@@ -109,34 +122,6 @@ app.controller('myController', function($scope, $http) {
 
         $scope.fetchedMonthDataDisplay=[0,1,2,3,4,5,6,7,8,9,10,11];  //adding values to the months filter
 
-        //fetching the data from
-        // var filter_option =[{"filterby":"commitMonth"},{"filterby":"repo"},{"filterby":"committer.name"},{"filterby":"commitYear"}];
-        //
-        // for(var i=0;i<filter_option.length;i++){
-        //   var obj =filter_option[i];
-        //   $http({method: 'Post', url: '/getFilterData', data:{data:obj}}).
-        //       success(function(data, status, headers, config) {
-        //             //console.log(data);
-        //             var display_data=[];
-        //             console.log("obj",obj);
-        //             console.log("data",data);
-        //             for(var j=0; j<data.length;j++){
-        //               display_data[j]=data[j]["_id"];
-        //             }
-        //             console.log("display_data",display_data);
-        //             console.log(obj["filterby"]=="commitMonth");
-        //           if(obj["filterby"]=="commitMonth"){
-        //             $scope.fetchedMonthDataDisplay=display_data;
-        //           }
-        //           if(obj["filterby"]=="repo"){$scope.fetchedRepoDataDisplay=display_data;}
-        //           if(obj["filterby"]=="committer.name"){$scope.fetchedUserDataDisplay=display_data;}
-        //           if(obj["filterby"]=="commitYear"){$scope.fetchedYearDataDisplay=display_data;}
-        //           console.log("fecthedrepo",$scope.fetchedRepoDataDisplay);
-        //           console.log("fecthedUser",$scope.fetchedUserDataDisplay);
-        //           console.log("fecthedyear",$scope.fetchedYearDataDisplay);
-        //           console.log("fecthedmonth",$scope.fetchedMonthDataDisplay);
-        //       });
-        // }
             $http({method: 'Post', url: '/getFilterData', data:{data:{"filterby":"repo"}}}).
                 success(function(data, status, headers, config) {
                       //console.log(data);
@@ -237,11 +222,13 @@ app.controller('myController', function($scope, $http) {
       console.log("we are in add_month function");
       $scope.selectedMonthDataDisplay = "";
     }
+    $scope.close_model = function(){
+        // $('#my_modal1').slideUp(700);
+        $('#my_modal1').toggle("slide");
+    }
+    $scope.open_model = function(){
+        $('#my_modal1').toggle("slide");
+    }
+
     //enf of the set of functions
   });
-
-
-
-function show_the_modal(){
-  $('#my_modal1').modal('show');
-}

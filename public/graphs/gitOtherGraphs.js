@@ -2,7 +2,10 @@
 function plot_pie_chart(data,graph_details){
   console.log("we are inside the plotting the pie chart");
   console.log(data);
-  var width = 760,
+  var element = document.getElementById("graph-container");
+  console.log(element.clientWidth);
+
+  var width = (0.9*parseInt(element.clientWidth)) ,
       height = 470,
       radius = Math.min(width, height) / 2;
 
@@ -32,10 +35,9 @@ function plot_pie_chart(data,graph_details){
       .enter().append("g")
         .attr("class", "arc");
 
-    g.append("path")
+    g.append("path").transition()
+    .delay(500)
         .attr("d", arc)
-        .transition()
-        .delay(1000)
         .style("fill", function(d) { return color( d.data._id.primaryGroupByField); });
 
     g.append("text")
@@ -54,10 +56,11 @@ function plot_pie_chart(data,graph_details){
 
 function plot_multibar_graph(data,graph_details){
   console.log("plot_multibar",data);
-
-  var margin = {top: 20, right: 20, bottom: 30, left: 60},
-      width = 960 - margin.left - margin.right,
-      height = 470 - margin.top - margin.bottom;
+  var element = document.getElementById("graph-container");
+  console.log(element.clientWidth);
+  var margin = {top: 20, right: 60, bottom: 80, left: 60},
+      width = (0.9*parseInt(element.clientWidth))  - margin.left - margin.right,
+      height =  470 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
       .rangeRoundBands([0, width], .1);
@@ -135,7 +138,7 @@ function plot_multibar_graph(data,graph_details){
         .data(function(d) { return d.ages; })
       .enter().append("rect")
         .transition()
-        .delay(1000)
+        .delay(500)
         .attr("width", x1.rangeBand())
         .attr("x", function(d) { return x1(d.name); })
         .attr("y", function(d) { return y(d.value); })
