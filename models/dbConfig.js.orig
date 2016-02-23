@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
-//var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
-// var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
 var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
-//var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
+<<<<<<< HEAD
+=======
+// var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
+>>>>>>> 1a7b04df243a1c69b8ff532a12a985c6ffc3c04d
 //var db1 = mongoose.createConnection("mongodb://localhost/nginx");
 //var db2 = mongoose.createConnection("mongodb://localhost/LogAggregate");
 // var db1 = mongoose.createConnection("mongodb://172.23.238.253:27018/nginx");

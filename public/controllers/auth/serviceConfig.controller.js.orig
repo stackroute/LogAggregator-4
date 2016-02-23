@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state','$location',
 function($scope,$http,$state,$location) {
+=======
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state',
+function($scope,$http,$state) {
+>>>>>>> 1a7b04df243a1c69b8ff532a12a985c6ffc3c04d
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];
   $state.go('serviceConfig.gittab');
@@ -81,7 +86,7 @@ $scope.serviceConfigGitDB = function(){
   });
 }
 
-$scope.serviceConfigGitAuthO = function(){
+$scope.serviceConfigGitDB = function(){
   $http.post('/serviceConfig/git/authO',
   {gitHost:$scope.gitInfo.gitHost,gitauthSets:$scope.gitInfo.gitauthSets})
   .success(function (data, status, headers, config) {
