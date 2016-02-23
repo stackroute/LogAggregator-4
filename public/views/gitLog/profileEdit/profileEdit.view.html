@@ -20,7 +20,7 @@ This code is written by Sridharan -->
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <img src="" class="avatar img-circle" alt="avatar">
+          <img src="../stylesheets/img/user1-128x128.jpg" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
 
           <input type="file" class="form-control">
@@ -29,54 +29,54 @@ This code is written by Sridharan -->
 
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
+        <!-- <div class="alert alert-info alert-dismissable">
           <a class="panel-close close" data-dismiss="alert">×</a>
           <i class="fa fa-coffee"></i>
           This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>
+        </div> -->
         <h3>Personal info</h3>
 
         <form class="form-horizontal" role="form">
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{current_user.firstName}}">
+              <input class="form-control" type="text" placeholder="{{current_user.firstName}}" ng-model="firstName">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{current_user.lastName}}">
+              <input class="form-control" type="text" placeholder="{{current_user.lastName}}" ng-model="lastName">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Organization:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{current_user.organization}}">
+              <input class="form-control" type="text" placeholder="{{current_user.organization}}" ng-model="organization">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Home Address:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+              <input class="form-control" type="text" placeholder="" ng-model="homeAddress">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="{{current_user.email}}">
+              <input class="form-control" type="text" placeholder="{{current_user.email}}" ng-model="email">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Phone:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+              <input class="form-control" type="text" placeholder="" ng-model="phoneno">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
+              <input type="button" class="btn btn-primary" value="Save Changes" ng-click="editProfile()">
               <span></span>
               <input type="reset" class="btn btn-default" value="Cancel">
             </div>

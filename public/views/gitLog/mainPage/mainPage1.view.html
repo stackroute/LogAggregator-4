@@ -1,0 +1,237 @@
+<link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
+
+<div id="wrapper" class="toggled" ng-controller="myController">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+
+        <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
+            <li class="sidebar-brand"> Plot Widgets </li>
+            <li>
+                <!-- home item in menu started-->
+                <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
+                Multi Dimentional Graph
+             </a>
+                <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p1">
+                    <!-- submenu started-->
+                    <li ng-repeat="dashboards in multigraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
+                        {{dashboards}}
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <!-- home item in menu started-->
+                <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
+                 Single Dimentional Graph
+              </a>
+                <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p2">
+                    <!-- submenu started-->
+                    <li ng-repeat="dashboards in singlegraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
+                        {{dashboards}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+
+              <div class="col-12 simply">
+                  <div class="col-6">
+                      <a id="menu-toggle"><i id = "iMenu" class="fa fa-chevron-right" style="font-size:34px;"></i></a>
+                  </div>
+              </div>
+              <!-- <div class="container"> -->
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h2 class="panel-title" style="font-weight:bold;"> Panel Heading for the graph</h2>
+                  </div> <!-- end panel-heading-->
+                  <div class="panel-body">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-bar-chart"></i><span style="color:#000"> Bar Chart</span></a>
+                                        </li>
+                                        <li><a href="#tab2" data-toggle="tab"><i class="fa fa-pie-chart"></i><span style="color:#000"> Pie chart</span></a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <!--end of tabbable section-->
+                                <div class="tab-content">
+                                    <!-- <div class="tab-pane active" id="tab1"> -->
+                                    <div>
+                                      <button class="btn btn-danger pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button1</button>
+                                      <button class="btn btn-danger pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button2</button>
+                                      <button class="btn btn-danger pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button3</button>
+                                        <div id="graph"> </div>
+                                    </div>
+                                    <!--end of tab pane-->
+                                    <!-- <div class="tab-pane hidden" id="tab2"> -->
+                                    <div class="hidden">
+                                      <button class="btn btn-success pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-play-circle"></span>Button1</button>
+                                      <button class="btn btn-success pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-play-circle"></span>Button2</button>
+                                      <button class="btn btn-success pull-right" ng-click="" style="margin: 20px 20px;"><span class="glyphicon glyphicon-play-circle"></span>Button3</button>
+                                        <div id="graph1"> </div>
+                                    </div>
+                                    <!--end of tab pane-->
+                                </div>
+                                <!--end of tab content-->
+                            </div>
+                        </div>
+                    </div>
+
+                <section>
+                    <div class="modal" id="my_modal1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal" ng-click="close_model()">&times;</button>
+                                    <h2>Select the option</h2>
+                                </div>
+                                <!--end of modal content-->
+                                <div class="modal-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group" id="box1">
+                                            <label class="col-lg-2 control-label" for="inputMessage">Select Month</label>
+                                            <div class="col-lg-10">
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value5">
+                                                        <option value={{value5}} ng-repeat="value5 in fetchedMonthDataDisplay">{{value5}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button ng-click="add_month()"><span class="glyphicon glyphicon-arrow-right"></span>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                    <button ng-click="clear_month()"><span class="glyphicon glyphicon-arrow-left"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value6">
+                                                        <option value={{value6}} ng-repeat="value6 in selectedMonthDataDisplay">{{value6}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="box2">
+                                            <label class="col-lg-2 control-label" for="inputMessage">Select Year</label>
+                                            <div class="col-lg-10">
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value7">
+                                                        <option value={{value7}} ng-repeat="value7 in fetchedYearDataDisplay">{{value7}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button ng-click="add_year()"><span class="glyphicon glyphicon-arrow-right"></span>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                    <button ng-click="clear_year()"><span class="glyphicon glyphicon-arrow-left"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value8">
+                                                        <option value={{value8}} ng-repeat="value8 in selectedYearDataDisplay">{{value8}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="box3">
+                                            <label class="col-lg-2 control-label" for="inputMessage">Select Repo</label>
+                                            <div class="col-lg-10">
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value">
+                                                        <option value={{value}} ng-repeat="value in fetchedRepoDataDisplay">{{value}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button ng-click="add_repo()"><span class="glyphicon glyphicon-arrow-right"></span>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                    <button ng-click="clear_repo()"><span class="glyphicon glyphicon-arrow-left"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value1">
+                                                        <option value={{value1}} ng-repeat="value1 in selectedRepoDataDisplay">{{value1}}</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="box4">
+                                            <label class="col-lg-2 control-label" for="inputMessage">Select Users</label>
+                                            <div class="col-lg-10">
+                                                <div class="col-sm-5">
+                                                    <select class="selectbox" multiple ng-model="value2">
+                                                        <option value={{value2}} ng-repeat="value2 in fetchedUserDataDisplay">{{value2}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button ng-click="add_user()"><span class="glyphicon glyphicon-arrow-right"></span>
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                    <button ng-click="clear_user()"><span class="glyphicon glyphicon-arrow-left"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <select multiple ng-model="value3" class="selectbox">
+                                                        <option value={{value3}} ng-repeat="value3 in selectedUserDataDisplay">{{value3}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!--end of the form-->
+                                </div>
+                                <!--end of modal body-->
+                                <div class="modal-footer">
+                                    <button class="buttom_css" ng-click="plotthedata()">Submit</button>
+                                </div>
+                                <!--end of modal footer-->
+                            </div>
+                            <!--end of modal dialog-->
+                        </div>
+                        <!--end of modal content-->
+                    </div>
+                    <!--Modal window ends here-->
+                </section>
+                <!--modal window ends here-->
+
+                <div class="panel-heading">
+                  <h2 class="panel-title">Panel Footer Text!</h2>
+                </div> <!-- end panel-footer-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+
+</div>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        if ($("#iMenu").hasClass("fa-chevron-right")) {
+            $("#iMenu").removeClass("fa-chevron-right");
+            $("#iMenu").addClass("fa-chevron-left");
+        } else {
+            $("#iMenu").removeClass("fa-chevron-left");
+            $("#iMenu").addClass("fa-chevron-right");
+        }
+    });
+</script>

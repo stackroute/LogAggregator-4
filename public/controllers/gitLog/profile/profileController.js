@@ -14,8 +14,30 @@ limitations under the License.
 
 This code is written by Sridharan M*/
 
-angular.module('logAggregator').controller('profileMain', ['$scope','$rootScope',
-function($scope,$rootScope) {
-$scope.usr = $rootScope.current_user;
+angular.module('logAggregator').controller('profileMain', ['$scope','$rootScope','$http',
+function($scope,$rootScope,$http) {
+    $scope.usr = $rootScope.current_user;
+
+    $scope.$on('$viewContentLoaded', function() {
+        console.log("Calling from profile function");
+        var obj ={"username": $scope.usr.username};
+
+        $http({method: 'Post', url: '/getProfile', data:{data:obj}}).
+            success(function(data, status, headers, config) {
+            console.log("got the user details");
+            console.log(data);
+            console.log("got the user details");
+            console.log(data[0]["firstName"]);
+            $scope.username = $scope.usr.username;
+            $scope.firstName = data[0]["firstName"];
+            $scope.lastName= data[0]["lastName"];
+            $scope.organization = data[0]["organization"];
+            $scope.homeAddress = data[0]["homeAddress"];
+            $scope.phoneno = data[0]["phoneno"];
+            $scope.email = data[0]["email"];
+            });
+    });
+
+
 }
 ]);

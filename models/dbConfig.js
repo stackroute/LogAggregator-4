@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
+// var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
+var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
+var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
 //var db1 = mongoose.createConnection("mongodb://localhost/nginx");
 //var db2 = mongoose.createConnection("mongodb://localhost/LogAggregate");
 // var db1 = mongoose.createConnection("mongodb://172.23.238.253:27018/nginx");
@@ -16,11 +19,15 @@ var configSchema = require('./log.config.model');
 var aptLogSchema = require('./logSchema');
 var aptConfigSchema = require('./configSchema');
 var commitDataSchema = require('./org_data_schema');
+var gitDashBoardSchema = require('./gitlog.dashBoard.model');
+var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
 var nginxServiceModel= masterDB.model('nginxServiceConfig',nginxServiceConfigSchema);
 var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfigSchema);
+var gitDashBoardModel = masterDB.model('gitDashBoardConfig',gitDashBoardSchema);
+var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
 
 org(organizationModel);
 var models={};
@@ -78,7 +85,9 @@ module.exports = {
   gitServiceModel: gitServiceModel,
   nginxServiceModel: nginxServiceModel,
   appgitServiceModel:appgitServiceModel,
-  getModel:getModel
+  getModel:getModel,
+  gitDashBoardModel:gitDashBoardModel,
+  onPageLoadDashBoardModel:onPageLoadDashBoardModel
 };
 
 function org(organizationModel){

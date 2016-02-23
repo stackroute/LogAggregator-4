@@ -44,6 +44,12 @@ var LogUserSchema = new Schema({
     required : 'Organization is required',
     trim : true
   },
+  homeAddress :{
+    type : String
+  },
+  phoneno:{
+    type: String
+  },
    hash : String,
   created: {
     type: Date,
