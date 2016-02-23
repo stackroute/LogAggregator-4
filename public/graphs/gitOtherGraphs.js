@@ -5,7 +5,7 @@ function plot_pie_chart(data,graph_details){
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
 
-  var width = (0.9*parseInt(element.clientWidth)) ,
+  var width = (0.85*parseInt(element.clientWidth)) ,
       height = 470,
       radius = Math.min(width, height) / 2;
 
@@ -41,13 +41,23 @@ function plot_pie_chart(data,graph_details){
         .style("fill", function(d) { return color( d.data._id.primaryGroupByField); });
 
     g.append("text")
-        .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+        // .attr("transform", function(d) { return "translate(" + arc.centriod(d) + ")"; })
+        .attr("transform", function(d) {
+                                var c = arc.centroid(d),
+                                    x = c[0],
+                                    y = c[1],
+                                    // pythagorean theorem for hypotenuse
+                                    h = Math.sqrt(x*x + y*y);
+                                return "translate(" + (x/h * radius) +  ',' +
+                                   (y/h * radius) +  ")";
+                            })
         .attr("dy", ".35em")
         .text(function(d) { return d["data"]["_id"]["primaryGroupByField"]}).attr("font-size",15);
   //});
 
   function type(d) {
     d.recommendCount = +d.recommendCount;
+
     return d;
   }
 }
@@ -59,7 +69,7 @@ function plot_multibar_graph(data,graph_details){
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
   var margin = {top: 20, right: 60, bottom: 80, left: 60},
-      width = (0.9*parseInt(element.clientWidth))  - margin.left - margin.right,
+      width = (0.85*parseInt(element.clientWidth))  - margin.left - margin.right,
       height =  470 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
@@ -80,7 +90,7 @@ function plot_multibar_graph(data,graph_details){
   var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left")
-      .tickFormat(d3.format(".2s"));
+      .innerTickSize(-width);;
 
  var grouped_data=graph_details["secondaryGroupByField"]["name"];
 

@@ -10,8 +10,8 @@ function plotting_stacked_graph(data,graph_details){
     console.log(element.clientWidth);
     console.log(element.clientHeight);
     var margin = {top: 60, right: 60, bottom: 80, left: 60},
-        width = (0.9*parseInt(element.clientWidth)) - margin.left - margin.right,
-        height = 470 - margin.top - margin.bottom;
+        width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
+        height = 370 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .3);
@@ -20,7 +20,8 @@ function plotting_stacked_graph(data,graph_details){
         .rangeRound([height, 0]);
 
     var color = d3.scale.ordinal()
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+      .range(["#72B01D", "#ADE25D", "#317B22", "#FCEC52", "#a05d56", "#d0743c", "#ff8c00"]);
+        // .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -29,7 +30,7 @@ function plotting_stacked_graph(data,graph_details){
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        .tickFormat(d3.format(".2s"));
+        .innerTickSize(-width);;
         console.log(data);
 
     var grouped_data=graph_details["secondaryGroupByField"]["values"];
@@ -75,15 +76,17 @@ function plotting_stacked_graph(data,graph_details){
         .append("text")
           .attr("font-size",15)
           .attr("transform", "rotate(-90)")
-          .attr("y",-40)
+          .attr("y",-50)
+          .attr("x",-50)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .text(graph_details["measure"]);
 
           svg.append("text")
              .attr("font-size",15)
-             .attr("x",width-70)
-             .attr("y",height+20)
+             .attr("color","#aaa")
+             .attr("x",width-100)
+             .attr("y",height+70)
              .text(graph_details["primaryGroupByField"]);
 
       var country = svg.selectAll(".country")
@@ -130,7 +133,7 @@ function plotting_graph(data,graph_details){
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
     var margin = {top: 40, right: 60, bottom: 80, left: 60},
-      width = (0.9*parseInt(element.clientWidth)) - margin.left - margin.right,
+      width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
       height =470 - margin.top - margin.bottom;
 
   //var formatPercent = d3.format(".0%");
@@ -147,7 +150,8 @@ function plotting_graph(data,graph_details){
 
   var yAxis = d3.svg.axis()
       .scale(y)
-      .orient("left");
+      .orient("left")
+      .innerTickSize(-width);;
       //.tickFormat(formatPercent);
 
   var tip = d3.tip()
@@ -181,6 +185,7 @@ function plotting_graph(data,graph_details){
 
     svg.append("text")
        .attr("font-size",15)
+       .attr("color","#aaa")
        .attr("x",width-70)
        .attr("y",height+20)
        .text(graph_details["primaryGroupByField"]);
@@ -190,11 +195,13 @@ function plotting_graph(data,graph_details){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", -36)
+        .attr("y", -40)
+        .attr("x",-50)
         .attr("dx", -50)
         .attr("dy", ".35em")
         //.style("text-anchor", "end")
-        .text(graph_details["measure"]);
+        .text(graph_details["measure"])
+        .attr("font-size",15);
 
     svg.selectAll(".bar")
         .data(data)
