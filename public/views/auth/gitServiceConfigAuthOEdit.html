@@ -1,3 +1,9 @@
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+  Configure Git Log database details.
+  </small>
+</h2>
+<hr>
 <form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
 <div class="form-group">
   <label for="gitHost" class="col-sm-2 control-label">Git Host</label>
@@ -29,9 +35,11 @@
     <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[4].gitOauth" required>
   </div>
 </div>
+</div>
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <button type="submit" class="btn btn-primary" ng-click="serviceConfigGitAuthO()">Submit</button>
+    <a type="submit" href="#serviceConfig/gittab" ng-click="" class="btn btn-primary">Cancel</a>
   </div>
 </div>
 </form>

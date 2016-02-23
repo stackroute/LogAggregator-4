@@ -1,10 +1,14 @@
-<br>
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+  Configure Git Account details.
+  </small>
+</h2>
+<hr>
 <div class="alert alert-danger" ng-show="fail">
   {{fail}}
   <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Failed!</strong> {{failMessage}}.
 </div>
-<img class="LogProgressIcon" ng-show="showLogProgress" src="svg/cube.svg" alt="progress">
 <form class="form-horizontal" role="form" ng-init="submit1=false" ng-submit="myForm1.$valid && applyUserName(gitInfo.userName,false)" name="myForm1" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : myForm1.gitUserName.$error.required && submit1}">
     <label for="gitUserName" class="col-sm-2 control-label">User Name</label>
@@ -19,6 +23,7 @@
     </div>
   </div>
 </form>
+<img class="LogProgressIcon" ng-show="showLogProgress" src="svg/cube.svg" alt="progress">
 <form class="form-horizontal" role="form" name="myForm2" novalidate>
   <div ng-show="userCorrect">
     <div class="form-group">
@@ -35,6 +40,7 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-primary" ng-click="serviceConfigGitRepos()">Submit</button>
+        <a type="submit" href="#serviceConfig/gittab" ng-click="" class="btn btn-primary">Cancel</a>
       </div>
     </div>
     </div>

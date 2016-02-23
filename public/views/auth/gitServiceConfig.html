@@ -7,6 +7,7 @@
   <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">Git Logs database configuration details.<a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>Edit</a></div>
+<div class="panel-body">
     <table class='table borderless'>
       <tr>
         <td class="text-left col-sm-1">
@@ -33,6 +34,7 @@
           </td>
         </tr>
       </table>
+    </div>
   </div>
 </div>
   <div class="row">
@@ -41,6 +43,7 @@
       <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-default">
         <i class="glyphicon glyphicon-edit"></i>Edit</a>
     </div>
+    <div class="panel-body">
   <table class='table borderless'>
   <tr>
     <td class="text-left col-sm-1">
@@ -63,15 +66,18 @@
     </td>
   </tr>
     </table>
+  </div>
 </div>
 </div>
 <div class="row">
   <div class="panel panel-default">
-    <div class="panel-heading">Git Logs database configuration details.
-      <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-link">Add new Account</a>
+    <div class="panel-heading">Git Account configuration details.
+      <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-primary">Add new Account</a>
     </div>
+    <div class="panel-body">
   <span ng-repeat="gitRepodata in gitInfo.repositoryData">
-    <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-body">
       <table class='table borderless'>
         <tr>
           <td class="text-left col-sm-2">
@@ -87,7 +93,7 @@
           </td>
             <td class="text-left col-sm-8">
               <span ng-repeat="repo in gitRepodata.repos">
-                {{repo.repo}}
+                {{repo.repo}},
               </span>
             </td>
           </tr>
@@ -95,8 +101,10 @@
       <div>
         <a type="submit" href="#serviceConfig/gittabedit" ng-click="applyUserName(gitRepodata.gitAccountname,true)" class="btn btn-primary">Edit</a>
       </div>
-        </div>
+      </div>
+    </div>
   </span>
+</div>
 </div>
 </div>
 </form>

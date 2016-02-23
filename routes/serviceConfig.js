@@ -85,6 +85,28 @@ router.get('/json/:service', function(req, res){
 });
 
 router.post('/git/DB', function(req, res){
+  organizationModel.findOne({organizationName:req.session.user.organization}, function (err, organization) {
+    if (err) {
+      res.send({state: 'failure'});
+      return;
+    }
+    var flag=true;
+    if(organization && organization.services){
+      for (var i = 0; i < organization.services.length; i++) {
+        if(organization.services[i]=="git"){
+          flag=false;
+          break;
+        }
+      }
+      if(flag){
+        organization.services.push("git");
+        organization.save(function (err) {
+          if (err) {
+            console.log("error");
+          }
+        });
+      }
+    }
   gitServiceModel.update({organizationName:req.session.user.organization},
 {organizationName:req.session.user.organization,dbDetails:req.body},
 { upsert: true },
@@ -95,6 +117,7 @@ router.post('/git/DB', function(req, res){
     }
     res.send({state: 'success'});
     return;
+  });
   });
 });
 
