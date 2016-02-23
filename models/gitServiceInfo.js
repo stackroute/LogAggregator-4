@@ -15,11 +15,12 @@ var gitServiceConfigSchema = new Schema(
   gitauthSets: [{gitOauth:String}],
   repositoryData : [
     {
-      gitUserName : String,
-      repo : String,
-      gitRepoId: String
-    }
-  ],
+      gitAccountname : String,
+      repos: [
+      {repo : String,
+      gitRepoId: String}
+    ]
+  }],
   dashBoards: [{
     name: String,
     measure:    {

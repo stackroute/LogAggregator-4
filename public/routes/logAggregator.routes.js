@@ -32,13 +32,33 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/gittab',
     templateUrl : 'views/auth/gitServiceConfig.html'
   })
+  .state('serviceConfig.gittabedit',{
+    url: '/gittabedit',
+    templateUrl : 'views/auth/gitServiceConfigEdit.html'
+  })
+  .state('serviceConfig.gittabdbedit',{
+    url: '/gittabdbedit',
+    templateUrl : 'views/auth/gitServiceConfigDbEdit.html'
+  })
+  .state('serviceConfig.gittabAuthOedit',{
+    url: '/gittabAuthOedit',
+    templateUrl : 'views/auth/gitServiceConfigAuthOEdit.html'
+  })
   .state('serviceConfig.nginxtab',{
     url: '/nginxtab',
     templateUrl : 'views/auth/nginxServiceConfig.html'
   })
+  .state('serviceConfig.nginxtabedit',{
+    url: '/nginxtabedit',
+    templateUrl : 'views/auth/nginxServiceConfigEdit.html'
+  })
   .state('serviceConfig.appgittab',{
     url: '/appgittab',
     templateUrl : 'views/auth/appgitServiceConfig.html'
+  })
+  .state('serviceConfig.appgittabedit',{
+    url: '/appgittabedit',
+    templateUrl : 'views/auth/appgitServiceConfigEdit.html'
   })
   .state('changePassword',{
     url: '/changePassword',

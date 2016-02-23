@@ -1,13 +1,16 @@
 
-angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state'
-function($scope,$http,$state) {
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state','$location',
+function($scope,$http,$state,$location) {
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];
   $state.go('serviceConfig.gittab');
   $scope.activeTab = "gittab";
-  $scope.applyUserName = function(userName){
+  $scope.applyUserName = function(userName,f){
     if(!userName){
       return;
+    }
+    if(f){
+      $scope.disable=true;
     }
     $scope.showLogProgress=true;
     $scope.gitInfo.userName=userName;
@@ -20,27 +23,91 @@ function($scope,$http,$state) {
       $scope.showLogProgress=false;
     }).error(function(){
       $scope.fail=true;
-      console.log("tttttttttttttttrrrrr");
+      console.log("error");
       $scope.showLogProgress=false;
     });
   };
 
-  $scope.serviceConfig = function(service){
-    console.log("called");
-    var data;
-    if(service=="git"){
+  $scope.serviceConfigGitRepos = function(){
+      $scope.gitInfo.accountData.gitAccountname=$scope.gitInfo.userName;
       for (var i = 0; i < $scope.gitRepos.length; i++) {
         if($scope.gitRepos[i].selected){
-          $scope.gitInfo.repositoryData.push({
-            gitUserName : $scope.gitInfo.userName,
+          $scope.gitInfo.accountData.repos.push({
             repo : $scope.gitRepos[i].full_name,
             gitRepoId: $scope.gitRepos[i].id
           });
         }
-        data=$scope.gitInfo;
       }
+    $http.post('/serviceConfig/git/repos', $scope.gitInfo.accountData)
+    .success(function (data, status, headers, config) {
+      console.log(data.state,headers,status,config);
+      if(data.state=="success"){
+        resetData();
+        $scope.passMessage="DB configured successfully";
+        $scope.pass=true;
+        $location.path('serviceConfig/gittab');
+      }
+      else{
+        $scope.failMessage="Failed to configure DB";
+        $scope.fail=true;
+      }
+    })
+    .error(function () {
+      $scope.failMessage="Failed to configure DB";
+      $scope.fail=true;
+      console.log("error");
+    });
+  }
+
+$scope.serviceConfigGitDB = function(){
+  $http.post('/serviceConfig/git/DB', $scope.gitInfo.dbDetails)
+  .success(function (data, status, headers, config) {
+    console.log(data.state,headers,status,config);
+    if(data.state=="success"){
+      resetData();
+      $scope.passMessage="DB configured successfully";
+      $scope.pass=true;
+      $location.path('serviceConfig/gittab');
     }
-    else if(service=="nginx"){
+    else{
+      $scope.failMessage="Failed to configure DB";
+      $scope.fail=true;
+    }
+  })
+  .error(function () {
+    $scope.failMessage="Failed to configure DB";
+    $scope.fail=true;
+    console.log("error");
+  });
+}
+
+$scope.serviceConfigGitDB = function(){
+  $http.post('/serviceConfig/git/authO',
+  {gitHost:$scope.gitInfo.gitHost,gitauthSets:$scope.gitInfo.gitauthSets})
+  .success(function (data, status, headers, config) {
+    console.log(data.state,headers,status,config);
+    if(data.state=="success"){
+      resetData();
+      $scope.passMessage="DB configured successfully";
+      $scope.pass=true;
+      $location.path('serviceConfig/gittab');
+    }
+    else{
+      $scope.failMessage="Failed to configure DB";
+      $scope.fail=true;
+    }
+  })
+  .error(function () {
+    $scope.failMessage="Failed to configure DB";
+    $scope.fail=true;
+    console.log("error");
+  });
+}
+
+  $scope.serviceConfig = function(service){
+    console.log("called");
+    var data;
+    if(service=="nginx"){
       data=$scope.nginxInfo;
     }
     else if(service=="appgit"){
@@ -52,43 +119,88 @@ function($scope,$http,$state) {
     .success(function (data, status, headers, config) {
       console.log(data.state,headers,status,config);
       if(data.state=="success"){
-resetData();
-$scope.passMessage="DB configured successfully";
-$scope.pass=true;
-console.log("success");
+        resetData();
+        $scope.passMessage="DB configured successfully";
+        $scope.pass=true;
+        console.log("came hereeeeeeeeeeeeeeeeeeee");
+        console.log("success");
+        //setActiveClass(service+"tab");
+        $location.path('serviceConfig/'+service+'tab');
       }
       else{
-      resetData();
-      $scope.failMessage="Failed to configure DB";
-      $scope.fail=true;
-    }
+        $scope.failMessage="Failed to configure DB";
+        $scope.fail=true;
+      }
     })
     .error(function (data, status, header, config) {
-      resetData();
       $scope.failMessage="Failed to configure DB";
       $scope.fail=true;
       console.log("error");
     });
   };
-function resetData(){
-$scope.gitInfo={};
-$scope.nginxInfo={};
-$scope.appgitInfo={};
-$scope.gitRepos={};
-$scope.gitInfo.dbDetails={};
-$scope.nginxInfo.dbDetails={};
-$scope.appgitInfo.dbDetails={};
-$scope.gitInfo.gitauthSets=[];
-$scope.gitInfo.repositoryData=[];
-$scope.showLogProgress=false;
-$scope.userCorrect=false;
-$scope.userName="";
-$scope.fail=false;
-$scope.pass=false;
-}
-  $scope.setActiveClass = function(tab) {
-    $scope.activeTab = angular.lowercase(tab.split(" ").join(''));
-    resetData();
+
+  function resetData(){
+    console.log("resettttttttttttttttttttttttttt");
+    $scope.gitInfo={};
+    $scope.nginxInfo={};
+    $scope.appgitInfo={};
+    $scope.gitRepos={};
+    $scope.gitInfo.dbDetails={};
+    $scope.nginxInfo.dbDetails={};
+    $scope.appgitInfo.dbDetails={};
+    $scope.gitInfo.gitauthSets=[];
+    $scope.gitInfo.repositoryData={};
+    $scope.gitInfo.accountData={};
+    $scope.gitInfo.accountData.repos=[];
+    $scope.gitInfo.repositoryData.repos=[];
+    $scope.showLogProgress=false;
+    $scope.userCorrect=false;
+    $scope.gitInfo.userName="";
+    $scope.fail=false;
+    $scope.pass=false;
+    $scope.disable=false;
   }
 
+$scope.reset=resetData;
+  $scope.setActiveClass = function(tab) {
+    console.log(tab,"tab");
+    $scope.activeTab = angular.lowercase(tab.split(" ").join(''));
+    console.log($scope.activeTab,"active tab");
+    resetData();
+  //  getServiceConfig($scope.activeTab);
+  }
+$scope.getServiceConfig = function(tab){
+  var service;
+  if(tab=="appgittab"){
+    service="appgit";
+  }
+  else if(tab=="nginxtab"){
+    service="nginx";
+  }
+  else if(tab=="gittab"){
+    service="git";
+  }
+  $http.get('/serviceConfig/json/'+service)
+  .success(function (res) {
+    console.log(res);
+    if(res.state=="success"){
+      console.log(res.data);
+      if($scope.activeTab=="appgittab"){
+        $scope.appgitInfo=res.data;
+      }
+      else if($scope.activeTab=="nginxtab"){
+        $scope.nginxInfo=res.data;
+      }
+      else if($scope.activeTab=="gittab"){
+        $scope.gitInfo=res.data;
+      }
+    }
+    else{
+      resetData();
+    }
+  })
+  .error(function (data) {
+    console.log("error");
+  });
+}
 }]);

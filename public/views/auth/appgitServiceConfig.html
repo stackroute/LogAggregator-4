@@ -1,35 +1,48 @@
-<br>
-<div class="alert alert-danger" ng-show="fail">
-  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Failed!</strong> {{failMessage}}.
-</div>
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+    Apt Log database configuration details.
+  </small>
+</h2>
+<hr>
 <div class="alert alert-success" ng-show="pass">
   <a href="#" class="close" ng-click="pass=false" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Success!</strong>{{passMessage}}
 </div>
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" id="serviceTable" ng-init="getServiceConfig('appgittab')">
   <div class="form-group">
-    <label for="host" class="col-sm-2 control-label">Host</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="host" ng-model="appgitInfo.dbDetails.host" required>
-    </div>
+    <div class="col-sm-6">
+    <table class='table borderless'>
+      <tr>
+        <td>
+        Database Host:
+        </td>
+        <td>
+          {{appgitInfo.dbDetails.host}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Database Port:
+        </td>
+        <td>
+            {{appgitInfo.dbDetails.port}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Database Name:
+          </td>
+          <td>
+            {{appgitInfo.dbDetails.dbName}}
+          </td>
+        </tr>
+      </table>
+      </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+          <a type="submit" href="#serviceConfig/appgittabedit" class="btn btn-primary">Edit</a>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="port" class="col-sm-2 control-label">Port</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="port" ng-model="appgitInfo.dbDetails.port" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="dbName" class="col-sm-2 control-label">Database Name</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="dbName" ng-model="appgitInfo.dbDetails.dbName" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary" ng-click="serviceConfig('appgit')">Submit</button>
-    </div>
-  </div>
-</form>
-</div>

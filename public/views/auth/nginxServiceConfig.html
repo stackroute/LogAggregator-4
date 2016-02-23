@@ -1,34 +1,48 @@
-<br>
-<div class="alert alert-danger" ng-show="fail">
-  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Failed!</strong> {{failMessage}}.
-</div>
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+    Nginx database configuration details.
+  </small>
+</h2>
+<hr>
 <div class="alert alert-success" ng-show="pass">
   <a href="#" class="close" ng-click="pass=false" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Success!</strong>{{passMessage}}
 </div>
-<form class="form-horizontal" role="form" novalidate>
+<form class="form-horizontal" role="form" id="serviceTable" ng-init="getServiceConfig('nginxtab')">
   <div class="form-group">
-    <label for="host" class="col-sm-2 control-label">Host</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" name="host" id="host" ng-model="nginxInfo.dbDetails.host" required>
-    </div>
+    <div class="col-sm-6">
+    <table class='table borderless'>
+      <tr>
+        <td>
+        Database Host:
+        </td>
+        <td>
+          {{nginxInfo.dbDetails.host}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Database Port:
+        </td>
+        <td>
+            {{nginxInfo.dbDetails.port}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Database Name:
+          </td>
+          <td>
+            {{nginxInfo.dbDetails.dbName}}
+          </td>
+        </tr>
+      </table>
+      </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+          <a type="submit" href="#serviceConfig/nginxtabedit" class="btn btn-primary">Edit</a>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="port" class="col-sm-2 control-label">Port</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="port" ng-model="nginxInfo.dbDetails.port" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="dbName" class="col-sm-2 control-label">Database Name</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="dbName" ng-model="nginxInfo.dbDetails.dbName" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary" ng-click="serviceConfig('nginx')">Submit</button>
-    </div>
-  </div>
-</form>

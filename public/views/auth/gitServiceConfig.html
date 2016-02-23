@@ -1,96 +1,109 @@
-<br>
-<div class="alert alert-danger" ng-show="fail">
-  {{fail}}
-  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Failed!</strong> {{failMessage}}.
-</div>
 <div class="alert alert-success" ng-show="pass">
-  {{fail}}
   <a href="#" class="close" ng-click="pass=false" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Success!</strong>{{passMessage}}
 </div>
-<img class="LogProgressIcon" ng-show="showLogProgress" src="svg/cube.svg" alt="progress">
-<form class="form-horizontal" role="form" ng-init="submit1=false" ng-submit="myForm1.$valid && applyUserName(gitUserName)" name="myForm1" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : myForm1.gitUserName.$error.required && submit1}">
-    <label for="gitUserName" class="col-sm-2 control-label">User Name</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" name="gitUserName" id="gitUserName" ng-model="gitUserName" required>
-      <span ng-show="myForm1.gitUserName.$error.required && submit1" class="help-block">Please enter UserName</span>
-    </div>
+<form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
+  <div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">Git Logs database configuration details.</div>
+    <table class='table borderless'>
+      <tr>
+        <td>
+        Database Host:
+        </td>
+        <td>
+          {{gitInfo.dbDetails.host}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+        Database Port:
+        </td>
+        <td>
+            {{gitInfo.dbDetails.port}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Database Name:
+          </td>
+          <td>
+            {{gitInfo.dbDetails.dbName}}
+          </td>
+        </tr>
+      </table>
+      <a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-primary">Edit</a>
   </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary" ng-click="submit1=true">Submit</button>
-    </div>
-  </div>
-</form>
-<form class="form-horizontal" role="form" name="myForm2" novalidate>
-  <div ng-show="userCorrect">
-
+</div>
+  <div class="row">
+  <h2 style="padding-left: 6px;margin-bottom: 3px;">
+    <small>
+      Git configuration details.
+        <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-link">Add new Account</a>
+    </small>
+  </h2>
+  <hr>
+  <div class="panel panel-primary">
+  <span ng-repeat="gitRepodata in gitInfo.repositoryData">
     <div class="form-group">
-      <label for="repoTable" class="col-sm-2 control-label">Select the repositories to Configure</label>
-      <div style="height:200px;overflow:auto;" class="col-md-4">
-        <table class="table table-striped" id="repoTable">
-          <tr ng-repeat="gitRepo in gitRepos">
-            <td class="col-md-1"><input type="checkbox" ng-model="gitRepo.selected"></td>
-            <td class="text-left col-md-4">{{gitRepo.full_name}}</td>
+      <div class="col-sm-6">
+      <table class='table borderless'>
+        <tr>
+          <td>
+          Git Account:
+          </td>
+          <td>
+          {{gitRepodata.gitAccountname}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Git Repositories:
+          </td>
+            <td>
+              <span ng-repeat="repo in gitRepodata.repos">
+                {{repo.repo}}
+              </span>
+            </td>
           </tr>
         </table>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="host" class="col-sm-2 control-label">Host</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="host" ng-model="gitInfo.dbDetails.host" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="port" class="col-sm-2 control-label">Port</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="port" ng-model="gitInfo.dbDetails.port" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="dbName" class="col-sm-2 control-label">DB Name</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="dbName" ng-model="gitInfo.dbDetails.dbName" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="gitHost" class="col-sm-2 control-label">Git Host</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="gitHost" ng-model="gitInfo.gitHost" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="auth" class="col-sm-2 control-label">Enter Five Git Auth Codes</label>
-  <div class="col-sm-4" id="auth">
-      <div class="input-group">
-        <span class="input-group-addon">GitOauth</span>
-        <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[0].gitOauth" required>
         </div>
-      <div class="input-group">
-        <span class="input-group-addon">GitOauth</span>
-        <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[1].gitOauth" required>
-        </div>
-      <div class="input-group">
-        <span class="input-group-addon">GitOauth</span>
-        <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[2].gitOauth" required>
-      </div>
-      <div class="input-group">
-        <span class="input-group-addon">GitOauth</span>
-        <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[3].gitOauth" required>
-          </div>
-      <div class="input-group">
-        <span class="input-group-addon">GitOauth</span>
-        <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[4].gitOauth" required>
-      </div>
-    </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary" ng-click="serviceConfig('git')">Submit</button>
+        <a type="submit" href="#serviceConfig/gittabedit" ng-click="applyUserName(gitRepodata.gitAccountname,true)" class="btn btn-primary">Edit</a>
       </div>
     </div>
+  </span>
+</div>
+</div>
+  <div class="col-sm-6">
+  <table class='table borderless'>
+  <tr>
+    <td>
+      Git Host:
+    </td>
+    <td>
+        {{gitInfo.gitHost}}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Enter Five Git Auth Codes:
+    </td>
+    <td>
+        {{gitInfo.gitauthSets[0].gitOauth}},
+        {{gitInfo.gitauthSets[1].gitOauth}},
+        {{gitInfo.gitauthSets[2].gitOauth}},
+        {{gitInfo.gitauthSets[3].gitOauth}},
+        {{gitInfo.gitauthSets[4].gitOauth}}
+    </td>
+  </tr>
+    </table>
   </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-primary">Edit</a>
+      </div>
+    </div>
 </form>

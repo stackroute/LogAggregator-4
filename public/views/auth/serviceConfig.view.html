@@ -1,4 +1,4 @@
-<div class="col-md-12" style="margin-top:50px;" id="serviceTab">
+<div class="container" style="margin-top:50px;" id="serviceTab">
   <h1>
     <small>Configure the Database details for the below available services.</small>
   </h1>
@@ -9,9 +9,9 @@
           <a ng-click="setActiveClass(tabs)" ui-sref=".{{tabs | showLinks}}" >{{tabs}}</a>
         </li>
       </ul>
-
-
-    <div class="tab-pane" ui-view>
+      <div class="container">
+    <div ui-view>
+      </div>
     </div> <!-- end tab-pane -->
   </div> <!-- end main-tab -->
 </div> <!-- end container-fluid -->
