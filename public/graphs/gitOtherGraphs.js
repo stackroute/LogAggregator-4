@@ -19,7 +19,7 @@ function plot_pie_chart(data,graph_details){
 
   var pie = d3.layout.pie()
       .sort(null)
-      .value(function(d) { return d["recommendCount"]; });
+      .value(function(d) { return d[graph_details["measure"]["primary"]["function"]["argument"]]; });
 
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
@@ -38,7 +38,7 @@ function plot_pie_chart(data,graph_details){
     g.append("path").transition()
     .delay(500)
         .attr("d", arc)
-        .style("fill", function(d) { return color( d.data._id.primaryGroupByField); });
+        .style("fill", function(d) { return color( d.data["_id"][graph_details["row"]["name"]]); });
 
     g.append("text")
         // .attr("transform", function(d) { return "translate(" + arc.centriod(d) + ")"; })
@@ -52,7 +52,7 @@ function plot_pie_chart(data,graph_details){
                                    (y/h * radius) +  ")";
                             })
         .attr("dy", ".35em")
-        .text(function(d) { return d["data"]["_id"]["primaryGroupByField"]}).attr("font-size",15);
+        .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",15);
   //});
 
   function type(d) {
@@ -92,7 +92,7 @@ function plot_multibar_graph(data,graph_details){
       .orient("left")
       .innerTickSize(-width);;
 
- var grouped_data=graph_details["secondaryGroupByField"]["name"];
+ var grouped_data=graph_details["columns"][0]["name"];
 
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -124,7 +124,7 @@ function plot_multibar_graph(data,graph_details){
           .attr("x",850)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text(graph_details["primaryGroupByField"]);
+          .text(graph_details["row"]["displayName"]);
 
     svg.append("g")
         .attr("class", "y axis")
@@ -136,7 +136,7 @@ function plot_multibar_graph(data,graph_details){
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("font-size",15)
-        .text(graph_details["measure"]);
+        .text(graph_details["measure"]["primary"]["displayName"]);
 
     var state = svg.selectAll(".state")
         .data(data)

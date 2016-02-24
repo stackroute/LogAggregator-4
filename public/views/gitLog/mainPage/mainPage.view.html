@@ -4,7 +4,6 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-
         <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
           <li class="sidebar-brand"> Plot Widgets </li>
           <li> <!-- home item in menu started-->
@@ -51,17 +50,19 @@
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-12">
-
                                     <div class="tab-content">
                                         <!-- <div class="tab-pane active" id="tab1"> -->
-                                        <div>
-                                          <button class="btn btn-primary pull-right" ng-click="open_model()" style="margin: 20px 20px;"><i class="fa fa-filter" style="font-size:20px;">&nbsp;</i>Filter</button>
-                                          <button class="btn btn-primary pull-right" ng-click="toggle_graph()" style="margin: 20px 20px;"><i class="fa fa-binoculars" style="font-size:20px;">&nbsp;</i>Views</button>
-                                          <!-- <button class="btn btn-danger pull-right" ng-click="open_model()" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button3</button> -->
-                                            <div id="graph"> </div>
-                                            <div class="hidden" id="graph1"> </div>
-                                        </div>
-                                        <!--end of tab pane-->
+                                        <div class="row">
+                                          <div class=col-sm-12>
+                                            <button class="btn btn-primary pull-right" ng-click="open_model()" style="margin: 20px 20px;"><i class="fa fa-filter" style="font-size:20px;">&nbsp;</i>Filter</button>
+                                            <button class="btn btn-primary pull-right" ng-click="toggle_graph()" style="margin: 20px 20px;"><i class="fa fa-binoculars" style="font-size:20px;">&nbsp;</i>Views</button>
+                                            <!-- <button class="btn btn-danger pull-right" ng-click="open_model()" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button3</button> -->
+                                          </div>
+                                          <div class=class=col-sm-12>
+                                              <div id="graph"> </div>
+                                              <div class="hidden" id="graph1"> </div>
+                                          </div>
+                                        </div>                                <!--end of tab pane-->
                                     </div>
                                     <!--end of tab content-->
                                 </div>
@@ -79,31 +80,32 @@
                                     <!--end of modal content-->
                                     <div class="modal-body">
                                         <form class="form-horizontal">
-                                            <div class="form-group" id="box1">
-                                                <label class="col-lg-2 control-label" for="inputMessage">Select Month</label>
-                                                <div class="col-lg-10">
-                                                    <div class="col-sm-5">
-                                                        <select class="selectbox" multiple ng-model="value5">
-                                                            <option value={{value5}} ng-repeat="value5 in fetchedMonthDataDisplay">{{value5}}</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-1">
-                                                        <button ng-click="add_month()"><span class="glyphicon glyphicon-arrow-right"></span>
-                                                        </button>
-                                                        <br>
-                                                        <br>
-                                                        <button ng-click="clear_month()"><span class="glyphicon glyphicon-arrow-left"></span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <select class="selectbox" multiple ng-model="value6">
-                                                            <option value={{value6}} ng-repeat="value6 in selectedMonthDataDisplay">{{value6}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          <div class="form-group" ng-repeat="data in filtered_data"  id={{idMaker(data.name)+"div"}}>
+                                              <label class="col-lg-2 control-label" for="inputMessage">{{data.displayName}}</label>
+                                              <div class="col-lg-10">
+                                                  <div class="col-sm-5">
+                                                      <select class="selectbox" multiple id={{idMaker(data.name)}}>
+                                                          <option value={{value5}} ng-repeat="value5 in data.values">{{value5}}</option>
+                                                      </select>
+                                                  </div>
+                                                  <div class="col-sm-1">
+                                                      <button ng-click="add_month()"><span class="glyphicon glyphicon-arrow-right"></span>
+                                                      </button>
+                                                      <br>
+                                                      <br>
+                                                      <button ng-click="clear_month()"><span class="glyphicon glyphicon-arrow-left"></span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="col-sm-5">
+                                                      <select class="selectbox" multiple id={{idMaker(data.name)+'selected'}}>
+                                                          <option value={{value6}} ng-repeat="value6 in selected_item">{{value6}}</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
 
-                                            <div class="form-group" id="box2">
+
+                                            <!-- <div class="form-group" id="box2">
                                                 <label class="col-lg-2 control-label" for="inputMessage">Select Year</label>
                                                 <div class="col-lg-10">
                                                     <div class="col-sm-5">
@@ -174,7 +176,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </form>
                                         <!--end of the form-->
                                     </div>
@@ -193,8 +195,6 @@
                     <!--modal window ends here-->
 
                     <div class="panel-heading">
-                      <!-- <h2 class="">{{graph_type_details}}</h2> -->
-                      <button type="button" class="btn btn-primary btn-block" disabled>{{graph_type_details}}</button>
                     </div> <!-- end panel-footer-->
                 </div>
             </div>

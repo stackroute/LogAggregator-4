@@ -4,7 +4,7 @@ var Schema =  mongoose.Schema;
 
 var DashBoardsJsonSchema = new Schema({
         "graph-type" : String,
-        measure : String,
+        measure : {},
         "operation-type" : String,
         primaryGroupByField : String,
         secondaryGroupByField : {},
