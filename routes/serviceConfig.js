@@ -1,4 +1,5 @@
-
+var fs = require('fs');
+var path = require('path');
 var express = require('express');
 var router = express.Router();
 
@@ -109,10 +110,11 @@ router.post('/git/DB', function(req, res){
       { upsert: true },
       function (err, gitDoc) {
         if (err) {
-          res.send({state: 'failure'});
           return;
         }
-        res.send({state: 'success'});
+        console.log(createJsonFile(req.session.user.organization));
+        console.log(createJson(req.session.user.organization));
+        res.send({state:"success"});
         return;
       });
     });
@@ -133,6 +135,7 @@ router.post('/git/DB', function(req, res){
             return;
           }
         });
+        console.log(createJsonFile(req.session.user.organization));
         res.send({state: 'success'});
         return;
       });
@@ -146,6 +149,7 @@ router.post('/git/DB', function(req, res){
             res.send({state: 'failure'});
             return;
           }
+          console.log(createJsonFile(req.session.user.organization));
           res.send({state: 'success'});
           return;
         });
@@ -176,9 +180,67 @@ router.post('/git/DB', function(req, res){
                 return;
               }
             });
-            res.send({state: 'success'});
+            console.log(createJsonFile(req.session.user.organization));
+              res.send({state: 'success'});
             return;
           });
         });
 
+
+function createJsonFile(orgName){
+var json = [];
+  gitServiceModel.find({organizationName: orgName},
+    function (err, gitDoc) {
+      if (err) {
+        return;
+      }
+      var fileName = "../organizationJsons/" +orgName + "File" + ".json";
+      var outPath = path.join(__dirname, fileName);
+// Convert object to string, write json to file
+      fs.writeFileSync(outPath, JSON.stringify(gitDoc), 'utf8',
+       function(err){console.log(err);});
+           return;
+    });
+
+}
+
+function createJson(orgName){
+    var filePath = path.join(__dirname, '../organizationJsons/metadata.json');
+    var metaDataFile = fs.readFileSync(filePath, {encoding: 'utf-8'},
+    function(err){console.log(err);});
+
+var response = JSON.parse(metaDataFile);
+var len = response.length;
+console.log(response);
+console.log("my lenth is  : " + len);
+var flag = 0;
+var organizationJson = [];
+for(var i = 0; i < len; i++){
+     if (response[i].organizationName === orgName) {
+      console.log("We found the Organization");
+      console.log(response[i].organizationName);
+      flag = 1;
+    }
+  }
+
+var json = [];
+if (flag == 0){
+  for(var j = 0; j < len; j++){
+    var obj = {};
+    obj["organizationName"] = response[j].organizationName;
+    obj["organizationFileName"] = response[j].organizationFileName;
+    json.push(obj);
+  }
+  var obj = {};
+    obj["organizationName"] = orgName;
+    obj["organizationFileName"] = orgName + "File.json";
+    json.push(obj);
+    }
+    // var fileName = "../" +orgName + "File" + ".json";
+    // var outPath = path.join(__dirname, fileName);
+    // Convert object to string, write json to file
+    fs.writeFileSync(filePath, JSON.stringify(json), 'utf8',
+     function(err){console.log(err);});
+         return;
+}
         module.exports = router;
