@@ -29,6 +29,8 @@ function($scope,$http,$state,$location) {
   };
 
   $scope.serviceConfigGitRepos = function(){
+    $scope.gitInfo.accountData={};
+    $scope.gitInfo.accountData.repos=[];
       $scope.gitInfo.accountData.gitAccountname=$scope.gitInfo.userName;
       for (var i = 0; i < $scope.gitRepos.length; i++) {
         if($scope.gitRepos[i].selected){
@@ -110,6 +112,7 @@ $scope.serviceConfigGitAuthO = function(){
       resetData();
       $scope.passMessage="Git authO configured successfully";
       $scope.pass=true;
+      $scope.getServiceConfig("gittab");
       $location.path('serviceConfig/gittab');
     }
     else{
