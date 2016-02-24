@@ -47,7 +47,6 @@ router.post('/:service', function(req, res){
       req.body,
       { upsert: true },function(error){
         if(error){
-          console.log(error,"errrrrrrrrrrrrrrrrrrrr");
           res.send({state: 'failure'});
           return;
         }
@@ -67,16 +66,14 @@ router.get('/json/:service', function(req, res){
     model2=nginxServiceModel;
   }
   else if(req.params.service=="appgit"){
-   model2=appgitServiceModel;
+    model2=appgitServiceModel;
   }
-  console.log(req.session.user.organization);
   model2.findOne(
     { organizationName: req.session.user.organization },function(error,doc){
-      console.log(doc,"doc----");
-     if(!doc){
-         res.send({state: 'failure'});
-         return;
-     }
+      if(!doc){
+        res.send({state: 'failure'});
+        return;
+      }
       res.send({state: 'success',data:doc});
       return;
     }
@@ -107,68 +104,81 @@ router.post('/git/DB', function(req, res){
         });
       }
     }
-  gitServiceModel.update({organizationName:req.session.user.organization},
-{organizationName:req.session.user.organization,dbDetails:req.body},
-{ upsert: true },
-    function (err, gitDoc) {
-    if (err) {
-      res.send({state: 'failure'});
-      return;
-    }
-    res.send({state: 'success'});
-    return;
-  });
-  });
-});
-
-router.post('/git/authO', function(req, res){
-  gitServiceModel.findOne({organizationName:req.session.user.organization},
-    function (err, gitDoc) {
-    if (err) {
-      res.send({state: 'failure'});
-      return;
-    }
-    gitDoc.gitHost = req.body.gitHost;
-    gitDoc.gitauthSets=req.body.gitauthSets;
-    gitDoc.save(function (err) {
-      if (err) {
-        res.send({state: 'failure'});
+    gitServiceModel.update({organizationName:req.session.user.organization},
+      {organizationName:req.session.user.organization,dbDetails:req.body},
+      { upsert: true },
+      function (err, gitDoc) {
+        if (err) {
+          res.send({state: 'failure'});
+          return;
+        }
+        res.send({state: 'success'});
         return;
-      }
+      });
     });
-    res.send({state: 'success'});
-    return;
   });
-});
 
-router.post('/git/repos', function(req, res){
-  gitServiceModel.findOne({organizationName:req.session.user.organization},
-    function (err, gitDoc) {
-    if (err || !gitDoc) {
-      res.send({state: 'failure'});
-      return;
-    }
-    var flag=true;
-    for (var i = 0; i < gitDoc.repositoryData.length; i++) {
-      if(gitDoc.repositoryData[i].gitAccountname==req.body.gitAccountname)
-      {
-        gitDoc.repositoryData[i].repos =  req.body.repos;
-        flag=false;
-        break;
-      }
-    }
-    if(flag){
-      gitDoc.repositoryData.push(req.body);
-    }
-    gitDoc.save(function (err) {
-      if (err) {
-        res.send({state: 'failure'});
+  router.post('/git/authO', function(req, res){
+    gitServiceModel.findOne({organizationName:req.session.user.organization},
+      function (err, gitDoc) {
+        if (err) {
+          res.send({state: 'failure'});
+          return;
+        }
+        gitDoc.gitHost = req.body.gitHost;
+        gitDoc.gitauthSets=req.body.gitauthSets;
+        gitDoc.save(function (err) {
+          if (err) {
+            res.send({state: 'failure'});
+            return;
+          }
+        });
+        res.send({state: 'success'});
         return;
-      }
+      });
     });
-    res.send({state: 'success'});
-    return;
-  });
-});
 
-module.exports = router;
+    router.post('/git/deleteRepo', function(req, res){
+      gitServiceModel.update({organizationName:req.session.user.organization},
+        { $pull: { 'repositoryData': {gitAccountname:req.body.gitAccountname} } },
+        function (err) {
+          if (err) {
+            res.send({state: 'failure'});
+            return;
+          }
+          res.send({state: 'success'});
+          return;
+        });
+      });
+
+      router.post('/git/repos', function(req, res){
+        gitServiceModel.findOne({organizationName:req.session.user.organization},
+          function (err, gitDoc) {
+            if (err || !gitDoc) {
+              res.send({state: 'failure'});
+              return;
+            }
+            var flag=true;
+            for (var i = 0; i < gitDoc.repositoryData.length; i++) {
+              if(gitDoc.repositoryData[i].gitAccountname==req.body.gitAccountname)
+              {
+                gitDoc.repositoryData[i].repos =  req.body.repos;
+                flag=false;
+                break;
+              }
+            }
+            if(flag){
+              gitDoc.repositoryData.push(req.body);
+            }
+            gitDoc.save(function (err) {
+              if (err) {
+                res.send({state: 'failure'});
+                return;
+              }
+            });
+            res.send({state: 'success'});
+            return;
+          });
+        });
+
+        module.exports = router;

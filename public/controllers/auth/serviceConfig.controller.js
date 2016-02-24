@@ -43,21 +43,41 @@ function($scope,$http,$state,$location) {
       console.log(data.state,headers,status,config);
       if(data.state=="success"){
         resetData();
-        $scope.passMessage="DB configured successfully";
+        $scope.passMessage="Git account configured successfully!!";
         $scope.pass=true;
         $location.path('serviceConfig/gittab');
       }
       else{
-        $scope.failMessage="Failed to configure DB";
+        $scope.failMessage="Failed to configure Git account!!";
         $scope.fail=true;
       }
     })
     .error(function () {
-      $scope.failMessage="Failed to configure DB";
+      $scope.failMessage="Failed to configure Git account!!";
       $scope.fail=true;
       console.log("error");
     });
   }
+
+$scope.deleteRepo = function(repoName){
+    $http.post('/serviceConfig/git/deleteRepo', {gitAccountname:repoName})
+    .success(function (data, status, headers, config) {
+      console.log(data.state,headers,status,config);
+      if(data.state=="success"){
+        $scope.passMessage="Git account deleted successfully!!";
+        $scope.pass=true;
+      }
+      else{
+        $scope.failMessage="Failed to delete Git account!!";
+        $scope.fail=true;
+      }
+    })
+    .error(function () {
+      $scope.failMessage="Failed to delete Git account!!";
+      $scope.fail=true;
+      console.log("error");
+    });
+};
 
 $scope.serviceConfigGitDB = function(){
   $http.post('/serviceConfig/git/DB', $scope.gitInfo.dbDetails)
@@ -65,17 +85,17 @@ $scope.serviceConfigGitDB = function(){
     console.log(data.state,headers,status,config);
     if(data.state=="success"){
       resetData();
-      $scope.passMessage="DB configured successfully";
+      $scope.passMessage="Git database configured successfully!!";
       $scope.pass=true;
       $location.path('serviceConfig/gittab');
     }
     else{
-      $scope.failMessage="Failed to configure DB";
+      $scope.failMessage="Failed to configure Git database!!";
       $scope.fail=true;
     }
   })
   .error(function () {
-    $scope.failMessage="Failed to configure DB";
+    $scope.failMessage="Failed to configure Git database!!";
     $scope.fail=true;
     console.log("error");
   });
@@ -88,33 +108,30 @@ $scope.serviceConfigGitAuthO = function(){
     console.log(data.state,headers,status,config);
     if(data.state=="success"){
       resetData();
-      $scope.passMessage="DB configured successfully";
+      $scope.passMessage="Git authO configured successfully";
       $scope.pass=true;
       $location.path('serviceConfig/gittab');
     }
     else{
-      $scope.failMessage="Failed to configure DB";
+      $scope.failMessage="Failed to configure Git authO!!";
       $scope.fail=true;
     }
   })
   .error(function () {
-    $scope.failMessage="Failed to configure DB";
+    $scope.failMessage="Failed to configure Git authO!!";
     $scope.fail=true;
     console.log("error");
   });
 }
 
   $scope.serviceConfig = function(service){
-    console.log("called");
     var data;
     if(service=="nginx"){
       data=$scope.nginxInfo;
     }
     else if(service=="appgit"){
       data=$scope.appgitInfo;
-      console.log(data);
     }
-    console.log("enterrrrrrrrrrr");
     $http.post('/serviceConfig/'+service, data)
     .success(function (data, status, headers, config) {
       console.log(data.state,headers,status,config);
@@ -122,9 +139,6 @@ $scope.serviceConfigGitAuthO = function(){
         resetData();
         $scope.passMessage="DB configured successfully";
         $scope.pass=true;
-        console.log("came hereeeeeeeeeeeeeeeeeeee");
-        console.log("success");
-        //setActiveClass(service+"tab");
         $location.path('serviceConfig/'+service+'tab');
       }
       else{
@@ -140,7 +154,6 @@ $scope.serviceConfigGitAuthO = function(){
   };
 
   function resetData(){
-    console.log("resettttttttttttttttttttttttttt");
     $scope.gitInfo={};
     $scope.nginxInfo={};
     $scope.appgitInfo={};
@@ -167,7 +180,6 @@ $scope.reset=resetData;
     $scope.activeTab = angular.lowercase(tab.split(" ").join(''));
     console.log($scope.activeTab,"active tab");
     resetData();
-  //  getServiceConfig($scope.activeTab);
   }
 $scope.getServiceConfig = function(tab){
   var service;

@@ -4,6 +4,10 @@
   </small>
 </h2>
 <hr>
+<div class="alert alert-danger" ng-show="fail">
+  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
+  {{failMessage}}.
+</div>
 <form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
 <div class="form-group">
   <label for="gitHost" class="col-sm-2 control-label">Git Host</label>

@@ -1,12 +1,12 @@
 <br>
 <div class="alert alert-success" ng-show="pass">
   <a href="#" class="close" ng-click="pass=false" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong>{{passMessage}}
+  {{passMessage}}
 </div>
 <form class="form-horizontal" role="form" id="serviceTable" ng-init="getServiceConfig('nginxtab')">
   <div class="panel panel-default">
     <div class="panel-heading">Nginx database configuration details.
-      <a type="submit" href="#serviceConfig/nginxtabedit" class="btn btn-default">
+      <a type="submit" href="#serviceConfig/nginxtabedit" class="btn btn-primary">
       <i class="glyphicon glyphicon-edit"></i>Edit</a></div>
       <div class="panel-body">
     <table class='table borderless'>

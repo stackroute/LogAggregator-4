@@ -1,12 +1,12 @@
 <br>
 <div class="alert alert-success" ng-show="pass">
   <a href="#" class="close" ng-click="pass=false" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong>{{passMessage}}
+  {{passMessage}}
 </div>
 <form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
   <div class="row">
   <div class="panel panel-default">
-    <div class="panel-heading">Git Logs database configuration details.<a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i>Edit</a></div>
+    <div class="panel-heading">Git Logs database configuration details.<a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a></div>
 <div class="panel-body">
     <table class='table borderless'>
       <tr>
@@ -40,7 +40,7 @@
   <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">  Git configuration details.
-      <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-default">
+      <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-primary">
         <i class="glyphicon glyphicon-edit"></i>Edit</a>
     </div>
     <div class="panel-body">
@@ -74,7 +74,7 @@
     <div class="panel-heading">Git Account configuration details.
       <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-primary">Add new Account</a>
     </div>
-    <div class="panel-body">
+  <div class="panel-body" ng-show="gitInfo.repositoryData.length">
   <span ng-repeat="gitRepodata in gitInfo.repositoryData">
     <div class="panel panel-primary">
       <div class="panel-body">
@@ -100,6 +100,7 @@
         </table>
       <div>
         <a type="submit" href="#serviceConfig/gittabedit" ng-click="applyUserName(gitRepodata.gitAccountname,true)" class="btn btn-primary">Edit</a>
+        <a type="submit" ng-click="deleteRepo(gitRepodata.gitAccountname)" class="btn btn-primary">Delete</a>
       </div>
       </div>
     </div>
