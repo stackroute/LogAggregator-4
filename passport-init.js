@@ -17,6 +17,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 var mongoose = require('mongoose');
 var User = require('./models/dbConfig.js').userModel;
 var organizationModel = require('./models/dbConfig.js').organizationModel;
+var fluentD = require('./routes/fluentdConfig.js')
 var LocalStrategy   = require('passport-local').Strategy;
 var crypto = require('crypto');
 
@@ -97,14 +98,14 @@ console.log(req.body.organization+"---------------");
 							if (err){
 								return done(err);
 							}
-							if(organizationName){
-								return done(null, false);
-							}
+							if(!organizationName){
 							var newOrganization= new organizationModel();
 							newOrganization.organizationName=newUser.organization;
 							newOrganization.save(function(err) {
 								//console.log(err+"error in organiz");
+                fluentD(newUser.organization);
 							});
+						}
 						});
 						return done(null, newUser);
 					});
