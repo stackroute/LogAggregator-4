@@ -1,0 +1,47 @@
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+  Configure Git Account details.
+  </small>
+</h2>
+<hr>
+<div class="alert alert-danger" ng-show="fail">
+  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
+  {{failMessage}}.
+</div>
+<form class="form-horizontal" role="form" ng-init="submit1=false" ng-submit="myForm1.$valid && applyUserName(gitInfo.userName,false)" name="myForm1" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : myForm1.gitUserName.$error.required && submit1}">
+    <label for="gitUserName" class="col-sm-2 control-label">User Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="gitUserName" id="gitUserName" ng-model="gitInfo.userName" ng-disabled="disable" required>
+      <span ng-show="myForm1.gitUserName.$error.required && submit1" class="help-block">Please enter UserName</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-click="submit1=true" ng-disabled="disable">Submit</button>
+    </div>
+  </div>
+</form>
+<img class="LogProgressIcon" ng-show="showLogProgress" src="svg/cube.svg" alt="progress">
+<form class="form-horizontal" role="form" name="myForm2" novalidate>
+  <div ng-show="userCorrect">
+    <div class="form-group">
+      <label for="repoTable" class="col-sm-2 control-label">Select the repositories to Configure</label>
+      <div style="height:200px;overflow:auto;" class="col-md-4">
+        <table class="table table-striped" id="repoTable">
+          <tr ng-repeat="gitRepo in gitRepos">
+            <td class="col-md-1"><input type="checkbox" ng-model="gitRepo.selected"></td>
+            <td class="text-left col-md-4">{{gitRepo.full_name}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="serviceConfigGitRepos()">Save</button>
+        <a type="submit" href="#serviceConfig/gittab" ng-click="" class="btn btn-primary">Cancel</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</form>

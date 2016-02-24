@@ -1,0 +1,37 @@
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+  Configure Apt Log database details.
+  </small>
+</h2>
+<hr>
+<div class="alert alert-danger" ng-show="fail">
+  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
+  {{failMessage}}.
+</div>
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="host" class="col-sm-2 control-label">Host</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="host" ng-model="appgitInfo.dbDetails.host" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="port" class="col-sm-2 control-label">Port</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="port" ng-model="appgitInfo.dbDetails.port" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="dbName" class="col-sm-2 control-label">Database Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="dbName" ng-model="appgitInfo.dbDetails.dbName" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-click="serviceConfig('appgit')">Save</button>
+      <a type="submit" href="#serviceConfig/appgittab" ng-click="" class="btn btn-primary">Cancel</a>
+    </div>
+  </div>
+</form>
+</div>

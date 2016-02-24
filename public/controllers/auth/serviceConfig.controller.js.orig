@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state','$location',
 function($scope,$http,$state,$location) {
+=======
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state',
+function($scope,$http,$state) {
+>>>>>>> 1a7b04df243a1c69b8ff532a12a985c6ffc3c04d
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];
   $state.go('serviceConfig.gittab');
@@ -29,8 +34,6 @@ function($scope,$http,$state,$location) {
   };
 
   $scope.serviceConfigGitRepos = function(){
-    $scope.gitInfo.accountData={};
-    $scope.gitInfo.accountData.repos=[];
       $scope.gitInfo.accountData.gitAccountname=$scope.gitInfo.userName;
       for (var i = 0; i < $scope.gitRepos.length; i++) {
         if($scope.gitRepos[i].selected){
@@ -45,41 +48,21 @@ function($scope,$http,$state,$location) {
       console.log(data.state,headers,status,config);
       if(data.state=="success"){
         resetData();
-        $scope.passMessage="Git account configured successfully!!";
+        $scope.passMessage="DB configured successfully";
         $scope.pass=true;
         $location.path('serviceConfig/gittab');
       }
       else{
-        $scope.failMessage="Failed to configure Git account!!";
+        $scope.failMessage="Failed to configure DB";
         $scope.fail=true;
       }
     })
     .error(function () {
-      $scope.failMessage="Failed to configure Git account!!";
+      $scope.failMessage="Failed to configure DB";
       $scope.fail=true;
       console.log("error");
     });
   }
-
-$scope.deleteRepo = function(repoName){
-    $http.post('/serviceConfig/git/deleteRepo', {gitAccountname:repoName})
-    .success(function (data, status, headers, config) {
-      console.log(data.state,headers,status,config);
-      if(data.state=="success"){
-        $scope.passMessage="Git account deleted successfully!!";
-        $scope.pass=true;
-      }
-      else{
-        $scope.failMessage="Failed to delete Git account!!";
-        $scope.fail=true;
-      }
-    })
-    .error(function () {
-      $scope.failMessage="Failed to delete Git account!!";
-      $scope.fail=true;
-      console.log("error");
-    });
-};
 
 $scope.serviceConfigGitDB = function(){
   $http.post('/serviceConfig/git/DB', $scope.gitInfo.dbDetails)
@@ -87,54 +70,56 @@ $scope.serviceConfigGitDB = function(){
     console.log(data.state,headers,status,config);
     if(data.state=="success"){
       resetData();
-      $scope.passMessage="Git database configured successfully!!";
+      $scope.passMessage="DB configured successfully";
       $scope.pass=true;
       $location.path('serviceConfig/gittab');
     }
     else{
-      $scope.failMessage="Failed to configure Git database!!";
+      $scope.failMessage="Failed to configure DB";
       $scope.fail=true;
     }
   })
   .error(function () {
-    $scope.failMessage="Failed to configure Git database!!";
+    $scope.failMessage="Failed to configure DB";
     $scope.fail=true;
     console.log("error");
   });
 }
 
-$scope.serviceConfigGitAuthO = function(){
+$scope.serviceConfigGitDB = function(){
   $http.post('/serviceConfig/git/authO',
   {gitHost:$scope.gitInfo.gitHost,gitauthSets:$scope.gitInfo.gitauthSets})
   .success(function (data, status, headers, config) {
     console.log(data.state,headers,status,config);
     if(data.state=="success"){
       resetData();
-      $scope.passMessage="Git authO configured successfully";
+      $scope.passMessage="DB configured successfully";
       $scope.pass=true;
-      $scope.getServiceConfig("gittab");
       $location.path('serviceConfig/gittab');
     }
     else{
-      $scope.failMessage="Failed to configure Git authO!!";
+      $scope.failMessage="Failed to configure DB";
       $scope.fail=true;
     }
   })
   .error(function () {
-    $scope.failMessage="Failed to configure Git authO!!";
+    $scope.failMessage="Failed to configure DB";
     $scope.fail=true;
     console.log("error");
   });
 }
 
   $scope.serviceConfig = function(service){
+    console.log("called");
     var data;
     if(service=="nginx"){
       data=$scope.nginxInfo;
     }
     else if(service=="appgit"){
       data=$scope.appgitInfo;
+      console.log(data);
     }
+    console.log("enterrrrrrrrrrr");
     $http.post('/serviceConfig/'+service, data)
     .success(function (data, status, headers, config) {
       console.log(data.state,headers,status,config);
@@ -142,6 +127,9 @@ $scope.serviceConfigGitAuthO = function(){
         resetData();
         $scope.passMessage="DB configured successfully";
         $scope.pass=true;
+        console.log("came hereeeeeeeeeeeeeeeeeeee");
+        console.log("success");
+        //setActiveClass(service+"tab");
         $location.path('serviceConfig/'+service+'tab');
       }
       else{
@@ -157,6 +145,7 @@ $scope.serviceConfigGitAuthO = function(){
   };
 
   function resetData(){
+    console.log("resettttttttttttttttttttttttttt");
     $scope.gitInfo={};
     $scope.nginxInfo={};
     $scope.appgitInfo={};
@@ -183,6 +172,7 @@ $scope.reset=resetData;
     $scope.activeTab = angular.lowercase(tab.split(" ").join(''));
     console.log($scope.activeTab,"active tab");
     resetData();
+  //  getServiceConfig($scope.activeTab);
   }
 $scope.getServiceConfig = function(tab){
   var service;

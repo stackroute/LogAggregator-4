@@ -1,0 +1,49 @@
+<h2 style="padding-left: 6px;margin-bottom: 3px;">
+  <small>
+  Configure Git Log database details.
+  </small>
+</h2>
+<hr>
+<div class="alert alert-danger" ng-show="fail">
+  <a href="#" class="close" ng-click="fail=false" data-dismiss="alert" aria-label="close">&times;</a>
+  {{failMessage}}.
+</div>
+<form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
+<div class="form-group">
+  <label for="gitHost" class="col-sm-2 control-label">Git Host</label>
+  <div class="col-sm-4">
+    <input type="text" class="form-control" id="gitHost" ng-model="gitInfo.gitHost" required>
+  </div>
+</div>
+<div class="form-group">
+  <label for="auth" class="col-sm-2 control-label">Enter Five Git Auth Codes</label>
+<div class="col-sm-4" id="auth">
+  <div class="input-group">
+    <span class="input-group-addon">GitOauth</span>
+    <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[0].gitOauth" required>
+    </div>
+  <div class="input-group">
+    <span class="input-group-addon">GitOauth</span>
+    <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[1].gitOauth" required>
+    </div>
+  <div class="input-group">
+    <span class="input-group-addon">GitOauth</span>
+    <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[2].gitOauth" required>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">GitOauth</span>
+    <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[3].gitOauth" required>
+      </div>
+  <div class="input-group">
+    <span class="input-group-addon">GitOauth</span>
+    <input type="text" class="form-control" ng-model="gitInfo.gitauthSets[4].gitOauth" required>
+  </div>
+</div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-primary" ng-click="serviceConfigGitAuthO()">Save</button>
+    <a type="submit" href="#serviceConfig/gittab" ng-click="" class="btn btn-primary">Cancel</a>
+  </div>
+</div>
+</form>

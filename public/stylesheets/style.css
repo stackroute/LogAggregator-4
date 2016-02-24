@@ -1075,6 +1075,9 @@ margin: 30px;
 .profilePanel {
   width: 100%;
 }
+#serviceTable .borderless tr,#serviceTable .borderless tr>td {
+    border: none;
+}
 
 /*#serviceTab .tab-pane{
   background-color: white !important;
