@@ -69,6 +69,12 @@
     color: #999999;
 }
 
+.sidebar-nav > li > a {
+  display: block;
+  padding: 10px 5px;
+  position: relative;
+}
+
 .sidebar-nav li:hover {
     text-decoration: none;
     color: #000;
@@ -93,8 +99,21 @@
 .sidebar-brand {
   padding-top: 20px;
   padding-bottom: 65px;
+  padding-left: 25px;
 }
 
+.sidebar-nav > li > ul > li > a {
+  padding-left: 23px;
+}
+
+.sidebar-nav > li > ul > li > ul > li{
+  padding-left: 65px;
+}
+
+.measurePad {
+  padding-left: 55px
+  color : #337ab7 !important;
+}
 .sidebar-nav > .sidebar-brand li {
     color: #999999;
 }
