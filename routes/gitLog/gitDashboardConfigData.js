@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 router.post('/', function(req, res, next) {
   // console.log("getDataForClientgetDataForClientgetDataForClient");
+  //dashBoardObject=req.body.data
   var dashBoardObject = {
   	"dimensions": [{
       "_id":"1",

@@ -9,7 +9,7 @@ var Logs = require('../../models/dbConfig').getModel;
 router.post('/',function(req,res,next){                                   //router for the code
 
 var json_param = req.body.data;
-console.log(json_param);
+console.log("json_param",json_param);
 
 // var json_param={
 //   "name": "noOfCommits-UR-T",
@@ -79,59 +79,73 @@ if(json_param["row"]["values"]!== undefined){
 }
 
 
+//variable to group tha data that can be passed to the query
+var grouping_object=  {};
+grouping_object[json_param["row"]["name"]] = "$"+json_param["row"]["name"];
+
+// if(json_param["columns"]!==undefined && json_param["columns"].length!==0){
+// for(var i=0;i<json_param["columns"].length;i++){
+//   grouping_object[json_param["columns"][i]["name"]]='$' + json_param["columns"][i]["name"];
+// }
+// }
+
 //if column is given will add the details in groupby function
-if(json_param["columns"]!==undefined){
+if(json_param["columns"]!==undefined && json_param["columns"].length!==0){
   for(var i=0;i<json_param["columns"].length;i++){
     var temp_obj = {};
     temp_obj[json_param["columns"][i]["name"]] = {'$in' : json_param["columns"][i]["values"]};
+    grouping_object[json_param["columns"][i]["name"]]='$' + json_param["columns"][i]["name"];
     //console.log(temp_obj);
     filter_data.push(temp_obj);
   }
 }
 
-//variable to group tha data that can be passed to the query
-var grouping_object=  {};
-grouping_object[json_param["row"]["name"]] = "$"+json_param["row"]["name"];
 
-if(json_param["columns"]!==undefined){
-for(var i=0;i<json_param["columns"].length;i++){
-  grouping_object[json_param["columns"][i]["name"]]='$' + json_param["columns"][i]["name"];
-}
-}
 
-console.log(grouping_object);
+console.log("grouping_object",grouping_object);
 
-console.log(filter_data);       //filter object of the data that is to be filtered
+console.log("filter_data",filter_data);       //filter object of the data that is to be filtered
 
 var complete_group_object = {};
 
 complete_group_object["_id"]=grouping_object;
 complete_group_object[json_param["measure"]["primary"]["function"]["argument"]]=(json_param["measure"]["primary"]["function"]["name"]!=="sum")?{"$sum":1}:{"$sum":('$'+json_param["measure"]["primary"]["function"]["argument"])}
 
-
-for(var i=0;i<json_param["measure"]["secondary"].length;i++){
-  complete_group_object[json_param["measure"]["secondary"][i]["function"]["argument"]]=(json_param["measure"]["secondary"][i]["function"]["name"]!=="sum")?{"$sum":1}:{"$sum":('$'+json_param["measure"]["secondary"][i]["function"]["argument"])}
+if(json_param["measure"]["secondary"]!== undefined){
+  for(var i=0;i<json_param["measure"]["secondary"].length;i++){
+    complete_group_object[json_param["measure"]["secondary"][i]["function"]["argument"]]=(json_param["measure"]["secondary"][i]["function"]["name"]!=="sum")?{"$sum":1}:{"$sum":('$'+json_param["measure"]["secondary"][i]["function"]["argument"])}
+  }
 }
 
-var aggregate_arr = [
-                      {
-                        "$match":
+var aggregate_arr=[];
+if(json_param["row"]["aggregators"]!==undefined && json_param["row"]["aggregators"]["name"]==="all"){
+  aggregate_arr = [
                         {
-                          "$and": filter_data
+                          "$group":complete_group_object
                         }
-                      },
-                      {
-                        "$group":complete_group_object
-                      }
-                    ];
+                  ];
+}
+else{
+  aggregate_arr = [{
+                          "$match":
+                          {
+                            "$and": filter_data
+                          }
+                        },
+                        {
+                          "$group":complete_group_object
+                        }
+                      ];
+}
 
-if(json_param["row"]["aggregators"]!==undefined){
+
+if(json_param["row"]["aggregators"]!==undefined && json_param["row"]["aggregators"]["name"]!=="all"){
   var sort_obj={"$sort":{}};
   var limit_obj={"$limit":json_param["row"]["aggregators"]["argument"]};
-  if(json_param["row"]["aggregators"]["name"]=="top"){
+  if(json_param["row"]["aggregators"]["displayName"]=="top"){
     sort_obj["$sort"][json_param["measure"]["primary"]["function"]["argument"]]=-1;
   }
-  else if(json_param["row"]["aggregators"]["name"]=="bottom"){
+  else if(json_param["row"]["aggregators"]["displayName"]=="bottom"){
     sort_obj["$sort"][json_param["measure"]["primary"]["function"]["argument"]]=1;
   }
   aggregate_arr.push(sort_obj);
@@ -145,11 +159,17 @@ Logs(req.session.user.organization,"commitDataModel").aggregate(aggregate_arr,fu
                       if(error){
                         console.log("we are not fetch the data from database");
                       }
+                      else if(result.length == 0){
+                        console.log("Query does not retrive any data");
+                        req.send("no data fetched");
+                      }
                       else{
                         console.log("we are able to fetch the data from the database");
                         console.log(result);
+                        console.log(json_param["columns"]);
+                        console.log("param",json_param["columns"].length!==0);
                          //convert_to_d3(result);
-                         if(json_param["columns"]!== undefined)
+                         if(json_param["columns"]!== undefined && json_param["columns"].length!==0)
                         {
                           convert_to_d3(result,res,json_param);
                         }

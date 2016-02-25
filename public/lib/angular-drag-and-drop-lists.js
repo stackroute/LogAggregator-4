@@ -463,10 +463,10 @@ angular.module('dndLists', [])
         // Now check the dnd-allowed-types against the type of the incoming element. For drops from
         // external sources we don't know the type, so it will need to be checked via dnd-drop.
         if (attr.dndAllowedTypes && dndDragTypeWorkaround.isDragging) {
-          console.log("DND!!!!_______",attr.dndAllowedTypes);
+          // console.log("DND!!!!_______",attr.dndAllowedTypes);
 
           var allowed = scope.$eval(attr.dndAllowedTypes);
-          console.log("allowed!!!_________",allowed);
+          // console.log("allowed!!!_________",allowed);
           if (angular.isArray(allowed) && allowed.indexOf(dndDragTypeWorkaround.dragType) === -1) {
             return false;
           }

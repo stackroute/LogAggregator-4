@@ -32,7 +32,7 @@ app.controller('wizardController',function($scope,$http){
   }
 
   $scope.createAndDumpWidget = function(){
-    // alert("widget has been created. Thanks!");
+    alert("widget has been created. Thanks!");
     var dashBoardMade = {
       "name":$scope.dashBoardName,
       "row":{},
@@ -59,7 +59,9 @@ app.controller('wizardController',function($scope,$http){
       //groupby field has been selected
       if($scope.dashBoardObj.aggregatorArray.length !=0 ){
         //aggregators have been provided
-        dashBoardMade.row.aggregators = $scope.dashBoardObj.aggregatorArray[0]
+        dashBoardMade.row.aggregators = {};
+        dashBoardMade.row.aggregators.displayName = $scope.dashBoardObj.aggregatorArray[0].displayName
+        dashBoardMade.row.aggregators.argument = 10;
       }
       else{
         dashBoardMade.row.aggregators = {
@@ -131,6 +133,8 @@ app.controller('wizardController',function($scope,$http){
 
     }
     console.log("Dashboard Object", dashBoardMade);
+    $scope.saveDash(dashBoardMade);
+    //saving code will go here
 
   }
   $scope.allowedTypes = {};
@@ -139,6 +143,15 @@ app.controller('wizardController',function($scope,$http){
   $scope.allowedTypes.measureType = ['Measure'];
   $scope.allowedTypes.aggregatorType = ["Aggregator"];
 
+  //save the dashboard from the data
+  $scope.saveDash = function(dashboard){
+    console.log("we are function to save the dash board");
+    $http({method: 'Post', url: '/getDashBoardJson/saveDash',data:{data:dashboard}}).
+            success(function(data, status, headers, config) {
+          console.log("Successful");
+          console.log("successful",data);
+          });
+  }
   $scope.maintainSingleRow = function(dimension,indexOfDimension){
     $scope.dashBoardObj.rowArray = [];
     $scope.dashBoardObj.rowArray.push(dimension);
@@ -439,13 +452,6 @@ app.controller('myController', function($scope, $http) {
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
     $scope.open_model();
-    // console.log("we are in plot_top_repos function");
-    // console.log($scope.selectedRepoDataDisplay);
-    // console.log($scope.selectedUserDataDisplay);
-    // $scope.clear_repo();
-    // $scope.clear_user();
-    // $scope.clear_year();
-    // $scope.clear_month();
     console.log(event.target.getAttribute('data-json'));
     data_json = event.target.getAttribute('data-json');
     console.log("From plot graph function",dashBoardJson);
@@ -475,11 +481,6 @@ app.controller('myController', function($scope, $http) {
           console.log("filtered_datai",ids);
           $(ids).show();
         }
-        // else{
-        //   var ids= '#'+$scope.filtered_data[i]["name"].replace('.','')+"div";
-        //   console.log("filtered_datai",ids);
-        //   $(ids).hide();
-        // }
       }
     }
     console.log("global_data",obj);
@@ -493,10 +494,6 @@ app.controller('myController', function($scope, $http) {
 
         console.log("we are in plot the data function",obj);
 
-        // for(var i=0;j<obj["filters"].length;j++)
-        // {
-        //
-        // }
         for(var j=0;j<obj["filters"].length;j++)
         {
           obj["filters"][j]["values"]=[];
@@ -529,7 +526,10 @@ app.controller('myController', function($scope, $http) {
           $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
               success(function(data, status, headers, config) {
                     console.log("plotgraph",data);
-                    if(obj["columns"]!==undefined){
+                    if(data=="no data fetched"){
+                      alert("no data retrieved");
+                    }
+                    else if(obj["columns"]!==undefined && obj["columns"].length !== 0){
                       console.log(obj["columns"][0]["values"]);
                       plotting_stacked_graph(data,obj);
                       plot_multibar_graph(data,obj);
@@ -589,15 +589,7 @@ app.controller('myController', function($scope, $http) {
                       });
 
     });
-    //save the dashboard from the data
-    $scope.saveDash = function(){
-      console.log("we are function to save the dash board");
-      $http({method: 'Post', url: '/getDashBoardJson/saveDash'}).
-              success(function(data, status, headers, config) {
-            console.log("Successful");
-            console.log("successfuls",data);
-            });
-    }
+
     $scope.idMaker = function(id){
       return id.replace('.','');
     }
