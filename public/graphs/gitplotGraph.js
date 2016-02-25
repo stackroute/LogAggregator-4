@@ -211,6 +211,7 @@ function plotting_graph(data,graph_details){
         .text(graph_details["measure"]["primary"]["function"]["argument"])
         .attr("font-size",15);
 
+
     svg.selectAll(".bar")
         .data(data)
         .enter().append("rect").on('mouseover', tip.show)

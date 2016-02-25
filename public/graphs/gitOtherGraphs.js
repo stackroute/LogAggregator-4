@@ -21,20 +21,27 @@ function plot_pie_chart(data,graph_details){
       .sort(null)
       .value(function(d) { return d[graph_details["measure"]["primary"]["function"]["argument"]]; });
 
+  var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+    return "<strong>"+graph_details["measure"]+" "+d.data._id.primaryGroupByField+" :"+"</strong> <span style='color:red'> " + d.recommendCount + "</span>";
+        })
+
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  // d3.csv("data.csv", type, function(error, data) {
-  //   if (error) throw error;
+  svg.call(tip);
 
     var g = svg.selectAll(".arc")
         .data(pie(data))
         .enter().append("g")
         .attr("class", "arc")
-        ;
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
 
     g.append("path").transition()
     .delay(500)
