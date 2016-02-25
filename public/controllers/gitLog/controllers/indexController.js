@@ -1,6 +1,7 @@
 var app = angular.module('logAggregator');
 var dashBoardJson = [];
 var obj={};
+var flag=0;
 app.controller('wizardController',function($scope,$http){
   // alert("Inside wizard Controller");
   $scope.tempArr = [{val:'one'},{val:"two"}];
@@ -69,7 +70,7 @@ app.controller('wizardController',function($scope,$http){
           "argument": 0
         }
       }
-
+    }
       //Measure code
       dashBoardMade.measure.primary = $scope.dashBoardObj.measureArray[0];
       console.log("measure length", $scope.dashBoardObj.measureArray.length);
@@ -131,7 +132,7 @@ app.controller('wizardController',function($scope,$http){
         dashBoardMade.filters.push(tempFiltersSet[tempFilterFieldName]);
       }
 
-    }
+
     console.log("Dashboard Object", dashBoardMade);
     $scope.saveDash(dashBoardMade);
     //saving code will go here
@@ -451,7 +452,6 @@ app.controller('myController', function($scope, $http) {
     }
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
-    $scope.open_model();
     console.log(event.target.getAttribute('data-json'));
     data_json = event.target.getAttribute('data-json');
     console.log("From plot graph function",dashBoardJson);
@@ -483,6 +483,15 @@ app.controller('myController', function($scope, $http) {
         }
       }
     }
+    console.log("dashboardJSON====>",obj);
+    console.log(obj["columns"]!==undefined && obj["columns"].length!==0);
+    if(obj["columns"]!==undefined && obj["columns"].length!==0){
+      $scope.open_model();
+      flag=1;
+    }
+    else{
+      $scope.plotthedata();
+    }
     console.log("global_data",obj);
 
   }
@@ -490,7 +499,17 @@ app.controller('myController', function($scope, $http) {
 
   //inserts the selected filter data into the obj filter section
         $scope.plotthedata= function() {
-        $scope.close_model();
+          console.log($('#my_modal1').hasClass('in'));
+          if(flag==1)
+          {
+              $scope.close_model();
+              flag=0;
+          }
+          // if($('#my_modal1').dialog("isOpen"))
+          // {
+          //     $scope.close_model();
+          // }
+
 
         console.log("we are in plot the data function",obj);
 
@@ -569,7 +588,7 @@ app.controller('myController', function($scope, $http) {
                   console.log("DashBorad",dashBoardJson);
                   console.log(dashBoardJson.length);
                   for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
-                      if(dashBoardJson[i]["columns"]!==undefined){
+                      if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
                           multidimensional[j]=dashBoardJson[i]["name"];
                           j++;
                      }else{
@@ -594,18 +613,6 @@ app.controller('myController', function($scope, $http) {
       return id.replace('.','');
     }
     //functions to select the selected content in different filter option
-    $scope.add_repo= function(){
-      console.log("we are in add_repo function");
-      $scope.selectedRepoDataDisplay = $scope.value;
-    }
-    $scope.add_user= function(){
-      console.log("we are in add_user function");
-      $scope.selectedUserDataDisplay = $scope.value2;
-    }
-    $scope.add_year= function(){
-      console.log("we are in add_year function");
-      $scope.selectedYearDataDisplay = $scope.value7;
-    }
     $scope.add_month= function(){
       console.log("we are in add_month function");
       console.log("this",this.data.name);
@@ -620,18 +627,7 @@ app.controller('myController', function($scope, $http) {
     // });
       $scope.selectedMonthDataDisplay = $scope.value5;
     }
-    $scope.clear_repo= function(){
-      console.log("we are in add_repo function");
-      $scope.selectedRepoDataDisplay = "";
-    }
-    $scope.clear_user= function(){
-      console.log("we are in add_user function");
-      $scope.selectedUserDataDisplay = "";
-    }
-    $scope.clear_year= function(){
-      console.log("we are in add_year function");
-      $scope.selectedYearDataDisplay = "";
-    }
+
     $scope.clear_month= function(){
       console.log("we are in add_month function");
       var dest= '#'+this.data.name.replace('.','');
