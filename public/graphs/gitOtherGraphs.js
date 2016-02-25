@@ -21,19 +21,30 @@ function plot_pie_chart(data,graph_details){
       .sort(null)
       .value(function(d) { return d[graph_details["measure"]["primary"]["function"]["argument"]]; });
 
+  var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+      return "<strong>"+graph_details["measure"]+" "+d.data._id.primaryGroupByField+" :"+"</strong> <span style='color:red'> " + d.recommendCount + "</span>";
+            })
+
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+   svg.call(tip);
+
   // d3.csv("data.csv", type, function(error, data) {
   //   if (error) throw error;
 
     var g = svg.selectAll(".arc")
         .data(pie(data))
-      .enter().append("g")
-        .attr("class", "arc");
+        .enter().append("g")
+        .attr("class", "arc")
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
 
     g.append("path").transition()
     .delay(500)
@@ -92,6 +103,13 @@ function plot_multibar_graph(data,graph_details){
       .orient("left")
       .innerTickSize(-width);;
 
+      var tip = d3.tip()
+         .attr('class', 'd3-tip')
+         .offset([-10, 0])
+         .html(function(d) {
+         return "<strong> " +graph_details["measure"]+" "+ d.name + " : </strong> <span style='color:red'>" + (d.value) +"</span>";
+           })
+
  var grouped_data=graph_details["columns"][0]["name"];
 
   var svg = d3.select("#graph1").append("svg")
@@ -99,6 +117,8 @@ function plot_multibar_graph(data,graph_details){
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.call(tip);
 
     //if (error) throw error;
 
@@ -117,12 +137,12 @@ function plot_multibar_graph(data,graph_details){
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
+        .selectAll('text')
+        .attr("font-size",15);
         .append("text")
-          //.attr("transform", "rotate(-90)")
-          .attr("font-size",15)
-          .attr("y", 10)
-          .attr("x",850)
-          .attr("dy", ".71em")
+          .attr("font-size",18)
+          .attr("y", height+20)
+          .attr("x",width-70)
           .style("text-anchor", "end")
           .text(graph_details["row"]["displayName"]);
 
@@ -130,9 +150,9 @@ function plot_multibar_graph(data,graph_details){
         .attr("class", "y axis")
         .call(yAxis)
       .append("text")
-        .attr("font-size",15)
+        .attr("font-size",18)
         .attr("transform", "rotate(-90)")
-        .attr("y", -40)
+        .attr("y", -50)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("font-size",15)
@@ -147,6 +167,9 @@ function plot_multibar_graph(data,graph_details){
     state.selectAll("rect")
         .data(function(d) { return d.ages; })
       .enter().append("rect")
+        .attr("class","bar")
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
         .transition()
         .delay(500)
         .attr("width", x1.rangeBand())
