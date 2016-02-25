@@ -179,6 +179,7 @@ router.post('/git/DB', function(req, res){
                 res.send({state: 'failure'});
                 return;
               }
+              console.log(createJsonFile(req.session.user.organization));
             });
             console.log(createJsonFile(req.session.user.organization));
               res.send({state: 'success'});
@@ -194,14 +195,15 @@ var json = [];
       if (err) {
         return;
       }
+      var requiredJson = manipulateJsonForGitAgent(gitDoc);
+      console.log(requiredJson);
       var fileName = "../organizationJsons/" +orgName + "File" + ".json";
       var outPath = path.join(__dirname, fileName);
 // Convert object to string, write json to file
-      fs.writeFileSync(outPath, JSON.stringify(gitDoc), 'utf8',
+      fs.writeFileSync(outPath, JSON.stringify(requiredJson), 'utf8',
        function(err){console.log(err);});
            return;
     });
-
 }
 
 function createJson(orgName){
@@ -211,8 +213,6 @@ function createJson(orgName){
 
 var response = JSON.parse(metaDataFile);
 var len = response.length;
-console.log(response);
-console.log("my lenth is  : " + len);
 var flag = 0;
 var organizationJson = [];
 for(var i = 0; i < len; i++){
@@ -242,5 +242,40 @@ if (flag == 0){
     fs.writeFileSync(filePath, JSON.stringify(json), 'utf8',
      function(err){console.log(err);});
          return;
+}
+
+
+function manipulateJsonForGitAgent(inpJson){
+var data = inpJson; var obj = {}; var outJson = [];
+
+obj["_id"] = data[0]["_id"];
+obj["organizationName"] = data[0]["organizationName"];
+obj["gitHost"] = data[0]["gitHost"];
+obj["dbName"] = data[0]["dbDetails"]["dbName"];
+
+var arr1 = [];var arr2 = [];  var objTemp = {};
+if((data[0]["gitauthSets"]) !== undefined){
+for(var i = 0 ; i < data[0]["gitauthSets"].length ; i++) {
+arr1.push(data[0]["gitauthSets"][i]["gitOauth"]);
+}
+}
+obj["gitOauthSets"] = arr1;
+if((data[0]["repositoryData"]) !== undefined && data[0]["repositoryData"][0]!==undefined){
+for(var j = 0 ; j < data[0]["repositoryData"][0]["repos"].length ; j++) {
+// console.log(data[0]["repositoryData"]["gitAccountname"]);
+objTemp["gitUserName"] =  data[0]["repositoryData"][0]["gitAccountname"];
+// console.log(data[0]["repositoryData"][0]["repos"][j]["repo"]);
+objTemp["repo"] =  data[0]["repositoryData"][0]["repos"][j]["repo"];
+// console.log(data[0]["repositoryData"][0]["repos"][j]["_id"]);
+objTemp["_id"] =  data[0]["repositoryData"][0]["repos"][j]["_id"];
+arr2.push(objTemp);
+objTemp = {};
+}
+}
+obj["repositoryData"] = arr2;
+// console.log("Inside manipulate Json function");
+outJson.push(obj);
+// console.log(outJson);
+return outJson;
 }
         module.exports = router;
