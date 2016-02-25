@@ -1199,3 +1199,7 @@ ul[dnd-list] > li {
 ul[dnd-list] > li > a{
     padding: 3px 8px;
 }
+
+.panelHeight {
+  height: 45px;
+}
