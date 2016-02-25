@@ -11,26 +11,14 @@ router.post('/',function(req,res,next){
   console.log("")
   var count = 0;
   var queryObj = {
-    dimensions :[],
-    measures :[],
-    "operators": {
-                  "logical": ["and", "or"],
-                  "condtional": [">", "<", ">=", "<=", "=="]
-          },
-          "aggregators": [{
-                  "name": "top",
-                  "noOfArguments": 1
-          }, {
-                  "name": "bottom",
-                  "noOfArguments": 1
-          }, {
-                  "name": "average",
-                  "noOfArguments": 0
-          }]
+    dimensions :[]
   };
 
 queryBoxIn.find(function(err, doc){
   console.log(doc);
+  queryObj.measures = doc[0].git.measures;
+  queryObj.aggregators = doc[0].git.aggregators;
+  queryObj.operators = doc[0].git.operators;
   doc[0].git.dimensions.map(function(dimensionData){
     var tempName = dimensionData.name;
     var tempDisplay = dimensionData.displayName;

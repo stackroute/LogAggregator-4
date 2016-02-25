@@ -17,7 +17,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 
 var mainApplicationModuleName = 'logAggregator';
 
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngRoute','ngCookies','aptLogApp','dropDownElement','ui.router']);
+var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngRoute','ngCookies','dndLists','aptLogApp','dropDownElement','ui.router']);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, [mainApplicationModuleName]);

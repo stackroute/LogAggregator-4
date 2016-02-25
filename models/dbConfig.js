@@ -20,6 +20,7 @@ var commitDataSchema = require('./org_data_schema');
 var gitDashBoardSchema = require('./gitlog.dashBoard.model');
 var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 var queryBoxSchema = require('./query.box.model');
+var saveDashBoardSchema = require('./query.box.model');
 
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);

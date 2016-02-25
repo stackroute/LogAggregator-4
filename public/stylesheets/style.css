@@ -130,6 +130,9 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
   margin-top:60px;
   margin-left:20px;
 }
+.dashboardWizardRow{
+  margin-top:120px;
+}
  .buttom_css{
    height:50px;
    width:200px;
@@ -1097,3 +1100,102 @@ margin: 30px;
     cursor: default;
     background-color: white !important;
 }*/
+
+
+
+
+
+
+
+
+
+
+ ul[dnd-list],
+ ul[dnd-list] > li {
+	position: relative;
+}
+li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+.handle {
+  cursor: move;
+  position: absolute;
+  top: 14px;
+}
+
+
+.dropBox {
+  border-style: solid;
+  border-width: 2px;
+  height: 50px;
+}
+
+/*.dragItem {
+  background-color: cyan;
+  padding: 4px 4px;
+  border-style: solid;
+  position: absolute;
+  margin-top: 5px;
+}
+*/
+/*.dragged {
+  position: absolute;
+  margin-top: 5px;
+}*/
+/* adapted from http://maxwells.github.io/bootstrap-tags.html */
+.tag {
+  float: left;
+  font-size: 14px;
+  padding: .3em .4em .4em;
+  margin-left: 10px;
+  position: relative;
+}
+.close {
+  margin-left: 4px;
+  margin-top: 1px;
+  font-size: 14px
+}
+
+.tag span {
+  /*color: #bbb;*/
+  cursor: pointer;
+  /*opacity: 0.6;*/
+}
+/*.tag a .close :hover {
+  opacity: 1.0
+}*/
+.tag .remove {
+  vertical-align: bottom;
+  top: 0;
+}
+.tag a .close  {
+  margin: 0 0 0 .3em;
+}
+.tag a .close  .glyphicon-white {
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+
+ul[dnd-list] {
+    position: relative;
+    padding: 8px;
+}
+
+ul[dnd-list] > li {
+  display: inline-block;
+  zoom:1;
+  *display:inline;
+}
+
+ul[dnd-list] > li > a{
+    padding: 3px 8px;
+}
