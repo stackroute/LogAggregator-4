@@ -8,21 +8,21 @@
           <li class="sidebar-brand"> Plot Widgets </li>
           <li> <!-- home item in menu started-->
              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
-                Multi Dimentional Graph
+                Multi Dimentional Graph &nbsp;&nbsp;<span class="caret"></span>
              </a>
              <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p1"><!-- submenu started-->
                <li ng-repeat="dashboards in multigraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
-                  {{dashboards}}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dashboards}}
                </li>
             </ul>
            </li>
            <li> <!-- home item in menu started-->
               <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
-                 Single Dimentional Graph
+                 Single Dimentional Graph <span class="caret"></span>
               </a>
            <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p2"><!-- submenu started-->
              <li ng-repeat="dashboards in singlegraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
-                {{dashboards}}
+                &nbsp;&nbsp;&nbsp;&nbsp;{{dashboards}}
              </li>
           </ul>
         </li>
