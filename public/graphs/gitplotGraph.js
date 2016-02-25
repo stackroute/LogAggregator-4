@@ -79,7 +79,6 @@ function plotting_stacked_graph(data,graph_details){
 
       svg.append("text")
          .attr("font-size",18)
-         .attr("color","#aaa")
          .attr("x",width-70)
          .attr("y",height+20)
          .text(graph_details["row"]["displayName"]);
@@ -88,9 +87,9 @@ function plotting_stacked_graph(data,graph_details){
           .attr("class", "y axis")
           .call(yAxis)
         .append("text")
-          .attr("font-size",18)
+          .attr("font-size",15)
           .attr("transform", "rotate(-90)")
-          .attr("y",-50)
+          .attr("y",-60)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .text(graph_details["measure"]["primary"]["displayName"]);

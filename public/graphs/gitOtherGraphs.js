@@ -21,20 +21,11 @@ function plot_pie_chart(data,graph_details){
       .sort(null)
       .value(function(d) { return d[graph_details["measure"]["primary"]["function"]["argument"]]; });
 
-  var tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 0])
-      .html(function(d) {
-      return "<strong>"+graph_details["measure"]+" "+d.data._id.primaryGroupByField+" :"+"</strong> <span style='color:red'> " + d.recommendCount + "</span>";
-            })
-
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-   svg.call(tip);
 
   // d3.csv("data.csv", type, function(error, data) {
   //   if (error) throw error;
@@ -43,8 +34,7 @@ function plot_pie_chart(data,graph_details){
         .data(pie(data))
         .enter().append("g")
         .attr("class", "arc")
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
+        ;
 
     g.append("path").transition()
     .delay(500)
@@ -73,8 +63,6 @@ function plot_pie_chart(data,graph_details){
   }
 }
 
-
-
 function plot_multibar_graph(data,graph_details){
   console.log("plot_multibar",data);
   var element = document.getElementById("graph-container");
@@ -101,14 +89,14 @@ function plot_multibar_graph(data,graph_details){
   var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left")
-      .innerTickSize(-width);;
+      .innerTickSize(-width);
 
-      var tip = d3.tip()
-         .attr('class', 'd3-tip')
-         .offset([-10, 0])
-         .html(function(d) {
-         return "<strong> " +graph_details["measure"]+" "+ d.name + " : </strong> <span style='color:red'>" + (d.value) +"</span>";
-           })
+  var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+      return "<strong> " +graph_details["measure"]["primary"]["displayName"]+" "+ d.name + " : </strong> <span style='color:red'>" + (d.value) +"</span>";
+          })
 
  var grouped_data=graph_details["columns"][0]["name"];
 
@@ -139,10 +127,11 @@ function plot_multibar_graph(data,graph_details){
         .call(xAxis)
         .selectAll('text')
         .attr("font-size",15);
-        .append("text")
+
+      svg.append("text")
           .attr("font-size",18)
           .attr("y", height+20)
-          .attr("x",width-70)
+          .attr("x",width+40)
           .style("text-anchor", "end")
           .text(graph_details["row"]["displayName"]);
 
@@ -150,12 +139,11 @@ function plot_multibar_graph(data,graph_details){
         .attr("class", "y axis")
         .call(yAxis)
       .append("text")
-        .attr("font-size",18)
+        .attr("font-size",15)
         .attr("transform", "rotate(-90)")
-        .attr("y", -50)
+        .attr("y", -60)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .attr("font-size",15)
         .text(graph_details["measure"]["primary"]["displayName"]);
 
     var state = svg.selectAll(".state")
