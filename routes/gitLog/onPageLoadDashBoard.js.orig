@@ -1,0 +1,36 @@
+var express = require('express');
+var router = express.Router();
+var fs = require('fs');
+var mongoose = require('mongoose');
+var onLoadDashBoard = require('../../models/dbConfig').getModel;
+router.post('/',function(req,res,next){
+  console.log("we got the request to fetch the dashboard json data");
+  console.log(onLoadDashBoard);
+  // res.send("got the request");
+<<<<<<< HEAD
+  onLoadDashBoard(req.session.user.organization,"onPageLoadDashBoardModel").then(function(model) {
+    model.find({},function(error,data){
+      if(error){
+         console.log("cannot retrive data from onpage load dashboard");
+      }
+      else{
+        console.log("data",data);
+        res.send(data);
+      }
+    });
+  })
+=======
+  onLoadDashBoard(req.session.user.organization,"gitDashBoardModel").findOne({},function(error,data){
+    if(error || data=={}){
+       console.log("cannot retrive data from onpage load dashboard");
+       res.end("No dashboard saved");
+    }
+    else{
+      console.log("data",data);
+      res.send(data);
+    }
+  });
+>>>>>>> 65e51c0c537a90b7a9019e221437de6cd773a243
+});
+
+module.exports = router;
