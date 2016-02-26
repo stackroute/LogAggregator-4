@@ -63,9 +63,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
     fill:none;
     stroke:none;
   }*/
-  .bar {
-    fill: #f17f49;
-  }
+
 
   .colorStyle{
     fill: #bd380f ;
@@ -115,7 +113,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  }*/
 
  .bar {
-   fill: orange;
+   fill: #00e600;
  }
 
  .simply{
@@ -123,7 +121,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  }
 
  .bar:hover {
-   fill: orangered ;
+   fill: #ff0000;
  }
 
 .wrapper{
