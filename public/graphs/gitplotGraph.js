@@ -109,6 +109,9 @@ function plotting_stacked_graph(data,graph_details){
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
           .style("fill", function(d) { return color(d.name); });
 
+
+          console.log(" chumma");
+
       var legend = svg.selectAll(".legend")
           .data(color.domain().slice().reverse())
         .enter().append("g")
@@ -161,7 +164,7 @@ function plotting_graph(data,graph_details){
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"]+" :"+"</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
+      return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"].substring(0,6).concat("s")+" :"+"</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
     })
 
  d3.selectAll('svg').remove();
@@ -203,7 +206,7 @@ function plotting_graph(data,graph_details){
         .attr("dx", -50)
         .attr("dy", ".35em")
         //.style("text-anchor", "end")
-        .text(graph_details["measure"]["primary"]["function"]["argument"])
+        .text(graph_details["measure"]["primary"]["function"]["argument"].substring(0,6).concat("s"))
         .attr("font-size",15);
 
 
