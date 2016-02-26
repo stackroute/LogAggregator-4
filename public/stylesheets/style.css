@@ -121,7 +121,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  }
 
  .bar:hover {
-   fill: orangered ;
+   fill: #ff0000;
  }
 
 .wrapper{

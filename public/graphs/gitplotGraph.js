@@ -11,7 +11,7 @@ function plotting_stacked_graph(data,graph_details){
     console.log(element.clientHeight);
     var margin = {top: 60, right: 60, bottom: 80, left: 60},
         width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
-        height = 370 - margin.top - margin.bottom;
+        height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .3);
