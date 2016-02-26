@@ -58,7 +58,7 @@
             <div class="container">
                 <!-- start .row -->
                 <div class="row dashboardWizardRow">
-                    <div class="col-12">
+                    <div class="col-sm-12">
                         <form ng-submit="createAndDumpWidget()">
                           <div class="alert alert-success" ng-show="submitted" style="width:70%;">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -76,7 +76,7 @@
                                     <ul class="panelHeight" dnd-list="dashBoardObj.rowArray" dnd-allowed-types="allowedTypes.primaryFieldType" dnd-drop="fixThePrimaryGroupby(item)">
                                         <li class = "dragged placeholder" ng-repeat="dimObj in dashBoardObj.rowArray">
                                             <span class="tag label" id="colorOne">
-                                                <span>{{dimObj.displayName}}</span>
+                                                <span style="text-overflow: ellipsis;">{{dimObj.displayName}}</span>
                                                 <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
                                                 <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
                                                 <a class="close" ng-click="deleteTheChoice($index, 'rowArray')">

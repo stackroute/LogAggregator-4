@@ -162,7 +162,8 @@ Logs(req.session.user.organization,"commitDataModel").aggregate(aggregate_arr,fu
                       }
                       else if(result.length == 0){
                         console.log("Query does not retrive any data");
-                        req.send("no data fetched");
+                        res.send("no data fetched");
+                        return;
                       }
                       else{
                         console.log("we are able to fetch the data from the database");

@@ -134,7 +134,7 @@ function plotting_stacked_graph(data,graph_details){
 function plotting_graph(data,graph_details){
 
   console.log(graph_details);
-  var element = document.getElementById("graph-container");
+  var element = document.getElementById("graph");
   console.log(element.clientWidth);
     var margin = {top: 40, right: 60, bottom: 120, left: 60},
       width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
