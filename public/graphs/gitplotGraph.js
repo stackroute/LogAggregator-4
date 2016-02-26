@@ -1,7 +1,3 @@
-// function test(){
-//   console.log("we are inside the function test");
-// }
-
 function plotting_stacked_graph(data,graph_details){
     //console.log(data);
     console.log("graph_details",graph_details);
@@ -140,7 +136,7 @@ function plotting_graph(data,graph_details){
   console.log(graph_details);
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
-    var margin = {top: 40, right: 60, bottom: 80, left: 60},
+    var margin = {top: 40, right: 60, bottom: 120, left: 60},
       width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
       height =470 - margin.top - margin.bottom;
 
@@ -160,14 +156,14 @@ function plotting_graph(data,graph_details){
       .scale(y)
       .orient("left")
       .innerTickSize(-width);;
-      //.tickFormat(formatPercent);
 
   var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>RecommendedCount:</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
+      return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"]+" :"+"</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
     })
+
  d3.selectAll('svg').remove();
   var svg = d3.select("#graph").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -188,13 +184,12 @@ function plotting_graph(data,graph_details){
         .call(xAxis)
         .selectAll('text')
         .attr("transform","rotate(-35)")
-        .attr("x",-50)
-        .attr("font-size",15);
+        .attr("x",-60)
+        .attr("font-size",14);
 
     svg.append("text")
        .attr("font-size",18)
-       .attr("color","#aaa")
-       .attr("x",width-70)
+       .attr("x",width-50)
        .attr("y",height+20)
        .text(graph_details["row"]["displayName"]);
 
@@ -203,7 +198,7 @@ function plotting_graph(data,graph_details){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", -40)
+        .attr("y",-40)
         .attr("x",-50)
         .attr("dx", -50)
         .attr("dy", ".35em")
