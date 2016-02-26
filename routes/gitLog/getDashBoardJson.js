@@ -10,8 +10,9 @@ router.post('/',function(req,res,next){
   //console.log(DashBoards);
   DashBoards(req.session.user.organization,"gitDashBoardModel").then(function(model){
     model.find({},function(error,data){
-    if(error){
+    if(error || data.length==0){
       console.log("Not able to fetch the dashboard data from database");
+      res.end("No dashboard saved")
     }
     else{
       console.log(data);

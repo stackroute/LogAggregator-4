@@ -21,6 +21,7 @@ $scope.usr = $rootScope.current_user;
 $scope.editProfile =  function() {
     console.log("Calling from profile function");
     //var obj ={"username": $scope.usr.username};
+    $scope.submitted = true;
     var obj = {};
     obj["username"]=$rootScope.current_user;
     obj["data_set"]={};

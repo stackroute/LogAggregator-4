@@ -1,6 +1,7 @@
 function plot_pie_chart(data,graph_details){
   console.log("we are inside the plotting the pie chart");
   console.log(data);
+  console.log("graph_details",graph_details)
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
 
@@ -28,7 +29,7 @@ function plot_pie_chart(data,graph_details){
         return "<strong>"+"No of Commits in"+" "+ d.data["_id"][graph_details["row"]["name"]] +" :"+"</strong> <span style='color:red'> " + d.data[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
       })
 
-  // var grouped_data=graph_details["columns"][0]["values"];
+  var grouped_data=graph_details["columns"][0]["values"];
 
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
@@ -38,13 +39,13 @@ function plot_pie_chart(data,graph_details){
 
   svg.call(tip);
 
-  // color.domain(grouped_data);
+  color.domain(grouped_data);
 
-  // data.forEach(function(d) {
-  //   var y0 = 0;
-  //   d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-  //   d.total = d.ages[d.ages.length - 1].y1;
-  // });
+  data.forEach(function(d) {
+    var y0 = 0;
+    d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.total = d.ages[d.ages.length - 1].y1;
+  });
 
 
     var g = svg.selectAll(".arc")
@@ -74,24 +75,45 @@ function plot_pie_chart(data,graph_details){
   //       .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
   // //});
 
-    // legend = svg.selectAll(".legend")
-    //     .data(some.slice().reverse())
-    //   .enter().append("g")
-    //     .attr("class", "legend")
-    //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-    //
-    // legend.append("rect")
-    //     .attr("x", width - 18)
-    //     .attr("width", 18)
-    //     .attr("height", 18)
-    //     .style("fill", color);
-    //
-    // legend.append("text")
-    //     .attr("x", width - 24)
-    //     .attr("y", 9)
-    //     .attr("dy", ".35em")
-    //     .style("text-anchor", "end")
-    //     .text(function(d) { return d; });
+<<<<<<< HEAD
+  // legend = svg.selectAll(".legend")
+  //     .data(d[graph_details["measure"]["primary"]["function"]["argument"]].slice().reverse())
+  //   .enter().append("g")
+  //     .attr("class", "legend")
+  //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+  //
+  // legend.append("rect")
+  //     .attr("x", width - 18)
+  //     .attr("width", 18)
+  //     .attr("height", 18)
+  //     .style("fill", color);
+  //
+  // legend.append("text")
+  //     .attr("x", width - 24)
+  //     .attr("y", 9)
+  //     .attr("dy", ".35em")
+  //     .style("text-anchor", "end")
+  //     .text(function(d) { return d; });
+=======
+  legend = svg.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+>>>>>>> 3a738e72661ce0f72f892c67f562c69ccd6bf89a
 
 
   function type(d) {

@@ -1,11 +1,12 @@
 var app = angular.module('logAggregator');
 var dashBoardJson = [];
 var obj={};
-var flag=0;
+//var flag=0;
 app.controller('wizardController',function($scope,$http){
   $scope.tempArr = [{val:'one'},{val:"two"}];
   $scope.dimArray = 0;
   $scope.dashBoardObj = {};
+  $scope.dashBoardObj.dashBoardName = "";
   $scope.dashBoardObj.secondaryGroupByArr= [];
   $scope.dashBoardObj.rowArray = [];
   $scope.dashBoardObj.measureArray = [];
@@ -22,7 +23,7 @@ app.controller('wizardController',function($scope,$http){
     }
 
   }
-  $scope.dashBoardName = 'An awsesome Dashboard';
+  // $scope.dashBoardName;
   $scope.makeId = function(idStr){
     return idStr.replace('.','')+"Id";
   }
@@ -32,9 +33,10 @@ app.controller('wizardController',function($scope,$http){
   }
 
   $scope.createAndDumpWidget = function(){
-    alert("widget has been created. Thanks!");
+    $scope.submitted = true;
+
     var dashBoardMade = {
-      "name": $scope.dashBoardName,
+       "name": $scope.dashBoardObj.dashBoardName,
       "row":{},
       "measure":{},
       "columns":[],
@@ -85,7 +87,7 @@ app.controller('wizardController',function($scope,$http){
       //Secondary grouby element code
       var tempSecondaryObjSet = {};
       $scope.dashBoardObj.secondaryGroupByArr.map(function(secondaryGroupByElement){
-        var tempSecondaryObj = {};
+
         var tempSecondaryObj2 = {};
         if(secondaryGroupByElement.values == undefined){
           //instance
@@ -135,6 +137,14 @@ app.controller('wizardController',function($scope,$http){
     console.log("Dashboard Object", dashBoardMade);
     $scope.saveDash(dashBoardMade);
     //saving code will go here
+
+    $scope.dashBoardObj = {};
+    $scope.dashBoardObj.dashBoardName = "";
+    $scope.dashBoardObj.secondaryGroupByArr= [];
+    $scope.dashBoardObj.rowArray = [];
+    $scope.dashBoardObj.measureArray = [];
+    $scope.dashBoardObj.aggregatorArray= [];
+    $scope.dashBoardObj.filtersArr = [];
 
   };
   $scope.allowedTypes = {};
@@ -417,16 +427,20 @@ app.controller('wizardController',function($scope,$http){
   var dataForServer = "sda";
     $scope.$on('$viewContentLoaded', function() {
       $http({method: 'Post', url: '/newfilter'}).success(function(data, status, headers, config){
-          console.log("dat==>",data);
-          $scope.gitDashboardConfigData = data;
+         if(data =="Not able to fetch data"){
+           alert("no data avaliable");
+         }
+         else{
+           console.log("dat==>",data);
+           $scope.gitDashboardConfigData = data;
 
-            $scope.gitDashboardConfigData.dimensions.map(function(dimensionParam, dimIndex){
-                  dimensionParam.values.map(function(dimValue,dimValueIndex) {
-                    $scope.gitDashboardConfigData.dimensions[dimIndex].values[dimValueIndex] ={"value":dimValue, "_id":dimensionParam._id, "name":dimensionParam.name, "displayName": dimValue, "categoryDisplayName": $scope.gitDashboardConfigData.dimensions[dimIndex].displayName };
-                  });
+             $scope.gitDashboardConfigData.dimensions.map(function(dimensionParam, dimIndex){
+                   dimensionParam.values.map(function(dimValue,dimValueIndex) {
+                     $scope.gitDashboardConfigData.dimensions[dimIndex].values[dimValueIndex] ={"value":dimValue, "_id":dimensionParam._id, "name":dimensionParam.name, "displayName": dimValue, "categoryDisplayName": $scope.gitDashboardConfigData.dimensions[dimIndex].displayName };
+                   });
 
-            });
-
+             });
+         }
       });
     });
 });
@@ -449,6 +463,8 @@ app.controller('myController', function($scope, $http) {
     }
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
+      //flag=0;
+      $scope.open_model();
     console.log(event.target.getAttribute('data-json'));
     data_json = event.target.getAttribute('data-json');
     console.log("From plot graph function",dashBoardJson);
@@ -482,13 +498,14 @@ app.controller('myController', function($scope, $http) {
     }
     console.log("dashboardJSON====>",obj);
     console.log(obj["columns"]!==undefined && obj["columns"].length!==0);
-    if(obj["columns"]!==undefined && obj["columns"].length!==0){
-      $scope.open_model();
-      flag=1;
-    }
-    else{
-      $scope.plotthedata();
-    }
+    //if(obj["columns"]!==undefined && obj["columns"].length!==0){
+
+
+      //flag=1;
+    //}
+    // else{
+    //   $scope.plotthedata();
+    // }
     console.log("global_data",obj);
 
   }
@@ -497,11 +514,11 @@ app.controller('myController', function($scope, $http) {
   //inserts the selected filter data into the obj filter section
         $scope.plotthedata= function() {
           //console.log(flag==1);
-          if(flag==1)
-          {
+          // if(flag==1)
+          // {
               $scope.close_model();
-              flag=0;
-          }
+          //     flag=0;
+          // }
 
 
         console.log("we are in plot the data function",obj);
@@ -531,12 +548,17 @@ app.controller('myController', function($scope, $http) {
 
     //function to fetch the data from the git database and call the plotting graph function
     function getgitdata(obj){
-      $scope.graph_type_details=obj["graph-type"];
-      console.log("we are in getgit data function");
       console.log("getgitdata",obj);
+      $scope.graph_type_details=obj["name"];
+      console.log("we are in getgit data function");
+
 
           $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
               success(function(data, status, headers, config) {
+                  if(data.length==0){
+                    alert("no data retrived");
+                  }
+                  else{
                     console.log("plotgraph",data);
                     if(data=="no data fetched"){
                       alert("no data retrieved");
@@ -551,7 +573,9 @@ app.controller('myController', function($scope, $http) {
                       plotting_graph(data,obj);
                       plot_pie_chart(data,obj)
                     }
-              });
+
+                  }
+                });
     }
     //end of the function
 
@@ -564,10 +588,15 @@ app.controller('myController', function($scope, $http) {
         $http({method: 'Post', url: '/newfilter'}).
            success(function(data, status, headers, config) {
               //console.log("we are in git filterdata1");
-
-              //console.log(data["dimensions"][0]["displayName"]);
-              $scope.filtered_data=data["dimensions"];
-              console.log("getFilterData1",$scope.filtered_data);
+              if(data=="Not able to fetch data")
+              {
+                console.log("no data fetched");
+              }
+              else{
+                //console.log(data["dimensions"][0]["displayName"]);
+                $scope.filtered_data=data["dimensions"];
+                console.log("getFilterData1",$scope.filtered_data);
+              }
               });
 
               $http({method: 'Post', url: '/getDashBoardJson'}).
@@ -575,31 +604,44 @@ app.controller('myController', function($scope, $http) {
                                 //console.log(data);
                   console.log("form getDashBoardJson");
                                   //console.log(data);
-                  dashBoardJson = data;
-                  var multidimensional = [];
-                  var singledimensional =[];
-                  console.log("DashBorad",dashBoardJson);
-                  console.log(dashBoardJson.length);
-                  for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
-                      if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
-                          multidimensional[j]=dashBoardJson[i]["name"];
-                          j++;
-                     }else{
-                          singledimensional[k]=dashBoardJson[i]["name"];
-                          }
-                          }
-                          $scope.multigraphdashboard=multidimensional;
-                          $scope.singlegraphdashboard = singledimensional;
-                          console.log("multidimension",$scope.multigraphdashboard);
-                    });
-                    $http({method: 'Post', url: '/onPageLoadDashBoard'}).
-                        success(function(data, status, headers, config) {
-                                //console.log(data);
-                        console.log("form onPageLoadDashBoard");
-                        console.log(data);
-                        getgitdata(data[0]);
-                      });
-
+                 if(data=="No dashboard saved")
+                  {
+                   console.log("please create new dashboards");
+                  }
+                  else{
+                    dashBoardJson = data;
+                    var multidimensional = [];
+                    var singledimensional =[];
+                    console.log("DashBorad",dashBoardJson);
+                    console.log(dashBoardJson.length);
+                    for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
+                        //if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
+                            multidimensional[i]=dashBoardJson[i]["name"];
+                            //j++;
+                       //}else{
+                            //singledimensional[k]=dashBoardJson[i]["name"];
+                          //  k++
+                            //}
+                            }
+                            $scope.multigraphdashboard=multidimensional;
+                            //$scope.singlegraphdashboard = singledimensional;
+                            console.log("multidimension",$scope.multigraphdashboard);
+                  }
+                });
+                $http({method: 'Post', url: '/onPageLoadDashBoard'}).
+                success(function(data, status, headers, config) {
+                  console.log("onpageload",data);
+                if(data=="No dashboard saved")
+                {
+                  console.log("please create new dashboards");
+                }
+                else{
+                    console.log("form onPageLoadDashBoard");
+                    console.log(data);
+                    getgitdata(data);
+                   }
+                  console.log(data);
+                  });
     });
 
     $scope.idMaker = function(id){

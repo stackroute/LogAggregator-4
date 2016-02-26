@@ -25,8 +25,10 @@ queryBoxIn.find(function(err, doc){
     Logs(req.session.user.organization,"commitDataModel").then(function(model) {
       model.find().distinct(tempName,
       function(err,result){
+          console.log("new_filter/",result);
             if(err){
               console.log("we are having issue in retriving data", err);
+            res.end("Not able to fetch data");
             }
             else{
               var temp = {

@@ -1,16 +1,10 @@
-// function test(){
-//   console.log("we are inside the function test");
-// }
-
 function plotting_stacked_graph(data,graph_details){
     //console.log(data);
     console.log("graph_details",graph_details);
 
     var element = document.getElementById("graph-container");
-    console.log(element.clientWidth);
-    console.log(element.clientHeight);
     var margin = {top: 60, right: 60, bottom: 80, left: 60},
-        width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
+        width = (0.89*parseInt(element.clientWidth)) - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -78,9 +72,10 @@ function plotting_stacked_graph(data,graph_details){
           .attr("font-size",15);
 
       svg.append("text")
-         .attr("font-size",18)
+         .attr("font-size",15)
          .attr("x",width-70)
-         .attr("y",height+20)
+         .attr("y",height+75)
+         .attr("fill", "#aaa")
          .text(graph_details["row"]["displayName"]);
 
       svg.append("g")
@@ -113,24 +108,27 @@ function plotting_stacked_graph(data,graph_details){
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
           .style("fill", function(d) { return color(d.name); });
 
-      var legend = svg.selectAll(".legend")
-          .data(color.domain().slice().reverse())
-        .enter().append("g")
-          .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-      legend.append("rect")
-          .attr("x", width - 18)
-          .attr("width", 18)
-          .attr("height", 18)
-          .style("fill", color);
+          console.log(" chumma");
 
-      legend.append("text")
-          .attr("x", width - 24)
-          .attr("y", 9)
-          .attr("dy", ".35em")
-          .style("text-anchor", "end")
-          .text(function(d) { return d; });
+      // var legend = svg.selectAll(".legend")
+      //     .data(color.domain().slice().reverse())
+      //   .enter().append("g")
+      //     .attr("class", "legend")
+      //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+      //
+      // legend.append("rect")
+      //     .attr("x", width - 18)
+      //     .attr("width", 18)
+      //     .attr("height", 18)
+      //     .style("fill", color);
+      //
+      // legend.append("text")
+      //     .attr("x", width - 24)
+      //     .attr("y", 9)
+      //     .attr("dy", ".35em")
+      //     .style("text-anchor", "end")
+      //     .text(function(d) { return d; });
 
   //  });
   }
@@ -138,10 +136,10 @@ function plotting_stacked_graph(data,graph_details){
 function plotting_graph(data,graph_details){
 
   console.log(graph_details);
-  var element = document.getElementById("graph-container");
+  var element = document.getElementById("graph");
   console.log(element.clientWidth);
-    var margin = {top: 40, right: 60, bottom: 80, left: 60},
-      width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
+    var margin = {top: 40, right: 60, bottom: 120, left: 60},
+      width = (0.89*parseInt(element.clientWidth)) - margin.left - margin.right,
       height =470 - margin.top - margin.bottom;
 
   //var formatPercent = d3.format(".0%");
@@ -160,14 +158,14 @@ function plotting_graph(data,graph_details){
       .scale(y)
       .orient("left")
       .innerTickSize(-width);;
-      //.tickFormat(formatPercent);
 
   var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>RecommendedCount:</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
+      return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"].substring(0,6).concat("s")+" :"+"</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
     })
+
  d3.selectAll('svg').remove();
   var svg = d3.select("#graph").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -188,14 +186,14 @@ function plotting_graph(data,graph_details){
         .call(xAxis)
         .selectAll('text')
         .attr("transform","rotate(-35)")
-        .attr("x",-50)
-        .attr("font-size",15);
+        .attr("x",-60)
+        .attr("font-size",14);
 
     svg.append("text")
-       .attr("font-size",18)
-       .attr("color","#aaa")
-       .attr("x",width-70)
-       .attr("y",height+20)
+      .attr("font-size",15)
+      .attr("x",width-70)
+      .attr("y",height+75)
+      .attr("fill", "#aaa")
        .text(graph_details["row"]["displayName"]);
 
     svg.append("g")
@@ -203,12 +201,12 @@ function plotting_graph(data,graph_details){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", -40)
+        .attr("y",-40)
         .attr("x",-50)
         .attr("dx", -50)
         .attr("dy", ".35em")
         //.style("text-anchor", "end")
-        .text(graph_details["measure"]["primary"]["function"]["argument"])
+        .text(graph_details["measure"]["primary"]["function"]["argument"].substring(0,6).concat("s"))
         .attr("font-size",15);
 
 
