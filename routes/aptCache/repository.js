@@ -91,24 +91,25 @@ router.get('/:year=?/:modetype=?',function(req,res,next){
   // ])
 
 
-  Logs(req.session.user.organization,'aptLogModel').aggregate([
-    {$match :{timestamp:{$gte:startTimestamp,$lte:endTimestamp},path:{$regex:".deb$"},mode:mode}},
-    {$group:{_id:{filename:"$path"}}}],
-    function(err,result){
+  Logs(req.session.user.organization,'aptLogModel').then(function(model) {
+    model.aggregate([
+      {$match :{timestamp:{$gte:startTimestamp,$lte:endTimestamp},path:{$regex:".deb$"},mode:mode}},
+      {$group:{_id:{filename:"$path"}}}],
+      function(err,result){
 
-    for(var i=0;i<result.length;i++){
-    tempObj.push(result[i]["_id"]["filename"])
-    }
+      for(var i=0;i<result.length;i++){
+      tempObj.push(result[i]["_id"]["filename"])
+      }
 
-    for(var i=0;i<tempObj.length;i++){
-      package(data,tempObj[i]);
-    }
+      for(var i=0;i<tempObj.length;i++){
+        package(data,tempObj[i]);
+      }
 
-    data.sort(dynamicSortMultiple("repository", "-pool"));
+      data.sort(dynamicSortMultiple("repository", "-pool"));
 
-    res.json(data);
-    });
+      res.json(data);
+      });
+  });
 });
-
 
 module.exports = router;

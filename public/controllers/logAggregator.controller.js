@@ -30,6 +30,7 @@ angular.module('logAggregator').controller('mainController', ['$scope','$cookies
         var presentRoute=$location.$$path.split("/");
         var stateToGo = logName.split(" ").join("")+"."+presentRoute[2];
         $timeout(function() {
+          console.log(stateToGo);
           $state.go(stateToGo);
         },1);
       }

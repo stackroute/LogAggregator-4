@@ -35,7 +35,8 @@ console.log("--------------"+req.session.user.organization,"OrganizationRate");
   var finalData = [];
   var accumulator = {};
   var dates = {};
-  Log(req.session.user.organization,'serverModel').find({time : {"$gte": fromDate, "$lt": toDate}}, 'method time', function(err, serverHits) {
+  Log(req.session.user.organization,'serverModel').then(function(model) {
+    model.find({time : {"$gte": fromDate, "$lt": toDate}}, 'method time', function(err, serverHits) {
     for(i in serverHits)
     {
       var obj = {};
@@ -61,5 +62,6 @@ console.log("--------------"+req.session.user.organization,"OrganizationRate");
     finalData.push(accumulator);
     res.json(finalData);
   });
+});
 });
 module.exports = router;

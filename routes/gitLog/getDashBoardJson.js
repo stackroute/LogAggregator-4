@@ -8,7 +8,8 @@ router.post('/',function(req,res,next){
   console.log("we got the request to fetch the dashboard json data");
   //res.send("git the request from the client");
   //console.log(DashBoards);
-  DashBoards(req.session.user.organization,"gitDashBoardModel").find({},function(error,data){
+  DashBoards(req.session.user.organization,"gitDashBoardModel").then(function(model){
+    model.find({},function(error,data){
     if(error){
       console.log("Not able to fetch the dashboard data from database");
     }
@@ -17,6 +18,7 @@ router.post('/',function(req,res,next){
       res.send(data);
     }
   });
+});
 });
 
 router.post('/saveDash',function(req,res,next){

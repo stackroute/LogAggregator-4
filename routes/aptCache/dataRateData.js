@@ -166,17 +166,19 @@ router.get('/:charttype=?/:urldata=?',function(req,res,next){
         periodName = param[0]+"_"+param[1];
     }
     var queryParams = makeQuery(packageType,periodType,periodName);
-    Logs(req.session.user.organization,'aptLogModel').find(queryParams,
-      function(err,result){
-        var jsonData = undefined;
-        if(periodType==="yearly"){
-            jsonData = createYearlyData(result);
-        }
-        else if(periodType==="monthly"){
-            var param = urldata.split("_");
-            jsonData = createMonthlyData(result,parseInt(param[0]),param[1]);
-        }
-        res.json(jsonData);
-      });
+    Logs(req.session.user.organization,'aptLogModel').then(function(model) {
+      model.find(queryParams,
+        function(err,result){
+          var jsonData = undefined;
+          if(periodType==="yearly"){
+              jsonData = createYearlyData(result);
+          }
+          else if(periodType==="monthly"){
+              var param = urldata.split("_");
+              jsonData = createMonthlyData(result,parseInt(param[0]),param[1]);
+          }
+          res.json(jsonData);
+        });
+    });
 });
 module.exports = router;

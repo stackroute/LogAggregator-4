@@ -35,52 +35,61 @@ var queryBoxModel = masterDB.model('queryBox',queryBoxSchema);
 org(organizationModel);
 var models={};
 
-function setDbConnection(services,orgName){
-  models[orgName]={};
-  for (var i = 0; i < services.length; i++) {
-    var db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel;
-    if(services[i]=="nginx"){
-      nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
-        for (var i = 0; i < docs.length; i++) {
-          db1 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
-            if(err){
-              console.log("error connecting to gitDB of:",orgName);
-            }
-          });
-          models[orgName]['serverModel'] = db1.model('Logs',serverSchema);
-        }
-      });
-    }
-    else if(services[i]=="appgit"){
-      appgitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
-        for (var i = 0; i < docs.length; i++) {
-          db2 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
-            if(err){
-              console.log("error connecting to gitDB of:",orgName);
-            }
-          });
-          models[orgName]['aptLogModel'] = db2.model('aptLog',aptLogSchema);
-          models[orgName]['aptConfigModel'] = db2.model('aptConfig', aptConfigSchema);
-          break;
-        }
-      });
-    }
-    else if (services[i]=="git") {
-      gitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
-        for (var i = 0; i < docs.length; i++) {
-          db3 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
-            if(err){
-              console.log("error connecting to gitDB of:",orgName);
-            }
-          });
-          models[orgName]['commitDataModel']=db3.model('gitLogs',commitDataSchema);
-          models[orgName]['gitDashBoardModel']=db3.model('gitDashBoardConfig',gitDashBoardSchema);
-          models[orgName]['onPageLoadDashBoardModel']=db3.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
-        break;
+function setDbConnection(services,orgName) {
+  console.log("Inside Set Db Connection");
+  var promise = new Promise(function(resolve,reject) {
+    models[orgName]={};
+    for (var i = 0; i < services.length; i++) {
+      var db1,db2,db3,serverModel,aptLogModel,aptConfigModel,commitDataModel;
+      if(services[i]=="nginx"){
+        nginxServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+          for (var i = 0; i < docs.length; i++) {
+            db1 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
+              if(err){
+                console.log("error connecting to gitDB of:",orgName);
+              }
+            });
+            models[orgName]['serverModel'] = db1.model('Logs',serverSchema);
+            console.log("resolving stuffs in set Db Connection");
+            resolve();
+          }
+        });
       }
-    });
+      else if(services[i]=="appgit"){
+        appgitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+          for (var i = 0; i < docs.length; i++) {
+            db2 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
+              if(err){
+                console.log("error connecting to gitDB of:",orgName);
+              }
+            });
+            models[orgName]['aptLogModel'] = db2.model('aptLog',aptLogSchema);
+            models[orgName]['aptConfigModel'] = db2.model('aptConfig', aptConfigSchema);
+            console.log("resolving model in setDbConnection");
+            resolve();
+          }
+        });
+      }
+      else if (services[i]=="git") {
+        gitServiceModel.find({organizationName:orgName},{dbDetails:1,_id:0},function (err, docs) {
+          for (var i = 0; i < docs.length; i++) {
+            db3 = mongoose.createConnection("mongodb://"+docs[0].dbDetails.host+":"+docs[0].dbDetails.port+"/"+docs[0].dbDetails.dbName,function(err){
+              if(err){
+                console.log(err);
+                console.log("error connecting to gitDB of:",orgName);
+              }
+            });
+            models[orgName]['commitDataModel']=db3.model('gitLogs',commitDataSchema);
+            models[orgName]['gitDashBoardModel']=db3.model('gitDashBoardConfig',gitDashBoardSchema);
+            models[orgName]['onPageLoadDashBoardModel']=db3.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
+            console.log("resolving model in setDbConnection");
+            resolve();
+        }
+      });
+    }
   }
-}
+  });
+  return promise;
 }
 
 module.exports = {
@@ -102,17 +111,25 @@ function org(organizationModel){
   });
 }
 
+
 function getModel(organization,model){
-  if(models[organization]==undefined||models[organization][model]==undefined){
-    organizationModel.findOne({'organizationName':organization}, 'organizationName services', function (err, doc){
-      if(err){
-        return;
-      }
-        setDbConnection(doc.services,doc.organizationName);
-      return;
-    });
-  }
-  else{
-    return models[organization][model];
-  }
+  console.log("Inside get Model");
+  return new Promise(function(resolve,reject) {
+    if(models[organization]==undefined||models[organization][model]==undefined){
+      console.log("inside if");
+      organizationModel.findOne({'organizationName':organization}, 'organizationName services', function (err, doc){
+        if(err){
+          reject();
+        }
+        setDbConnection(doc.services,doc.organizationName).then(function() {
+          console.log("resolving in get models");
+          resolve(models[organization][model]);
+        })
+      });
+    }
+    else{
+      console.log("resolving in get models");
+      resolve(models[organization][model]);
+    }
+  });
 }

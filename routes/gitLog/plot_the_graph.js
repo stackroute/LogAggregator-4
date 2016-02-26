@@ -155,33 +155,35 @@ if(json_param["row"]["aggregators"]!==undefined && json_param["row"]["aggregator
 console.log("aggregate_arr",aggregate_arr);
 //console.log(grouping_object);
 
-Logs(req.session.user.organization,"commitDataModel").aggregate(aggregate_arr,function(error,result){
-                      if(error){
-                        console.log("we are not fetch the data from database");
-                        console.log(error);
-                      }
-                      else if(result.length == 0){
-                        console.log("Query does not retrive any data");
-                        req.send("no data fetched");
-                      }
-                      else{
-                        console.log("we are able to fetch the data from the database");
-                        console.log(result);
-                        console.log(json_param["columns"]);
-                        console.log("param",json_param["columns"].length!==0);
-                         //convert_to_d3(result);
-                         if(json_param["columns"]!== undefined && json_param["columns"].length!==0)
-                        {
-                          convert_to_d3(result,res,json_param);
+Logs(req.session.user.organization,"commitDataModel").then(function(model) {
+  model.aggregate(aggregate_arr,function(error,result){
+                        if(error){
+                          console.log("we are not fetch the data from database");
+                          console.log(error);
                         }
-                        else
-                        {
-                          no_change_data(result,res,json_param);
+                        else if(result.length == 0){
+                          console.log("Query does not retrive any data");
+                          req.send("no data fetched");
                         }
-                      }
-                    });
-              });
+                        else{
+                          console.log("we are able to fetch the data from the database");
+                          console.log(result);
+                          console.log(json_param["columns"]);
+                          console.log("param",json_param["columns"].length!==0);
+                           //convert_to_d3(result);
+                           if(json_param["columns"]!== undefined && json_param["columns"].length!==0)
+                          {
+                            convert_to_d3(result,res,json_param);
+                          }
+                          else
+                          {
+                            no_change_data(result,res,json_param);
+                          }
+                        }
+                      });
+                });
 
+});
 function no_change_data(data,res,json_param){
               res.send(data);
              }
