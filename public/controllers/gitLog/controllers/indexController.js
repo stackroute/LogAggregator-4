@@ -459,7 +459,7 @@ app.controller('myController', function($scope, $http) {
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
       //flag=0;
-      $scope.open_model();  
+      $scope.open_model();
     console.log(event.target.getAttribute('data-json'));
     data_json = event.target.getAttribute('data-json');
     console.log("From plot graph function",dashBoardJson);
@@ -544,7 +544,7 @@ app.controller('myController', function($scope, $http) {
     //function to fetch the data from the git database and call the plotting graph function
     function getgitdata(obj){
       console.log("getgitdata",obj);
-      $scope.graph_type_details=obj["graph-type"];
+      $scope.graph_type_details=obj["name"];
       console.log("we are in getgit data function");
 
 
@@ -610,16 +610,16 @@ app.controller('myController', function($scope, $http) {
                     console.log("DashBorad",dashBoardJson);
                     console.log(dashBoardJson.length);
                     for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
-                        if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
-                            multidimensional[j]=dashBoardJson[i]["name"];
-                            j++;
-                       }else{
-                            singledimensional[k]=dashBoardJson[i]["name"];
-                            k++
-                            }
+                        //if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
+                            multidimensional[i]=dashBoardJson[i]["name"];
+                            //j++;
+                       //}else{
+                            //singledimensional[k]=dashBoardJson[i]["name"];
+                          //  k++
+                            //}
                             }
                             $scope.multigraphdashboard=multidimensional;
-                            $scope.singlegraphdashboard = singledimensional;
+                            //$scope.singlegraphdashboard = singledimensional;
                             console.log("multidimension",$scope.multigraphdashboard);
                   }
                 });

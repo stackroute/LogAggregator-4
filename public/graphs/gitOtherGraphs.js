@@ -1,6 +1,7 @@
 function plot_pie_chart(data,graph_details){
   console.log("we are inside the plotting the pie chart");
   console.log(data);
+  console.log("graph_details",graph_details)
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
 
