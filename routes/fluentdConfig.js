@@ -33,11 +33,16 @@ try{
   };
 
   function appendMatch(db){
+    try{
     var isAppend=true;
     fs.readFileSync('/etc/td-agent/td-agent.conf').toString().split('\n').forEach(function(line){
       if(line.indexOf(db)>-1){
         isAppend=false;
       }
     });
+  }
+  catch(e){
+    console.log("error while changing fluentd file",e);
+  }
     return isAppend
   }

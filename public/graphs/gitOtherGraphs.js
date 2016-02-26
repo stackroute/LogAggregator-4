@@ -26,7 +26,7 @@ function plot_pie_chart(data,graph_details){
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-    return "<strong>"+graph_details["measure"]+" "+d.data._id.primaryGroupByField+" :"+"</strong> <span style='color:red'> " + d.recommendCount + "</span>";
+    return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"]+" :"+"</strong> <span style='color:red'> " + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
         })
 
   var svg = d3.select("#graph1").append("svg")
@@ -61,7 +61,7 @@ function plot_pie_chart(data,graph_details){
                                    (y/h * radius) +  ")";
                             })
         .attr("dy", ".35em")
-        .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",15);
+        .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
   //});
 
   function type(d) {
@@ -77,7 +77,7 @@ function plot_multibar_graph(data,graph_details){
   console.log(element.clientWidth);
   var margin = {top: 20, right: 60, bottom: 80, left: 60},
       width = (0.85*parseInt(element.clientWidth))  - margin.left - margin.right,
-      height =  470 - margin.top - margin.bottom;
+      height =  370 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
       .rangeRoundBands([0, width], .1);

@@ -16,7 +16,12 @@ This code is written by Sridharan -->
   <div class="container profileStyle">
     <h1>Edit Profile</h1>
   	<hr>
+    <div class="alert alert-success" ng-show="submitted" style="width:70%;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong> Dashboard created.
+    </div>
 	<div class="row" id= "profileForm">
+
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
@@ -34,6 +39,7 @@ This code is written by Sridharan -->
           <i class="fa fa-coffee"></i>
           This is an <strong>.alert</strong>. Use this to show important messages to the user.
         </div> -->
+
         <h3>Personal info</h3>
 
         <form class="form-horizontal" role="form">
