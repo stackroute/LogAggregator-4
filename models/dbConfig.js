@@ -21,13 +21,16 @@ var aptConfigSchema = require('./configSchema');
 var commitDataSchema = require('./org_data_schema');
 var gitDashBoardSchema = require('./gitlog.dashBoard.model');
 var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
+var queryBoxSchema = require('./query.box.model');
+var saveDashBoardSchema = require('./query.box.model');
 
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
 var nginxServiceModel= masterDB.model('nginxServiceConfig',nginxServiceConfigSchema);
 var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfigSchema);
-var gitDashBoardModel = masterDB.model('gitDashBoardConfig',gitDashBoardSchema);
-var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
+// var gitDashBoardModel = masterDB.model('gitDashBoardConfig',gitDashBoardSchema);
+// var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
+var queryBoxModel = masterDB.model('queryBox',queryBoxSchema);
 
 org(organizationModel);
 var models={};
@@ -70,7 +73,9 @@ function setDbConnection(services,orgName){
               console.log("error connecting to gitDB of:",orgName);
             }
           });
-          models[orgName]['commitDataModel']=db3.model('someOtherCollectionName',commitDataSchema);
+          models[orgName]['commitDataModel']=db3.model('gitLogs',commitDataSchema);
+          models[orgName]['gitDashBoardModel']=db3.model('gitDashBoardConfig',gitDashBoardSchema);
+          models[orgName]['onPageLoadDashBoardModel']=db3.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
         break;
       }
     });
@@ -86,8 +91,7 @@ module.exports = {
   nginxServiceModel: nginxServiceModel,
   appgitServiceModel:appgitServiceModel,
   getModel:getModel,
-  gitDashBoardModel:gitDashBoardModel,
-  onPageLoadDashBoardModel:onPageLoadDashBoardModel
+  queryBoxModel:queryBoxModel
 };
 
 function org(organizationModel){

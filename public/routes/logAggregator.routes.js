@@ -85,6 +85,11 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     templateUrl: 'views/gitLog/mainPage/mainPage.view.html',
     controller : 'myController'
   })
+  .state('dashboardWizard',{
+    url: '/dashboardWizard',
+    templateUrl: 'views/gitLog/dashboardWizard/dashboardWizard.html',
+    controller : 'wizardController'
+  })
   .state('profile',{
     url: '/profile',
     templateUrl: 'views/gitLog/profile/profile.view.html',

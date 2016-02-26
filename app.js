@@ -52,10 +52,12 @@ var getInfo = require('./routes/aptCache/getInfo');
 
 //wave 3 routes starts
 var getFilterData = require('./routes/gitLog/getFilterData');
+var newfilter = require('./routes/gitLog/newfilter');
 var plotTheGraph = require('./routes/gitLog/plot_the_graph');
 var getProfile = require('./routes/gitLog/getProfile');
 var getDashBoardJson = require('./routes/gitLog/getDashBoardJson');
 var onPageLoadDashBoard = require('./routes/gitLog/onPageLoadDashBoard');
+var gitDashboardConfigData  = require('./routes/gitLog/gitDashboardConfigData');
 //wave 3 routes ends
 
 var app = express();
@@ -110,7 +112,9 @@ app.use('/getInfo',getInfo);
 //end wave 2 code
 
 //start of wave 3 code
+app.use('/gitDashboardConfigData',gitDashboardConfigData);
 app.use('/getFilterData',getFilterData);
+app.use('/newfilter',newfilter);
 app.use('/plotgraph',plotTheGraph);
 app.use('/getProfile',getProfile);
 app.use('/getDashBoardJson',getDashBoardJson);

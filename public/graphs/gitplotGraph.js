@@ -4,14 +4,14 @@
 
 function plotting_stacked_graph(data,graph_details){
     //console.log(data);
-    console.log(graph_details);
+    console.log("graph_details",graph_details);
 
     var element = document.getElementById("graph-container");
     console.log(element.clientWidth);
     console.log(element.clientHeight);
     var margin = {top: 60, right: 60, bottom: 80, left: 60},
         width = (0.85*parseInt(element.clientWidth)) - margin.left - margin.right,
-        height = 370 - margin.top - margin.bottom;
+        height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .3);
@@ -33,7 +33,14 @@ function plotting_stacked_graph(data,graph_details){
         .innerTickSize(-width);;
         console.log(data);
 
-    var grouped_data=graph_details["secondaryGroupByField"]["values"];
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+          return "<strong> "+graph_details["measure"]["primary"]["displayName"]+" "+ d.name + " : </strong> <span style='color:red'>" + (d.y1-d.y0) +"</span>";
+        })
+
+    var grouped_data=graph_details["columns"][0]["values"];
     //console.log(sec_grouped_data);
 
     d3.selectAll("svg").remove();
@@ -42,6 +49,8 @@ function plotting_stacked_graph(data,graph_details){
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.call(tip);
 
   //  d3.json("./data.json", function(error, data) {
       //if (error) throw error;
@@ -68,7 +77,11 @@ function plotting_stacked_graph(data,graph_details){
           .attr("x",-50)
           .attr("font-size",15);
 
-
+      svg.append("text")
+         .attr("font-size",18)
+         .attr("x",width-70)
+         .attr("y",height+20)
+         .text(graph_details["row"]["displayName"]);
 
       svg.append("g")
           .attr("class", "y axis")
@@ -76,18 +89,10 @@ function plotting_stacked_graph(data,graph_details){
         .append("text")
           .attr("font-size",15)
           .attr("transform", "rotate(-90)")
-          .attr("y",-50)
-          .attr("x",-50)
+          .attr("y",-60)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text(graph_details["measure"]);
-
-          svg.append("text")
-             .attr("font-size",15)
-             .attr("color","#aaa")
-             .attr("x",width-100)
-             .attr("y",height+70)
-             .text(graph_details["primaryGroupByField"]);
+          .text(graph_details["measure"]["primary"]["displayName"]);
 
       var country = svg.selectAll(".country")
           .data(data)
@@ -98,7 +103,10 @@ function plotting_stacked_graph(data,graph_details){
       country.selectAll("rect")
           .data(function(d) { return d.ages; })
         .enter().append("rect")
+          .attr("class","bar")
           .attr("width", x.rangeBand())
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide)
           .transition()
           .delay(500)
           .attr("y", function(d) { return y(d.y1); })
@@ -158,7 +166,7 @@ function plotting_graph(data,graph_details){
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>RecommendedCount:</strong> <span style='color:red'>" + d["recommendCount"] + "</span>";
+      return "<strong>RecommendedCount:</strong> <span style='color:red'>" + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
     })
  d3.selectAll('svg').remove();
   var svg = d3.select("#graph").append("svg")
@@ -171,8 +179,8 @@ function plotting_graph(data,graph_details){
 
   //d3.json("./test.json", function(error, data) {
     console.log(data);
-    x.domain(data.map(function(d) { return d["_id"]["primaryGroupByField"]; }));
-    y.domain([0, d3.max(data, function(d) { return d["recommendCount"]; })]);
+    x.domain(data.map(function(d) { return d["_id"][graph_details["row"]["name"]]; }));
+    y.domain([0, d3.max(data, function(d) { return d[graph_details["measure"]["primary"]["function"]["argument"]]; })]);
 
     svg.append("g")
         .attr("class", "x axis")
@@ -184,11 +192,11 @@ function plotting_graph(data,graph_details){
         .attr("font-size",15);
 
     svg.append("text")
-       .attr("font-size",15)
+       .attr("font-size",18)
        .attr("color","#aaa")
        .attr("x",width-70)
        .attr("y",height+20)
-       .text(graph_details["primaryGroupByField"]);
+       .text(graph_details["row"]["displayName"]);
 
     svg.append("g")
         .attr("class", "y axis")
@@ -200,8 +208,9 @@ function plotting_graph(data,graph_details){
         .attr("dx", -50)
         .attr("dy", ".35em")
         //.style("text-anchor", "end")
-        .text(graph_details["measure"])
+        .text(graph_details["measure"]["primary"]["function"]["argument"])
         .attr("font-size",15);
+
 
     svg.selectAll(".bar")
         .data(data)
@@ -210,10 +219,10 @@ function plotting_graph(data,graph_details){
         .attr("class", "bar")
         .transition()
         .delay(500)
-        .attr("x", function(d) { return x(d["_id"]["primaryGroupByField"]); })
+        .attr("x", function(d) { return x(d["_id"][graph_details["row"]["name"]]); })
         .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(d["recommendCount"]); })
-        .attr("height", function(d) { return height - y(d["recommendCount"]); });
+        .attr("y", function(d) { return y(d[graph_details["measure"]["primary"]["function"]["argument"]]); })
+        .attr("height", function(d) { return height - y(d[graph_details["measure"]["primary"]["function"]["argument"]]); });
 
 
   //});

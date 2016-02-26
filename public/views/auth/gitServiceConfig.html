@@ -5,8 +5,8 @@
 </div>
 <form class="form-horizontal" ng-init="getServiceConfig('gittab')" id="serviceTable">
   <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">Git Logs database configuration details.<a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a></div>
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">Git Logs database configuration details.<a type="submit" href="#serviceConfig/gittabdbedit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-edit"></i>Edit</a></div>
 <div class="panel-body">
     <table class='table borderless'>
       <tr>
@@ -38,9 +38,9 @@
   </div>
 </div>
   <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">  Git configuration details.
-      <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-primary">
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">  Git configuration details.
+      <a type="submit" href="#serviceConfig/gittabAuthOedit" class="btn btn-primary pull-right">
         <i class="glyphicon glyphicon-edit"></i>Edit</a>
     </div>
     <div class="panel-body">
@@ -70,9 +70,9 @@
 </div>
 </div>
 <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">Git Account configuration details.
-      <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Add new Account</a>
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">Git Account configuration details.
+      <a type="submit" href="#serviceConfig/gittabedit" ng-click="reset()" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i>Add new Account</a>
     </div>
   <div class="panel-body" ng-show="gitInfo.repositoryData.length">
   <span ng-repeat="gitRepodata in gitInfo.repositoryData">
