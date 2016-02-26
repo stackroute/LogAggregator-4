@@ -1,6 +1,6 @@
 
-angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state','$location',
-function($scope,$http,$state,$location) {
+angular.module('logAggregator').controller('serviceConfigController', ['$scope','$http', '$state','$location','$window',
+function($scope,$http,$state,$location,$window) {
   resetData();
   $scope.serviceTabs=['Git Tab','Nginx Tab','Appgit Tab'];
   $state.go('serviceConfig.gittab');
@@ -62,12 +62,15 @@ function($scope,$http,$state,$location) {
   }
 
 $scope.deleteRepo = function(repoName){
+  if($window.confirm("Are you want to delete the Repo?")){
     $http.post('/serviceConfig/git/deleteRepo', {gitAccountname:repoName})
     .success(function (data, status, headers, config) {
       console.log(data.state,headers,status,config);
       if(data.state=="success"){
         $scope.passMessage="Git account deleted successfully!!";
         $scope.pass=true;
+        $scope.getServiceConfig("gittab");
+        $location.path('serviceConfig/gittab');
       }
       else{
         $scope.failMessage="Failed to delete Git account!!";
@@ -79,6 +82,7 @@ $scope.deleteRepo = function(repoName){
       $scope.fail=true;
       console.log("error");
     });
+  }
 };
 
 $scope.serviceConfigGitDB = function(){
