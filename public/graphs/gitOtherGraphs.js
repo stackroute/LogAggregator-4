@@ -26,8 +26,8 @@ function plot_pie_chart(data,graph_details){
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-    return "<strong>"+graph_details["measure"]["primary"]["function"]["argument"]+" :"+"</strong> <span style='color:red'> " + d[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
-        })
+        return "<strong>"+"No of Commits in"+" "+ d.data["_id"][graph_details["row"]["name"]] +" :"+"</strong> <span style='color:red'> " + d.data[graph_details["measure"]["primary"]["function"]["argument"]] + "</span>";
+      })
 
   var svg = d3.select("#graph1").append("svg")
       .attr("width", width)
@@ -49,24 +49,43 @@ function plot_pie_chart(data,graph_details){
         .attr("d", arc)
         .style("fill", function(d) { return color( d.data["_id"][graph_details["row"]["name"]]); });
 
-    g.append("text")
-        // .attr("transform", function(d) { return "translate(" + arc.centriod(d) + ")"; })
-        .attr("transform", function(d) {
-                                var c = arc.centroid(d),
-                                    x = c[0],
-                                    y = c[1],
-                                    // pythagorean theorem for hypotenuse
-                                    h = Math.sqrt(x*x + y*y);
-                                return "translate(" + (x/h * radius) +  ',' +
-                                   (y/h * radius) +  ")";
-                            })
-        .attr("dy", ".35em")
-        .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
-  //});
+  //   g.append("text")
+  //       // .attr("transform", function(d) { return "translate(" + arc.centriod(d) + ")"; })
+  //       .attr("transform", function(d) {
+  //                               var c = arc.centroid(d),
+  //                                   x = c[0],
+  //                                   y = c[1],
+  //                                   // pythagorean theorem for hypotenuse
+  //                                   h = Math.sqrt(x*x + y*y);
+  //                               return "translate(" + (x/h * radius) +  ',' +
+  //                                  (y/h * radius) +  ")";
+  //                           })
+  //       .attr("dy", ".35em")
+  //       .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
+  // //});
+
+  legend = svg.selectAll(".legend")
+      .data(d[graph_details["measure"]["primary"]["function"]["argument"]].slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
 
   function type(d) {
     d.recommendCount = +d.recommendCount;
-
     return d;
   }
 }
