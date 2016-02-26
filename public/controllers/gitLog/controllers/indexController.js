@@ -1,6 +1,7 @@
 var app = angular.module('logAggregator');
 var dashBoardJson = [];
 var obj={};
+var flag=0;
 app.controller('wizardController',function($scope,$http){
   // alert("Inside wizard Controller");
   $scope.tempArr = [{val:'one'},{val:"two"}];
@@ -486,6 +487,7 @@ app.controller('myController', function($scope, $http) {
     console.log(obj["columns"]!==undefined && obj["columns"].length!==0);
     if(obj["columns"]!==undefined && obj["columns"].length!==0){
       $scope.open_model();
+      flag=1;
     }
     else{
       $scope.plotthedata();
@@ -497,9 +499,11 @@ app.controller('myController', function($scope, $http) {
 
   //inserts the selected filter data into the obj filter section
         $scope.plotthedata= function() {
-          if($('#myModal').hasClass('in'))
+          //console.log(flag==1);
+          if(flag==1)
           {
               $scope.close_model();
+              flag=0;
           }
 
 
