@@ -102,6 +102,23 @@
   padding-left: 25px;
 }
 
+.sidebar-secondLink {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+  padding-left: 25px;
+}
+
+.sidebar-secondLink > li > a {
+  display: block;
+  padding: 10px 5px;
+  position: relative;
+}
+
+.sidebar-secondLink > li > a {
+  padding-left: 23px;
+}
+
 .sidebar-nav > li > ul > li > a {
   padding-left: 23px;
 }

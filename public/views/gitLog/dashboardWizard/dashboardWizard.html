@@ -63,7 +63,7 @@
                               <div class="panel panel-info" style="width:70%;">
                                   <div class="panel-heading">Widget Name</div>
                                   <span >
-                                    <input class="panelHeight" placeholder="  Type the Widget name here" style="border:none; width:100%;" type="text" name="name" value="">
+                                    <input class="panelHeight" placeholder="  Type the Widget name here" style="border:none; width:100%;" type="text" name="name" value="" required>
                                   </span>
                               </div>
                           </div>
@@ -71,8 +71,8 @@
                                 <div class="panel panel-info" style="width:70%;">
                                     <div class="panel-heading">Primary Groupby Field</div>
                                     <ul class="panelHeight" dnd-list="dashBoardObj.rowArray" dnd-allowed-types="allowedTypes.primaryFieldType" dnd-drop="fixThePrimaryGroupby(item)">
-                                        <li class = "dragged" ng-repeat="dimObj in dashBoardObj.rowArray">
-                                            <span class="tag label label-info">
+                                        <li class = "dragged placeholder" ng-repeat="dimObj in dashBoardObj.rowArray">
+                                            <span class="tag label" id="colorOne">
                                                 <span>{{dimObj.displayName}}</span>
                                                 <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
                                                 <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
@@ -84,12 +84,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group">
-                              <div class="panel panel-info" style="width:70%;">
+                            <div class="form-group formBottomPad">
+                              <div class="panel panel-info pull-left" style="width:40%;">
                                 <div class="panel-heading">Aggregators</div>
                                 <ul dnd-list="dashBoardObj.aggregatorArray" dnd-allowed-types='allowedTypes.aggregatorType'  class="panelHeight">
                                     <li class = "dragged" ng-repeat="aggregator in dashBoardObj.aggregatorArray"  dnd-type="Aggregator" dnd-effect-allowed="move" dnd-dragend='removeDuplicate({"arrayName":"aggregatorArray", "index":$index, "fieldToMatch":"name"}, event)'>
-                                        <span class="tag label label-info">
+                                        <span class="tag label" id="colorTwo">
                                             <span>{{aggregator.displayName}}</span>
                                             <a class="close" ng-click="deleteTheChoice($index, 'aggregatorArray')">
                                                 <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
@@ -98,14 +98,20 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                            <div class="panel panel-info pull-left" style="width:30%;">
+                              <div class="panel-heading">Parameter</div>
+                              <span >
+                                <input style="height:55px; width:100%; border:none;" class="panelHeight" placeholder="  Type the parameter for aggregator here" style="border:none; width:100%;" type="text" name="name" value="">
+                              </span>
+                          </div>
+                          </div>
                         <div class="form-group">
                           <div class="panel panel-info" style="width:70%;">
                             <div class="panel-heading">Secondary Groupby Field</div>
                             <ul dnd-list="dashBoardObj.secondaryGroupByArr"   class="panelHeight" dnd-allowed-types='allowedTypes.primaryFieldType' dnd-drop="fixTheSecondaryGroupby(item)"
-                    dnd-disable-if="dashBoardObj.rowArray.length == 0">
+                            dnd-disable-if="dashBoardObj.rowArray.length == 0">
                                 <li class = "dragged" ng-repeat="dimObj in dashBoardObj.secondaryGroupByArr"  dnd-type="rowValues">
-                                    <span class="tag label label-info">
+                                    <span class="tag label" id="colorThree">
                                         <span>{{dimObj.displayName}}</span>
                                         <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
                                         <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
@@ -123,7 +129,7 @@
                             <ul dnd-list="dashBoardObj.filtersArr"   class="panelHeight" dnd-allowed-types='allowedTypes.primaryFieldType' dnd-drop="fixTheFilters(item)"
                           dnd-disable-if="dashBoardObj.rowArray.length == 0">
                                 <li class = "dragged" ng-repeat="dimObj in dashBoardObj.filtersArr"  dnd-type="rowValues">
-                                    <span class="tag label label-info">
+                                    <span class="tag label" id="colorFour">
                                         <span>{{dimObj.displayName}}</span>
                                         <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
                                         <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
@@ -140,7 +146,7 @@
                         <div class="panel-heading">Measures</div>
                         <ul dnd-list="dashBoardObj.measureArray" dnd-allowed-types="allowedTypes.measureType" class="panelHeight">
                             <li class = "dragged" ng-repeat="dimension in dashBoardObj.measureArray"  dnd-effect-allowed="move" dnd-draggable="dimension" dnd-type="allowedTypes.measureType[0]" dnd-dragend='removeDuplicate({"arrayName":"measureArray", "index":$index, "fieldToMatch":"displayName"}, event)'>
-                                <span class="tag label label-info">
+                                <span class="tag label" id="colorFive">
                                     <span>{{dimension.displayName}}</span>
                                     <a class="close" ng-click="deleteTheChoice($index, 'measureArray')">
                                         <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>

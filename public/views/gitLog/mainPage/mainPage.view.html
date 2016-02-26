@@ -5,10 +5,10 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
-          <li class="sidebar-brand"> Plot Widgets </li>
+          <li class="sidebar-brand fa fa-magic"> Plot Widgets </li>
           <li> <!-- home item in menu started-->
              <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p1">
-                Multi Dimentional Graph &nbsp;&nbsp;<span class="caret"></span>
+                <i class="fa fa-circle-o"></i> Multi Dimentional Graph
              </a>
              <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p1"><!-- submenu started-->
                <li ng-repeat="dashboards in multigraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
@@ -18,7 +18,7 @@
            </li>
            <li> <!-- home item in menu started-->
               <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#p2">
-                 Single Dimentional Graph <span class="caret"></span>
+                <i class="fa fa-circle-o"></i> Single Dimentional Graph
               </a>
            <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p2"><!-- submenu started-->
              <li ng-repeat="dashboards in singlegraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
@@ -26,6 +26,10 @@
              </li>
           </ul>
         </li>
+        <span class="sidebar-secondLink nav nav-pills nav-stacked">
+          <li class="fa fa-th"><a>Widget wizard</a></li>
+        </span>
+
           </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -58,7 +62,7 @@
                                             <button class="btn btn-primary pull-right" ng-click="toggle_graph()" style="margin: 20px 20px;"><i class="fa fa-binoculars" style="font-size:20px;">&nbsp;</i>Views</button>
                                             <!-- <button class="btn btn-danger pull-right" ng-click="open_model()" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button3</button> -->
                                           </div>
-                                          <div class=class=col-sm-12>
+                                          <div class=col-lg-12>
                                               <div id="graph"> </div>
                                               <div class="hidden" id="graph1"> </div>
                                           </div>
