@@ -106,17 +106,13 @@
   height: 65px;
   font-size: 18px;
   line-height: 60px;
-  padding-left: 25px;
 }
 
-.sidebar-secondLink > li > a {
+.sidebar-secondLink > li{
   display: block;
   padding: 10px 5px;
+  padding-left: 20px;
   position: relative;
-}
-
-.sidebar-secondLink > li > a {
-  padding-left: 23px;
 }
 
 .sidebar-nav > li > ul > li > a {
