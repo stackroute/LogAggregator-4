@@ -4,7 +4,7 @@ module.exports = new mongoose.Schema({
             type:String
         },
     commitYear:{type:String},
-    commitMonth:{type:String},    
+    commitMonth:{type:String},
         noOfFiles:{
           type:Number
         },
@@ -62,4 +62,5 @@ module.exports = new mongoose.Schema({
         time : {
           type: Date
         }
-},{collection:"someOtherCollectionName"});
+},{collection:"gitLogs"});
+//},{collection:"someOtherCollectionName"});

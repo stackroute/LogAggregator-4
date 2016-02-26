@@ -118,7 +118,7 @@ if(json_param["measure"]["secondary"]!== undefined){
 }
 
 var aggregate_arr=[];
-if(json_param["row"]["aggregators"]!==undefined && json_param["row"]["aggregators"]["name"]==="all"){
+if(json_param["row"]["aggregators"]!==undefined && json_param["row"]["aggregators"]["name"]==="all" || filter_data.length==0){
   aggregate_arr = [
                         {
                           "$group":complete_group_object
@@ -158,6 +158,7 @@ console.log("aggregate_arr",aggregate_arr);
 Logs(req.session.user.organization,"commitDataModel").aggregate(aggregate_arr,function(error,result){
                       if(error){
                         console.log("we are not fetch the data from database");
+                        console.log(error);
                       }
                       else if(result.length == 0){
                         console.log("Query does not retrive any data");
