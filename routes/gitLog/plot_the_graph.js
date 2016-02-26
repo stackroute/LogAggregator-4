@@ -160,10 +160,10 @@ Logs(req.session.user.organization,"commitDataModel").aggregate(aggregate_arr,fu
                         console.log("we are not fetch the data from database");
                         console.log(error);
                       }
-                      else if(result.length == 0){
-                        console.log("Query does not retrive any data");
-                        req.send("no data fetched");
-                      }
+                      // else if(result.length == 0){
+                      //   console.log("Query does not retrive any data");
+                      //   req.end("no data fetched");
+                      // }
                       else{
                         console.log("we are able to fetch the data from the database");
                         console.log(result);
