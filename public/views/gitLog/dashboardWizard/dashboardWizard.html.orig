@@ -1,0 +1,187 @@
+<link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
+    <div id="wrapper" ng-controller="myController">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
+              <span class="sidebar-secondLink"><li><a href="#GitLogStatistics"><li class="sidebar-brand fa fa-th">  Plot wizard</li></a></li></span>
+                <li class="sidebar-brand fa fa-th"> Widget wizard</li>
+                <li>
+                    <!-- home item in menu started-->
+                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#dimensions">
+                        <i class="fa fa-circle-o"></i> Dimensions
+                    </a>
+                    <ul class="nav nav-pills nav-stacked collapse out" id="dimensions">
+                        <!-- submenu started-->
+                        <li ng-repeat="dimension in gitDashboardConfigData.dimensions" data-toggle="collapse ">
+                            <a dnd-type="allowedTypes.primaryFieldType[0]" dnd-draggable="dimension" dnd-effect-allowed="copy" class="active" class="nav-container" data-toggle="collapse" data-parent="#dimensions" href={{makeIdWithHref(dimension.name)}}>
+                                <i class="fa fa-caret-right"></i> {{dimension.displayName}}
+                            </a>
+                            <!-- start #measures.nav nav-pills nav-stacked collapse out -->
+                            <ul class="nav nav-pills nav-stacked collapse out" id={{makeId(dimension.name)}} >
+                                <li dnd-type="allowedTypes.primaryFieldType[0]" ng-repeat="dimensionValue in dimension.values" dnd-draggable="dimensionValue" dnd-effect-allowed="copy"  class="active" data-parent={{makeId(dimension.name)}} >
+                          {{dimensionValue.value}}
+                        </li>
+                            </ul>
+                            <!-- end #measures.nav nav-pills nav-stacked collapse out -->
+                        </li>
+                    </ul>
+                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#aggregators">
+                        <i class="fa fa-circle-o"></i> Aggregators
+                    </a>
+                    <ul class="nav nav-pills nav-stacked collapse out" id="aggregators">
+                        <!-- submenu started-->
+                        <li ng-repeat="aggregator in gitDashboardConfigData.aggregators" data-toggle="collapse" >
+                            <a style="padding-left:40px;" data-parent="#aggregators" ng-attr-href="{{'#aggregator'+ $index}}" data-drop="true" dnd-draggable="aggregator" dnd-effect-allowed="copy"  class="active" dnd-type="allowedTypes.aggregatorType[0]" dnd-dragend='aggregatorHandler({"arrayName":"aggregatorArray", "index":$index, "fieldToMatch":"displayName"}, event,aggregator)'>
+                        {{aggregator.displayName}}
+                      </a>
+                        </li>
+                    </ul>
+                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#measures">
+                        <i class="fa fa-circle-o"></i> Measures
+                    </a>
+                    <ul class="nav nav-pills nav-stacked collapse out" id="measures">
+                        <!-- submenu started-->
+                        <li ng-repeat="measure in gitDashboardConfigData.measures" data-toggle="collapse">
+                            <a style="padding-left:40px;" dnd-draggable="measure" dnd-effect-allowed="copy"  class="active"
+                     dnd-type="allowedTypes.measureType[0]" dnd-dragend='removeDuplicate({"arrayName":"measureArray", "index":$index, "fieldToMatch":"displayName"}, event)'>
+                      {{measure.displayName}}
+                    </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- start #dashboardWizardForm -->
+        <div id="dashboardWizardForm">
+            <!-- start .container-fluid -->
+            <div class="container">
+                <!-- start .row -->
+                <div class="row dashboardWizardRow">
+                    <div class="col-12">
+<<<<<<< HEAD
+                        <form role="form">
+                          <div class="form-group">
+                              <div class="panel panel-info" style="width:70%;">
+                                  <div class="panel-heading">Widget Name</div>
+                                  <span >
+                                    <input class="panelHeight" placeholder="  Type the Widget name here" style="border:none; width:100%;" type="text" ng-model="dashBoardName" required>
+                                  </span>
+                              </div>
+=======
+                        <form ng-submit="createAndDumpWidget()">
+                          <div class="alert alert-success" ng-show="submitted" style="width:70%;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Success!</strong> Dashboard created.
+                          </div>
+                          <div class="panel panel-info" style="width:70%;">
+                              <div class="panel-heading">Widget Name</div>
+                              <span >
+                                <input class="form-control panelHeight" placeholder="  Type the Widget name here" style="border:none; width:100%;" type="text" ng-model="dashBoardObj.rowArray[0].dashBoardName" required />
+                              </span>
+>>>>>>> 2a55a32df25ae0306def65571f1ff0379ac9784b
+                          </div>
+                            <div class="form-group">
+                                <div class="panel panel-info" style="width:70%;">
+                                    <div class="panel-heading">Primary Groupby Field</div>
+                                    <ul class="panelHeight" dnd-list="dashBoardObj.rowArray" dnd-allowed-types="allowedTypes.primaryFieldType" dnd-drop="fixThePrimaryGroupby(item)">
+                                        <li class = "dragged placeholder" ng-repeat="dimObj in dashBoardObj.rowArray">
+                                            <span class="tag label" id="colorOne">
+                                                <span>{{dimObj.displayName}}</span>
+                                                <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
+                                                <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
+                                                <a class="close" ng-click="deleteTheChoice($index, 'rowArray')">
+                                                    <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
+                                                </a>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group formBottomPad">
+                              <div class="panel panel-info pull-left" style="width:40%;">
+                                <div class="panel-heading">Aggregators</div>
+                                <ul dnd-list="dashBoardObj.aggregatorArray" dnd-allowed-types='allowedTypes.aggregatorType'  class="panelHeight">
+                                    <li class = "dragged" ng-repeat="aggregator in dashBoardObj.aggregatorArray"  dnd-type="Aggregator" dnd-effect-allowed="move" dnd-dragend='removeDuplicate({"arrayName":"aggregatorArray", "index":$index, "fieldToMatch":"name"}, event)'>
+                                        <span class="tag label" id="colorTwo">
+                                            <span>{{aggregator.displayName}}</span>
+                                            <a class="close" ng-click="deleteTheChoice($index, 'aggregatorArray')">
+                                                <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
+                                            </a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel panel-info pull-left" style="width:30%;">
+                              <div class="panel-heading">Parameter</div>
+                              <span >
+<<<<<<< HEAD
+                                <input style="height:55px; width:100%; border:none;" class="panelHeight" placeholder="  Type the parameter for aggregator here" style="border:none; width:100%;" type="text" ng-model="dashBoardParameter">
+=======
+                                <input style="height:55px; width:100%; border:none;" class="panelHeight form-control" placeholder="  10" style="border:none; width:100%;" type="number" ng-model="wizardParameter" integer />
+>>>>>>> 2a55a32df25ae0306def65571f1ff0379ac9784b
+                              </span>
+                          </div>
+                          </div>
+                        <div class="form-group">
+                          <div class="panel panel-info" style="width:70%;">
+                            <div class="panel-heading">Secondary Groupby Field</div>
+                            <ul dnd-list="dashBoardObj.secondaryGroupByArr"   class="panelHeight" dnd-allowed-types='allowedTypes.primaryFieldType' dnd-drop="fixTheSecondaryGroupby(item)"
+                            dnd-disable-if="dashBoardObj.rowArray.length == 0">
+                                <li class = "dragged" ng-repeat="dimObj in dashBoardObj.secondaryGroupByArr"  dnd-type="rowValues">
+                                    <span class="tag label" id="colorThree">
+                                        <span>{{dimObj.displayName}}</span>
+                                        <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
+                                        <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
+                                        <a class="close" ng-click="deleteTheChoice($index, 'secondaryGroupByArr')">
+                                            <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <div class="panel panel-info" style="width:70%;">
+                            <div class="panel-heading">Filters</div>
+                            <ul dnd-list="dashBoardObj.filtersArr"   class="panelHeight" dnd-allowed-types='allowedTypes.primaryFieldType' dnd-drop="fixTheFilters(item)"
+                          dnd-disable-if="dashBoardObj.rowArray.length == 0">
+                                <li class = "dragged" ng-repeat="dimObj in dashBoardObj.filtersArr"  dnd-type="rowValues">
+                                    <span class="tag label" id="colorFour">
+                                        <span>{{dimObj.displayName}}</span>
+                                        <!-- <span>{{dashBoardObj.rowArray[$index]}}</span> -->
+                                        <!-- ng-click="deleteTheChoice($index, 'rowArray')" -->
+                                        <a class="close" ng-click="deleteTheChoice($index, 'filtersArr')">
+                                            <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="panel panel-info" style="width:70%;">
+                        <div class="panel-heading">Measures</div>
+                        <ul dnd-list="dashBoardObj.measureArray" dnd-allowed-types="allowedTypes.measureType" class="panelHeight">
+                            <li class = "dragged" ng-repeat="dimension in dashBoardObj.measureArray"  dnd-effect-allowed="move" dnd-draggable="dimension" dnd-type="allowedTypes.measureType[0]" dnd-dragend='removeDuplicate({"arrayName":"measureArray", "index":$index, "fieldToMatch":"displayName"}, event)'>
+                                <span class="tag label" id="colorFive">
+                                    <span>{{dimension.displayName}}</span>
+                                    <a class="close" ng-click="deleteTheChoice($index, 'measureArray')">
+                                        <i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i>
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                    <button type="submit" class="btn btn-primary" ng-disabled="dashBoardObj.rowArray.length<1 || dashBoardObj.measureArray.length <1">{{ dashBoardObj.rowArray.length<1 || dashBoardObj.measureArray.length<1?'Insert Primary Groupby Field and Measures to activate this' : 'Create Widget!'}}</button>
+                    </form>
+                </div>
+            </div>
+            <!-- end .row -->
+        </div>
+        <!-- end .container-fluid -->
+    </div>
+    <!-- end #dashboardWizardForm -->
+</div>
+<!-- /#page-content-wrapper -->
