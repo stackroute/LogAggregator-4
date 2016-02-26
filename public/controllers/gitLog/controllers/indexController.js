@@ -36,7 +36,7 @@ app.controller('wizardController',function($scope,$http){
     $scope.submitted = true;
 
     var dashBoardMade = {
-       "name": $scope.dashBoardObj.rowArray[0].dashBoardName,
+       "name": $scope.dashBoardObj.dashBoardName,
       "row":{},
       "measure":{},
       "columns":[],
@@ -87,7 +87,7 @@ app.controller('wizardController',function($scope,$http){
       //Secondary grouby element code
       var tempSecondaryObjSet = {};
       $scope.dashBoardObj.secondaryGroupByArr.map(function(secondaryGroupByElement){
-        var tempSecondaryObj = {};
+
         var tempSecondaryObj2 = {};
         if(secondaryGroupByElement.values == undefined){
           //instance
@@ -138,8 +138,13 @@ app.controller('wizardController',function($scope,$http){
     $scope.saveDash(dashBoardMade);
     //saving code will go here
 
-    $scope.dashBoardName = "";
     $scope.dashBoardObj = {};
+    $scope.dashBoardObj.dashBoardName = "";
+    $scope.dashBoardObj.secondaryGroupByArr= [];
+    $scope.dashBoardObj.rowArray = [];
+    $scope.dashBoardObj.measureArray = [];
+    $scope.dashBoardObj.aggregatorArray= [];
+    $scope.dashBoardObj.filtersArr = [];
 
   };
   $scope.allowedTypes = {};
