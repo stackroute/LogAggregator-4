@@ -23,7 +23,7 @@ app.controller('wizardController',function($scope,$http){
     }
 
   }
-  // $scope.dashBoardName = 'An awsesome Dashboard';
+  // $scope.dashBoardName;
   $scope.makeId = function(idStr){
     return idStr.replace('.','')+"Id";
   }
@@ -36,7 +36,7 @@ app.controller('wizardController',function($scope,$http){
     $scope.submitted = true;
 
     var dashBoardMade = {
-      "name": $scope.dashBoardObj.rowArray[0].dashBoardName,
+       "name": $scope.dashBoardObj.rowArray[0].dashBoardName,
       "row":{},
       "measure":{},
       "columns":[],
@@ -422,16 +422,20 @@ app.controller('wizardController',function($scope,$http){
   var dataForServer = "sda";
     $scope.$on('$viewContentLoaded', function() {
       $http({method: 'Post', url: '/newfilter'}).success(function(data, status, headers, config){
-          console.log("dat==>",data);
-          $scope.gitDashboardConfigData = data;
+         if(data =="Not able to fetch data"){
+           alert("no data avaliable");
+         }
+         else{
+           console.log("dat==>",data);
+           $scope.gitDashboardConfigData = data;
 
-            $scope.gitDashboardConfigData.dimensions.map(function(dimensionParam, dimIndex){
-                  dimensionParam.values.map(function(dimValue,dimValueIndex) {
-                    $scope.gitDashboardConfigData.dimensions[dimIndex].values[dimValueIndex] ={"value":dimValue, "_id":dimensionParam._id, "name":dimensionParam.name, "displayName": dimValue, "categoryDisplayName": $scope.gitDashboardConfigData.dimensions[dimIndex].displayName };
-                  });
+             $scope.gitDashboardConfigData.dimensions.map(function(dimensionParam, dimIndex){
+                   dimensionParam.values.map(function(dimValue,dimValueIndex) {
+                     $scope.gitDashboardConfigData.dimensions[dimIndex].values[dimValueIndex] ={"value":dimValue, "_id":dimensionParam._id, "name":dimensionParam.name, "displayName": dimValue, "categoryDisplayName": $scope.gitDashboardConfigData.dimensions[dimIndex].displayName };
+                   });
 
-            });
-
+             });
+         }
       });
     });
 });
@@ -536,12 +540,17 @@ app.controller('myController', function($scope, $http) {
 
     //function to fetch the data from the git database and call the plotting graph function
     function getgitdata(obj){
+      console.log("getgitdata",obj);
       $scope.graph_type_details=obj["graph-type"];
       console.log("we are in getgit data function");
-      console.log("getgitdata",obj);
+
 
           $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
               success(function(data, status, headers, config) {
+                  if(data.length==0){
+                    alert("no data retrived");
+                  }
+                  else{
                     console.log("plotgraph",data);
                     if(data=="no data fetched"){
                       alert("no data retrieved");
@@ -556,7 +565,9 @@ app.controller('myController', function($scope, $http) {
                       plotting_graph(data,obj);
                       plot_pie_chart(data,obj)
                     }
-              });
+
+                  }
+                });
     }
     //end of the function
 
@@ -569,10 +580,15 @@ app.controller('myController', function($scope, $http) {
         $http({method: 'Post', url: '/newfilter'}).
            success(function(data, status, headers, config) {
               //console.log("we are in git filterdata1");
-
-              //console.log(data["dimensions"][0]["displayName"]);
-              $scope.filtered_data=data["dimensions"];
-              console.log("getFilterData1",$scope.filtered_data);
+              if(data=="Not able to fetch data")
+              {
+                console.log("no data fetched");
+              }
+              else{
+                //console.log(data["dimensions"][0]["displayName"]);
+                $scope.filtered_data=data["dimensions"];
+                console.log("getFilterData1",$scope.filtered_data);
+              }
               });
 
               $http({method: 'Post', url: '/getDashBoardJson'}).
@@ -580,31 +596,43 @@ app.controller('myController', function($scope, $http) {
                                 //console.log(data);
                   console.log("form getDashBoardJson");
                                   //console.log(data);
-                  dashBoardJson = data;
-                  var multidimensional = [];
-                  var singledimensional =[];
-                  console.log("DashBorad",dashBoardJson);
-                  console.log(dashBoardJson.length);
-                  for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
-                      if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
-                          multidimensional[j]=dashBoardJson[i]["name"];
-                          j++;
-                     }else{
-                          singledimensional[k]=dashBoardJson[i]["name"];
-                          }
-                          }
-                          $scope.multigraphdashboard=multidimensional;
-                          $scope.singlegraphdashboard = singledimensional;
-                          console.log("multidimension",$scope.multigraphdashboard);
-                    });
-                    $http({method: 'Post', url: '/onPageLoadDashBoard'}).
-                        success(function(data, status, headers, config) {
-                                //console.log(data);
-                        console.log("form onPageLoadDashBoard");
-                        console.log(data);
-                        getgitdata(data[0]);
-                      });
-
+                 if(data=="No dashboard saved")
+                  {
+                   console.log("please create new dashboards");
+                  }
+                  else{
+                    dashBoardJson = data;
+                    var multidimensional = [];
+                    var singledimensional =[];
+                    console.log("DashBorad",dashBoardJson);
+                    console.log(dashBoardJson.length);
+                    for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
+                        if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
+                            multidimensional[j]=dashBoardJson[i]["name"];
+                            j++;
+                       }else{
+                            singledimensional[k]=dashBoardJson[i]["name"];
+                            }
+                            }
+                            $scope.multigraphdashboard=multidimensional;
+                            $scope.singlegraphdashboard = singledimensional;
+                            console.log("multidimension",$scope.multigraphdashboard);
+                  }
+                });
+                $http({method: 'Post', url: '/onPageLoadDashBoard'}).
+                success(function(data, status, headers, config) {
+                  console.log("onpageload",data);
+                if(data=="No dashboard saved")
+                {
+                  console.log("please create new dashboards");
+                }
+                else{
+                    console.log("form onPageLoadDashBoard");
+                    console.log(data);
+                    getgitdata(data);
+                   }
+                  console.log(data);
+                  });
     });
 
     $scope.idMaker = function(id){
