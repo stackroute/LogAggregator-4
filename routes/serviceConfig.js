@@ -230,11 +230,13 @@ if (flag == 0){
     var obj = {};
     obj["organizationName"] = response[j].organizationName;
     obj["organizationFileName"] = response[j].organizationFileName;
+    obj["organizationJobFileName"] = response[j].organizationJobFileName;
     json.push(obj);
   }
   var obj = {};
     obj["organizationName"] = orgName;
     obj["organizationFileName"] = orgName + "File.json";
+    obj["organizationJobFileName"] = orgName + "JobFile.json";
     json.push(obj);
     }
     // var fileName = "../" +orgName + "File" + ".json";
@@ -247,7 +249,7 @@ if (flag == 0){
 
 
 function manipulateJsonForGitAgent(inpJson){
-var data = inpJson; var obj = {}; var outJson = [];
+var data = inpJson; var obj = {};
 
 obj["_id"] = data[0]["_id"];
 obj["organizationName"] = data[0]["organizationName"];
@@ -276,9 +278,6 @@ objTemp = {};
 }
 }
 obj["repositoryData"] = arr2;
-// console.log("Inside manipulate Json function");
-// outJson.push(obj);
-// console.log(outJson);
 
 return obj;
 }
