@@ -3,7 +3,6 @@ var dashBoardJson = [];
 var obj={};
 var flag=0;
 app.controller('wizardController',function($scope,$http){
-  // alert("Inside wizard Controller");
   $scope.tempArr = [{val:'one'},{val:"two"}];
   $scope.dimArray = 0;
   $scope.dashBoardObj = {};
@@ -417,9 +416,7 @@ app.controller('wizardController',function($scope,$http){
 
   var dataForServer = "sda";
     $scope.$on('$viewContentLoaded', function() {
-      alert("When the view is loaded");
       $http({method: 'Post', url: '/newfilter'}).success(function(data, status, headers, config){
-          // alert("Suceessfully took the data");
           console.log("dat==>",data);
           $scope.gitDashboardConfigData = data;
 
