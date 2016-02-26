@@ -6,6 +6,7 @@ app.controller('wizardController',function($scope,$http){
   $scope.tempArr = [{val:'one'},{val:"two"}];
   $scope.dimArray = 0;
   $scope.dashBoardObj = {};
+  $scope.dashBoardObj.dashBoardName = "";
   $scope.dashBoardObj.secondaryGroupByArr= [];
   $scope.dashBoardObj.rowArray = [];
   $scope.dashBoardObj.measureArray = [];
@@ -22,7 +23,7 @@ app.controller('wizardController',function($scope,$http){
     }
 
   }
-  $scope.dashBoardName = 'An awsesome Dashboard';
+  // $scope.dashBoardName = 'An awsesome Dashboard';
   $scope.makeId = function(idStr){
     return idStr.replace('.','')+"Id";
   }
@@ -32,9 +33,10 @@ app.controller('wizardController',function($scope,$http){
   }
 
   $scope.createAndDumpWidget = function(){
-    alert("widget has been created. Thanks!");
+    $scope.submitted = true;
+
     var dashBoardMade = {
-      "name": $scope.dashBoardName,
+      "name": $scope.dashBoardObj.rowArray[0].dashBoardName,
       "row":{},
       "measure":{},
       "columns":[],
@@ -135,6 +137,9 @@ app.controller('wizardController',function($scope,$http){
     console.log("Dashboard Object", dashBoardMade);
     $scope.saveDash(dashBoardMade);
     //saving code will go here
+
+    $scope.dashBoardName = "";
+    $scope.dashBoardObj = {};
 
   };
   $scope.allowedTypes = {};
