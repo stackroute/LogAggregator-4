@@ -24,8 +24,10 @@ queryBoxIn.find(function(err, doc){
     var tempDisplay = dimensionData.displayName;
     Logs(req.session.user.organization,"commitDataModel").find().distinct(tempName,
     function(err,result){
-          if(err){
+          console.log("new_filter/",result);
+          if(err || result.length==0){
             console.log("we are having issue in retriving data", err);
+            res.end("Not able to fetch data");
           }
           else{
             var temp = {
