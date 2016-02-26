@@ -75,6 +75,7 @@ function plot_pie_chart(data,graph_details){
   //       .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
   // //});
 
+<<<<<<< HEAD
   // legend = svg.selectAll(".legend")
   //     .data(d[graph_details["measure"]["primary"]["function"]["argument"]].slice().reverse())
   //   .enter().append("g")
@@ -93,6 +94,26 @@ function plot_pie_chart(data,graph_details){
   //     .attr("dy", ".35em")
   //     .style("text-anchor", "end")
   //     .text(function(d) { return d; });
+=======
+  legend = svg.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+>>>>>>> 3a738e72661ce0f72f892c67f562c69ccd6bf89a
 
 
   function type(d) {

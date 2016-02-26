@@ -75,24 +75,24 @@ function plot_pie_chart(data,graph_details){
   //       .text(function(d) { return d["data"]["_id"][graph_details["row"]["name"]]}).attr("font-size",12);
   // //});
 
-  // legend = svg.selectAll(".legend")
-  //     .data(d[graph_details["measure"]["primary"]["function"]["argument"]].slice().reverse())
-  //   .enter().append("g")
-  //     .attr("class", "legend")
-  //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-  //
-  // legend.append("rect")
-  //     .attr("x", width - 18)
-  //     .attr("width", 18)
-  //     .attr("height", 18)
-  //     .style("fill", color);
-  //
-  // legend.append("text")
-  //     .attr("x", width - 24)
-  //     .attr("y", 9)
-  //     .attr("dy", ".35em")
-  //     .style("text-anchor", "end")
-  //     .text(function(d) { return d; });
+  legend = svg.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
 
 
   function type(d) {
@@ -106,8 +106,8 @@ function plot_multibar_graph(data,graph_details){
   var element = document.getElementById("graph-container");
   console.log(element.clientWidth);
   var margin = {top: 20, right: 60, bottom: 80, left: 60},
-      width = (0.89*parseInt(element.clientWidth))  - margin.left - margin.right,
-      height =  470 - margin.top - margin.bottom;
+      width = (0.85*parseInt(element.clientWidth))  - margin.left - margin.right,
+      height =  370 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
       .rangeRoundBands([0, width], .1);
@@ -168,10 +168,9 @@ function plot_multibar_graph(data,graph_details){
         .attr("font-size",15);
 
       svg.append("text")
-          .attr("font-size",15)
-          .attr("x",width-70)
-          .attr("y",height+75)
-          .attr("fill", "#aaa")
+          .attr("font-size",18)
+          .attr("y", height+20)
+          .attr("x",width+40)
           .style("text-anchor", "end")
           .text(graph_details["row"]["displayName"]);
 
@@ -206,23 +205,23 @@ function plot_multibar_graph(data,graph_details){
         .attr("height", function(d) { return height - y(d.value); })
         .style("fill", function(d) { return color(d.name); });
 
-    // var legend = svg.selectAll(".legend")
-    //     .data(ageNames.slice().reverse())
-    //   .enter().append("g")
-    //     .attr("class", "legend")
-    //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-    //
-    // legend.append("rect")
-    //     .attr("x", width - 18)
-    //     .attr("width", 18)
-    //     .attr("height", 18)
-    //     .style("fill", color);
-    //
-    // legend.append("text")
-    //     .attr("x", width - 24)
-    //     .attr("y", 9)
-    //     .attr("dy", ".35em")
-    //     .style("text-anchor", "end")
-    //     .text(function(d) { return d; });
+    var legend = svg.selectAll(".legend")
+        .data(ageNames.slice().reverse())
+      .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
 
 }
