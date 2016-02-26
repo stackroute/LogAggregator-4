@@ -180,10 +180,11 @@ router.post('/git/DB', function(req, res){
                 return;
               }
               console.log(createJsonFile(req.session.user.organization));
-            });
-            console.log(createJsonFile(req.session.user.organization));
               res.send({state: 'success'});
             return;
+            });
+          //  console.log(createJsonFile(req.session.user.organization));
+
           });
         });
 
@@ -261,21 +262,24 @@ arr1.push(data[0]["gitauthSets"][i]["gitOauth"]);
 }
 obj["gitOauthSets"] = arr1;
 if((data[0]["repositoryData"]) !== undefined && data[0]["repositoryData"][0]!==undefined){
-for(var j = 0 ; j < data[0]["repositoryData"][0]["repos"].length ; j++) {
+  for(var k = 0 ; k < data[0]["repositoryData"].length ; k++) {
+for(var j = 0 ; j < data[0]["repositoryData"][k]["repos"].length ; j++) {
 // console.log(data[0]["repositoryData"]["gitAccountname"]);
-objTemp["gitUserName"] =  data[0]["repositoryData"][0]["gitAccountname"];
+objTemp["gitUserName"] =  data[0]["repositoryData"][k]["gitAccountname"];
 // console.log(data[0]["repositoryData"][0]["repos"][j]["repo"]);
-objTemp["repo"] =  data[0]["repositoryData"][0]["repos"][j]["repo"];
+objTemp["repo"] =  (data[0]["repositoryData"][k]["repos"][j]["repo"].split("/"))[1];
 // console.log(data[0]["repositoryData"][0]["repos"][j]["_id"]);
-objTemp["_id"] =  data[0]["repositoryData"][0]["repos"][j]["_id"];
+objTemp["_id"] =  data[0]["repositoryData"][k]["repos"][j]["_id"];
 arr2.push(objTemp);
 objTemp = {};
 }
 }
+}
 obj["repositoryData"] = arr2;
 // console.log("Inside manipulate Json function");
-outJson.push(obj);
+// outJson.push(obj);
 // console.log(outJson);
-return outJson;
+
+return obj;
 }
         module.exports = router;

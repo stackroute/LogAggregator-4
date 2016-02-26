@@ -63,9 +63,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
     fill:none;
     stroke:none;
   }*/
-  .bar {
-    fill: #f17f49;
-  }
+
 
   .colorStyle{
     fill: #bd380f ;
@@ -115,7 +113,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  }*/
 
  .bar {
-   fill: orange;
+   fill: #00e600;
  }
 
  .simply{
@@ -123,7 +121,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
  }
 
  .bar:hover {
-   fill: orangered ;
+   fill: #ff0000;
  }
 
 .wrapper{
@@ -452,9 +450,7 @@ table{
   border:0px;
   width:100%;
 }
-span{
-  color:black;
-}
+
 .OnMouseEnter {
   background-color: lightgrey !important;
 }
@@ -1184,6 +1180,27 @@ li.selected {
   margin-bottom: 2px;
 }
 
+#colorOne{
+  color: white !important;
+  background-color: #b06a53;
+}
+#colorTwo{
+  color: white !important;
+  background-color: #60a0a6;
+}
+#colorThree{
+  color: white !important;
+  background-color: #5a575c;
+}
+#colorFour{
+  color: white !important;
+  background-color: #527482;
+}
+#colorFive{
+  color: white !important;
+  background-color: #a3bcc7;
+}
+
 
 ul[dnd-list] {
     position: relative;
@@ -1198,4 +1215,12 @@ ul[dnd-list] > li {
 
 ul[dnd-list] > li > a{
     padding: 3px 8px;
+}
+
+.panelHeight {
+  height: 45px;
+}
+
+.formBottomPad{
+padding-bottom: 100px;
 }

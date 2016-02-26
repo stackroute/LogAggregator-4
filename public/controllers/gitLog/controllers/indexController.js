@@ -27,7 +27,7 @@ app.controller('wizardController',function($scope,$http){
   $scope.makeId = function(idStr){
     return idStr.replace('.','')+"Id";
   }
-  // $scope.dashBoardName = 'An awsesome Dashboard';
+  // $scope.dashBoardName = 'An awsesome Dashboard;
   $scope.makeIdWithHref = function(idStr){
     return '#'+idStr.replace('.','')+"Id";
   }
@@ -35,16 +35,16 @@ app.controller('wizardController',function($scope,$http){
   $scope.createAndDumpWidget = function(){
     alert("widget has been created. Thanks!");
     var dashBoardMade = {
-      "name":$scope.dashBoardName,
+      "name": $scope.dashBoardName,
       "row":{},
       "measure":{},
       "columns":[],
       "filters":[]
-    }
+    };
     dashBoardMade.row.name = $scope.dashBoardObj.rowArray["0"].name;
     //For row
 
-    if($scope.dashBoardObj.rowArray[0].values == undefined){
+    if($scope.dashBoardObj.rowArray[0].values === undefined){
       console.log("First row element",$scope.dashBoardObj.rowArray[0]);
         dashBoardMade.row.displayName = $scope.dashBoardObj.rowArray[0].categoryDisplayName;
         // dashBoardMade.row.name = $scope.rowValues[0].name;
@@ -58,7 +58,7 @@ app.controller('wizardController',function($scope,$http){
       console.log("groupby field has been selected!!");
       dashBoardMade.row.displayName = $scope.dashBoardObj.rowArray[0].displayName;
       //groupby field has been selected
-      if($scope.dashBoardObj.aggregatorArray.length !=0 ){
+      if($scope.dashBoardObj.aggregatorArray.length !==0 ){
         //aggregators have been provided
         dashBoardMade.row.aggregators = {};
         dashBoardMade.row.aggregators.displayName = $scope.dashBoardObj.aggregatorArray[0].displayName
@@ -68,7 +68,7 @@ app.controller('wizardController',function($scope,$http){
         dashBoardMade.row.aggregators = {
           "name": "all",
           "argument": 0
-        }
+        };
       }
     }
       //Measure code
@@ -77,7 +77,7 @@ app.controller('wizardController',function($scope,$http){
       var tempIndex = 1;
       for(;tempIndex<$scope.dashBoardObj.measureArray.length;tempIndex++){
         console.log("Inside measureArray loop");
-        if(tempIndex == 1){
+        if(tempIndex === 1){
           console.log("secondary initial");
           dashBoardMade.measure.secondary = [];
         }
@@ -90,7 +90,7 @@ app.controller('wizardController',function($scope,$http){
         var tempSecondaryObj2 = {};
         if(secondaryGroupByElement.values == undefined){
           //instance
-          if (tempSecondaryObjSet[secondaryGroupByElement.name] == undefined){
+          if (tempSecondaryObjSet[secondaryGroupByElement.name] === undefined){
             tempSecondaryObjSet[secondaryGroupByElement.name] = {"name":secondaryGroupByElement.name, "displayName": secondaryGroupByElement.categoryDisplayName};
             tempSecondaryObjSet[secondaryGroupByElement.name]["values"] = [secondaryGroupByElement.value];
           }
@@ -119,7 +119,7 @@ app.controller('wizardController',function($scope,$http){
       //Filters implimentation
       var tempFiltersSet = {};
       $scope.dashBoardObj.filtersArr.map(function(filterElement){
-        if(tempFiltersSet[filterElement.name] == undefined){
+        if(tempFiltersSet[filterElement.name] === undefined){
           //empty
           tempFiltersSet[filterElement.name] = {"name": filterElement.name,"displayName": filterElement.categoryDisplayName};
           tempFiltersSet[filterElement.name].values  = [filterElement.value];
@@ -137,7 +137,7 @@ app.controller('wizardController',function($scope,$http){
     $scope.saveDash(dashBoardMade);
     //saving code will go here
 
-  }
+  };
   $scope.allowedTypes = {};
 
   $scope.allowedTypes.primaryFieldType = ['rowValues'];
@@ -152,11 +152,11 @@ app.controller('wizardController',function($scope,$http){
           console.log("Successful");
           console.log("successful",data);
           });
-  }
+  };
   $scope.maintainSingleRow = function(dimension,indexOfDimension){
     $scope.dashBoardObj.rowArray = [];
     $scope.dashBoardObj.rowArray.push(dimension);
-  }
+  };
   $scope.aggregatorHandler = function(arrayNameAndIndex, event,item){
     var arrayName = arrayNameAndIndex.arrayName;
     var index = arrayNameAndIndex.index;
