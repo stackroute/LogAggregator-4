@@ -12,7 +12,7 @@
                 <i class="fa fa-circle-o"></i> WIDGETS
              </a>
              <ul class="nav nav-pills nav-stacked collapse out leftPad" id="p1"><!-- submenu started-->
-               <li ng-repeat="dashboards in multigraphdashboard" data-toggle="collapse" data-parent="#p1" data-json={{dashboards}} data-ng-click="plot_graph($event)">
+               <li ng-repeat="dashboards in multigraphdashboard" data-toggle="collapse" data-parent="#p1" data-dashbutton="true" data-json={{dashboards}} data-ng-click="plot_graph($event)">
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dashboards}}
                </li>
             </ul>
@@ -46,7 +46,9 @@
                         <h2 class="panel-title" style="font-weight:bold;">{{graph_type_details}}</h2>
                       </div> <!-- end panel-heading-->
                       <div class="panel-body">
-
+                        <div class="alert alert-success">
+                          {{description_data}}
+                        </div>
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -54,7 +56,7 @@
                                         <!-- <div class="tab-pane active" id="tab1"> -->
                                         <div class="row">
                                           <div class=col-sm-12>
-                                            <button class="btn btn-primary pull-right" ng-click="open_model()" style="margin: 20px 20px;"><i class="fa fa-filter" style="font-size:20px;">&nbsp;</i>Filter</button>
+                                            <button class="btn btn-primary pull-right" ng-click="plot_graph()" style="margin: 20px 20px;"><i class="fa fa-filter" style="font-size:20px;">&nbsp;</i>Filter</button>
                                             <button class="btn btn-primary pull-right" ng-click="toggle_graph()" style="margin: 20px 20px;"><i class="fa fa-binoculars" style="font-size:20px;">&nbsp;</i>Views</button>
                                             <!-- <button class="btn btn-danger pull-right" ng-click="open_model()" style="margin: 20px 20px;"><span class="glyphicon glyphicon-filter"></span>Button3</button> -->
                                           </div>
@@ -183,7 +185,7 @@
                                     </div>
                                     <!--end of modal body-->
                                     <div class="modal-footer">
-                                        <button class="buttom_css" ng-click="plotthedata()">Submit</button>
+                                        <button class="buttom_css" data-json={{submit_json}} data-dashbutton="false" ng-click="plotthedata()">Submit</button>
                                     </div>
                                     <!--end of modal footer-->
                                 </div>

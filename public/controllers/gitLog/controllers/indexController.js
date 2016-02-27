@@ -1,7 +1,7 @@
 var app = angular.module('logAggregator');
 var dashBoardJson = [];
 var obj={};
-//var flag=0;
+var flag=0;
 app.controller('wizardController',function($scope,$http){
   $scope.tempArr = [{val:'one'},{val:"two"}];
   $scope.dimArray = 0;
@@ -129,6 +129,7 @@ app.controller('wizardController',function($scope,$http){
           tempFiltersSet[filterElement.name].values.push(filterElement.value);
         }
       });
+      console.log("tempfilterset===================?>"+tempFiltersSet);
       for(tempFilterFieldName in tempFiltersSet){
         dashBoardMade.filters.push(tempFiltersSet[tempFilterFieldName]);
       }
@@ -432,6 +433,28 @@ app.controller('wizardController',function($scope,$http){
          }
          else{
            console.log("dat==>",data);
+           for(var i = 0; i < data.dimensions.length ; i++){
+              if(data.dimensions[i].name === "commitMonth"){
+                  var allMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+                  data.dimensions[i].values = data.dimensions[i].values.sort(function(a,b){
+                      return allMonths.indexOf(a) > allMonths.indexOf(b);
+                  });
+              }
+              if(data.dimensions[i].name === "commitDay"){
+                  var allMonths = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' , 'Sunday'];
+
+                  data.dimensions[i].values = data.dimensions[i].values.sort(function(a,b){
+                      return allMonths.indexOf(a) > allMonths.indexOf(b);
+                  });
+              }
+              if(data.dimensions[i].name === "commitYear"){
+
+                  data.dimensions[i].values = data.dimensions[i].values.sort(function(a,b){
+                      return allMonths.indexOf(a) > allMonths.indexOf(b);
+                  });
+              }
+            }
            $scope.gitDashboardConfigData = data;
 
              $scope.gitDashboardConfigData.dimensions.map(function(dimensionParam, dimIndex){
@@ -464,9 +487,11 @@ app.controller('myController', function($scope, $http) {
     //function to adjust the display of filters on the modal window
     $scope.plot_graph = function(){
       //flag=0;
-      $scope.open_model();
+      //$scope.open_model();
     console.log(event.target.getAttribute('data-json'));
     data_json = event.target.getAttribute('data-json');
+    $scope.submit_json = data_json;
+
     console.log("From plot graph function",dashBoardJson);
     for(var m=0;m<dashBoardJson.length;m++){
       if(data_json == dashBoardJson[m]["name"])
@@ -497,34 +522,36 @@ app.controller('myController', function($scope, $http) {
       }
     }
     console.log("dashboardJSON====>",obj);
-    console.log(obj["columns"]!==undefined && obj["columns"].length!==0);
+    //console.log(obj["columns"]!==undefined && obj["columns"].length!==0);
     //if(obj["columns"]!==undefined && obj["columns"].length!==0){
-
-
-      //flag=1;
-    //}
-    // else{
-    //   $scope.plotthedata();
-    // }
+    var dashboardbutton = event.target.getAttribute("data-dashbutton");
+    console.log("dashboardJSON",dashboardbutton);
+    if(dashboardbutton == "true"){
+      getgitdata(obj);
+    }
+    else{
+      flag=1;
+      console.log("modal_windowopen",flag);
+      $scope.open_model();
+    }
     console.log("global_data",obj);
-
   }
   //end of the function
 
   //inserts the selected filter data into the obj filter section
-        $scope.plotthedata= function() {
-          //console.log(flag==1);
-          // if(flag==1)
-          // {
-              $scope.close_model();
-          //     flag=0;
-          // }
+  $scope.plotthedata= function() {
+    console.log("plotthedata",flag);
+    if(flag==1)
+    {
+        $scope.close_model();
+        flag=0;
+    }
 
 
-        console.log("we are in plot the data function",obj);
+    console.log("we are in plot the data function",obj);
 
-        for(var j=0;j<obj["filters"].length;j++)
-        {
+    for(var j=0;j<obj["filters"].length;j++)
+    {
           obj["filters"][j]["values"]=[];
           console.log("transformed_obj",obj);
             for(var i=0;i<$scope.filtered_data.length;i++)
@@ -539,7 +566,7 @@ app.controller('myController', function($scope, $http) {
                });
             }
           }
-        }
+    }
         //$('#my_modal1').modal('show');
         console.log(obj);
         getgitdata(obj);
@@ -550,6 +577,34 @@ app.controller('myController', function($scope, $http) {
     function getgitdata(obj){
       console.log("getgitdata",obj);
       $scope.graph_type_details=obj["name"];
+      var column_details= "";
+      var filter_details= "";
+      if(obj.columns !== undefined && obj.columns.length !== 0){
+
+        for(var i=0;i< obj.columns.length;i++){
+          var graph_column_displayName = obj.columns[i].displayName;
+          var graph_column_value ="";
+          for(var j=0;j<((obj.columns[i].values.length>3)?3:obj.columns[i].values.length);j++){
+             graph_column_value +=obj.columns[i].values[j];
+          }
+          column_details+= (graph_column_displayName+graph_column_value);
+          console.log("column_details",column_details);
+        }
+        }
+        if(obj.filters !== undefined && obj.filters.length !== 0){
+
+          for(var i=0;i< obj.filters.length;i++){
+            var graph_filters_displayName = obj.filters[i].displayName;
+            var graph_filters_value ="";
+            for(var j=0;j<((obj.filters[i].values.length>=3)?3:obj.filters[i].values.length);j++){
+               graph_filters_value +=obj.filters[i].values[j];
+            }
+            filter_details += (graph_filters_displayName+graph_filters_value);
+            console.log("filter_details",filter_details);
+          }
+          }
+        $scope.description_data= column_details + filter_details;
+      console.log("description_data",$scope.description_data);
       console.log("we are in getgit data function");
 
 
@@ -599,38 +654,38 @@ app.controller('myController', function($scope, $http) {
               }
               });
 
-              $http({method: 'Post', url: '/getDashBoardJson'}).
-                  success(function(data, status, headers, config) {
+        $http({method: 'Post', url: '/getDashBoardJson'}).
+            success(function(data, status, headers, config) {
                                 //console.log(data);
-                  console.log("form getDashBoardJson");
+            console.log("form getDashBoardJson");
                                   //console.log(data);
-                 if(data=="No dashboard saved")
-                  {
-                   console.log("please create new dashboards");
-                  }
-                  else{
-                    dashBoardJson = data;
-                    var multidimensional = [];
-                    var singledimensional =[];
-                    console.log("DashBorad",dashBoardJson);
-                    console.log(dashBoardJson.length);
-                    for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
-                        //if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
-                            multidimensional[i]=dashBoardJson[i]["name"];
-                            //j++;
-                       //}else{
-                            //singledimensional[k]=dashBoardJson[i]["name"];
+           if(data=="No dashboard saved")
+           {
+             console.log("please create new dashboards");
+           }
+           else{
+             dashBoardJson = data;
+             var multidimensional = [];
+             var singledimensional =[];
+             console.log("DashBorad",dashBoardJson);
+             console.log(dashBoardJson.length);
+             for(var i=0,j=0,k=0;i<dashBoardJson.length;i++){
+             //if(dashBoardJson[i]["columns"]!==undefined && dashBoardJson[i]["columns"].length!==0){
+             multidimensional[i]=dashBoardJson[i]["name"];
+             //j++;
+             //}else{
+             //singledimensional[k]=dashBoardJson[i]["name"];
                           //  k++
                             //}
-                            }
-                            $scope.multigraphdashboard=multidimensional;
-                            //$scope.singlegraphdashboard = singledimensional;
-                            console.log("multidimension",$scope.multigraphdashboard);
-                  }
-                });
-                $http({method: 'Post', url: '/onPageLoadDashBoard'}).
+             }
+             $scope.multigraphdashboard=multidimensional;
+             //$scope.singlegraphdashboard = singledimensional;
+             console.log("multidimension",$scope.multigraphdashboard);
+             }
+             });
+             $http({method: 'Post', url: '/onPageLoadDashBoard'}).
                 success(function(data, status, headers, config) {
-                  console.log("onpageload",data);
+                console.log("onpageload",data);
                 if(data=="No dashboard saved")
                 {
                   console.log("please create new dashboards");
@@ -639,9 +694,9 @@ app.controller('myController', function($scope, $http) {
                     console.log("form onPageLoadDashBoard");
                     console.log(data);
                     getgitdata(data);
-                   }
-                  console.log(data);
-                  });
+                }
+                console.log(data);
+                });
     });
 
     $scope.idMaker = function(id){
