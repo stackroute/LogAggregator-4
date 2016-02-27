@@ -113,15 +113,17 @@ router.get('/package/:packinfo=?/:period=?',function(req,res,next){
     var period = req.params.period;
     if(packinfo === "package_bz2_info"){
         var matchParam = makeQuery(period);
-        Logs(req.session.user.organization,'aptLogModel').aggregate([
-          {$match:matchParam},
-          {$group:{_id: {"download":"$path"},count:{$sum:1}}}],
-          function(err,result){
-            // console.log(result);
-            jsonData = createData(result);
-            res.json(jsonData);
-          }
-        );
+        Logs(req.session.user.organization,'aptLogModel').then(function(model) {
+          model.aggregate([
+            {$match:matchParam},
+            {$group:{_id: {"download":"$path"},count:{$sum:1}}}],
+            function(err,result){
+              // console.log(result);
+              jsonData = createData(result);
+              res.json(jsonData);
+            }
+          );
+        });
     }
 });
 

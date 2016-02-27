@@ -8,24 +8,26 @@ router.post('/',function(req,res,next){
     console.log(data);
     var str = '$' + data["filterby"];
     console.log(data["filterby"]);
-    Logs(req.session.user.organization,"commitDataModel").aggregate([
-                  {
-                    "$group":
+    Logs(req.session.user.organization,"commitDataModel").then(function(model) {
+      model.aggregate([
                     {
-                      "_id": str
+                      "$group":
+                      {
+                        "_id": str
+                      }
                     }
-                  }
-    ],function(err,result){
-      if(err){
-        console.log("we are having issue in retriving data");
-      }
-      else{
-        console.log("we successfully retrieved the data");
-        console.log(result);
-        mongoose.connection.close();
-        res.send(result);
-      }
-    });
+      ],function(err,result){
+        if(err){
+          console.log("we are having issue in retriving data");
+        }
+        else{
+          console.log("we successfully retrieved the data");
+          console.log(result);
+          mongoose.connection.close();
+          res.send(result);
+        }
+      });
+  });
 });
 
 module.exports = router;

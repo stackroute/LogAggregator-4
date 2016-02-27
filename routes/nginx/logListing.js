@@ -16,6 +16,8 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 
 var Log = require('../../models/dbConfig.js').getModel;
 var express = require('express');
+var mongoose = require('mongoose');
+
 var router = express.Router();
 
 /*----------Response for All data and particular path data-------------------------------------*/
@@ -27,10 +29,14 @@ router.get('/:pathId/:pgno', function(req, res) {
   var counts = 0;
   skip = pgno > 1 ? ((pgno-1) * limit) : 0;
   if(temp == "All") {
-    Log(req.session.user.organization,'serverModel').count({}, function(er,c) {
-      counts=c;
+    Log(req.session.user.organization,'serverModel').then(function(model) {
+      model.count({}, function(er,c) {
+        counts=c;
+      });
     });
-    Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', {skip : skip,limit : limit,sort:{time: -1} }, function(err, serverhits) {
+
+    Log(req.session.user.organization,'serverModel').then(function(model){
+      model.find({}, 'remote host path user method code size referer agent time', {skip : skip,limit : limit,sort:{time: -1} }, function(err, serverhits) {
       var obj = {
         "collection_data" : serverhits,
         "count" : counts
@@ -40,8 +46,8 @@ router.get('/:pathId/:pgno', function(req, res) {
       });
       res.send(obj);
     });//close find
-  }//close if
-
+});
+}
 /*----------Response for particular path data----------------------------------------------*/
 
    else{
@@ -53,19 +59,23 @@ router.get('/:pathId/:pgno', function(req, res) {
       else {
       paths = "/";
       }
-      Log(req.session.user.organization,'serverModel').count({path:paths},function(er,c){
-          counts = c;
+      Log(req.session.user.organization,'serverModel').then(function(model) {
+        model.count({path:paths},function(er,c){
+            counts = c;
+        });
       });
-      Log(req.session.user.organization,'serverModel').find({path : paths},'remote host path user method code size referer agent time',{skip : skip, limit : limit,sort:{time: -1} }, function(err,serverhits) {
-          var obj = {"collection_data" : serverhits,
-                    "count" : counts
-                  };
-          obj.collection_data.sort(function(a, b) {
-              return (b.time-a.time);
-          });
+      Log(req.session.user.organization,'serverModel').then(function(model) {
+        mongoose.model(model).find({path : paths},'remote host path user method code size referer agent time',{skip : skip, limit : limit,sort:{time: -1} }, function(err,serverhits) {
+            var obj = {"collection_data" : serverhits,
+                      "count" : counts
+                    };
+            obj.collection_data.sort(function(a, b) {
+                return (b.time-a.time);
+            });
 
-      res.send(obj);
-      });
+        res.send(obj);
+        });
+      })
   }//close else
 
 });
@@ -73,42 +83,46 @@ router.get('/:pathId/:pgno', function(req, res) {
 /*-------------Response for path and count object--------------------------------------------------------*/
 
 router.get('/', function(req, res) {
-console.log("--------------"+req.session.user.organization,"Organization");
-  Log(req.session.user.organization,'serverModel').find({}, 'remote host path user method code size referer agent time', function(err, serverhits) {
-        var obj = serverhits;
-        final = {
-         arr : []
-         };
-         var l = obj.length;
-         var index = function(value,array) {
-             for( var i = 0; i < array.length; i++){
-                 if( array[i].path === value)
-                     return i;
-             }//close for
-             return "null";
-         }//close function index
-         p = final.arr;
-         for(var i = 0; i < l; i++){
-            var value = obj[i].path;
-            if(index(value,p) === "null")
-             {
-                 p.push( {
-                   "path" : obj[i].path,
-                   "count" : 1
-                 });
-             }
-             else {
-                     var k = index(value,p);
-                     p[k].count +=  1;
-             }
-         }//close for
+console.log("--------------hhbhhh"+req.session.user.organization,"Organization");
+Log(req.session.user.organization,'serverModel').then(function(model) {
+    model.find({}, 'remote host path user method code size referer agent time', function(err, serverhits) {
+          console.log(err);
+          console.log("inside callback",serverhits);
+          var obj = serverhits;
+          final = {
+           arr : []
+           };
+           var l = obj.length;
+           var index = function(value,array) {
+               for( var i = 0; i < array.length; i++){
+                   if( array[i].path === value)
+                       return i;
+               }//close for
+               return "null";
+           }//close function index
+           p = final.arr;
+           for(var i = 0; i < l; i++) {
+              var value = obj[i].path;
+              if(index(value,p) === "null")
+               {
+                   p.push({
+                     "path" : obj[i].path,
+                     "count" : 1
+                   });
+               }
+               else {
+                       var k = index(value,p);
+                       p[k].count +=  1;
+               }
+           }//close for
 
-         p.sort(function(a, b) {
-             return b.count-a.count;
-         });
-
-    res.json(final);
-  });
-});//pathid get req
+           p.sort(function(a, b) {
+               return b.count-a.count;
+           });
+    //  console.log("printing final",final);
+      res.json(final);
+    });
+  });//pathid get req
+});
 
 module.exports = router;

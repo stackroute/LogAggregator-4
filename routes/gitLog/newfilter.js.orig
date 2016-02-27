@@ -22,13 +22,36 @@ queryBoxIn.find(function(err, doc){
   doc[0].git.dimensions.map(function(dimensionData){
     var tempName = dimensionData.name;
     var tempDisplay = dimensionData.displayName;
+<<<<<<< HEAD
     Logs(req.session.user.organization,"commitDataModel").then(function(model) {
       model.find().distinct(tempName,
       function(err,result){
-          console.log("new_filter/",result);
             if(err){
               console.log("we are having issue in retriving data", err);
+=======
+    Logs(req.session.user.organization,"commitDataModel").find().distinct(tempName,
+    function(err,result){
+          console.log("new_filter/",result);
+          if(err){
+            console.log("we are having issue in retriving data", err);
             res.end("Not able to fetch data");
+          }
+          else{
+            var temp = {
+              name : {},
+              displayName : {},
+              values : []
+            };
+            temp.name = tempName;
+            temp.displayName = tempDisplay;
+            temp.values = result;
+            queryObj.dimensions.push(temp);
+            count++;
+            if(count === doc[0].git.dimensions.length){
+              myPrint();
+              mongoose.connection.close();
+              res.send(queryObj);
+>>>>>>> 65e51c0c537a90b7a9019e221437de6cd773a243
             }
             else{
               var temp = {

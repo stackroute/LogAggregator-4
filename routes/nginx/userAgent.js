@@ -33,7 +33,8 @@ router.get('/:showBy/:year/:month', function(req, res, next) {
     fromDate = new Date(year, parseInt(month)-1);
     toDate = new Date(year, parseInt(month));
   }
-  Log(req.session.user.organization,'serverModel').find({time : {"$gte": fromDate, "$lt": toDate}}, 'agent', function(err, serverHits) {
+  Log(req.session.user.organization,'serverModel').then(function(model) {
+    model.find({time : {"$gte": fromDate, "$lt": toDate}}, 'agent', function(err, serverHits) {
     var reqData = [];
     var getFilter = function (agent) {
       for(var i = 0, len = config.userAgentFilters[showBy].length; i < len; i++) {
@@ -52,6 +53,7 @@ router.get('/:showBy/:year/:month', function(req, res, next) {
     }
     res.json(response)
   });
+});
 });
 
 module.exports = router;
