@@ -10,56 +10,6 @@ router.post('/',function(req,res,next){                                   //rout
 
 var json_param = req.body.data;
 console.log("json_param",json_param);
-
-// var json_param={
-//   "name": "noOfCommits-UR-T",
-//   "row":{
-//     "name": "repo",
-//     "displayName": "Repositories",
-//     "values":["node","express","mongo","angular"],
-//     "aggregators":{
-//       "name":"top",
-//       "argument":2
-//     }
-//   },
-//   "measure":{
-//     "primary":{
-//   		"function": {"name":"count","argument":"commitID"},
-//   		"displayName": "Commits"
-//   	},
-//     "secondary":[{
-//   		"_id": 13,
-//       "function": {"name":"sum","argument":"insertion"},
-//   		"displayName": "Insertions"
-//   	},{
-//   		"_id": 14,
-//       "function": {"name":"sum","argument":"deletion"},
-//   		"displayName": "Deletions"
-//   	}]
-//   }
-//   ,
-//   "columns":[{
-//     "name": "commitYear",
-//     "displayName": "CommitYear",
-//     "values":[2014,2015,2016]
-//     }],
-//     "filters":[{"_id":"3",
-// 		"name": "commitMonth",
-// 		"displayName": "CommitMonth",
-// 		"values": [0,1,2,3,4,5,6,7,8,9,10,11]},
-//     {"_id":"6",
-// 		"name": "committer.name",
-// 		"displayName": "Commiter",
-// 		"values": ["abhinavtdgp",
-//                                 "Arul",
-//                                 "Brian White",
-//                                 "Rich Trott",
-//                                 "Roman Reiss"
-//               ]}
-//   ]
-// }
-
-
 var filter_data=[];
 
 for(var i=0;i<json_param["filters"].length;i++){
@@ -83,11 +33,6 @@ if(json_param["row"]["values"]!== undefined){
 var grouping_object=  {};
 grouping_object[json_param["row"]["name"]] = "$"+json_param["row"]["name"];
 
-// if(json_param["columns"]!==undefined && json_param["columns"].length!==0){
-// for(var i=0;i<json_param["columns"].length;i++){
-//   grouping_object[json_param["columns"][i]["name"]]='$' + json_param["columns"][i]["name"];
-// }
-// }
 
 //if column is given will add the details in groupby function
 if(json_param["columns"]!==undefined && json_param["columns"].length!==0){
@@ -161,10 +106,6 @@ Logs(req.session.user.organization,"commitDataModel").then(function(model) {
                           console.log("we are not fetch the data from database");
                           console.log(error);
                         }
-                      // else if(result.length == 0){
-                      //   console.log("Query does not retrive any data");
-                      //   req.end("no data fetched");
-                      // }
                         else{
                           console.log("we are able to fetch the data from the database");
                           console.log(result);

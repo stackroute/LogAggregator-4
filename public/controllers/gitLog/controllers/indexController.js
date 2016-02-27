@@ -577,8 +577,8 @@ app.controller('myController', function($scope, $http) {
     function getgitdata(obj){
       console.log("getgitdata",obj);
       $scope.graph_type_details=obj["name"];
-      var column_details= "";
-      var filter_details= "";
+      var column_details= "&";
+      var filter_details= "filter by";
       if(obj.columns !== undefined && obj.columns.length !== 0){
 
         for(var i=0;i< obj.columns.length;i++){
@@ -603,7 +603,9 @@ app.controller('myController', function($scope, $http) {
             console.log("filter_details",filter_details);
           }
           }
-        $scope.description_data= column_details + filter_details;
+          column_details = "&" + column_details;
+          var sub_description= "This graph in plotted for" + obj["row"]["displayName"] + column_details + "vs" + obj["measure"]["primary"]["displayName"] + filter_details;
+        $scope.description_data= sub_description;
       console.log("description_data",$scope.description_data);
       console.log("we are in getgit data function");
 
