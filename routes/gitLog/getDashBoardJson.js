@@ -61,19 +61,18 @@ router.post('/saveDash',function(req,res,next){
 	// 	"values": ["node", "express", "angular"]
 	// }]};
 
-  var newCollection = DashBoards(req.session.user.organization,"gitDashBoardModel")(newDashBoard);
-
-  newCollection.save(function(error){
-    if(error){
-      console.log("Data not added to database");
-      res.send("data not saved");
-    }
-    else{
-      console.log("we added the data successfully");
-      res.send("data is saved correctly");
-      //console.log(data);
-    }
+  DashBoards(req.session.user.organization,"gitDashBoardModel").then(function(model) {
+    model(newDashBoard).save(function(error){
+      if(error){
+        console.log("Data not added to database");
+        res.send("data not saved");
+      }
+      else{
+        console.log("we added the data successfully");
+        res.send("data is saved correctly");
+        //console.log(data);
+      }
+    });
   });
-})
-
+});
 module.exports = router;
