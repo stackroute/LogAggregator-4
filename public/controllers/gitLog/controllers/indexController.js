@@ -592,9 +592,12 @@ app.controller('myController', function($scope, $http) {
         }
         $scope.groupedby = " groupedby " + column_details;
         }
+<<<<<<< HEAD
         else{
           $scope.groupedby = "";
         }
+=======
+>>>>>>> d44739083ddbc064be8db6dc69eaeb8b51da203b
 
         if(obj.filters !== undefined && obj.filters.length !== 0){
 
@@ -608,6 +611,7 @@ app.controller('myController', function($scope, $http) {
 
             console.log("filter_details",filter_details);
           }
+<<<<<<< HEAD
           $scope.filteredby = "and filtered by " + filter_details;
           }
           else{
@@ -628,6 +632,13 @@ app.controller('myController', function($scope, $http) {
 
 
 
+=======
+          $scope.filteredby = " filteredBy " + filter_details;
+          }
+
+          //column_details = "&" + column_details;
+          $scope.description_data= "This graph in plotted between " + obj["row"]["displayName"] + " and " + obj["measure"]["primary"]["displayName"];
+>>>>>>> d44739083ddbc064be8db6dc69eaeb8b51da203b
 
        console.log("description_data",$scope.description_data);
       console.log("we are in getgit data function");

@@ -31,6 +31,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var flash = require('connect-flash');
+var RedisStore = require('connect-redis')(session);
 
 var routes = require('./routes/index');
 
@@ -77,6 +78,11 @@ if (process.env.NODE_ENV === 'development') {
 app.use(flash());
 app.use(methodOverride());
 app.use(session({
+  store: new RedisStore({
+    host: '172.23.238.253',
+    port: 6379,
+    db: 9
+  }),
   saveUninitialized: true,
   resave: true,
   secret: 'secret',

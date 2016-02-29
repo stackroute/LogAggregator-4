@@ -3,12 +3,12 @@ function plotting_stacked_graph(data,graph_details){
     console.log("graph_details",graph_details);
 
     var element = document.getElementById("graph-container");
-    var margin = {top: 60, right: 60, bottom: 80, left: 60},
+    var margin = {top: 60, right: 60, bottom: 180, left: 80},
         width = (0.89*parseInt(element.clientWidth)) - margin.left - margin.right,
         height = 470 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .3);
+        .rangeRoundBands([0, width], .1, .3);
 
     var y = d3.scale.linear()
         .rangeRound([height, 0]);
@@ -69,7 +69,8 @@ function plotting_stacked_graph(data,graph_details){
           .selectAll('text')
           .attr("transform","rotate(-35)")
           .attr("x",-50)
-          .attr("font-size",15);
+          .attr("font-size",15)
+          // .call(wrap, x.rangeBand());
 
       svg.append("text")
          .attr("font-size",15)
@@ -225,9 +226,6 @@ function plotting_graph(data,graph_details){
 
   //});
 }
-
-
-
 
 
   ///////////////////////////////////////////////////////////////////////////older plotting method
