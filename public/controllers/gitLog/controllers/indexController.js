@@ -577,38 +577,60 @@ app.controller('myController', function($scope, $http) {
     function getgitdata(obj){
       console.log("getgitdata",obj);
       $scope.graph_type_details=obj["name"];
-      var column_details= "&";
-      var filter_details= "filter by";
+      var column_details= "";
+      var filter_details= "";
       if(obj.columns !== undefined && obj.columns.length !== 0){
 
         for(var i=0;i< obj.columns.length;i++){
-          var graph_column_displayName = obj.columns[i].displayName;
-          var graph_column_value ="";
+          var graph_column_displayName = obj.columns[i].displayName + " ";
+          var graph_column_value =" ";
           for(var j=0;j<((obj.columns[i].values.length>3)?3:obj.columns[i].values.length);j++){
-             graph_column_value +=obj.columns[i].values[j];
+             graph_column_value +=obj.columns[i].values[j] + ", ";
           }
-          column_details+= (graph_column_displayName+graph_column_value);
+          column_details+= graph_column_displayName+"["+graph_column_value+"]";
           console.log("column_details",column_details);
         }
+        $scope.groupedby = " groupedby " + column_details;
         }
+        else{
+          $scope.groupedby = "";
+        }
+
         if(obj.filters !== undefined && obj.filters.length !== 0){
 
           for(var i=0;i< obj.filters.length;i++){
-            var graph_filters_displayName = obj.filters[i].displayName;
-            var graph_filters_value ="";
+            var graph_filters_displayName = obj.filters[i].displayName + " ";
+            var graph_filters_value =" ";
             for(var j=0;j<((obj.filters[i].values.length>=3)?3:obj.filters[i].values.length);j++){
-               graph_filters_value +=obj.filters[i].values[j];
+               graph_filters_value +=obj.filters[i].values[j] + ", ";
             }
-            filter_details += (graph_filters_displayName+graph_filters_value);
+            filter_details += graph_filters_displayName+"["+graph_filters_value+"]";
+
             console.log("filter_details",filter_details);
           }
+          $scope.filteredby = "and filtered by " + filter_details;
           }
-          column_details = "&" + column_details;
-          var sub_description= "This graph in plotted for" + obj["row"]["displayName"] + column_details + "vs" + obj["measure"]["primary"]["displayName"] + filter_details;
-        $scope.description_data= sub_description;
-      console.log("description_data",$scope.description_data);
-      console.log("we are in getgit data function");
+          else{
+            $scope.filteredby = "";
+          }
 
+          //column_details = "&" + column_details;
+          if(obj["row"]["aggregators"]!==undefined){
+            if(obj["row"]["aggregators"]["name"]==="all")
+              $scope.description_data= "This graph shows "+ obj["row"]["aggregators"]["name"] + obj["measure"]["primary"]["displayName"] +" vs "+ obj["row"]["displayName"] ;
+              else {
+                $scope.description_data= "This graph shows "+ obj["row"]["aggregators"]["displayName"]+obj["row"]["aggregators"]["argument"] + obj["measure"]["primary"]["displayName"] +" vs "+ obj["row"]["displayName"] ;
+              }
+          }
+          else{
+              $scope.description_data= "This graph shows total" + obj["measure"]["primary"]["displayName"] +" vs "+ obj["row"]["displayName"] ;
+          }
+
+
+
+
+       console.log("description_data",$scope.description_data);
+      console.log("we are in getgit data function");
 
           $http({method: 'Post', url: '/plotgraph', data:{data:obj}}).
               success(function(data, status, headers, config) {
