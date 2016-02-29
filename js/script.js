@@ -131,24 +131,20 @@ addMeas = function(item1, item2) {
     var textbox1 = document.getElementById("eventname");
     textbox1.value = item1 + " : " + item2;
   }
+
 });
 
 //display selected fieldname or event in measures pane
-function ShowHideDiv() {
-  var chkField = document.getElementById("radioField");
-  var dvField = document.getElementById("radioFieldDiv");
-  var chkRadio = document.getElementById("radioEvent");
-  var dvRadio = document.getElementById("radioEventDiv");
-  var dvField = document.getElementById("radioFieldDiv");
-  if (chkField.checked) {
-    dvField.style.display = "block";
-    dvRadio.style.display = "none";
-  } else if (chkRadio.checked) {
-    dvField.style.display = "none";
-    dvRadio.style.display = "block";
-  }
-}
-
+$('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="field"){
+            $(".box").not("#radioFieldDiv").hide();
+            $("#radioFieldDiv").show();
+        }
+        if($(this).attr("value")=="event"){
+          $(".box").not("#radioEventDiv").hide();
+            $("#radioEventDiv").show();
+        }
+});
 //binding dummy dimensions and measures list
 var dimList = [{
   "dispName": "Path",

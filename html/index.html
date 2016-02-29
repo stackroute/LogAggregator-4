@@ -119,7 +119,7 @@
                           </div>
                           <div class="form-group">
                           <label for="fieldname">Field name</label>
-                          <input type="fieldname" class="form-control" id="fieldname" placeholder="Enter Field Name">
+                          <input type="fieldname" class="form-control" id="fieldname" placeholder="Field Name" readonly>
                           </div>
                           <button type="submit" class="btn btn-success" onclick="myClick()">Save</button>
                     </div>
@@ -139,10 +139,10 @@
                             </select>
                           </div>
                           <div class="form-group">
-                              <label><input type="radio" name="measure" id="radioField" onclick="ShowHideDiv()">Fieldname</label>
-                              <label><input type="radio" name="measure" id="radioEvent" onclick="ShowHideDiv()">Event</label>
+                              <label><input type="radio" name="measure" id="radioField" value="field">Fieldname</label>
+                              <label><input type="radio" name="measure" id="radioEvent" value="event">Event</label>
                           </div>
-                          <div class="form-group" id = "radioFieldDiv" style="display: none">
+                          <div class="form-group box" id = "radioFieldDiv" style="display: none">
                           <label for="fieldmeasurename">Fieldname</label>
                           <select class="form-control" id="fieldmeasurename">
                               <option>host</option>
@@ -152,7 +152,7 @@
                           <!-- <label for="fieldmeasurevalue">Fieldvalue</label>
                           <input type="fieldmeasurevalue" class="form-control" id="fieldmeasurevalue" placeholder="Enter Field Value"> -->
                           </div>
-                          <div class="form-group" id = "radioEventDiv" style="display: none">
+                          <div class="form-group box" id = "radioEventDiv" style="display: none">
                                 <label for="eventname">Selected Event</label>
                                 <input type="eventname" class="form-control" id="eventname" placeholder="Selected Event.." readonly>
                           </div>
