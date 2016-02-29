@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Case</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Log Aggregator</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="panel panel-success mainSection">
+            <div class="panel-heading">
+              <h4 class="panel-title">Namespace
+              </h4>
+            </div>
+            <div class="panel-body" >
+              <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#myModal">Create new namespace</button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Create new namespace</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                              <div class="form-group">
+                              <label for="name">Namespace</label>
+                              <input type="name" class="form-control" id="name" placeholder="Enter namespace">
+                              </div>
+                              <div class="form-group">
+                              <label for="desc">Description</label>
+                              <textarea class="form-control" rows="3" placeholder="Enter description" id="desc"></textarea>
+                              </div>
+                              <div class="form-group">
+                              <label for="exampleInputFile">File input</label>
+                              <input type="file" id="exampleInputFile">
+                              <p class="help-block">Upload your log file here.</p>
+                              </div>
+                              <button type="submit" class="btn btn-success">Submit</button>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="overflow:scroll;">
+                     <table id="tabLog" class="hoverTable" >
+                      <thead>
+                       <tr>
+                         <th>host</th>
+                         <th>rfc931</th>
+                         <th>username</th>
+                         <th>datetime</th>
+                         <th>request</th>
+                         <th>statuscode</th>
+                         <th>bytes</th>
+                         <th>referrer</th>
+                         <th>user_agent</th>
+                         <th>cookies</th>
+                       </tr>
+                   </thead>
+                    </table>
+                 </div>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm-4" >
+      <div class="panel panel-success mainSection">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                Select Entity
+              </h4>
+            </div>
+            <div class="panel-body">
+              <table style="width:100%" id="tabDim" >
+                </table>
+            </div>
+       </div>
+    </div>
+    <div class="col-sm-3 " >
+      <div class="panel panel-success mainSection">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                Dimensions  |   Measures
+              </h4>
+            </div>
+            <div class="panel-body">
+              <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#menu1">Dimensions</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Measures</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="menu1" class="tab-pane fade in active">
+                      <h4>Dimensions</h4>
+                      <form>
+                          <div class="form-group">
+                          <label for="displayname">Display Name</label>
+                          <input type="displayname" class="form-control" id="displayname" placeholder="Enter Display Name">
+                          </div>
+                          <div class="form-group">
+                          <label for="fieldname">Field name</label>
+                          <input type="fieldname" class="form-control" id="fieldname" placeholder="Enter Field Name">
+                          </div>
+                          <button type="submit" class="btn btn-success" onclick="myClick()">Save</button>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                      <h4>Measures</h4>
+                      <form>
+                          <div class="form-group">
+                          <label for="displaymeasurename">Display Name</label>
+                          <input type="displaymeasurename" class="form-control" id="displaymeasurename" placeholder="Enter Display Name">
+                          </div>
+                          <div class="form-group">
+                          <label for="aggregator">Aggregator Function</label>
+                          <select class="form-control" id="aggregator">
+                              <option>Count</option>
+                              <option>Average</option>
+                              <option>Sum</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                              <label><input type="radio" name="measure" id="radioField" onclick="ShowHideDiv()">Fieldname</label>
+                              <label><input type="radio" name="measure" id="radioEvent" onclick="ShowHideDiv()">Event</label>
+                          </div>
+                          <div class="form-group" id = "radioFieldDiv" style="display: none">
+                          <label for="fieldmeasurename">Fieldname</label>
+                          <select class="form-control" id="fieldmeasurename">
+                              <option>host</option>
+                              <option>request</option>
+                              <option>user_agent</option>
+                            </select>
+                          <!-- <label for="fieldmeasurevalue">Fieldvalue</label>
+                          <input type="fieldmeasurevalue" class="form-control" id="fieldmeasurevalue" placeholder="Enter Field Value"> -->
+                          </div>
+                          <div class="form-group" id = "radioEventDiv" style="display: none">
+                                <label for="eventname">Selected Event</label>
+                                <input type="eventname" class="form-control" id="eventname" placeholder="Selected Event.." readonly>
+                          </div>
+                          <div class="form-group">
+                            <h4>Apply Filters</h4>
+                            <label for="filterfield">Filter Field</label>
+                            <input type="filterfield" class="form-control" id="filterfield" placeholder="Enter Filter Field">
+                            <label for="filtervalue">Filter value</label>
+                            <input type="filtervalue" class="form-control" id="filtervalue" placeholder="Enter Filter Value">
+                          </div>
+                          <button type="submit" class="btn btn-success">GO..</button>
+                          <h3>Result</h3>
+                          <textarea class="form-control" rows="2" readonly placeholder="Your result goes here..."></textarea>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+    <div class="col-sm-2">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"  href="#collapse1">Dimensions</a> <!--data-parent="#accordion" -->
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <ul id="dimList" class="list-group"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"  href="#collapse2">Measures</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul id="measureList" class="list-group"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js">
+
+</script>
+<script src="../js/script.js">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+#tabLog, #tabLog td, #tabLog th {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+#tabLog {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+th {
+    height: 50px;
+
+}
+
+td ,th {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#goBtn{
+  margin-top: 10px;
+}
+
+.mainSection {
+  height: 750px;
+}
+
+.container{
+  margin-top: 60px;
+}
+
+  	.hoverTable{
+		width:100%;
+		border-collapse:collapse;
+	}
+	.hoverTable td{
+		padding:7px; border:#4e95f4 1px solid;
+	}
+
+	/* Define the hover highlight color for the table row */
+    .hoverTable tr:hover {
+          background-color: #b8d1f3;
+    }
+    .notfirst:hover {
+    background-color: red;
+}
+.btn {
+	display: inline-block;
+	color: #666;
+	background-color: #eee;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 12px;
+	padding: 10px 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-bottom-width: 3px;
+}
+.btn.btn-blue {
+	background-color: #699DB6;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+}
+
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
