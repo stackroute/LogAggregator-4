@@ -1,28 +1,24 @@
 // 17/3/16 mongo client
 
 // #2
-var es = require('event-stream')
 var _ = require('highland');
 var fs = require('fs')
 //  var uri  = 'mongodb://localhost:27017/slog4'
 var WebSocketClient = require('websocket').client;
 var WebSocket = new WebSocketClient();
-var io = require('socket.io').listen();
+
 
 var dest =fs.createWriteStream('eout.json',{defaultEncoding:'utf8'});
 
 WebSocket.on('connect',function(connection) {
   console.log("Connected..Waiting for some message");
-  var data = _('message',connection);
 
-  data.map(function(x) {
-    console.log('x:', JSON.stringify(x));
-    return x;
-  });
+   _('message',connection).map(function(msg){
+     console.log('msg1:' + JSON.stringify(msg));
+   }).done(function(){
+     console.log('Done');
+   });
 
-  connection.on('message', function(message) {
-    console.log('msg: ' + JSON.stringify(message));
-  });
   /*connection.on('message',function(message) {
 
 // var docs =_([message]);
