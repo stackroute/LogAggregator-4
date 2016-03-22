@@ -1,0 +1,33 @@
+
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Tahoma, Geneva, sans-serif;
+      }
+
+      div {
+        display: inline;
+      }
+    </style>
+    <script>
+      function updateStats(logs) {
+        console.log(logs);
+        var div = document.getElementById('log');
+          div.innerHTML = div.innerHTML + '<br>'+logs;
+      }
+
+      var host = window.document.location.host.replace(/:.*/, '');
+      var ws = new WebSocket('ws://' + host + ':9090');
+      ws.onmessage = function (event) {
+        updateStats(event.data);
+      };
+
+      window.setTimeout(function(){ document.location.reload(true); }, 2000);
+    </script>
+  </head>
+  <body>
+    <strong>Server Logs</strong><br>
+    Logs: <div id='log'></div><br>
+  </body>
+</html>
