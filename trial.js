@@ -18,14 +18,14 @@ for(var j=0;j<50;j++)
 
     k= ins1.sum(j);
    l=ins2.min(j);
-    m=ins3.max(j);
-    n=ins4.average(j);
+    m=ins3.average(j);
+    n=ins4.standardDeviation(j);
 
 
     console.log("sum-----"+k);
    console.log("min---"+l);
-    console.log("average---"+n);
-    console.log("max---"+m);
+    console.log("standard---"+n);
+    console.log("average---"+m);
 
 
 }

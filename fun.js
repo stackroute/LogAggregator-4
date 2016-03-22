@@ -116,6 +116,47 @@ module.exports=function myfunction(n)
         }
 
     }
+
+
+    this.standardDeviation= function(value)
+    {
+        var length;
+        length=arr1.length;
+        if(count<n)
+        {
+            arr1.push(value);
+            count++;
+        }
+
+        if(count>=n)
+        {
+            var k=count%n;
+            arr1[k]=value;
+            var sum=0;
+            for(var h=0;h<n;h++)
+            {
+                sum=sum+arr1[h];
+            }
+            var mean=sum/n;
+
+
+
+            var sd;
+            sum=0;
+            for(var h=0;h<n;h++)
+            {
+                sd=arr1[h]-mean;
+                sd=Math.pow(sd,2);
+                sum=sum+sd;
+            }
+
+            var resul=sum/n;
+            resul=Math.sqrt(resul);
+            count++;
+            return resul;
+        }
+
+    }
 }
 
 
