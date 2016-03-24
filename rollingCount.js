@@ -7,6 +7,7 @@ module.exports=function myfunction(n)
     var  count=0;
     this.sum= function(value)
     {
+        value=parseInt(value);
         var length;
         length=arr1.length;
         if(count<n)
@@ -35,6 +36,7 @@ module.exports=function myfunction(n)
 
     this.min= function(value)
     {
+        value=parseInt(value);
         var length;
         length=arr1.length;
         if(count<n)
@@ -64,6 +66,7 @@ module.exports=function myfunction(n)
 
     this.max= function(value)
     {
+        value=parseInt(value);
         var length;
         length=arr1.length;
         if(count<n)
@@ -93,6 +96,7 @@ module.exports=function myfunction(n)
 
     this.average= function(value)
     {
+        value=parseInt(value);
         var length;
         length=arr1.length;
         if(count<n)
@@ -120,6 +124,7 @@ module.exports=function myfunction(n)
 
     this.standardDeviation= function(value)
     {
+        value=parseInt(value);
         var length;
         length=arr1.length;
         if(count<n)
@@ -158,5 +163,3 @@ module.exports=function myfunction(n)
 
     }
 }
-
-
