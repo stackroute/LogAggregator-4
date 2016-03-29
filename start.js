@@ -3,13 +3,19 @@ var fs = require('fs');
 //Read Data file
 var input = fs.createReadStream('datastream.csv');
 
-var rollingTimeWindow = require('./rollingTime.js');
-//Creating a new instance
-var timeWindow = new rollingTimeWindow(10);
+var sum = require('./sum-aggregator');
+var count = require('./count-aggregator');
+var avg = require('./avg-aggregator');
+var min = require('./min-aggregator');
+var max = require('./max-aggregator');
 
-readLines(input,timeWindow);
+var TimeAccumulator = require('./time-accumulator');
+//Creating a new instance
+var timeAccumulator = new TimeAccumulator(1, max);
+
+readLines(input);
 //Function for sending streaming data as input
-function readLines(input, timeWindow) {
+function readLines(input) {
   var remaining = '';
 
   input.on('data', function(data) {
@@ -20,13 +26,8 @@ function readLines(input, timeWindow) {
       var line = remaining.substring(last, index);
       last = index + 1;
 
-       //console.dir(timeWindow);
-       //console.log(timeWindow.count(line));
-       //console.log(timeWindow.sum(line));
-      // console.log(timeWindow.avg(line));
-      //console.log(timeWindow.min(line));
-       console.log(timeWindow.max(line));
-      // console.log(timeWindow.StandardDeviation());
+      var result = timeAccumulator.evaluate(line);
+      console.log(result);
 
       index = remaining.indexOf('\n', last);
     }
