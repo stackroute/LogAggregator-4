@@ -1,14 +1,14 @@
-var myfunction=require("./fun.js");
+var rollingCount=require("./rollingCount.js");
 
-var ins1=new myfunction(10);
+var ins1=new rollingCount(10);
 
-var ins2=new myfunction(10);
+var ins2=new rollingCount(10);
 
-var ins3=new myfunction(10);
+var ins3=new rollingCount(10);
 
-var ins4=new myfunction(10);
+var ins4=new rollingCount(10);
 
-var ins5=new myfunction(10);
+var ins5=new rollingCount(10);
 
 
 
@@ -29,8 +29,3 @@ for(var j=0;j<50;j++)
 
 
 }
-
-
-
-
-
