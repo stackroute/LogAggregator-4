@@ -1,0 +1,15 @@
+{
+  "name": "Streaming_Data",
+  "version": "1.0.0",
+  "description": "this is application for websocket stream data",
+  "main": "1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Baskar",
+  "license": "ISC",
+  "dependencies": {
+    "highland": "^2.7.1",
+    "websocket": "^1.0.22"
+  }
+}
