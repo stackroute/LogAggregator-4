@@ -11,6 +11,12 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
       this.hoverEdit = false;
     };
 
+    $scope.selectedDim = function(val) {
+      if (!val) {
+        return ;
+      }
+      $scope.dimVal = val;
+    }
 
 
     $scope.getKeys = function(obj) {

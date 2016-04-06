@@ -75,8 +75,8 @@
                 <th ng-if="!$last">{{dat}}</th>
                 <td ng-if="!$last">{{selectedRow[dat]}}</td>
                 <td>
-                  <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" >D</button>
-                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle">M</button>
+                  <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" ng-click="selectedDim(dat)">D</button>
+                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle" ng-click="">M</button>
                 </td>
               </tr>
             </tbody>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group">
                   <label for="fieldname">Field name</label>
-                  <input type="fieldname" class="form-control" id="fieldname" name="fieldname" placeholder="Enter Field Name">
+                  <input type="fieldname" class="form-control" id="fieldname" name="fieldname" placeholder="Enter Field Name" ng-model="dimVal">
                 </div>
                 <button type="submit" class="btn btn-success">Save</button>
               </form>
