@@ -2,18 +2,13 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
   function($scope, defineDataService) {
     $scope.dimensionList = [];
     $scope.measureList = [];
-    $scope.logdataList = [];
-    // var handleSuccess = function(response) {
-    //   console.log(response.data);
-    //   $scope.dimensionList = response.data;
-    // };
-    //
-    // var handleError = function(response) {
-    //   $scope.dimensionList = undefined;
-    // };
 
-    //defineDataService.getDimensionData(handleSuccess, handleError);
-    //defineDataService.getMeasureData(handleSuccess, handleError);
+    $scope.notSorted = function(obj){
+    if (!obj) {
+      return [];
+    }
+      return Object.keys(obj);
+    }
 
     defineDataService.getDimensionData().then(function(response) {
       var dimArr = response.data;
@@ -33,7 +28,8 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     });
     defineDataService.getLogData().then(function(response) {
       $scope.logdataList = response.data;
-      //console.log($scope.logdataList)
+      $scope.cols = Object.keys($scope.logdataList[0]);
+
     });
   }
 ]);
