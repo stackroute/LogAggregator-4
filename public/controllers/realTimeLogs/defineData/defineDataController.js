@@ -3,7 +3,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     $scope.dimensionList = [];
     $scope.measureList = [];
 
-    $scope.notSorted = function(obj){
+    $scope.getKeys = function(obj){
     if (!obj) {
       return [];
     }

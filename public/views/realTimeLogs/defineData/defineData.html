@@ -48,12 +48,12 @@
             <table id="tabLog" class="hoverTable">
               <thead>
                 <tr>
-                  <th ng-repeat="key in notSorted(cols)" ng-init="value=cols[key]">{{value}}</th>
+                  <th ng-repeat="header in cols">{{header}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="row in logdataList">
-                  <td ng-if="!$last" ng-repeat="dat in notSorted(row)" ng-init="value=row[dat]">{{value}}</td>
+                  <td ng-if="!$last" ng-repeat="dat in getKeys(row)" ng-init="value=row[dat]">{{value}}</td>
                 </tr>
               </tbody>
             </table>
