@@ -71,9 +71,13 @@
         <div class="panel-body">
           <table style="width:100%" id="tabDim">
             <tbody>
-              <tr ng-repeat="dat in getKeys(selectedRow)">
+              <tr ng-repeat="dat in getKeys(selectedRow)" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <th ng-if="!$last">{{dat}}</th>
                 <td ng-if="!$last">{{selectedRow[dat]}}</td>
+                <td>
+                  <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" >D</button>
+                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle">M</button>
+                </td>
               </tr>
             </tbody>
           </table>

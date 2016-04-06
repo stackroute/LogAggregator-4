@@ -3,17 +3,27 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     $scope.dimensionList = [];
     $scope.measureList = [];
 
-    $scope.getKeys = function(obj){
-    if (!obj) {
-      return [];
-    }
+    $scope.hoverIn = function() {
+      this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function() {
+      this.hoverEdit = false;
+    };
+
+
+
+    $scope.getKeys = function(obj) {
+      if (!obj) {
+        return [];
+      }
       return Object.keys(obj);
     }
     $scope.rowSelected = function(obj) {
       if (!obj) {
         return {};
       }
-        $scope.selectedRow = obj;
+      $scope.selectedRow = obj;
     }
     defineDataService.getDimensionData().then(function(response) {
       var dimArr = response.data;
@@ -34,7 +44,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     defineDataService.getLogData().then(function(response) {
       $scope.logdataList = response.data;
       $scope.cols = Object.keys($scope.logdataList[0]);
-    
+
     });
   }
 ]);

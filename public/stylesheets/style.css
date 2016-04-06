@@ -1327,3 +1327,14 @@ td ,th {
   line-height: 1.42;
   border-radius: 15px;
 }
+
+
+#tabDim , #tabDim td , #tabDim th , #tabDim tr{
+  border:none;
+}
+
+#tabDim {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
