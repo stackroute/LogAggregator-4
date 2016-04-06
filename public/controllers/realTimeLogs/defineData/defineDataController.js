@@ -9,7 +9,12 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     }
       return Object.keys(obj);
     }
-
+    $scope.rowSelected = function(obj) {
+      if (!obj) {
+        return {};
+      }
+        $scope.selectedRow = obj;
+    }
     defineDataService.getDimensionData().then(function(response) {
       var dimArr = response.data;
       if (dimArr.length > 0) {
@@ -29,7 +34,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     defineDataService.getLogData().then(function(response) {
       $scope.logdataList = response.data;
       $scope.cols = Object.keys($scope.logdataList[0]);
-
+    
     });
   }
 ]);

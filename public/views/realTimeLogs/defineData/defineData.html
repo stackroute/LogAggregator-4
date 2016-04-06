@@ -52,8 +52,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="row in logdataList">
-                  <td ng-if="!$last" ng-repeat="dat in getKeys(row)" ng-init="value=row[dat]">{{value}}</td>
+                <tr ng-repeat="row in logdataList" ng-click="rowSelected(row)">
+                  <td ng-if="!$last" ng-repeat="dat in getKeys(row)">{{row[dat]}}</td>
                 </tr>
               </tbody>
             </table>
@@ -70,6 +70,12 @@
         </div>
         <div class="panel-body">
           <table style="width:100%" id="tabDim">
+            <tbody>
+              <tr ng-repeat="dat in getKeys(selectedRow)">
+                <th ng-if="!$last">{{dat}}</th>
+                <td ng-if="!$last">{{selectedRow[dat]}}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
