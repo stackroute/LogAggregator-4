@@ -144,5 +144,10 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/packagecount',
     templateUrl : 'views/aptCache/packageCount/packageCount.html',
     controller: 'packageCountController'
+  })
+  .state('defineData',{
+    url: '/defineData',
+    templateUrl : 'views/realTimeLogs/defineData/defineData.html',
+    controller: 'defineDataController'
   });
 });

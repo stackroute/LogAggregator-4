@@ -64,11 +64,28 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
                   </li>
                 </ul> <!-- end dropdown-menu -->
               </li>
-              <li >
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  Settings <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a ng-href="#serviceConfig">
+                      Config Settings
+                    </a>
+                  </li>
+                  <li>
+                    <a ng-href="#defineData">
+                      Define Data
+                    </a>
+                  </li>
+                </ul> <!-- end dropdown-menu -->
+              </li>
+              <!-- <li >
                 <a ng-href="#serviceConfig">
                   Settings <i class="fa fa-wrench"></i>
                 </a>
-              </li>
+              </li> -->
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown   user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -103,7 +120,7 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 
     </div> <!-- end homepage -->
 
-    <div ui-view>
+    <div ui-view  style="margin-top:50px">
     </div>
 
   <%include footer_includes.ejs%>
