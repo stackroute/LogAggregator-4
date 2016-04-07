@@ -18,11 +18,19 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
       $scope.dimVal = val;
     }
 
+    $scope.selectedMeas = function(key,val) {
+      if (!key) {
+        return ;
+      }
+      $scope.measField = key;
+      $scope.measValue = val;
+    }
 
     $scope.getKeys = function(obj) {
       if (!obj) {
         return [];
       }
+      //console.log(Object.keys(obj));
       return Object.keys(obj);
     }
     $scope.rowSelected = function(obj) {

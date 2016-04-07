@@ -76,7 +76,7 @@
                 <td ng-if="!$last">{{selectedRow[dat]}}</td>
                 <td>
                   <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" ng-click="selectedDim(dat)">D</button>
-                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle" ng-click="">M</button>
+                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle" ng-click="selectedMeas(dat,selectedRow[dat])">M</button>
                 </td>
               </tr>
             </tbody>
@@ -127,25 +127,29 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>
-                    <input type="radio" name="measure" id="radioField" onclick="ShowHideDiv()">Fieldname</label>
-                  <label>
-                    <input type="radio" name="measure" id="radioEvent" onclick="ShowHideDiv()">Event</label>
+                  <label for="radioField">
+                    <input type="radio" name="measure" id="radioField" ng-model="measure" value="radioField">Fieldname</label>
+                  <label for="radioEvent">
+                    <input type="radio" name="measure" id="radioEvent" ng-model="measure" value="radioEvent">Event</label>
                 </div>
-                <div class="form-group" id="radioFieldDiv" style="display: none">
+                <div class="form-group" id="radioFieldDiv" ng-show="measure=='radioField'">
                   <label for="fieldmeasurename">Fieldname</label>
                   <select class="form-control" id="fieldmeasurename" name="measureFieldSelector">
-                    <option>host</option>
+                    <option ng-repeat="dat in getKeys(selectedRow)" ng-if="!$last">{{dat}}</option>
+                    <!-- <option>host</option>
                     <option>request</option>
-                    <option>user_agent</option>
+                    <option>user_agent</option> -->
                   </select>
                   <!-- <input type="fieldmeasurevalue" class="form-control" id="fieldmeasurename" placeholder="Enter Field Name" name="measureSelector"> -->
                   <!-- <label for="fieldmeasurevalue">Fieldvalue</label>
                           <!-- <input type="fieldmeasurevalue" class="form-control" id="fieldmeasurevalue" placeholder="Enter Field Value"> -->
                 </div>
-                <div class="form-group" id="radioEventDiv" style="display: none">
-                  <label for="eventname">Selected Event</label>
-                  <input type="eventname" class="form-control" id="eventname" placeholder="Selected Event.." readonly name="measureEventSelector">
+                <div class="form-group" id="radioEventDiv" ng-show="measure=='radioEvent'">
+                  <h4>Selected Event</h4>
+                  <label for="eventField">Selected Event Field</label>
+                  <input type="eventField" class="form-control" id="eventField" placeholder="Selected Event Field.." readonly name="measureEventSelector" ng-model="measField">
+                  <label for="eventValue">Selected Event value</label>
+                  <input type="eventField" class="form-control" id="eventValue" placeholder="Selected Event Value.." readonly name="measureEventSelector" ng-model="measValue">
                 </div>
                 <div class="form-group">
                   <h4>Apply Filters</h4>
