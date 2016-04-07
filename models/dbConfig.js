@@ -27,6 +27,9 @@ var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 var queryBoxSchema = require('./query.box.model');
 var saveDashBoardSchema = require('./query.box.model');
 
+//wave4
+var namespaceSchema = require('./namespaceSchema');
+
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
 var nginxServiceModel= masterDB.model('nginxServiceConfig',nginxServiceConfigSchema);
@@ -103,7 +106,8 @@ module.exports = {
   nginxServiceModel: nginxServiceModel,
   appgitServiceModel:appgitServiceModel,
   getModel:getModel,
-  queryBoxModel:queryBoxModel
+  queryBoxModel:queryBoxModel,
+  namespaceModel : masterDB.model('Namespace',namespaceSchema)
 };
 
 function org(organizationModel){

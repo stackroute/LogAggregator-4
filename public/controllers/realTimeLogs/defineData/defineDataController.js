@@ -41,22 +41,27 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
     }
     defineDataService.getDimensionData().then(function(response) {
       var dimArr = response.data;
+      console.log("array",dimArr);
       if (dimArr.length > 0) {
         for (var i = 0; i < dimArr.length; i++) {
-          $scope.dimensionList.push(dimArr[i].dispName);
+          //console.log("inside loop", dimArr[i].dispName);
+          $scope.dimensionList.push(dimArr[i].displayName);
         }
       }
+      //console.log("scope",$scope.dimensionList);
     });
     defineDataService.getMeasureData().then(function(response) {
       var mArr = response.data;
+      console.log(mArr);
       if (mArr.length > 0) {
         for (var i = 0; i < mArr.length; i++) {
-          $scope.measureList.push(mArr[i].dispName);
+          $scope.measureList.push(mArr[i].displayName);
         }
       }
     });
     defineDataService.getLogData().then(function(response) {
       $scope.logdataList = response.data;
+      //console.log($scope.logdataList);
       $scope.cols = Object.keys($scope.logdataList[0]);
 
     });
