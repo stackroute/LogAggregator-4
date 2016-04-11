@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="App" >
+<head>
+  <meta charset="utf-8">
+  <title>Todos $http</title>
+  <link rel="stylesheet" href="style.css">
+  <script>document.write("<base href=\"" + document.location + "\" />");</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+  <script>
+  var App = angular.module('App', []);
+  App.controller('TodoCtrl', function($scope, $http) {
+    $http.get('todos.json')
+         .then(function(res){
+            $scope.todos = res.data;
+          });
+  });
+  </script>
+</head>
+<body ng-controller="TodoCtrl">
+
+  <table>
+    <tr>
+      <th>Remote</th>
+      <!-- <th>Host</th> -->
+      <!-- <th>User</th> -->
+      <th>Method</th>
+      <th>Path</th>
+      <th>Code</th>
+      <!-- <th>Size</th> -->
+      <th>Agent</th>
+      <th>Time</th>
+    </tr>
+
+    <tr ng-repeat="data in todos">
+
+      <td>{{data.remote}}</td>
+      <!-- <td>{{data.host}}</td> -->
+      <!-- <td>{{data.user}}</td> -->
+      <td>{{data.method}}</td>
+      <td>{{data.path}}</td>
+      <td>{{data.code}}</td>
+      <!-- <td>{{data.size}}</td> -->
+      <td>{{data.agent}}</td>
+      <td>{{data.time}}</td>
+
+  </tr>
+
+</table>
+
+</body>
+
+</html>
