@@ -61,6 +61,10 @@ var onPageLoadDashBoard = require('./routes/gitLog/onPageLoadDashBoard');
 var gitDashboardConfigData  = require('./routes/gitLog/gitDashboardConfigData');
 //wave 3 routes ends
 
+//wave 4 starts
+var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
+//wave 4 ends
+
 var app = express();
 
 // view engine setup
@@ -126,6 +130,11 @@ app.use('/getProfile',getProfile);
 app.use('/getDashBoardJson',getDashBoardJson);
 app.use('/onPageLoadDashBoard',onPageLoadDashBoard);
 //end of wave3 code
+
+//wave 4 code starts
+app.use('/exp',expressions);
+
+// wave 4 code ends
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
