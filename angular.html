@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+<input type="text" name="name" ng-model='username'>
+<button type="button" name="button" ng-click="greet(username)">button</button>
+current time {{time}}
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $window,$interval) {
+  $scope.greet=function (username) {
+    // console.log('hello');
+    $scope.username="abc"
+    $window.alert("hello "+ $scope.username);
+  }
+  $interval(function () {
+    var hour=new Date().getHours();
+    var min=(new Date().getMinutes())
+    var seconds=(+new Date().getSeconds())
+
+    $scope.time=hour +':'+ min+':'+seconds
+  },1000)
+  });
+</script>
+
+</body>
+</html>

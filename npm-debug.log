@@ -1,0 +1,1148 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'mocha',
+1 verbose cli   '--no-bin-link' ]
+2 info using npm@3.6.0
+3 info using node@v5.7.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData mocha
+8 silly fetchNamedPackageData mocha
+9 silly mapToRegistry name mocha
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry http://172.23.238.253:4873/
+12 silly mapToRegistry uri http://172.23.238.253:4873/mocha
+13 verbose request uri http://172.23.238.253:4873/mocha
+14 verbose request no auth needed
+15 info attempt registry request try #1 at 6:12:56 AM
+16 verbose request id db49dd2354495e15
+17 verbose etag "c8c78067ecc0a66a8d0ca509b9ab9dfd"
+18 http request GET http://172.23.238.253:4873/mocha
+19 http 304 http://172.23.238.253:4873/mocha
+20 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+20 verbose headers   etag: '"c8c78067ecc0a66a8d0ca509b9ab9dfd"',
+20 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+20 verbose headers   date: 'Mon, 11 Apr 2016 06:13:34 GMT',
+20 verbose headers   connection: 'keep-alive' }
+21 silly get cb [ 304,
+21 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+21 silly get     etag: '"c8c78067ecc0a66a8d0ca509b9ab9dfd"',
+21 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+21 silly get     date: 'Mon, 11 Apr 2016 06:13:34 GMT',
+21 silly get     connection: 'keep-alive' } ]
+22 verbose etag http://172.23.238.253:4873/mocha from cache
+23 verbose get saving mocha to /home/vagrant/.npm/172.23.238.253_4873/mocha/.cache.json
+24 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+25 silly install normalizeTree
+26 silly loadCurrentTree Finishing
+27 silly loadIdealTree Starting
+28 silly install loadIdealTree
+29 silly cloneCurrentTree Starting
+30 silly install cloneCurrentTreeToIdealTree
+31 silly cloneCurrentTree Finishing
+32 silly loadShrinkwrap Starting
+33 silly install loadShrinkwrap
+34 silly loadShrinkwrap Finishing
+35 silly loadAllDepsIntoIdealTree Starting
+36 silly install loadAllDepsIntoIdealTree
+37 silly resolveWithNewModule mocha@2.4.5 checking installable status
+38 silly cache add args [ 'mocha', null ]
+39 verbose cache add spec mocha
+40 silly cache add parsed spec Result {
+40 silly cache add   raw: 'mocha',
+40 silly cache add   scope: null,
+40 silly cache add   name: 'mocha',
+40 silly cache add   rawSpec: '',
+40 silly cache add   spec: 'latest',
+40 silly cache add   type: 'tag' }
+41 silly addNamed mocha@latest
+42 verbose addNamed "latest" is being treated as a dist-tag for mocha
+43 info addNameTag [ 'mocha', 'latest' ]
+44 silly mapToRegistry name mocha
+45 silly mapToRegistry using default registry
+46 silly mapToRegistry registry http://172.23.238.253:4873/
+47 silly mapToRegistry uri http://172.23.238.253:4873/mocha
+48 verbose addNameTag registry:http://172.23.238.253:4873/mocha not in flight; fetching
+49 verbose get http://172.23.238.253:4873/mocha not expired, no request
+50 silly addNameTag next cb for mocha with tag latest
+51 silly addNamed mocha@2.4.5
+52 verbose addNamed "2.4.5" is a plain semver version for mocha
+53 silly cache afterAdd mocha@2.4.5
+54 verbose afterAdd /home/vagrant/.npm/mocha/2.4.5/package/package.json not in flight; writing
+55 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+56 verbose afterAdd /home/vagrant/.npm/mocha/2.4.5/package/package.json written
+57 silly fetchNamedPackageData commander
+58 silly mapToRegistry name commander
+59 silly mapToRegistry using default registry
+60 silly mapToRegistry registry http://172.23.238.253:4873/
+61 silly mapToRegistry uri http://172.23.238.253:4873/commander
+62 silly fetchNamedPackageData debug
+63 silly mapToRegistry name debug
+64 silly mapToRegistry using default registry
+65 silly mapToRegistry registry http://172.23.238.253:4873/
+66 silly mapToRegistry uri http://172.23.238.253:4873/debug
+67 silly fetchNamedPackageData diff
+68 silly mapToRegistry name diff
+69 silly mapToRegistry using default registry
+70 silly mapToRegistry registry http://172.23.238.253:4873/
+71 silly mapToRegistry uri http://172.23.238.253:4873/diff
+72 silly fetchNamedPackageData escape-string-regexp
+73 silly mapToRegistry name escape-string-regexp
+74 silly mapToRegistry using default registry
+75 silly mapToRegistry registry http://172.23.238.253:4873/
+76 silly mapToRegistry uri http://172.23.238.253:4873/escape-string-regexp
+77 silly fetchNamedPackageData glob
+78 silly mapToRegistry name glob
+79 silly mapToRegistry using default registry
+80 silly mapToRegistry registry http://172.23.238.253:4873/
+81 silly mapToRegistry uri http://172.23.238.253:4873/glob
+82 silly fetchNamedPackageData growl
+83 silly mapToRegistry name growl
+84 silly mapToRegistry using default registry
+85 silly mapToRegistry registry http://172.23.238.253:4873/
+86 silly mapToRegistry uri http://172.23.238.253:4873/growl
+87 silly fetchNamedPackageData jade
+88 silly mapToRegistry name jade
+89 silly mapToRegistry using default registry
+90 silly mapToRegistry registry http://172.23.238.253:4873/
+91 silly mapToRegistry uri http://172.23.238.253:4873/jade
+92 silly fetchNamedPackageData mkdirp
+93 silly mapToRegistry name mkdirp
+94 silly mapToRegistry using default registry
+95 silly mapToRegistry registry http://172.23.238.253:4873/
+96 silly mapToRegistry uri http://172.23.238.253:4873/mkdirp
+97 silly fetchNamedPackageData supports-color
+98 silly mapToRegistry name supports-color
+99 silly mapToRegistry using default registry
+100 silly mapToRegistry registry http://172.23.238.253:4873/
+101 silly mapToRegistry uri http://172.23.238.253:4873/supports-color
+102 verbose request uri http://172.23.238.253:4873/commander
+103 verbose request no auth needed
+104 info attempt registry request try #1 at 6:12:57 AM
+105 verbose etag "83ee45b6ed25bed8bd639237ee026731"
+106 http request GET http://172.23.238.253:4873/commander
+107 verbose request uri http://172.23.238.253:4873/debug
+108 verbose request no auth needed
+109 info attempt registry request try #1 at 6:12:57 AM
+110 verbose etag "a1aaa03e028f58a65bdc27d3868dda61"
+111 http request GET http://172.23.238.253:4873/debug
+112 verbose request uri http://172.23.238.253:4873/diff
+113 verbose request no auth needed
+114 info attempt registry request try #1 at 6:12:57 AM
+115 verbose etag "711d1a20ce5377e9feb4f7b44c7daf63"
+116 http request GET http://172.23.238.253:4873/diff
+117 verbose request uri http://172.23.238.253:4873/escape-string-regexp
+118 verbose request no auth needed
+119 info attempt registry request try #1 at 6:12:57 AM
+120 verbose etag "f7a1b6f8ec135fd9e3f6f65b4af33ced"
+121 http request GET http://172.23.238.253:4873/escape-string-regexp
+122 verbose request uri http://172.23.238.253:4873/glob
+123 verbose request no auth needed
+124 info attempt registry request try #1 at 6:12:57 AM
+125 verbose etag "d46bcd79cf1d551f5cdc96e7ae048036"
+126 http request GET http://172.23.238.253:4873/glob
+127 verbose request uri http://172.23.238.253:4873/growl
+128 verbose request no auth needed
+129 info attempt registry request try #1 at 6:12:57 AM
+130 verbose etag "46163309fdff19a4c2311256422ca8c1"
+131 http request GET http://172.23.238.253:4873/growl
+132 verbose request uri http://172.23.238.253:4873/jade
+133 verbose request no auth needed
+134 info attempt registry request try #1 at 6:12:57 AM
+135 verbose etag "f68be4f26ce000f95bd5481707ff7e74"
+136 http request GET http://172.23.238.253:4873/jade
+137 verbose request uri http://172.23.238.253:4873/mkdirp
+138 verbose request no auth needed
+139 info attempt registry request try #1 at 6:12:57 AM
+140 verbose etag "60f7cf2672457488a3232df9b8f49298"
+141 http request GET http://172.23.238.253:4873/mkdirp
+142 verbose request uri http://172.23.238.253:4873/supports-color
+143 verbose request no auth needed
+144 info attempt registry request try #1 at 6:12:57 AM
+145 verbose etag "9c6519df626c98a739c8ae4583153b34"
+146 http request GET http://172.23.238.253:4873/supports-color
+147 http 304 http://172.23.238.253:4873/mkdirp
+148 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+148 verbose headers   etag: '"60f7cf2672457488a3232df9b8f49298"',
+148 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+148 verbose headers   date: 'Mon, 11 Apr 2016 06:13:35 GMT',
+148 verbose headers   connection: 'keep-alive' }
+149 silly get cb [ 304,
+149 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+149 silly get     etag: '"60f7cf2672457488a3232df9b8f49298"',
+149 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+149 silly get     date: 'Mon, 11 Apr 2016 06:13:35 GMT',
+149 silly get     connection: 'keep-alive' } ]
+150 verbose etag http://172.23.238.253:4873/mkdirp from cache
+151 verbose get saving mkdirp to /home/vagrant/.npm/172.23.238.253_4873/mkdirp/.cache.json
+152 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+153 silly resolveWithNewModule mkdirp@0.5.1 checking installable status
+154 silly cache add args [ 'mkdirp@0.5.1', null ]
+155 verbose cache add spec mkdirp@0.5.1
+156 silly cache add parsed spec Result {
+156 silly cache add   raw: 'mkdirp@0.5.1',
+156 silly cache add   scope: null,
+156 silly cache add   name: 'mkdirp',
+156 silly cache add   rawSpec: '0.5.1',
+156 silly cache add   spec: '0.5.1',
+156 silly cache add   type: 'version' }
+157 silly addNamed mkdirp@0.5.1
+158 verbose addNamed "0.5.1" is a plain semver version for mkdirp
+159 silly mapToRegistry name mkdirp
+160 silly mapToRegistry using default registry
+161 silly mapToRegistry registry http://172.23.238.253:4873/
+162 silly mapToRegistry uri http://172.23.238.253:4873/mkdirp
+163 verbose addNameVersion registry:http://172.23.238.253:4873/mkdirp not in flight; fetching
+164 verbose get http://172.23.238.253:4873/mkdirp not expired, no request
+165 silly cache afterAdd mkdirp@0.5.1
+166 verbose afterAdd /home/vagrant/.npm/mkdirp/0.5.1/package/package.json not in flight; writing
+167 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+168 verbose afterAdd /home/vagrant/.npm/mkdirp/0.5.1/package/package.json written
+169 http 304 http://172.23.238.253:4873/diff
+170 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+170 verbose headers   etag: '"711d1a20ce5377e9feb4f7b44c7daf63"',
+170 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+170 verbose headers   date: 'Mon, 11 Apr 2016 06:13:36 GMT',
+170 verbose headers   connection: 'keep-alive' }
+171 silly get cb [ 304,
+171 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+171 silly get     etag: '"711d1a20ce5377e9feb4f7b44c7daf63"',
+171 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+171 silly get     date: 'Mon, 11 Apr 2016 06:13:36 GMT',
+171 silly get     connection: 'keep-alive' } ]
+172 verbose etag http://172.23.238.253:4873/diff from cache
+173 verbose get saving diff to /home/vagrant/.npm/172.23.238.253_4873/diff/.cache.json
+174 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+175 silly resolveWithNewModule diff@1.4.0 checking installable status
+176 silly cache add args [ 'diff@1.4.0', null ]
+177 verbose cache add spec diff@1.4.0
+178 silly cache add parsed spec Result {
+178 silly cache add   raw: 'diff@1.4.0',
+178 silly cache add   scope: null,
+178 silly cache add   name: 'diff',
+178 silly cache add   rawSpec: '1.4.0',
+178 silly cache add   spec: '1.4.0',
+178 silly cache add   type: 'version' }
+179 silly addNamed diff@1.4.0
+180 verbose addNamed "1.4.0" is a plain semver version for diff
+181 silly mapToRegistry name diff
+182 silly mapToRegistry using default registry
+183 silly mapToRegistry registry http://172.23.238.253:4873/
+184 silly mapToRegistry uri http://172.23.238.253:4873/diff
+185 verbose addNameVersion registry:http://172.23.238.253:4873/diff not in flight; fetching
+186 http 200 http://172.23.238.253:4873/supports-color
+187 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+187 verbose headers   'content-type': 'application/json; charset=utf-8',
+187 verbose headers   etag: '"eb746f279b072e3ac324ec71bcea8dec"',
+187 verbose headers   vary: 'Accept-Encoding',
+187 verbose headers   'content-encoding': 'gzip',
+187 verbose headers   'x-status-cat': 'http://flic.kr/p/aVuVsF',
+187 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+187 verbose headers   connection: 'keep-alive',
+187 verbose headers   'transfer-encoding': 'chunked' }
+188 silly get cb [ 200,
+188 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+188 silly get     'content-type': 'application/json; charset=utf-8',
+188 silly get     etag: '"eb746f279b072e3ac324ec71bcea8dec"',
+188 silly get     vary: 'Accept-Encoding',
+188 silly get     'content-encoding': 'gzip',
+188 silly get     'x-status-cat': 'http://flic.kr/p/aVuVsF',
+188 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+188 silly get     connection: 'keep-alive',
+188 silly get     'transfer-encoding': 'chunked' } ]
+189 verbose get saving supports-color to /home/vagrant/.npm/172.23.238.253_4873/supports-color/.cache.json
+190 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+191 verbose get http://172.23.238.253:4873/diff not expired, no request
+192 http 304 http://172.23.238.253:4873/commander
+193 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+193 verbose headers   etag: '"83ee45b6ed25bed8bd639237ee026731"',
+193 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+193 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+193 verbose headers   connection: 'keep-alive' }
+194 silly get cb [ 304,
+194 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+194 silly get     etag: '"83ee45b6ed25bed8bd639237ee026731"',
+194 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+194 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+194 silly get     connection: 'keep-alive' } ]
+195 verbose etag http://172.23.238.253:4873/commander from cache
+196 verbose get saving commander to /home/vagrant/.npm/172.23.238.253_4873/commander/.cache.json
+197 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+198 silly cache afterAdd diff@1.4.0
+199 verbose afterAdd /home/vagrant/.npm/diff/1.4.0/package/package.json not in flight; writing
+200 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+201 silly resolveWithNewModule supports-color@1.2.0 checking installable status
+202 silly cache add args [ 'supports-color@1.2.0', null ]
+203 verbose cache add spec supports-color@1.2.0
+204 silly cache add parsed spec Result {
+204 silly cache add   raw: 'supports-color@1.2.0',
+204 silly cache add   scope: null,
+204 silly cache add   name: 'supports-color',
+204 silly cache add   rawSpec: '1.2.0',
+204 silly cache add   spec: '1.2.0',
+204 silly cache add   type: 'version' }
+205 silly addNamed supports-color@1.2.0
+206 verbose addNamed "1.2.0" is a plain semver version for supports-color
+207 silly mapToRegistry name supports-color
+208 silly mapToRegistry using default registry
+209 silly mapToRegistry registry http://172.23.238.253:4873/
+210 silly mapToRegistry uri http://172.23.238.253:4873/supports-color
+211 verbose addNameVersion registry:http://172.23.238.253:4873/supports-color not in flight; fetching
+212 http 304 http://172.23.238.253:4873/escape-string-regexp
+213 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+213 verbose headers   etag: '"f7a1b6f8ec135fd9e3f6f65b4af33ced"',
+213 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+213 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+213 verbose headers   connection: 'keep-alive' }
+214 silly get cb [ 304,
+214 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+214 silly get     etag: '"f7a1b6f8ec135fd9e3f6f65b4af33ced"',
+214 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+214 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+214 silly get     connection: 'keep-alive' } ]
+215 verbose etag http://172.23.238.253:4873/escape-string-regexp from cache
+216 verbose get saving escape-string-regexp to /home/vagrant/.npm/172.23.238.253_4873/escape-string-regexp/.cache.json
+217 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+218 silly resolveWithNewModule commander@2.3.0 checking installable status
+219 silly cache add args [ 'commander@2.3.0', null ]
+220 verbose cache add spec commander@2.3.0
+221 silly cache add parsed spec Result {
+221 silly cache add   raw: 'commander@2.3.0',
+221 silly cache add   scope: null,
+221 silly cache add   name: 'commander',
+221 silly cache add   rawSpec: '2.3.0',
+221 silly cache add   spec: '2.3.0',
+221 silly cache add   type: 'version' }
+222 silly addNamed commander@2.3.0
+223 verbose addNamed "2.3.0" is a plain semver version for commander
+224 silly mapToRegistry name commander
+225 silly mapToRegistry using default registry
+226 silly mapToRegistry registry http://172.23.238.253:4873/
+227 silly mapToRegistry uri http://172.23.238.253:4873/commander
+228 verbose addNameVersion registry:http://172.23.238.253:4873/commander not in flight; fetching
+229 verbose afterAdd /home/vagrant/.npm/diff/1.4.0/package/package.json written
+230 verbose get http://172.23.238.253:4873/supports-color not expired, no request
+231 verbose get http://172.23.238.253:4873/commander not expired, no request
+232 http 304 http://172.23.238.253:4873/jade
+233 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+233 verbose headers   etag: '"f68be4f26ce000f95bd5481707ff7e74"',
+233 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+233 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+233 verbose headers   connection: 'keep-alive' }
+234 silly get cb [ 304,
+234 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+234 silly get     etag: '"f68be4f26ce000f95bd5481707ff7e74"',
+234 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+234 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+234 silly get     connection: 'keep-alive' } ]
+235 verbose etag http://172.23.238.253:4873/jade from cache
+236 verbose get saving jade to /home/vagrant/.npm/172.23.238.253_4873/jade/.cache.json
+237 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+238 silly resolveWithNewModule escape-string-regexp@1.0.2 checking installable status
+239 silly cache add args [ 'escape-string-regexp@1.0.2', null ]
+240 verbose cache add spec escape-string-regexp@1.0.2
+241 silly cache add parsed spec Result {
+241 silly cache add   raw: 'escape-string-regexp@1.0.2',
+241 silly cache add   scope: null,
+241 silly cache add   name: 'escape-string-regexp',
+241 silly cache add   rawSpec: '1.0.2',
+241 silly cache add   spec: '1.0.2',
+241 silly cache add   type: 'version' }
+242 silly addNamed escape-string-regexp@1.0.2
+243 verbose addNamed "1.0.2" is a plain semver version for escape-string-regexp
+244 silly mapToRegistry name escape-string-regexp
+245 silly mapToRegistry using default registry
+246 silly mapToRegistry registry http://172.23.238.253:4873/
+247 silly mapToRegistry uri http://172.23.238.253:4873/escape-string-regexp
+248 verbose addNameVersion registry:http://172.23.238.253:4873/escape-string-regexp not in flight; fetching
+249 http 304 http://172.23.238.253:4873/growl
+250 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+250 verbose headers   etag: '"46163309fdff19a4c2311256422ca8c1"',
+250 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+250 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+250 verbose headers   connection: 'keep-alive' }
+251 silly get cb [ 304,
+251 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+251 silly get     etag: '"46163309fdff19a4c2311256422ca8c1"',
+251 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+251 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+251 silly get     connection: 'keep-alive' } ]
+252 verbose etag http://172.23.238.253:4873/growl from cache
+253 verbose get saving growl to /home/vagrant/.npm/172.23.238.253_4873/growl/.cache.json
+254 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+255 silly cache afterAdd supports-color@1.2.0
+256 verbose afterAdd /home/vagrant/.npm/supports-color/1.2.0/package/package.json not in flight; writing
+257 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+258 silly cache afterAdd commander@2.3.0
+259 verbose afterAdd /home/vagrant/.npm/commander/2.3.0/package/package.json not in flight; writing
+260 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+261 verbose get http://172.23.238.253:4873/escape-string-regexp not expired, no request
+262 silly resolveWithNewModule jade@0.26.3 checking installable status
+263 silly cache add args [ 'jade@0.26.3', null ]
+264 verbose cache add spec jade@0.26.3
+265 silly cache add parsed spec Result {
+265 silly cache add   raw: 'jade@0.26.3',
+265 silly cache add   scope: null,
+265 silly cache add   name: 'jade',
+265 silly cache add   rawSpec: '0.26.3',
+265 silly cache add   spec: '0.26.3',
+265 silly cache add   type: 'version' }
+266 silly addNamed jade@0.26.3
+267 verbose addNamed "0.26.3" is a plain semver version for jade
+268 silly mapToRegistry name jade
+269 silly mapToRegistry using default registry
+270 silly mapToRegistry registry http://172.23.238.253:4873/
+271 silly mapToRegistry uri http://172.23.238.253:4873/jade
+272 verbose addNameVersion registry:http://172.23.238.253:4873/jade not in flight; fetching
+273 silly resolveWithNewModule growl@1.8.1 checking installable status
+274 silly cache add args [ 'growl@1.8.1', null ]
+275 verbose cache add spec growl@1.8.1
+276 silly cache add parsed spec Result {
+276 silly cache add   raw: 'growl@1.8.1',
+276 silly cache add   scope: null,
+276 silly cache add   name: 'growl',
+276 silly cache add   rawSpec: '1.8.1',
+276 silly cache add   spec: '1.8.1',
+276 silly cache add   type: 'version' }
+277 silly addNamed growl@1.8.1
+278 verbose addNamed "1.8.1" is a plain semver version for growl
+279 silly mapToRegistry name growl
+280 silly mapToRegistry using default registry
+281 silly mapToRegistry registry http://172.23.238.253:4873/
+282 silly mapToRegistry uri http://172.23.238.253:4873/growl
+283 verbose addNameVersion registry:http://172.23.238.253:4873/growl not in flight; fetching
+284 verbose afterAdd /home/vagrant/.npm/supports-color/1.2.0/package/package.json written
+285 verbose afterAdd /home/vagrant/.npm/commander/2.3.0/package/package.json written
+286 silly cache afterAdd escape-string-regexp@1.0.2
+287 verbose afterAdd /home/vagrant/.npm/escape-string-regexp/1.0.2/package/package.json not in flight; writing
+288 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+289 verbose get http://172.23.238.253:4873/jade not expired, no request
+290 verbose get http://172.23.238.253:4873/growl not expired, no request
+291 http 304 http://172.23.238.253:4873/glob
+292 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+292 verbose headers   etag: '"d46bcd79cf1d551f5cdc96e7ae048036"',
+292 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+292 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+292 verbose headers   connection: 'keep-alive' }
+293 silly get cb [ 304,
+293 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+293 silly get     etag: '"d46bcd79cf1d551f5cdc96e7ae048036"',
+293 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+293 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+293 silly get     connection: 'keep-alive' } ]
+294 verbose etag http://172.23.238.253:4873/glob from cache
+295 verbose get saving glob to /home/vagrant/.npm/172.23.238.253_4873/glob/.cache.json
+296 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+297 http 304 http://172.23.238.253:4873/debug
+298 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+298 verbose headers   etag: '"a1aaa03e028f58a65bdc27d3868dda61"',
+298 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+298 verbose headers   date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+298 verbose headers   connection: 'keep-alive' }
+299 silly get cb [ 304,
+299 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+299 silly get     etag: '"a1aaa03e028f58a65bdc27d3868dda61"',
+299 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+299 silly get     date: 'Mon, 11 Apr 2016 06:13:37 GMT',
+299 silly get     connection: 'keep-alive' } ]
+300 verbose etag http://172.23.238.253:4873/debug from cache
+301 verbose get saving debug to /home/vagrant/.npm/172.23.238.253_4873/debug/.cache.json
+302 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+303 verbose afterAdd /home/vagrant/.npm/escape-string-regexp/1.0.2/package/package.json written
+304 silly cache afterAdd jade@0.26.3
+305 verbose afterAdd /home/vagrant/.npm/jade/0.26.3/package/package.json not in flight; writing
+306 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+307 silly cache afterAdd growl@1.8.1
+308 verbose afterAdd /home/vagrant/.npm/growl/1.8.1/package/package.json not in flight; writing
+309 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+310 silly resolveWithNewModule glob@3.2.3 checking installable status
+311 silly cache add args [ 'glob@3.2.3', null ]
+312 verbose cache add spec glob@3.2.3
+313 silly cache add parsed spec Result {
+313 silly cache add   raw: 'glob@3.2.3',
+313 silly cache add   scope: null,
+313 silly cache add   name: 'glob',
+313 silly cache add   rawSpec: '3.2.3',
+313 silly cache add   spec: '3.2.3',
+313 silly cache add   type: 'version' }
+314 silly addNamed glob@3.2.3
+315 verbose addNamed "3.2.3" is a plain semver version for glob
+316 silly mapToRegistry name glob
+317 silly mapToRegistry using default registry
+318 silly mapToRegistry registry http://172.23.238.253:4873/
+319 silly mapToRegistry uri http://172.23.238.253:4873/glob
+320 verbose addNameVersion registry:http://172.23.238.253:4873/glob not in flight; fetching
+321 silly resolveWithNewModule debug@2.2.0 checking installable status
+322 silly cache add args [ 'debug@2.2.0', null ]
+323 verbose cache add spec debug@2.2.0
+324 silly cache add parsed spec Result {
+324 silly cache add   raw: 'debug@2.2.0',
+324 silly cache add   scope: null,
+324 silly cache add   name: 'debug',
+324 silly cache add   rawSpec: '2.2.0',
+324 silly cache add   spec: '2.2.0',
+324 silly cache add   type: 'version' }
+325 silly addNamed debug@2.2.0
+326 verbose addNamed "2.2.0" is a plain semver version for debug
+327 silly mapToRegistry name debug
+328 silly mapToRegistry using default registry
+329 silly mapToRegistry registry http://172.23.238.253:4873/
+330 silly mapToRegistry uri http://172.23.238.253:4873/debug
+331 verbose addNameVersion registry:http://172.23.238.253:4873/debug not in flight; fetching
+332 verbose afterAdd /home/vagrant/.npm/jade/0.26.3/package/package.json written
+333 verbose afterAdd /home/vagrant/.npm/growl/1.8.1/package/package.json written
+334 verbose get http://172.23.238.253:4873/glob not expired, no request
+335 verbose get http://172.23.238.253:4873/debug not expired, no request
+336 silly cache afterAdd glob@3.2.3
+337 verbose afterAdd /home/vagrant/.npm/glob/3.2.3/package/package.json not in flight; writing
+338 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+339 silly cache afterAdd debug@2.2.0
+340 verbose afterAdd /home/vagrant/.npm/debug/2.2.0/package/package.json not in flight; writing
+341 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+342 verbose afterAdd /home/vagrant/.npm/glob/3.2.3/package/package.json written
+343 verbose afterAdd /home/vagrant/.npm/debug/2.2.0/package/package.json written
+344 silly fetchNamedPackageData ms
+345 silly mapToRegistry name ms
+346 silly mapToRegistry using default registry
+347 silly mapToRegistry registry http://172.23.238.253:4873/
+348 silly mapToRegistry uri http://172.23.238.253:4873/ms
+349 verbose request uri http://172.23.238.253:4873/ms
+350 verbose request no auth needed
+351 info attempt registry request try #1 at 6:12:59 AM
+352 verbose etag "be47e60b6cb79751d90e815a1bb46902"
+353 http request GET http://172.23.238.253:4873/ms
+354 http 200 http://172.23.238.253:4873/ms
+355 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+355 verbose headers   'content-type': 'application/json; charset=utf-8',
+355 verbose headers   etag: '"6cec9d788fcc1bbede509df8b977a12b"',
+355 verbose headers   vary: 'Accept-Encoding',
+355 verbose headers   'content-encoding': 'gzip',
+355 verbose headers   'x-status-cat': 'http://flic.kr/p/aVuVsF',
+355 verbose headers   date: 'Mon, 11 Apr 2016 06:13:43 GMT',
+355 verbose headers   connection: 'keep-alive',
+355 verbose headers   'transfer-encoding': 'chunked' }
+356 silly get cb [ 200,
+356 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+356 silly get     'content-type': 'application/json; charset=utf-8',
+356 silly get     etag: '"6cec9d788fcc1bbede509df8b977a12b"',
+356 silly get     vary: 'Accept-Encoding',
+356 silly get     'content-encoding': 'gzip',
+356 silly get     'x-status-cat': 'http://flic.kr/p/aVuVsF',
+356 silly get     date: 'Mon, 11 Apr 2016 06:13:43 GMT',
+356 silly get     connection: 'keep-alive',
+356 silly get     'transfer-encoding': 'chunked' } ]
+357 verbose get saving ms to /home/vagrant/.npm/172.23.238.253_4873/ms/.cache.json
+358 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+359 silly resolveWithNewModule ms@0.7.1 checking installable status
+360 silly cache add args [ 'ms@0.7.1', null ]
+361 verbose cache add spec ms@0.7.1
+362 silly cache add parsed spec Result {
+362 silly cache add   raw: 'ms@0.7.1',
+362 silly cache add   scope: null,
+362 silly cache add   name: 'ms',
+362 silly cache add   rawSpec: '0.7.1',
+362 silly cache add   spec: '0.7.1',
+362 silly cache add   type: 'version' }
+363 silly addNamed ms@0.7.1
+364 verbose addNamed "0.7.1" is a plain semver version for ms
+365 silly mapToRegistry name ms
+366 silly mapToRegistry using default registry
+367 silly mapToRegistry registry http://172.23.238.253:4873/
+368 silly mapToRegistry uri http://172.23.238.253:4873/ms
+369 verbose addNameVersion registry:http://172.23.238.253:4873/ms not in flight; fetching
+370 verbose get http://172.23.238.253:4873/ms not expired, no request
+371 silly cache afterAdd ms@0.7.1
+372 verbose afterAdd /home/vagrant/.npm/ms/0.7.1/package/package.json not in flight; writing
+373 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+374 verbose afterAdd /home/vagrant/.npm/ms/0.7.1/package/package.json written
+375 silly fetchNamedPackageData minimatch
+376 silly mapToRegistry name minimatch
+377 silly mapToRegistry using default registry
+378 silly mapToRegistry registry http://172.23.238.253:4873/
+379 silly mapToRegistry uri http://172.23.238.253:4873/minimatch
+380 silly fetchNamedPackageData graceful-fs
+381 silly mapToRegistry name graceful-fs
+382 silly mapToRegistry using default registry
+383 silly mapToRegistry registry http://172.23.238.253:4873/
+384 silly mapToRegistry uri http://172.23.238.253:4873/graceful-fs
+385 silly fetchNamedPackageData inherits
+386 silly mapToRegistry name inherits
+387 silly mapToRegistry using default registry
+388 silly mapToRegistry registry http://172.23.238.253:4873/
+389 silly mapToRegistry uri http://172.23.238.253:4873/inherits
+390 verbose request uri http://172.23.238.253:4873/minimatch
+391 verbose request no auth needed
+392 info attempt registry request try #1 at 6:13:06 AM
+393 verbose etag "2fa23b9b6bc960b6b876a99e87ebf033"
+394 http request GET http://172.23.238.253:4873/minimatch
+395 verbose request uri http://172.23.238.253:4873/graceful-fs
+396 verbose request no auth needed
+397 info attempt registry request try #1 at 6:13:06 AM
+398 verbose etag "fe22221783b15d9ae0cf838d625b67b7"
+399 http request GET http://172.23.238.253:4873/graceful-fs
+400 verbose request uri http://172.23.238.253:4873/inherits
+401 verbose request no auth needed
+402 info attempt registry request try #1 at 6:13:06 AM
+403 verbose etag "ac8f8bd1f52554417a077dc746a562cd"
+404 http request GET http://172.23.238.253:4873/inherits
+405 http 304 http://172.23.238.253:4873/minimatch
+406 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+406 verbose headers   etag: '"2fa23b9b6bc960b6b876a99e87ebf033"',
+406 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+406 verbose headers   date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+406 verbose headers   connection: 'keep-alive' }
+407 silly get cb [ 304,
+407 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+407 silly get     etag: '"2fa23b9b6bc960b6b876a99e87ebf033"',
+407 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+407 silly get     date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+407 silly get     connection: 'keep-alive' } ]
+408 verbose etag http://172.23.238.253:4873/minimatch from cache
+409 verbose get saving minimatch to /home/vagrant/.npm/172.23.238.253_4873/minimatch/.cache.json
+410 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+411 silly resolveWithNewModule minimatch@0.2.14 checking installable status
+412 silly cache add args [ 'minimatch@~0.2.11', null ]
+413 verbose cache add spec minimatch@~0.2.11
+414 silly cache add parsed spec Result {
+414 silly cache add   raw: 'minimatch@~0.2.11',
+414 silly cache add   scope: null,
+414 silly cache add   name: 'minimatch',
+414 silly cache add   rawSpec: '~0.2.11',
+414 silly cache add   spec: '>=0.2.11 <0.3.0',
+414 silly cache add   type: 'range' }
+415 silly addNamed minimatch@>=0.2.11 <0.3.0
+416 verbose addNamed ">=0.2.11 <0.3.0" is a valid semver range for minimatch
+417 silly addNameRange { name: 'minimatch', range: '>=0.2.11 <0.3.0', hasData: false }
+418 silly mapToRegistry name minimatch
+419 silly mapToRegistry using default registry
+420 silly mapToRegistry registry http://172.23.238.253:4873/
+421 silly mapToRegistry uri http://172.23.238.253:4873/minimatch
+422 verbose addNameRange registry:http://172.23.238.253:4873/minimatch not in flight; fetching
+423 verbose get http://172.23.238.253:4873/minimatch not expired, no request
+424 silly addNameRange number 2 { name: 'minimatch', range: '>=0.2.11 <0.3.0', hasData: true }
+425 silly addNameRange versions [ 'minimatch',
+425 silly addNameRange   [ '0.0.1',
+425 silly addNameRange     '0.0.2',
+425 silly addNameRange     '0.0.4',
+425 silly addNameRange     '0.0.5',
+425 silly addNameRange     '0.1.1',
+425 silly addNameRange     '0.1.2',
+425 silly addNameRange     '0.1.3',
+425 silly addNameRange     '0.1.4',
+425 silly addNameRange     '0.1.5',
+425 silly addNameRange     '0.2.0',
+425 silly addNameRange     '0.2.2',
+425 silly addNameRange     '0.2.3',
+425 silly addNameRange     '0.2.4',
+425 silly addNameRange     '0.2.5',
+425 silly addNameRange     '0.2.6',
+425 silly addNameRange     '0.2.7',
+425 silly addNameRange     '0.2.8',
+425 silly addNameRange     '0.2.9',
+425 silly addNameRange     '0.2.10',
+425 silly addNameRange     '0.2.11',
+425 silly addNameRange     '0.2.12',
+425 silly addNameRange     '0.2.13',
+425 silly addNameRange     '0.2.14',
+425 silly addNameRange     '0.3.0',
+425 silly addNameRange     '0.4.0',
+425 silly addNameRange     '1.0.0',
+425 silly addNameRange     '2.0.0',
+425 silly addNameRange     '2.0.1',
+425 silly addNameRange     '2.0.2',
+425 silly addNameRange     '2.0.3',
+425 silly addNameRange     '2.0.4',
+425 silly addNameRange     '2.0.5',
+425 silly addNameRange     '2.0.6',
+425 silly addNameRange     '2.0.7',
+425 silly addNameRange     '2.0.8',
+425 silly addNameRange     '2.0.9',
+425 silly addNameRange     '2.0.10',
+425 silly addNameRange     '3.0.0' ] ]
+426 silly addNamed minimatch@0.2.14
+427 verbose addNamed "0.2.14" is a plain semver version for minimatch
+428 silly cache afterAdd minimatch@0.2.14
+429 verbose afterAdd /home/vagrant/.npm/minimatch/0.2.14/package/package.json not in flight; writing
+430 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+431 verbose afterAdd /home/vagrant/.npm/minimatch/0.2.14/package/package.json written
+432 http 304 http://172.23.238.253:4873/graceful-fs
+433 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+433 verbose headers   etag: '"fe22221783b15d9ae0cf838d625b67b7"',
+433 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+433 verbose headers   date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+433 verbose headers   connection: 'keep-alive' }
+434 silly get cb [ 304,
+434 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+434 silly get     etag: '"fe22221783b15d9ae0cf838d625b67b7"',
+434 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+434 silly get     date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+434 silly get     connection: 'keep-alive' } ]
+435 verbose etag http://172.23.238.253:4873/graceful-fs from cache
+436 verbose get saving graceful-fs to /home/vagrant/.npm/172.23.238.253_4873/graceful-fs/.cache.json
+437 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+438 silly resolveWithNewModule graceful-fs@2.0.3 checking installable status
+439 silly cache add args [ 'graceful-fs@~2.0.0', null ]
+440 verbose cache add spec graceful-fs@~2.0.0
+441 silly cache add parsed spec Result {
+441 silly cache add   raw: 'graceful-fs@~2.0.0',
+441 silly cache add   scope: null,
+441 silly cache add   name: 'graceful-fs',
+441 silly cache add   rawSpec: '~2.0.0',
+441 silly cache add   spec: '>=2.0.0 <2.1.0',
+441 silly cache add   type: 'range' }
+442 silly addNamed graceful-fs@>=2.0.0 <2.1.0
+443 verbose addNamed ">=2.0.0 <2.1.0" is a valid semver range for graceful-fs
+444 silly addNameRange { name: 'graceful-fs', range: '>=2.0.0 <2.1.0', hasData: false }
+445 silly mapToRegistry name graceful-fs
+446 silly mapToRegistry using default registry
+447 silly mapToRegistry registry http://172.23.238.253:4873/
+448 silly mapToRegistry uri http://172.23.238.253:4873/graceful-fs
+449 verbose addNameRange registry:http://172.23.238.253:4873/graceful-fs not in flight; fetching
+450 verbose get http://172.23.238.253:4873/graceful-fs not expired, no request
+451 silly addNameRange number 2 { name: 'graceful-fs', range: '>=2.0.0 <2.1.0', hasData: true }
+452 silly addNameRange versions [ 'graceful-fs',
+452 silly addNameRange   [ '1.0.0',
+452 silly addNameRange     '1.0.1',
+452 silly addNameRange     '1.0.2',
+452 silly addNameRange     '1.1.0',
+452 silly addNameRange     '1.1.1',
+452 silly addNameRange     '1.1.2',
+452 silly addNameRange     '1.1.3',
+452 silly addNameRange     '1.1.4',
+452 silly addNameRange     '1.1.5',
+452 silly addNameRange     '1.1.6',
+452 silly addNameRange     '1.1.7',
+452 silly addNameRange     '1.1.8',
+452 silly addNameRange     '1.1.9',
+452 silly addNameRange     '1.1.10',
+452 silly addNameRange     '1.1.11',
+452 silly addNameRange     '1.1.12',
+452 silly addNameRange     '1.1.13',
+452 silly addNameRange     '1.1.14',
+452 silly addNameRange     '1.2.0',
+452 silly addNameRange     '1.2.1',
+452 silly addNameRange     '1.2.2',
+452 silly addNameRange     '1.2.3',
+452 silly addNameRange     '2.0.0',
+452 silly addNameRange     '2.0.1',
+452 silly addNameRange     '2.0.2',
+452 silly addNameRange     '2.0.3',
+452 silly addNameRange     '3.0.0',
+452 silly addNameRange     '3.0.1',
+452 silly addNameRange     '3.0.2',
+452 silly addNameRange     '3.0.3',
+452 silly addNameRange     '3.0.4',
+452 silly addNameRange     '3.0.5',
+452 silly addNameRange     '3.0.6',
+452 silly addNameRange     '3.0.7',
+452 silly addNameRange     '3.0.8',
+452 silly addNameRange     '4.1.0',
+452 silly addNameRange     '4.1.1',
+452 silly addNameRange     '4.1.2',
+452 silly addNameRange     '4.1.3' ] ]
+453 silly addNamed graceful-fs@2.0.3
+454 verbose addNamed "2.0.3" is a plain semver version for graceful-fs
+455 silly cache afterAdd graceful-fs@2.0.3
+456 verbose afterAdd /home/vagrant/.npm/graceful-fs/2.0.3/package/package.json not in flight; writing
+457 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+458 verbose afterAdd /home/vagrant/.npm/graceful-fs/2.0.3/package/package.json written
+459 http 304 http://172.23.238.253:4873/inherits
+460 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+460 verbose headers   etag: '"ac8f8bd1f52554417a077dc746a562cd"',
+460 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+460 verbose headers   date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+460 verbose headers   connection: 'keep-alive' }
+461 silly get cb [ 304,
+461 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+461 silly get     etag: '"ac8f8bd1f52554417a077dc746a562cd"',
+461 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+461 silly get     date: 'Mon, 11 Apr 2016 06:13:45 GMT',
+461 silly get     connection: 'keep-alive' } ]
+462 verbose etag http://172.23.238.253:4873/inherits from cache
+463 verbose get saving inherits to /home/vagrant/.npm/172.23.238.253_4873/inherits/.cache.json
+464 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+465 silly resolveWithNewModule inherits@2.0.1 checking installable status
+466 silly cache add args [ 'inherits@2', null ]
+467 verbose cache add spec inherits@2
+468 silly cache add parsed spec Result {
+468 silly cache add   raw: 'inherits@2',
+468 silly cache add   scope: null,
+468 silly cache add   name: 'inherits',
+468 silly cache add   rawSpec: '2',
+468 silly cache add   spec: '>=2.0.0 <3.0.0',
+468 silly cache add   type: 'range' }
+469 silly addNamed inherits@>=2.0.0 <3.0.0
+470 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for inherits
+471 silly addNameRange { name: 'inherits', range: '>=2.0.0 <3.0.0', hasData: false }
+472 silly mapToRegistry name inherits
+473 silly mapToRegistry using default registry
+474 silly mapToRegistry registry http://172.23.238.253:4873/
+475 silly mapToRegistry uri http://172.23.238.253:4873/inherits
+476 verbose addNameRange registry:http://172.23.238.253:4873/inherits not in flight; fetching
+477 verbose get http://172.23.238.253:4873/inherits not expired, no request
+478 silly addNameRange number 2 { name: 'inherits', range: '>=2.0.0 <3.0.0', hasData: true }
+479 silly addNameRange versions [ 'inherits', [ '1.0.0', '2.0.0', '2.0.1', '1.0.1', '1.0.2' ] ]
+480 silly addNamed inherits@2.0.1
+481 verbose addNamed "2.0.1" is a plain semver version for inherits
+482 silly cache afterAdd inherits@2.0.1
+483 verbose afterAdd /home/vagrant/.npm/inherits/2.0.1/package/package.json not in flight; writing
+484 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+485 verbose afterAdd /home/vagrant/.npm/inherits/2.0.1/package/package.json written
+486 silly fetchNamedPackageData lru-cache
+487 silly mapToRegistry name lru-cache
+488 silly mapToRegistry using default registry
+489 silly mapToRegistry registry http://172.23.238.253:4873/
+490 silly mapToRegistry uri http://172.23.238.253:4873/lru-cache
+491 silly fetchNamedPackageData sigmund
+492 silly mapToRegistry name sigmund
+493 silly mapToRegistry using default registry
+494 silly mapToRegistry registry http://172.23.238.253:4873/
+495 silly mapToRegistry uri http://172.23.238.253:4873/sigmund
+496 verbose request uri http://172.23.238.253:4873/lru-cache
+497 verbose request no auth needed
+498 info attempt registry request try #1 at 6:13:08 AM
+499 verbose etag "268cd4eab5a69f21014610d3413f3780"
+500 http request GET http://172.23.238.253:4873/lru-cache
+501 verbose request uri http://172.23.238.253:4873/sigmund
+502 verbose request no auth needed
+503 info attempt registry request try #1 at 6:13:08 AM
+504 verbose etag "7be52962cd7dde50bcd45287393ca9e1"
+505 http request GET http://172.23.238.253:4873/sigmund
+506 http 304 http://172.23.238.253:4873/lru-cache
+507 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+507 verbose headers   etag: '"268cd4eab5a69f21014610d3413f3780"',
+507 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+507 verbose headers   date: 'Mon, 11 Apr 2016 06:13:47 GMT',
+507 verbose headers   connection: 'keep-alive' }
+508 silly get cb [ 304,
+508 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+508 silly get     etag: '"268cd4eab5a69f21014610d3413f3780"',
+508 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+508 silly get     date: 'Mon, 11 Apr 2016 06:13:47 GMT',
+508 silly get     connection: 'keep-alive' } ]
+509 verbose etag http://172.23.238.253:4873/lru-cache from cache
+510 verbose get saving lru-cache to /home/vagrant/.npm/172.23.238.253_4873/lru-cache/.cache.json
+511 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+512 silly resolveWithNewModule lru-cache@2.7.3 checking installable status
+513 silly cache add args [ 'lru-cache@2', null ]
+514 verbose cache add spec lru-cache@2
+515 silly cache add parsed spec Result {
+515 silly cache add   raw: 'lru-cache@2',
+515 silly cache add   scope: null,
+515 silly cache add   name: 'lru-cache',
+515 silly cache add   rawSpec: '2',
+515 silly cache add   spec: '>=2.0.0 <3.0.0',
+515 silly cache add   type: 'range' }
+516 silly addNamed lru-cache@>=2.0.0 <3.0.0
+517 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for lru-cache
+518 silly addNameRange { name: 'lru-cache', range: '>=2.0.0 <3.0.0', hasData: false }
+519 silly mapToRegistry name lru-cache
+520 silly mapToRegistry using default registry
+521 silly mapToRegistry registry http://172.23.238.253:4873/
+522 silly mapToRegistry uri http://172.23.238.253:4873/lru-cache
+523 verbose addNameRange registry:http://172.23.238.253:4873/lru-cache not in flight; fetching
+524 verbose get http://172.23.238.253:4873/lru-cache not expired, no request
+525 silly addNameRange number 2 { name: 'lru-cache', range: '>=2.0.0 <3.0.0', hasData: true }
+526 silly addNameRange versions [ 'lru-cache',
+526 silly addNameRange   [ '1.0.1',
+526 silly addNameRange     '1.0.2',
+526 silly addNameRange     '1.0.3',
+526 silly addNameRange     '1.0.4',
+526 silly addNameRange     '1.0.5',
+526 silly addNameRange     '1.0.6',
+526 silly addNameRange     '1.1.0',
+526 silly addNameRange     '1.1.1',
+526 silly addNameRange     '2.0.0',
+526 silly addNameRange     '2.0.1',
+526 silly addNameRange     '2.0.2',
+526 silly addNameRange     '2.0.3',
+526 silly addNameRange     '2.0.4',
+526 silly addNameRange     '2.1.0',
+526 silly addNameRange     '2.2.0',
+526 silly addNameRange     '2.2.1',
+526 silly addNameRange     '2.2.2',
+526 silly addNameRange     '2.2.4',
+526 silly addNameRange     '2.3.0',
+526 silly addNameRange     '2.3.1',
+526 silly addNameRange     '2.5.0',
+526 silly addNameRange     '2.5.1',
+526 silly addNameRange     '2.5.2',
+526 silly addNameRange     '2.6.0',
+526 silly addNameRange     '2.6.1',
+526 silly addNameRange     '2.6.2',
+526 silly addNameRange     '2.6.3',
+526 silly addNameRange     '2.6.4',
+526 silly addNameRange     '2.6.5',
+526 silly addNameRange     '2.7.0',
+526 silly addNameRange     '2.7.1',
+526 silly addNameRange     '2.7.2',
+526 silly addNameRange     '2.7.3',
+526 silly addNameRange     '3.0.0',
+526 silly addNameRange     '3.1.0',
+526 silly addNameRange     '3.1.1',
+526 silly addNameRange     '3.1.2',
+526 silly addNameRange     '3.2.0',
+526 silly addNameRange     '4.0.0',
+526 silly addNameRange     '4.0.1' ] ]
+527 silly addNamed lru-cache@2.7.3
+528 verbose addNamed "2.7.3" is a plain semver version for lru-cache
+529 silly cache afterAdd lru-cache@2.7.3
+530 verbose afterAdd /home/vagrant/.npm/lru-cache/2.7.3/package/package.json not in flight; writing
+531 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+532 verbose afterAdd /home/vagrant/.npm/lru-cache/2.7.3/package/package.json written
+533 http 304 http://172.23.238.253:4873/sigmund
+534 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+534 verbose headers   etag: '"7be52962cd7dde50bcd45287393ca9e1"',
+534 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+534 verbose headers   date: 'Mon, 11 Apr 2016 06:13:48 GMT',
+534 verbose headers   connection: 'keep-alive' }
+535 silly get cb [ 304,
+535 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+535 silly get     etag: '"7be52962cd7dde50bcd45287393ca9e1"',
+535 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+535 silly get     date: 'Mon, 11 Apr 2016 06:13:48 GMT',
+535 silly get     connection: 'keep-alive' } ]
+536 verbose etag http://172.23.238.253:4873/sigmund from cache
+537 verbose get saving sigmund to /home/vagrant/.npm/172.23.238.253_4873/sigmund/.cache.json
+538 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+539 silly resolveWithNewModule sigmund@1.0.1 checking installable status
+540 silly cache add args [ 'sigmund@~1.0.0', null ]
+541 verbose cache add spec sigmund@~1.0.0
+542 silly cache add parsed spec Result {
+542 silly cache add   raw: 'sigmund@~1.0.0',
+542 silly cache add   scope: null,
+542 silly cache add   name: 'sigmund',
+542 silly cache add   rawSpec: '~1.0.0',
+542 silly cache add   spec: '>=1.0.0 <1.1.0',
+542 silly cache add   type: 'range' }
+543 silly addNamed sigmund@>=1.0.0 <1.1.0
+544 verbose addNamed ">=1.0.0 <1.1.0" is a valid semver range for sigmund
+545 silly addNameRange { name: 'sigmund', range: '>=1.0.0 <1.1.0', hasData: false }
+546 silly mapToRegistry name sigmund
+547 silly mapToRegistry using default registry
+548 silly mapToRegistry registry http://172.23.238.253:4873/
+549 silly mapToRegistry uri http://172.23.238.253:4873/sigmund
+550 verbose addNameRange registry:http://172.23.238.253:4873/sigmund not in flight; fetching
+551 verbose get http://172.23.238.253:4873/sigmund not expired, no request
+552 silly addNameRange number 2 { name: 'sigmund', range: '>=1.0.0 <1.1.0', hasData: true }
+553 silly addNameRange versions [ 'sigmund', [ '1.0.0', '1.0.1' ] ]
+554 silly addNamed sigmund@1.0.1
+555 verbose addNamed "1.0.1" is a plain semver version for sigmund
+556 silly cache afterAdd sigmund@1.0.1
+557 verbose afterAdd /home/vagrant/.npm/sigmund/1.0.1/package/package.json not in flight; writing
+558 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+559 verbose afterAdd /home/vagrant/.npm/sigmund/1.0.1/package/package.json written
+560 silly fetchNamedPackageData commander
+561 silly mapToRegistry name commander
+562 silly mapToRegistry using default registry
+563 silly mapToRegistry registry http://172.23.238.253:4873/
+564 silly mapToRegistry uri http://172.23.238.253:4873/commander
+565 silly resolveWithNewModule commander@0.6.1 checking installable status
+566 silly cache add args [ 'commander@0.6.1', null ]
+567 verbose cache add spec commander@0.6.1
+568 silly fetchNamedPackageData mkdirp
+569 silly mapToRegistry name mkdirp
+570 silly mapToRegistry using default registry
+571 silly mapToRegistry registry http://172.23.238.253:4873/
+572 silly mapToRegistry uri http://172.23.238.253:4873/mkdirp
+573 silly resolveWithNewModule mkdirp@0.3.0 checking installable status
+574 silly cache add args [ 'mkdirp@0.3.0', null ]
+575 verbose cache add spec mkdirp@0.3.0
+576 silly cache add parsed spec Result {
+576 silly cache add   raw: 'commander@0.6.1',
+576 silly cache add   scope: null,
+576 silly cache add   name: 'commander',
+576 silly cache add   rawSpec: '0.6.1',
+576 silly cache add   spec: '0.6.1',
+576 silly cache add   type: 'version' }
+577 silly addNamed commander@0.6.1
+578 verbose addNamed "0.6.1" is a plain semver version for commander
+579 silly mapToRegistry name commander
+580 silly mapToRegistry using default registry
+581 silly mapToRegistry registry http://172.23.238.253:4873/
+582 silly mapToRegistry uri http://172.23.238.253:4873/commander
+583 verbose addNameVersion registry:http://172.23.238.253:4873/commander not in flight; fetching
+584 silly cache add parsed spec Result {
+584 silly cache add   raw: 'mkdirp@0.3.0',
+584 silly cache add   scope: null,
+584 silly cache add   name: 'mkdirp',
+584 silly cache add   rawSpec: '0.3.0',
+584 silly cache add   spec: '0.3.0',
+584 silly cache add   type: 'version' }
+585 silly addNamed mkdirp@0.3.0
+586 verbose addNamed "0.3.0" is a plain semver version for mkdirp
+587 silly mapToRegistry name mkdirp
+588 silly mapToRegistry using default registry
+589 silly mapToRegistry registry http://172.23.238.253:4873/
+590 silly mapToRegistry uri http://172.23.238.253:4873/mkdirp
+591 verbose addNameVersion registry:http://172.23.238.253:4873/mkdirp not in flight; fetching
+592 verbose request uri http://172.23.238.253:4873/commander
+593 verbose request no auth needed
+594 info attempt registry request try #1 at 6:13:11 AM
+595 verbose etag "83ee45b6ed25bed8bd639237ee026731"
+596 http request GET http://172.23.238.253:4873/commander
+597 verbose request uri http://172.23.238.253:4873/mkdirp
+598 verbose request no auth needed
+599 info attempt registry request try #1 at 6:13:11 AM
+600 verbose etag "60f7cf2672457488a3232df9b8f49298"
+601 http request GET http://172.23.238.253:4873/mkdirp
+602 http 304 http://172.23.238.253:4873/mkdirp
+603 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+603 verbose headers   etag: '"60f7cf2672457488a3232df9b8f49298"',
+603 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+603 verbose headers   date: 'Mon, 11 Apr 2016 06:13:48 GMT',
+603 verbose headers   connection: 'keep-alive' }
+604 silly get cb [ 304,
+604 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+604 silly get     etag: '"60f7cf2672457488a3232df9b8f49298"',
+604 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+604 silly get     date: 'Mon, 11 Apr 2016 06:13:48 GMT',
+604 silly get     connection: 'keep-alive' } ]
+605 verbose etag http://172.23.238.253:4873/mkdirp from cache
+606 verbose get saving mkdirp to /home/vagrant/.npm/172.23.238.253_4873/mkdirp/.cache.json
+607 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+608 silly cache afterAdd mkdirp@0.3.0
+609 verbose afterAdd /home/vagrant/.npm/mkdirp/0.3.0/package/package.json not in flight; writing
+610 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+611 verbose afterAdd /home/vagrant/.npm/mkdirp/0.3.0/package/package.json written
+612 http 304 http://172.23.238.253:4873/commander
+613 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+613 verbose headers   etag: '"83ee45b6ed25bed8bd639237ee026731"',
+613 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+613 verbose headers   date: 'Mon, 11 Apr 2016 06:13:50 GMT',
+613 verbose headers   connection: 'keep-alive' }
+614 silly get cb [ 304,
+614 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+614 silly get     etag: '"83ee45b6ed25bed8bd639237ee026731"',
+614 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+614 silly get     date: 'Mon, 11 Apr 2016 06:13:50 GMT',
+614 silly get     connection: 'keep-alive' } ]
+615 verbose etag http://172.23.238.253:4873/commander from cache
+616 verbose get saving commander to /home/vagrant/.npm/172.23.238.253_4873/commander/.cache.json
+617 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+618 silly cache afterAdd commander@0.6.1
+619 verbose afterAdd /home/vagrant/.npm/commander/0.6.1/package/package.json not in flight; writing
+620 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+621 verbose afterAdd /home/vagrant/.npm/commander/0.6.1/package/package.json written
+622 silly fetchNamedPackageData minimist
+623 silly mapToRegistry name minimist
+624 silly mapToRegistry using default registry
+625 silly mapToRegistry registry http://172.23.238.253:4873/
+626 silly mapToRegistry uri http://172.23.238.253:4873/minimist
+627 verbose request uri http://172.23.238.253:4873/minimist
+628 verbose request no auth needed
+629 info attempt registry request try #1 at 6:13:12 AM
+630 verbose etag "e3f8e00333e08a64e20afcf8bdece438"
+631 http request GET http://172.23.238.253:4873/minimist
+632 http 304 http://172.23.238.253:4873/minimist
+633 verbose headers { 'x-powered-by': 'Sinopia/1.4.0',
+633 verbose headers   etag: '"e3f8e00333e08a64e20afcf8bdece438"',
+633 verbose headers   'x-status-cat': 'http://flic.kr/p/aXY3dH',
+633 verbose headers   date: 'Mon, 11 Apr 2016 06:13:51 GMT',
+633 verbose headers   connection: 'keep-alive' }
+634 silly get cb [ 304,
+634 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+634 silly get     etag: '"e3f8e00333e08a64e20afcf8bdece438"',
+634 silly get     'x-status-cat': 'http://flic.kr/p/aXY3dH',
+634 silly get     date: 'Mon, 11 Apr 2016 06:13:51 GMT',
+634 silly get     connection: 'keep-alive' } ]
+635 verbose etag http://172.23.238.253:4873/minimist from cache
+636 verbose get saving minimist to /home/vagrant/.npm/172.23.238.253_4873/minimist/.cache.json
+637 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+638 silly resolveWithNewModule minimist@0.0.8 checking installable status
+639 silly cache add args [ 'minimist@0.0.8', null ]
+640 verbose cache add spec minimist@0.0.8
+641 silly cache add parsed spec Result {
+641 silly cache add   raw: 'minimist@0.0.8',
+641 silly cache add   scope: null,
+641 silly cache add   name: 'minimist',
+641 silly cache add   rawSpec: '0.0.8',
+641 silly cache add   spec: '0.0.8',
+641 silly cache add   type: 'version' }
+642 silly addNamed minimist@0.0.8
+643 verbose addNamed "0.0.8" is a plain semver version for minimist
+644 silly mapToRegistry name minimist
+645 silly mapToRegistry using default registry
+646 silly mapToRegistry registry http://172.23.238.253:4873/
+647 silly mapToRegistry uri http://172.23.238.253:4873/minimist
+648 verbose addNameVersion registry:http://172.23.238.253:4873/minimist not in flight; fetching
+649 verbose get http://172.23.238.253:4873/minimist not expired, no request
+650 silly cache afterAdd minimist@0.0.8
+651 verbose afterAdd /home/vagrant/.npm/minimist/0.0.8/package/package.json not in flight; writing
+652 verbose correctMkdir /home/vagrant/.npm correctMkdir not in flight; initializing
+653 verbose afterAdd /home/vagrant/.npm/minimist/0.0.8/package/package.json written
+654 silly loadAllDepsIntoIdealTree Finishing
+655 silly idealTree:prePrune lib
+655 silly idealTree:prePrune └─┬ mocha@2.4.5
+655 silly idealTree:prePrune   ├── commander@2.3.0
+655 silly idealTree:prePrune   ├── debug@2.2.0
+655 silly idealTree:prePrune   ├── diff@1.4.0
+655 silly idealTree:prePrune   ├── escape-string-regexp@1.0.2
+655 silly idealTree:prePrune   ├── glob@3.2.3
+655 silly idealTree:prePrune   ├── graceful-fs@2.0.3
+655 silly idealTree:prePrune   ├── growl@1.8.1
+655 silly idealTree:prePrune   ├── inherits@2.0.1
+655 silly idealTree:prePrune   ├─┬ jade@0.26.3
+655 silly idealTree:prePrune   │ ├── commander@0.6.1
+655 silly idealTree:prePrune   │ └── mkdirp@0.3.0
+655 silly idealTree:prePrune   ├── lru-cache@2.7.3
+655 silly idealTree:prePrune   ├── minimatch@0.2.14
+655 silly idealTree:prePrune   ├── minimist@0.0.8
+655 silly idealTree:prePrune   ├── mkdirp@0.5.1
+655 silly idealTree:prePrune   ├── ms@0.7.1
+655 silly idealTree:prePrune   ├── sigmund@1.0.1
+655 silly idealTree:prePrune   └── supports-color@1.2.0
+656 silly loadIdealTree Finishing
+657 silly currentTree lib
+658 silly idealTree lib
+658 silly idealTree └─┬ mocha@2.4.5
+658 silly idealTree   ├── commander@2.3.0
+658 silly idealTree   ├── debug@2.2.0
+658 silly idealTree   ├── diff@1.4.0
+658 silly idealTree   ├── escape-string-regexp@1.0.2
+658 silly idealTree   ├── glob@3.2.3
+658 silly idealTree   ├── graceful-fs@2.0.3
+658 silly idealTree   ├── growl@1.8.1
+658 silly idealTree   ├── inherits@2.0.1
+658 silly idealTree   ├─┬ jade@0.26.3
+658 silly idealTree   │ ├── commander@0.6.1
+658 silly idealTree   │ └── mkdirp@0.3.0
+658 silly idealTree   ├── lru-cache@2.7.3
+658 silly idealTree   ├── minimatch@0.2.14
+658 silly idealTree   ├── minimist@0.0.8
+658 silly idealTree   ├── mkdirp@0.5.1
+658 silly idealTree   ├── ms@0.7.1
+658 silly idealTree   ├── sigmund@1.0.1
+658 silly idealTree   └── supports-color@1.2.0
+659 silly generateActionsToTake Starting
+660 silly install generateActionsToTake
+661 warn checkPermissions Missing write access to /usr/lib/node_modules
+662 silly rollbackFailedOptional Starting
+663 silly rollbackFailedOptional Finishing
+664 silly runTopLevelLifecycles Starting
+665 silly runTopLevelLifecycles Finishing
+666 silly install printInstalled
+667 verbose stack Error: EACCES: permission denied, access '/usr/lib/node_modules'
+667 verbose stack     at Error (native)
+668 verbose cwd /vagrant/LogAggregator-4
+669 error Linux 4.2.0-22-generic
+670 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "mocha" "--no-bin-link"
+671 error node v5.7.1
+672 error npm  v3.6.0
+673 error path /usr/lib/node_modules
+674 error code EACCES
+675 error errno -13
+676 error syscall access
+677 error Error: EACCES: permission denied, access '/usr/lib/node_modules'
+677 error     at Error (native)
+677 error  { [Error: EACCES: permission denied, access '/usr/lib/node_modules']
+677 error   errno: -13,
+677 error   code: 'EACCES',
+677 error   syscall: 'access',
+677 error   path: '/usr/lib/node_modules' }
+678 error Please try running this command again as root/Administrator.
+679 verbose exit [ -13, true ]
