@@ -8,9 +8,42 @@ var formidable = require('formidable');
 var session = require('express-session');
 
 var routes = require('./routes/index');
+<<<<<<< Updated upstream
 var dimensionRouter = require('./routes/dimensions');
 var measuresRouter = require('./routes/measures');
 var namespaceRouter = require('./routes/logdata');
+=======
+
+var configRoute = require('./routes/config');
+var serviceConfigRoute = require('./routes/serviceConfig');
+var authenticate = require('./routes/authenticate')(passport);
+var userAgent = require('./routes/nginx/userAgent');
+var logListing = require('./routes/nginx/logListing');
+var trafficRate = require('./routes/nginx/trafficRate');
+
+//Wave 2 code
+var packageRoutes = require('./routes/aptCache/packageCount');
+var graphRoutes = require('./routes/aptCache/logRateData');
+var dataRateData = require('./routes/aptCache/dataRateData');
+var packageAnalytics = require('./routes/aptCache/packageAnalytics');
+var repRoutes = require('./routes/aptCache/repository');
+var getInfo = require('./routes/aptCache/getInfo');
+//end wave 2 code
+
+//wave 3 routes starts
+var getFilterData = require('./routes/gitLog/getFilterData');
+var newfilter = require('./routes/gitLog/newfilter');
+var plotTheGraph = require('./routes/gitLog/plot_the_graph');
+var getProfile = require('./routes/gitLog/getProfile');
+var getDashBoardJson = require('./routes/gitLog/getDashBoardJson');
+var onPageLoadDashBoard = require('./routes/gitLog/onPageLoadDashBoard');
+var gitDashboardConfigData  = require('./routes/gitLog/gitDashboardConfigData');
+//wave 3 routes ends
+
+//wave 4 starts
+var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
+//wave 4 ends
+>>>>>>> Stashed changes
 var app = express();
 
 // view engine setup
@@ -43,6 +76,11 @@ app.use('/', routes);
 app.use('/dimensions', dimensionRouter);
 app.use('/measures', measuresRouter);
 app.use('/logdata', namespaceRouter);
+
+//wave 4 code
+app.use('/exp',expressions);
+
+// wave 4 code ends
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
