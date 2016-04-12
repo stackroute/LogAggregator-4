@@ -1,20 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var Expression=require('mongoose').model('Expression');
+var Expression = require('../../../models/dbConfig').expressionModel;
+
 
   router.post('/save', function(req, res, next) {
-  req.body.expressions=JSON.parse(req.body.expressions);
-  req.body.nestedexpressions=JSON.parse(req.body.nestedexpressions);
-
+  // console.log('****************************in express routes********************* '+ req.body.data);
   var temp=new Expression(req.body)
   Expression.addExp(temp,function(err,doc) {
   if (err) {
   console.error(err);
+  res.send(err);
   }
   else{
   res.send(doc);
   }
   })
+
 });
 
 

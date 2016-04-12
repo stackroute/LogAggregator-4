@@ -23,6 +23,7 @@ var gitDashBoardSchema = require('./gitlog.dashBoard.model');
 var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 var queryBoxSchema = require('./query.box.model');
 var saveDashBoardSchema = require('./query.box.model');
+var expschema=require('./expression.js')
 
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
@@ -31,6 +32,8 @@ var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfig
 // var gitDashBoardModel = masterDB.model('gitDashBoardConfig',gitDashBoardSchema);
 // var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
 var queryBoxModel = masterDB.model('queryBox',queryBoxSchema);
+var expressionModel=masterDB.model('expression',expschema);
+
 
 org(organizationModel);
 var models={};
@@ -100,7 +103,8 @@ module.exports = {
   nginxServiceModel: nginxServiceModel,
   appgitServiceModel:appgitServiceModel,
   getModel:getModel,
-  queryBoxModel:queryBoxModel
+  queryBoxModel:queryBoxModel,
+  expressionModel:expressionModel
 };
 
 function org(organizationModel){

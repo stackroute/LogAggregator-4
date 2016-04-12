@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema =  mongoose.Schema;
-
+var mainquery = require('../componenets/queryexecutor/mainquery');
 var expSchema = new Schema({
 query:String
 
@@ -30,5 +30,11 @@ expSchema.statics.searchQuery=function searchQuery(searchquery,cb) {
     }
   })
 }
+expschema.post('save',function(query) {
+
+
+})
+
+
 
 module.exports=expSchema;

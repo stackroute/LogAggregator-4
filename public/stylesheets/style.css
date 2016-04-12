@@ -131,6 +131,9 @@ This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday
 .dashboardWizardRow{
   margin-top:120px;
 }
+.liveQueryWizardRow{
+    margin-top:120px;
+}
  .buttom_css{
    height:50px;
    width:200px;

@@ -10,7 +10,12 @@
 }
 .widcheck{
 }
-
+#livequeryform{
+    display: inline;
+}
+#livequeryform input{
+    margin-left: 5px;
+}
 .alert-group{
     margin-top: 10px;
     margin-bottom: 10px;
