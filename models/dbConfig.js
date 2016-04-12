@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 // var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
+
 var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
+//var db = mongoose.createConnection('mongodb://localhost/log4DB');
+
 // var masterDB = mongoose.createConnection("mongodb://localhost:27017/masterDB");
 //var masterDB = mongoose.createConnection("mongodb://172.23.238.253:27018/masterDB");
 //var db1 = mongoose.createConnection("mongodb://localhost/nginx");
@@ -23,6 +26,9 @@ var gitDashBoardSchema = require('./gitlog.dashBoard.model');
 var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 var queryBoxSchema = require('./query.box.model');
 var saveDashBoardSchema = require('./query.box.model');
+
+//wave4
+var namespaceSchema = require('./namespaceSchema');
 
 var organizationModel = masterDB.model('Organization',organizationSchema);
 var gitServiceModel= masterDB.model('GitServiceConfig',gitServiceConfigSchema);
@@ -100,7 +106,8 @@ module.exports = {
   nginxServiceModel: nginxServiceModel,
   appgitServiceModel:appgitServiceModel,
   getModel:getModel,
-  queryBoxModel:queryBoxModel
+  queryBoxModel:queryBoxModel,
+  namespaceModel : masterDB.model('Namespace',namespaceSchema)
 };
 
 function org(organizationModel){
