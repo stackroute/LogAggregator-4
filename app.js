@@ -65,7 +65,8 @@ var gitDashboardConfigData  = require('./routes/gitLog/gitDashboardConfigData');
 var dimensionRouter = require('./routes/defineData/dimensions');
 var measuresRouter = require('./routes/defineData/measures');
 var namespaceRouter = require('./routes/defineData/logdata');
-//wave 4 routes ends
+var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
+//wave 4 ends
 
 var app = express();
 
@@ -137,7 +138,7 @@ app.use('/onPageLoadDashBoard',onPageLoadDashBoard);
 app.use('/dimensions', dimensionRouter);
 app.use('/measures', measuresRouter);
 app.use('/logdata', namespaceRouter);
-//end of wave4 code
+app.use('/exp',expressions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

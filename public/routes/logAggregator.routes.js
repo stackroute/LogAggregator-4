@@ -154,5 +154,10 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/rtWizard',
     templateUrl : 'views/realTimeLogs/rtwizard/rtwizard.html',
     controller: 'rtcontroller'
+  })
+  .state('liveQueryWizard',{
+    url: '/liveQueryWizard',
+    templateUrl: 'views/realTimeLogs/queryBuilder/liveQueryWizard.html',
+    controller : 'liveQueryController'
   });
 });
