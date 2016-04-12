@@ -29,6 +29,7 @@ var gitDashBoardSchema = require('./gitlog.dashBoard.model');
 var onPageLoadDashBoardSchema = require('./onLoaddashboard.model');
 var queryBoxSchema = require('./query.box.model');
 var saveDashBoardSchema = require('./query.box.model');
+var expschema=require('./expression.js')
 
 //wave4
 var namespaceSchema = require('./namespaceSchema');
@@ -41,6 +42,7 @@ var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfig
 // var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
 var queryBoxModel = masterDB.model('queryBox',queryBoxSchema);
 var queryModel = masterDB.model('Query', querySchema);
+var expressionModel=masterDB.model('expression',expschema);
 
 org(organizationModel);
 var models={};
@@ -113,6 +115,7 @@ module.exports = {
   queryBoxModel:queryBoxModel,
   namespaceModel : masterDB.model('Namespace',namespaceSchema)
   queryModel: queryModel
+  expressionModel:expressionModel
 };
 
 function org(organizationModel){

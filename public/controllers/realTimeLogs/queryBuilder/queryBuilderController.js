@@ -80,7 +80,7 @@ app.controller('liveQueryController', ['$scope', function ($scope) {
 }]);
 
 //var queryBuilder = angular.module('queryBuilder', []);
-app.directive('queryBuilder', ['$compile', function ($compile) {
+app.directive('queryBuilder', ['$compile','$http', function ($compile,$http) {
     return {
         restrict: 'E',
         scope: {
@@ -144,6 +144,15 @@ app.directive('queryBuilder', ['$compile', function ($compile) {
 
                 scope.removeGroup = function () {
                     "group" in scope.$parent && scope.$parent.group.rules.splice(scope.$parent.$index, 1);
+                };
+                scope.submitQuery = function () {
+                query="select * from somthing"
+                $http({method: 'Post', url: '/exp/save',data:{data:query}}).
+                success(function(data, status, headers, config) {
+                console.log("Successful");
+                console.log(data);
+                  });
+
                 };
 
                 directive || (directive = $compile(content));

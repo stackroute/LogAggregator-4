@@ -145,7 +145,8 @@ app.use('/measures', measuresRouter);
 app.use('/logdata', namespaceRouter);
 app.use('/exp',expressions);
 app.use('/saveQuery',saveQuery);
-// wave 4 code end
+app.use('/exp',expressions);
+// wave 4 code ends
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
