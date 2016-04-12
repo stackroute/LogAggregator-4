@@ -149,5 +149,10 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/defineData',
     templateUrl : 'views/realTimeLogs/defineData/defineData.html',
     controller: 'defineDataController'
+  })
+  .state('rtWizard',{
+    url: '/rtWizard',
+    templateUrl : 'views/realTimeLogs/rtwizard/rtwizard.html',
+    controller: 'rtcontroller'
   });
 });
