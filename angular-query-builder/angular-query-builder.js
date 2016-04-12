@@ -42,6 +42,9 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
 
        var str2="{from: {stream: "+$scope.stream+",where: {server-name: {$regex: '/$server.*/' }}},select: ['dimension1', 'dimension2','measure3','measure4'],eval: {"
 
+
+
+
         for ( i = 0; i < group.rules.length; i++) {
             console.log("aaaaa")
             console.log($scope.select1);
@@ -155,3 +158,4 @@ queryBuilder.directive('queryBuilder', ['$compile', function ($compile) {
         }
     }
 }]);
+
