@@ -144,5 +144,10 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/packagecount',
     templateUrl : 'views/aptCache/packageCount/packageCount.html',
     controller: 'packageCountController'
+  })
+  .state('rtWizard',{
+    url: '/rtWizard',
+    templateUrl : 'views/realTimeLogs/rtwizard/rtwizard.html',
+    controller: 'rtcontroller'
   });
 });
