@@ -40,35 +40,9 @@
                       <textarea class="form-control" rows="3" placeholder="Enter description" name="desc" id="desc"></textarea>
                     </div>
                     <div class="form-group">
-                      <label for="fileSource">Source</label>
-                      <input type="fileSource" class="form-control" id="fileSource" name="fileSource" placeholder="Enter source">
-                    </div>
-                    <!-- <div class="form-group">
                       <label for="exampleInputFile">File input</label>
                       <input type="file" id="exampleInputFile" required accept=".json" name="file">
                       <p class="help-block">Upload your log file here.</p>
-                    </div> -->
-
-                    <!--    **************** -->
-                    <div class="form-group">
-                      <label for="radioFile">
-                        <input type="radio" name="namespace1" id="radioFile" ng-model="namespace1" value="radioFile">File Upload</label>
-                      <label for="radioStream">
-                        <input type="radio" name="namespace1" id="radioStream" ng-model="namespace1" value="radioStream">Streaming Data</label>
-                    </div>
-                    <div class="form-group" id="radioFileDiv" ng-show="namespace1=='radioFile'">
-                      <div class="form-group">
-                        <label for="exampleInputFile">File input</label>
-                        <input type="file" id="exampleInputFile" required accept=".json" name="file">
-                        <p class="help-block">Upload your log file here.</p>
-                      </div>
-                    </div>
-                    <div class="form-group" id="radioStreamDiv" ng-show="namespace1=='radioStream'">
-                      <h4> Streaming Data</h4>
-                      <!-- <label for="streamSource">Source</label>
-                      <input type="streamSource" class="form-control" id="streamSource" placeholder="Enter Source..">
-                      <label for="streamPort">Port</label>
-                      <input type="streamPort" class="form-control" id="streamPort" placeholder="Enter Port.."> -->
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                     <!-- <button ng-click="" class="btn btn-success">Submit</button> -->

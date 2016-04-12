@@ -129,7 +129,9 @@ router.post('/', function(req, res) {
       name: fields.namespace,
       description: fields.desc,
       createdOn: Date.now(),
-      filePath: "public/upload/" + files.file.name
+      filePath: "public/upload/" + files.file.name,
+      source: fields.fileSource
+
     }, function(err, namespace) {
       if (err) {
         console.log(err);
