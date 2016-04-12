@@ -43,6 +43,7 @@
     "htmlhint": "^0.9.12",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
+    "should": "^8.3.0",
     "sinon": "^1.17.3",
     "supertest": "^1.1.0"
   }

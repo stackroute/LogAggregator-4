@@ -17,6 +17,9 @@ var gitServiceConfigSchema=require('./gitServiceInfo');
 var nginxServiceConfigSchema=require('./nginxServiceConfig');
 var appgitServiceConfigSchema=require('./appgitServiceConfig');
 
+
+var querySchema = require('./querySchema');
+
 var serverSchema = require('./log.server.model');
 var configSchema = require('./log.config.model');
 var aptLogSchema = require('./logSchema');
@@ -37,6 +40,7 @@ var appgitServiceModel= masterDB.model('AppgitServiceConfig',appgitServiceConfig
 // var gitDashBoardModel = masterDB.model('gitDashBoardConfig',gitDashBoardSchema);
 // var onPageLoadDashBoardModel =masterDB.model('onPageLoadDashBoardConfig',onPageLoadDashBoardSchema);
 var queryBoxModel = masterDB.model('queryBox',queryBoxSchema);
+var queryModel = masterDB.model('Query', querySchema);
 
 org(organizationModel);
 var models={};
@@ -108,6 +112,7 @@ module.exports = {
   getModel:getModel,
   queryBoxModel:queryBoxModel,
   namespaceModel : masterDB.model('Namespace',namespaceSchema)
+  queryModel: queryModel
 };
 
 function org(organizationModel){

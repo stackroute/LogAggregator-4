@@ -66,7 +66,11 @@ var dimensionRouter = require('./routes/defineData/dimensions');
 var measuresRouter = require('./routes/defineData/measures');
 var namespaceRouter = require('./routes/defineData/logdata');
 var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
-//wave 4 ends
+// wave 4 code starts here
+//require('./database');
+var saveQuery = require('./routes/queryBuilder/saveQuery');
+
+// wave 4 code ends here
 
 var app = express();
 
@@ -115,6 +119,7 @@ app.use('/json/userAgent', userAgent);
 app.use('/json/logListing', logListing);
 app.use('/json/trafficRate', trafficRate);
 
+
 //wave 2 code
 app.use('/logRateData',graphRoutes);
 app.use('/dataRateData',dataRateData);
@@ -139,6 +144,8 @@ app.use('/dimensions', dimensionRouter);
 app.use('/measures', measuresRouter);
 app.use('/logdata', namespaceRouter);
 app.use('/exp',expressions);
+app.use('/saveQuery',saveQuery);
+// wave 4 code end
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
