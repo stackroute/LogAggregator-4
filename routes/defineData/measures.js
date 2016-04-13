@@ -33,15 +33,16 @@ router.post('/addMeasure', function(req, res) {
       if (namespace != null) {
         var fieldEvent;
       //  console.log("radiovalue",req.body.measure);
-        if (req.body.measure == "radioField") {
-          fieldEvent = req.body.measureFieldSelector;
+        if (req.body.data.measure == "radioField") {
+          fieldEvent = req.body.data.measureFieldSelector;
           fieldValue="";
         } else {
-          fieldEvent = req.body.measureEventSelector;
-          fieldValue=req.body.measureEventValueSelector;
+          fieldEvent = req.body.data.measField;
+          fieldValue=req.body.data.measValue;
         }
         namespace.measures.push({
-          displayName: req.body.displaymeasurename,
+          displayName: req.body.data.displaymeasurename,
+          measureType:req.body.data.measure,
           eventField: fieldEvent,
           eventValue: fieldValue
         });
@@ -51,7 +52,8 @@ router.post('/addMeasure', function(req, res) {
       }
     });
   }
-  res.redirect('/#/defineData');
+  res.send(req.body)
+  //res.redirect('/#/defineData');
 });
 
 /* Delete Measure */
