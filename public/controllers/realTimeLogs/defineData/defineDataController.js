@@ -96,7 +96,8 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       }
     });
     defineDataService.getLogData().then(function(response) {
-      $scope.logdataList = response.data;
+      $scope.namespaceName=response.data.namespaceName;
+      $scope.logdataList = response.data.filedata;
       //console.log($scope.logdataList);
       $scope.cols = Object.keys($scope.logdataList[0]);
 
