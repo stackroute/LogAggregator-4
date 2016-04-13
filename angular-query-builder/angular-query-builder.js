@@ -1,6 +1,7 @@
 var app = angular.module('app', ['ngSanitize', 'queryBuilder']);
 var kk=0;
-app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
+var str2="";
+app.controller('QueryBuilderCtrl', ['$scope','$http', function ($scope,$http) {
     var data = '{"group": {"operator": "OR","rules": []}}';
 
     function htmlEntities(str) {
@@ -10,9 +11,9 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
     function computed(group) {
         if (!group) return "";
         for (var str = "(", i = 0; i < group.rules.length; i++) {
-            console.log("aaaaa")
-            console.log($scope.select1);
-            console.log("len----"+ group.rules.length);
+//            console.log("aaaaa")
+            //          console.log($scope.select1);
+//            console.log("len----"+ group.rules.length);
 
             console.log(group.rules[i]);
             i > 0 && (str += " <strong>"+group.operator+"</strong> ");
@@ -20,13 +21,13 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
 
             str += group.rules[i].group ?
                 computed(group.rules[i].group) :
-               group.rules[i].field + " " + htmlEntities(group.rules[i].condition) + " " + group.rules[i].data + "  Over  " + group.rules[i].accumulator +"   " +group.rules[i].value ;
+            group.rules[i].field + " " + htmlEntities(group.rules[i].condition) + " " + group.rules[i].data + "  Over  " + group.rules[i].accumulator +"   " +group.rules[i].value ;
 
             //if(kk>0)
             //{
             //    str += group.rules[i].group ?
             //        computed(group.rules[i].group) :
-                        //
+            //
             //}
 
         }
@@ -40,10 +41,52 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
         if(!group) return "";
 
 
-       var str2="{from: {stream: "+$scope.stream+",where: {server-name: {$regex: '/$server.*/' }}},select: ['dimension1', 'dimension2','measure3','measure4'],eval: {"
+        str2="{from: {stream: "+$scope.stream+",where: {server-name: {$regex: '/$server.*/' }}},select:[";
+        var str3="],eval: {";
 
 
 
+        var strng=$scope.select1;
+
+        var dummy="";
+        var stringA="";
+        var count=0;
+        var cn=0;
+        for(var j=0;j<strng.length;j++)
+        {
+
+            if(strng[j]==",") {
+
+                count++;
+            }
+
+        }
+
+        for(var j=0;j<strng.length;j++)
+        {
+
+            if(strng[j]!=",")
+            {
+                dummy=dummy+strng[j];
+            }
+            else {
+                if(cn<count) {
+                    stringA = stringA + "'" + dummy + "',";
+                    cn++;
+                    dummy="";
+                }
+
+
+            }
+
+        }
+
+
+        stringA = stringA + "'" + dummy + "'";
+
+        console.log(stringA);
+
+        str2=str2+stringA+str3;
 
         for ( i = 0; i < group.rules.length; i++) {
             console.log("aaaaa")
@@ -55,7 +98,7 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
 
             str2 += group.rules[i].group ?
                 computeJson(group.rules[i].group) :
-                "val"+i+": {$rolling: { evaluate:"+group.rules[i].field+",over: {"+group.rules[i].accumulator+": "+group.rules[i].value+"},on:"+group.rules[i].data+"}}";
+            "val"+i+": {$rolling: { evaluate:"+group.rules[i].field+",over: {"+group.rules[i].accumulator+": "+group.rules[i].value+"},on:"+group.rules[i].data+"}}";
 
             //if(kk>0)
             //{
@@ -67,7 +110,9 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
         }
 
 
-        return str2+"},project: {$highlight: {$condition: {val1: {$gt: '$val2'}}}},to: '"+$scope.streamB+"'}";
+        var str6="},project: {$highlight: {$condition: {val1: {$gt: '$val2'}}}},to: '"+$scope.streamB+"'}";
+        str2=str2+str6;
+        return str2;
 
     }
 
@@ -83,7 +128,7 @@ app.controller('QueryBuilderCtrl', ['$scope', function ($scope) {
 }]);
 
 var queryBuilder = angular.module('queryBuilder', []);
-queryBuilder.directive('queryBuilder', ['$compile', function ($compile) {
+queryBuilder.directive('queryBuilder', ['$compile','$http', function ($compile,$http) {
     return {
         restrict: 'E',
         scope: {
@@ -147,6 +192,17 @@ queryBuilder.directive('queryBuilder', ['$compile', function ($compile) {
 
                 scope.removeGroup = function () {
                     "group" in scope.$parent && scope.$parent.group.rules.splice(scope.$parent.$index, 1);
+                };
+
+                scope.submitQuery = function () {
+                    query=str2;
+                    console.log("Answer String")
+                    console.log(str2);
+                    $http({method: 'Post', url: 'http://localhost:8080/saveQuery',data:{data:query}}).
+                    success(function(data, status, headers, config) {
+                        console.log("Successful");
+                        console.log(data);
+                    });
                 };
 
                 directive || (directive = $compile(content));

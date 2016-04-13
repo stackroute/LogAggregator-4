@@ -113,8 +113,8 @@ module.exports = {
   appgitServiceModel:appgitServiceModel,
   getModel:getModel,
   queryBoxModel:queryBoxModel,
-  namespaceModel : masterDB.model('Namespace',namespaceSchema)
-  queryModel: queryModel
+  namespaceModel : masterDB.model('Namespace',namespaceSchema),
+  queryModel: queryModel,
   expressionModel:expressionModel
 };
 
