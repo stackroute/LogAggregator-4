@@ -1,5 +1,5 @@
 var _ = require('highland');
-var QueryExecutor = require('../query-executor');
+var QueryExecutor = require('./query-executor');
 var query = {
   select:['remote','host','method','code'],
   eval: {
@@ -29,8 +29,6 @@ var query = {
   to: 'streamB'
 };
 
-var executor = new QueryExecutor(query);
-var pipeline = executor.getPipeline();
 var WebSocketClient = require('websocket').client;
 var WebSocket1 = new WebSocketClient();
 var WebSocketServer = require('ws').Server;
@@ -44,28 +42,27 @@ wss.on('connection', function(ws) {
   ws.setMaxListeners(ws.getMaxListeners() + 1);
 });
 
-WebSocket1.on('connect', function(connection) {
-  console.log("Connected..Waiting for some message");
-  var streamData = {};
-  _('message', connection).pipe(_.pipeline(_.map(function(msg) {
-    console.log('data received');
-    return JSON.parse(msg.utf8Data)[2];
-  })
-))
-  .pipe(pipeline)
-  // .pipe(_.pipeline(
-  //   _.map(function(msg) {
-  //     // console.log('OUTMSG: ' + JSON.stringify(msg));
-  //     return msg;
-  //   })
-  // ))
-  .pipe(_.pipeline(
-    _.map(function(msg) {
-      if(serverWs) {
-        serverWs.send(JSON.stringify(msg));
-      }
+module.exports=function (queryy) {
+
+  var executor = new QueryExecutor(query);
+  var pipeline = executor.getPipeline();
+  WebSocket1.on('connect', function(connection) {
+    console.log("Connected..Waiting for some message");
+    var streamData = {};
+    _('message', connection).pipe(_.pipeline(_.map(function(msg) {
+      console.log('data received');
+      return JSON.parse(msg.utf8Data)[2];
     })
-  )).done();
-  connection.setMaxListeners(connection.getMaxListeners() + 1);
-});
-WebSocket1.connect('ws://172.23.238.253:7070');
+  ))
+    .pipe(pipeline)
+    .pipe(_.pipeline(
+      _.map(function(msg) {
+        if(serverWs) {
+          serverWs.send(JSON.stringify(msg));
+        }
+      })
+    )).done();
+
+    connection.setMaxListeners(connection.getMaxListeners() + 1);
+  });
+}
