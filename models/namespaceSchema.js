@@ -12,6 +12,7 @@ var namespaceSchema = new mongoose.Schema({
             }],
   measures:[{
             displayName :String,
+            measureType:String,
             eventField:String,
             eventValue:String
           }],

@@ -36,12 +36,13 @@ dimensionRouter.get('/', function(req, res) {
 /* POST Dimension */
 
 dimensionRouter.post('/addDimension', function(req, res) {
+  console.log("received  ********************* " +req.body)  ;
   if (req.session.oid !== null) {
     Namespace.findNamespace(req.session.oid, function(err, namespace) {
       if (namespace != null) {
         namespace.dimensions.push({
-          displayName: req.body.displayname,
-          fieldName: req.body.fieldname
+          displayName: req.body.data.displayName,
+          fieldName: req.body.data.fieldname
         });
 
         namespace.save(function(err, namespace) {
@@ -50,7 +51,8 @@ dimensionRouter.post('/addDimension', function(req, res) {
       }
     });
   }
-  res.redirect('/#/defineData');
+  res.send(req.body)
+  // res.redirect('/#/defineData');
 });
 
 /*delete*/
