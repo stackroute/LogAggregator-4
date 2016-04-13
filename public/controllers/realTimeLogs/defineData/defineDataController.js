@@ -1,5 +1,5 @@
-angular.module('logAggregator').controller('defineDataController', ['$scope', 'defineDataService',
-  function($scope, defineDataService) {
+angular.module('logAggregator').controller('defineDataController', ['$scope','$http', 'defineDataService',
+  function($scope,$http, defineDataService) {
     $scope.dimensionList = [];
     $scope.measureList = [];
 
@@ -17,6 +17,42 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
       }
       $scope.dimVal = val;
     }
+    $scope.submitDimension=function() {
+      dimobj={
+        displayName:$scope.displayname,
+        fieldname:$scope.dimVal
+      }
+      console.log("post",dimobj);
+      $http({method: 'Post', url: '/dimensions/addDimension',data:{data:dimobj}}).
+                success(function(data, status, headers, config) {
+                console.log("Successful");
+                console.log(data);
+                  });
+      console.log(dimobj.displayName);
+      $scope.dimensionList.push(dimobj.displayName);
+    }
+
+    $scope.submitMeasure=function() {
+      measobj={
+        displaymeasurename:$scope.displaymeasurename,
+        measureFieldSelector:$scope.measureFieldSelector,
+        measure:$scope.measure,
+        measField:$scope.measField,
+        measValue:$scope.measValue
+      }
+      console.log("post",measobj);
+      $http({method: 'Post', url: '/measures/addMeasure',data:{data:measobj}}).
+                success(function(data, status, headers, config) {
+                console.log("Successful");
+                console.log(data);
+                  });
+      //console.log(dimobj.displayName);
+      $scope.measureList.push(measobj.displaymeasurename);
+    //  $scope.dimensionList.push(dimobj.displayName);
+    }
+
+
+
 
     $scope.selectedMeas = function(key,val) {
       if (!key) {
@@ -60,7 +96,8 @@ angular.module('logAggregator').controller('defineDataController', ['$scope', 'd
       }
     });
     defineDataService.getLogData().then(function(response) {
-      $scope.logdataList = response.data;
+      $scope.namespaceName=response.data.namespaceName;
+      $scope.logdataList = response.data.filedata;
       //console.log($scope.logdataList);
       $scope.cols = Object.keys($scope.logdataList[0]);
 

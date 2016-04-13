@@ -102,7 +102,11 @@ router.get('/', function(req, res) {
           if (err) {
             return console.log(err);
           }
-          res.send(JSON.parse(data));
+          var nameObj ={
+            namespaceName:namespace.name,
+            filedata:JSON.parse(data)
+          };
+          res.send(nameObj);
         });
       }
     });
