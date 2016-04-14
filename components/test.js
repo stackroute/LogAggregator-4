@@ -1,8 +1,8 @@
-var sum = require('../sum');
+var sum = require('./aggregator/avg-aggregator');
 require('should');
 require('expect');
 var expect = require('chai').expect;
-var AccumulateOverCount = require('../accumulateOverCount');
+var AccumulateOverCount = require('./rollingCount/accumulateOverCount');
 
 describe('Aggregate Sum Over Count', function(done) {
     it('sum', function(done) {
