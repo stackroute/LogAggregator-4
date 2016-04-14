@@ -1,20 +1,18 @@
 var app = angular.module('logAggregator');
 var kk=0;
-var str2="";
-var addConditionCount=0;
-app.controller('liveQueryController', ['$scope','$http', function ($scope,$http) {
+app.controller('liveQueryController', ['$scope', function ($scope) {
     var data = '{"group": {"operator": "OR","rules": []}}';
-    $scope.flag=false;
 
     function htmlEntities(str) {
         return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
+
     function computed(group) {
         if (!group) return "";
         for (var str = "(", i = 0; i < group.rules.length; i++) {
-//            console.log("aaaaa")
-            //          console.log($scope.select1);
-//            console.log("len----"+ group.rules.length);
+            console.log("aaaaa")
+            console.log($scope.select1);
+            console.log("len----"+ group.rules.length);
 
             console.log(group.rules[i]);
             i > 0 && (str += " <strong>"+group.operator+"</strong> ");
@@ -22,13 +20,13 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
 
             str += group.rules[i].group ?
                 computed(group.rules[i].group) :
-            group.rules[i].field + " " + htmlEntities(group.rules[i].condition) + " " + group.rules[i].data + "  Over  " + group.rules[i].accumulator +"   " +group.rules[i].value ;
+               group.rules[i].field + " " + htmlEntities(group.rules[i].condition) + " " + group.rules[i].data + "  Over  " + group.rules[i].accumulator +"   " +group.rules[i].value ;
 
             //if(kk>0)
             //{
             //    str += group.rules[i].group ?
             //        computed(group.rules[i].group) :
-            //
+                        //
             //}
 
         }
@@ -42,54 +40,7 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
         if(!group) return "";
 
 
-    //    str2="{from: {stream: "+$scope.stream+",where: {server-name: {$regex: \"/$server.*/\" }}},select:[";
-        str2="{\"select\":[";
-        var str3="],\"eval\": {";
-
-
-
-        var strng=$scope.select1;
-
-        var dummy="";
-        var stringA="";
-        var count=0;
-        var cn=0;
-        for(var j=0;j<strng.length;j++)
-        {
-
-            if(strng[j]==",") {
-
-                count++;
-            }
-
-        }
-
-        for(var j=0;j<strng.length;j++)
-        {
-
-            if(strng[j]!=",")
-            {
-                dummy=dummy+strng[j];
-            }
-            else {
-                if(cn<count) {
-                    stringA = stringA + "\"" + dummy + "\",";
-                    cn++;
-                    dummy="";
-                }
-
-
-            }
-
-        }
-
-
-        stringA = stringA + "\"" + dummy + "\"";
-
-        console.log(stringA);
-
-        str2=str2+stringA+str3;
-        var operator;
+       var str2="{from: {stream: "+$scope.stream+",where: {server-name: {$regex: '/$server.*/' }}},select: ['dimension1', 'dimension2','measure3','measure4'],eval: {"
 
         for ( i = 0; i < group.rules.length; i++) {
             console.log("aaaaa")
@@ -101,21 +52,18 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
 
             str2 += group.rules[i].group ?
                 computeJson(group.rules[i].group) :
-            "\"val"+(i+1)+"\" : { \"rolling\" : { \"evaluate\" :\""+group.rules[i].field+"\", \"over\" : { \""+group.rules[i].accumulator+"\": "+group.rules[i].value+"},\"on\":\""+group.rules[i].data+"\"}}";
-            operator=group.operator;
+                "val"+i+": {$rolling: { evaluate:"+group.rules[i].field+",over: {"+group.rules[i].accumulator+": "+group.rules[i].value+"},on:"+group.rules[i].data+"}}";
 
             //if(kk>0)
             //{
             //    str += group.rules[i].group ?
-            //        computed(group.rulews[i].group) :
+            //        computed(group.rules[i].group) :
             //
             //}
 
         }
 
 
-        var str6="},\"project\": { \"$highlight\": {\"$condition\":\"val1 "+operator+" val2\"}},\"to\": \""+$scope.streamB+"\"}";
-        str2=str2+str6;
         return str2;
 
     }
@@ -132,7 +80,7 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
 }]);
 
 //var queryBuilder = angular.module('queryBuilder', []);
-    app.directive('queryBuilder', ['$compile','$http', function ($compile,$http) {
+app.directive('queryBuilder', ['$compile','$http', function ($compile,$http) {
     return {
         restrict: 'E',
         scope: {
@@ -144,25 +92,21 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
             content = element.contents().remove();
             return function (scope, element, attrs) {
                 scope.operators = [
-                    { name: '==' },
-                    { name: '<>' },
-                    { name: '<' },
-                    { name: '<=' },
-                    { name: '>' },
-                    { name: '>=' }
+                    { name: 'AND' },
+                    { name: 'OR' }
                 ];
 
                 scope.fields = [
-                    { name: 'average' },
-                    { name: 'standard deviation' },
-                    { name: 'count' },
-                    { name: 'mean' },
-                    { name: 'max' }
+                    { name: 'Average' },
+                    { name: 'Standard Deviation' },
+                    { name: 'Count' },
+                    { name: 'Mean' },
+                    { name: 'Max' }
                 ];
 
                 scope.accumulators = [
-                    { name: 'count' },
-                    { name: 'time' }
+                    { name: 'Count' },
+                    { name: 'Time' }
 
                 ];
 
@@ -176,15 +120,9 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
                 ];
 
                 scope.addCondition = function () {
-
-                    addConditionCount++;
-                    if(addConditionCount>2)
-                    {
-                        $scope.flag=true;
-                    }
                     scope.group.rules.push({
                         condition: 'of',
-                        field: 'average',
+                        field: 'Firstname',
                         data: '',
                         accumulator:'',
                         value:''
@@ -207,18 +145,14 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
                 scope.removeGroup = function () {
                     "group" in scope.$parent && scope.$parent.group.rules.splice(scope.$parent.$index, 1);
                 };
-
                 scope.submitQuery = function () {
-                    query=JSON.parse(str2);
-                    // query=str2;
-                    // console.log("Answer String")
-                    // console.log(str2);
-                    // $scope.answer=str2;
-                    $http({method: 'Post', url: '/exp/save',data:{data:query}}).
-                    success(function(data, status, headers, config) {
-                        console.log("Successful");
-                        console.log(data);
-                    });
+                query="select * from somthing"
+                $http({method: 'Post', url: '/exp/save',data:{data:query}}).
+                success(function(data, status, headers, config) {
+                console.log("Successful");
+                console.log(data);
+                  });
+
                 };
 
                 directive || (directive = $compile(content));

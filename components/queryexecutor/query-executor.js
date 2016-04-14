@@ -64,8 +64,14 @@ var QueryExecutor = function(query) {
       condition=condition.replace('val2','tempdata.val2')
                                                  //filter that returns true/false depending on query condition
                                                  //{val1: {$gte: '$val2'}}//query.project.$highlight.$condition
-      tempdata.highlight=eval(condition)                  //highlight set to true/false depending on val1 and val2
-      console.log(tempdata);
+                                                 //highlight set to true/false depending on val1 and val2
+       if(tempdata.val1 && tempdata.val2){
+       tempdata.highlight=eval(condition)
+       }
+       else {
+      tempdata.highlight=false;
+       }
+      // console.log(tempdata);
       return tempdata; //object with select parameters and highlight
     }));
     return _.pipeline.apply(this, pipeline);

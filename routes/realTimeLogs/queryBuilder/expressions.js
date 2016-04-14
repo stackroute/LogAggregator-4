@@ -5,7 +5,7 @@ var mainquery=require('../../../components/queryexecutor/mainquery.js')
 
 
   router.post('/save', function(req, res, next) {
-  // console.log('****************************in express routes********************* '+ req.body.data);
+  // console.log('****************************in express routes********************* '+ JSON.stringify(req.body.data));
   var temp=new Expression(req.body)
   Expression.addExp(temp,function(err,doc) {
   if (err) {
@@ -13,7 +13,7 @@ var mainquery=require('../../../components/queryexecutor/mainquery.js')
   res.send(err);
   }
   else{
-  mainquery(doc);
+  mainquery(req.body.data);
   res.send(doc);
   }
   })

@@ -1,33 +1,33 @@
 var _ = require('highland');
 var QueryExecutor = require('./query-executor');
-var query = {
-  select:['remote','host','method','code'],
-  eval: {
-    val1: {
-      rolling: {
-        evaluate: 'average',
-        over: {
-          count: 10
-        },
-        on: 'code' // measure
-      }
-    },
-    val2: {
-      rolling: {
-        evaluate: 'average',
-        over: {
-          count: 10
-        },
-        on: 'insertions'
-      }
-    },
-  },
-  project: {
-    // $highlight: {$condition: {val1: {$eq: eval['val2']}}}
-    $highlight: {$condition: 'val1 ==val2'}
-  },
-  to: 'streamB'
-};
+// var query = {
+//   select:['remote','host','method','code'],
+//   eval: {
+//     val1: {
+//       rolling: {
+//         evaluate: 'average',
+//         over: {
+//           count: 10
+//         },
+//         on: 'code' // measure
+//       }
+//     },
+//     val2: {
+//       rolling: {
+//         evaluate: 'average',
+//         over: {
+//           count: 10
+//         },
+//         on: 'insertions'
+//       }
+//     },
+//   },
+//   project: {
+//     // $highlight: {$condition: {val1: {$eq: eval['val2']}}}
+//     $highlight: {$condition: 'val1 ==val2'}
+//   },
+//   to: 'streamB'
+// };
 
 var WebSocketClient = require('websocket').client;
 var WebSocket1 = new WebSocketClient();
@@ -44,7 +44,7 @@ wss.on('connection', function(ws) {
 
 module.exports=function (queryy) {
 
-  var executor = new QueryExecutor(query);
+  var executor = new QueryExecutor(queryy);
   var pipeline = executor.getPipeline();
   WebSocket1.on('connect', function(connection) {
     console.log("Connected..Waiting for some message");
