@@ -1,8 +1,10 @@
 var app = angular.module('app', ['ngSanitize', 'queryBuilder']);
 var kk=0;
 var str2="";
+var addConditionCount=0;
 app.controller('QueryBuilderCtrl', ['$scope','$http', function ($scope,$http) {
     var data = '{"group": {"operator": "OR","rules": []}}';
+    $scope.flag=false;
 
     function htmlEntities(str) {
         return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -87,6 +89,7 @@ app.controller('QueryBuilderCtrl', ['$scope','$http', function ($scope,$http) {
         console.log(stringA);
 
         str2=str2+stringA+str3;
+        var operator;
 
         for ( i = 0; i < group.rules.length; i++) {
             console.log("aaaaa")
@@ -98,19 +101,20 @@ app.controller('QueryBuilderCtrl', ['$scope','$http', function ($scope,$http) {
 
             str2 += group.rules[i].group ?
                 computeJson(group.rules[i].group) :
-            "val"+i+": {$rolling: { evaluate:"+group.rules[i].field+",over: {"+group.rules[i].accumulator+": "+group.rules[i].value+"},on:"+group.rules[i].data+"}}";
+            "val"+(i+1)+": {rolling: { evaluate:'"+group.rules[i].field+"',over: {"+group.rules[i].accumulator+": "+group.rules[i].value+"},on:'"+group.rules[i].data+"'}}";
+            operator=group.operator;
 
             //if(kk>0)
             //{
             //    str += group.rules[i].group ?
-            //        computed(group.rules[i].group) :
+            //        computed(group.rulews[i].group) :
             //
             //}
 
         }
 
 
-        var str6="},project: {$highlight: {$condition: {val1: {$gt: '$val2'}}}},to: '"+$scope.streamB+"'}";
+        var str6="},project: {$highlight: {$condition:'val1 "+operator+" val2'}},to: '"+$scope.streamB+"'}";
         str2=str2+str6;
         return str2;
 
@@ -140,8 +144,12 @@ queryBuilder.directive('queryBuilder', ['$compile','$http', function ($compile,$
             content = element.contents().remove();
             return function (scope, element, attrs) {
                 scope.operators = [
-                    { name: 'AND' },
-                    { name: 'OR' }
+                    { name: '==' },
+                    { name: '<>' },
+                    { name: '<' },
+                    { name: '<=' },
+                    { name: '>' },
+                    { name: '>=' }
                 ];
 
                 scope.fields = [
@@ -168,9 +176,15 @@ queryBuilder.directive('queryBuilder', ['$compile','$http', function ($compile,$
                 ];
 
                 scope.addCondition = function () {
+
+                    addConditionCount++;
+                    if(addConditionCount>2)
+                    {
+                        $scope.flag=true;
+                    }
                     scope.group.rules.push({
                         condition: 'of',
-                        field: 'Firstname',
+                        field: 'Average',
                         data: '',
                         accumulator:'',
                         value:''
@@ -198,7 +212,7 @@ queryBuilder.directive('queryBuilder', ['$compile','$http', function ($compile,$
                     query=str2;
                     console.log("Answer String")
                     console.log(str2);
-                    $http({method: 'Post', url: 'http://localhost:8080/saveQuery',data:{data:query}}).
+                    $http({method: 'Post', url: '/saveQuery',data:{data:query}}).
                     success(function(data, status, headers, config) {
                         console.log("Successful");
                         console.log(data);

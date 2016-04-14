@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Angular.js Query Builder</title>
+        <title>Query on the Go!</title>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
   </head>
   <body>
     <div class="container" ng-controller="QueryBuilderCtrl">
-    <h1>Angular.js Query Builder</h1>
+    <h1> Query on the Go!</h1>
 
         <div class="alert alert-info">
             <strong>Example Output</strong><br>
@@ -20,10 +20,7 @@
             <br>
             <span ng-bind-html="jsonOutput"> </span>
 
-            <form action="http://localhost:8080/saveQuery" method="post">
 
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
 
 
 
@@ -50,8 +47,7 @@
     <div class="alert alert-warning alert-group">
         <div class="form-inline ">
             <select ng-options="o.name as o.name for o in operators" ng-model="group.operator" class="form-control input-sm"></select>
-            <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
-            <button style="margin-left: 5px" ng-click="addGroup()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+            <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success" ng-disabled="flag" ><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
             <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
             <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>SubmitQuery</button>
 

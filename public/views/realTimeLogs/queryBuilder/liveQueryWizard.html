@@ -94,13 +94,6 @@
             <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
             <button style="margin-left: 5px" ng-click="addGroup()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
             <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
-            <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>SubmitQuery</button>
-
-        <form action='/exp/save' method='POST' id='livequeryform'>
-        <input type='hidden' name='query' value="hello">
-        <input type='submit' class="btn btn-sm btn-success" value='submit'><span class="glyphicon glyphicon-tick-sign"></span>
-         </form>
-
         </div>
         <div class="group-conditions">
             <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
