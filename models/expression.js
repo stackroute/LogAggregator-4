@@ -12,6 +12,7 @@ obj.save(function(err,doc) {
     if (err) {
     console.error(err);
     cb(err,null);
+
     }
     else {
     console.log(doc);
@@ -33,7 +34,7 @@ expSchema.statics.searchQuery=function searchQuery(searchquery,cb) {
 //
 // expschema.post('save',function(query) {
 // mainquery(query);
-// })
+//   })
 
 
 

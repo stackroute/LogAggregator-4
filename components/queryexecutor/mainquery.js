@@ -32,7 +32,7 @@ var query = {
 var WebSocketClient = require('websocket').client;
 var WebSocket1 = new WebSocketClient();
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({port: 8080});
+var wss = new WebSocketServer({port: 9000});
 var serverWs;
 
 wss.on('connection', function(ws) {
@@ -62,7 +62,7 @@ module.exports=function (queryy) {
         }
       })
     )).done();
-
     connection.setMaxListeners(connection.getMaxListeners() + 1);
   });
+  WebSocket1.connect('ws://172.23.238.253:7070');
 }

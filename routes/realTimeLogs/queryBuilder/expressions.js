@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Expression = require('../../../models/dbConfig').expressionModel;
+var mainquery=require('../../../components/queryexecutor/mainquery.js')
 
 
   router.post('/save', function(req, res, next) {
@@ -12,6 +13,7 @@ var Expression = require('../../../models/dbConfig').expressionModel;
   res.send(err);
   }
   else{
+  mainquery(doc);
   res.send(doc);
   }
   })
