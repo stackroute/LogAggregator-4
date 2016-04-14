@@ -18,22 +18,22 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $scope.dimVal = val;
     }
     $scope.submitDimension=function() {
-      dimobj={
+        dimobj={
         displayName:$scope.displayname,
         fieldname:$scope.dimVal
       }
       console.log("post",dimobj);
       $http({method: 'Post', url: '/dimensions/addDimension',data:{data:dimobj}}).
-                success(function(data, status, headers, config) {
-                console.log("Successful");
-                console.log(data);
-                  });
+      success(function(data, status, headers, config) {
+      console.log("Successful");
+      console.log(data);
+       });
       console.log(dimobj.displayName);
       $scope.dimensionList.push(dimobj.displayName);
     }
 
     $scope.submitMeasure=function() {
-      measobj={
+        measobj={
         displaymeasurename:$scope.displaymeasurename,
         measureFieldSelector:$scope.measureFieldSelector,
         measure:$scope.measure,
@@ -48,7 +48,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
                   });
       //console.log(dimobj.displayName);
       $scope.measureList.push(measobj.displaymeasurename);
-    //  $scope.dimensionList.push(dimobj.displayName);
+     //$scope.dimensionList.push(dimobj.displayName);
     }
 
 
