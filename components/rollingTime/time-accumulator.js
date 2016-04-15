@@ -1,7 +1,9 @@
 module.exports = function(time, evalFunc) {
   this.windowDuration = time;
   this.evalFunc = evalFunc;
-
+  console.log(this.evalFunc);
+  this.t0;
+  this.currentTime;
 
   this.evaluate = function(line) {
     //creating array if it doesn't exist
@@ -22,15 +24,15 @@ module.exports = function(time, evalFunc) {
     }
     //Get current time
     currentTime = new Date();
-    //Check if window active
+    // console.log('#######################'+currentTime.getTime());
     var diffMs = (currentTime.getTime() - t0.getTime());
     console.log("Time diff: " + diffMs);
 
-    if (diffMs < 100) {
+    if (diffMs < parseInt(this.windowDuration)) {
       //window not yet active
       console.log('not yet active');
       return null;
-    } else if (diffMs >= 100) {
+    } else if (diffMs >= parseInt(this.windowDuration)) {
       //window active now
       console.log('active now');
       pastDate = new Date();
