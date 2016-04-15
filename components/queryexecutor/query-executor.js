@@ -44,12 +44,10 @@
   RT.push(new rollingTime(query.eval.val1.rolling.over.time,getAggregator(query.eval.val1.rolling.evaluate))); //rollingTime not available
   }
   else {
-  console.log("**************count intitalized for val1********************* for "+query.eval.val1.rolling.over.count);
-  RC.push(new rollingCount(query.eval.val1.rolling.over.count,average));//assume every computation is either rollingTime or rollingCount
+  RC.push(new rollingCount(query.eval.val1.rolling.over.count,getAggregator(query.eval.val1.rolling.evaluate)));//assume every computation is either rollingTime or rollingCount
   }
   if(query.eval.val2.rolling.over.count){
-  console.log("**************count intitalized for val2*********************");
-  RC.push(new rollingCount(query.eval.val1.rolling.over.count,average));
+  RC.push(new rollingCount(query.eval.val1.rolling.over.count,getAggregator(query.eval.val1.rolling.evaluate)));
   }
   else {
   RT.push(new rollingTime(query.eval.val1.rolling.over.time,getAggregator(query.eval.val1.rolling.evaluate)));  //assume every computation is either rollingTime or rollingCount
@@ -76,12 +74,12 @@
       var RTCount=0,
           RCCount=0;
       if(query.eval.val1.rolling.over.time){
-      temp.val1=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]); //rollingTime not available
+      temp.val1=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);
       }
       else {
         temp.val1=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
       }
-      if(query.eval.val1.rolling.over.count){
+      if(query.eval.val2.rolling.over.count){
         temp.val2=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]); //rollingTime not available
       }
       else {
