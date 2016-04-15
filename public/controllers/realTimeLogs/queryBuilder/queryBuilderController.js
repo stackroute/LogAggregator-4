@@ -181,6 +181,7 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
                     if(addConditionCount>2)
                     {
                         $scope.flag=true;
+
                     }
                     scope.group.rules.push({
                         condition: 'of',
@@ -192,6 +193,10 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
                 };
 
                 scope.removeCondition = function (index) {
+                    if(addConditionCount>1){
+                    addConditionCount=2
+                    }
+                    addConditionCount--;
                     scope.group.rules.splice(index, 1);
                 };
 
