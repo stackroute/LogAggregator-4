@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Angular.js Query Builder</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container" ng-controller="QueryBuilderCtrl">
+    <h1>Angular.js Query Builder</h1>
+
+        <div class="alert alert-info">
+            <strong>Example Output</strong><br>
+            <span ng-bind-html="output"> </span>
+            <br>
+            <br>
+            <span ng-bind-html="jsonOutput"> </span>
+
+            <form action="http://localhost:8080/saveQuery" method="post">
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+
+
+
+
+        </div>
+
+        <div class="alert alert-warning alert-group">
+        <div class="form-inline">
+            <label>&nbsp;&nbsp;Select&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="select1" class="form-control input-sm" size="60"/>
+
+            <label>&nbsp;&nbsp;Stream From &nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="stream" class="form-control input-sm" s/>
+
+            <label>&nbsp;&nbsp;Stream To &nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="streamB" class="form-control input-sm" s/>
+
+
+        </div>
+            </div>
+
+        <query-builder group="filter.group"></query-builder>
+
+    </div>
+
+    <script type="text/ng-template" id="/queryBuilderDirective.html">
+    <div class="alert alert-warning alert-group">
+        <div class="form-inline ">
+            <select ng-options="o.name as o.name for o in operators" ng-model="group.operator" class="form-control input-sm"></select>
+            <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
+            <button style="margin-left: 5px" ng-click="addGroup()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+            <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
+            <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>SubmitQuery</button>
+
+        </div>
+        <div class="group-conditions">
+            <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
+                <div ng-switch="rule.hasOwnProperty('group')">
+                    <div ng-switch-when="true">
+                        <query-builder group="rule.group"></query-builder>
+                    </div>
+                    <div ng-switch-default="ng-switch-default">
+                        <div class="form-inline">
+                          <label> Aggregate fn &nbsp;&nbsp;&nbsp; </label>  <select ng-options="t.name as t.name for t in fields" ng-model="rule.field" class="form-control input-sm"></select>
+                            <label>&nbsp;&nbsp;Measures&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control input-sm"/>
+                            <label> &nbsp;&nbsp;Accumulator fn&nbsp;&nbsp;&nbsp;</label>
+                            <select ng-options="a.name as a.name for a in accumulators" style="margin-left: 5px"  ng-model="rule.accumulator" class="form-control input-sm"></select>
+
+                          <label>&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;</label>  <input style="margin-left: 5px" type="text" ng-model="rule.value" class="form-control input-sm"/>
+                            <button style="margin-left: 5px" ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </script>
+
+    <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.0/angular-sanitize.min.js"></script>
+    <script src="angular-query-builder.js"></script>
+  </body>
+</html>
