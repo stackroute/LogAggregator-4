@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var RTdatamapper = require('../components/RTdatamapper/RTdatamapper');
+var getMeasure = require('../components/RTdatamapper/RTdatamapper');
 
 var namespaceSchema = new mongoose.Schema({
   name:String,
@@ -38,8 +38,8 @@ namespaceSchema.statics.findNamespace=function(name,cb){
   namespaceSchema.post('save',function (namespace) {
       // if (!err){
       console.log('nid' +namespace._id + '||' +namespace.measures);
-        RTdatamapper(namespace._id,namespace.measures);
-
+      //  RTdatamapper(namespace._id,namespace.measures);
+      getMeasure(namespace.measures);
       //  log.info('post saving...', this);
       // }
       // else{

@@ -15,13 +15,31 @@ wss.on('connection', function(ws) {
   //ws.setMaxListeners(ws.getMaxListeners() + 1);
 });
 
-module.exports = function(namespaceId, measures) {
+var measures = [];
+
+
+module.exports = function(mList){
+  measures = [];
+   measures = mList;
+   console.log(measures);
+};
+
+
+
+// module.exports = function(namespaceId, measuresList) {
   console.log("inside component", measures);
+  //var measures =[];
+  // measures=measuresList;
+  // console.log("measure",measures);
 
   WebSocket1.on('connect', function(connection) {
     console.log("Connected..Waiting for some message");
-    var streamData = {};
+    //console.log('connObj' + JSON.stringify(connection));
+
+     streamData = {};
     _('message', connection).map(function(msg) {
+      // var streamData1 = JSON.parse(msg.utf8Data)[2];
+      // console.log("hiiting",streamData1);
       streamData = JSON.parse(msg.utf8Data)[2];
       var keys = Object.keys(streamData); //array of keys in the streaming data
       for (var k = 0; k < measures.length; k++) {
@@ -46,7 +64,7 @@ module.exports = function(namespaceId, measures) {
       if (serverWs) {
         serverWs.send(JSON.stringify(streamData));
       }
-      console.log(streamData);
+      // console.log(streamData);
     }).done(function() {
       console.log('Done');
     });
@@ -55,4 +73,5 @@ module.exports = function(namespaceId, measures) {
 
   // function msg
   /* ending of program*/
-}
+// }
+// module.exports = getMeasure(mList);
