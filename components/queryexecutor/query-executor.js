@@ -47,10 +47,10 @@
   RC.push(new rollingCount(query.eval.val1.rolling.over.count,getAggregator(query.eval.val1.rolling.evaluate)));//assume every computation is either rollingTime or rollingCount
   }
   if(query.eval.val2.rolling.over.count){
-  RC.push(new rollingCount(query.eval.val1.rolling.over.count,getAggregator(query.eval.val1.rolling.evaluate)));
+  RC.push(new rollingCount(query.eval.val2.rolling.over.count,getAggregator(query.eval.val2.rolling.evaluate)));
   }
   else {
-  RT.push(new rollingTime(query.eval.val1.rolling.over.time,getAggregator(query.eval.val1.rolling.evaluate)));  //assume every computation is either rollingTime or rollingCount
+  RT.push(new rollingTime(query.eval.val2.rolling.over.time,getAggregator(query.eval.val2.rolling.evaluate)));  //assume every computation is either rollingTime or rollingCount
   }
 
   self.getPipeline = function() {
