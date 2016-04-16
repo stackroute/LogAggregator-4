@@ -6,7 +6,6 @@
 //           });
 //   });
 
-
 var app = angular.module('logAggregator');
 
 	app.controller('rtcontroller',function($scope){
