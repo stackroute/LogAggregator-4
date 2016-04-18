@@ -2,14 +2,14 @@
 
 module.exports=function AccumulateOverCount(count, evalFunc) {
    // var self = this;
-    console.log('evalFunc1: ' + this.evalFunc);
     this.count = count;
     this.evalFunc = evalFunc;
+   //  console.log('evalFunc1: ' + this.evalFunc);
     var fn=evalFunc;
     arr= new Array(count);
     var counter=0;
 
-    this.eval = function(line) {
+    this.evaluate = function(line) {
         if(counter<count-1)
         {
             arr[counter]=line;

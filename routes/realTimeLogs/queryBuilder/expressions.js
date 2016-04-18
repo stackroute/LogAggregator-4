@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var Expression = require('../../../models/dbConfig').expressionModel;
+var mainquery=require('../../../components/queryexecutor/mainquery.js')
 
 
   router.post('/save', function(req, res, next) {
-  // console.log('****************************in express routes********************* '+ req.body.data);
+  // console.log('****************************in express routes********************* '+ JSON.stringify(req.body.data));
   var temp=new Expression(req.body)
   Expression.addExp(temp,function(err,doc) {
   if (err) {
@@ -12,6 +13,7 @@ var Expression = require('../../../models/dbConfig').expressionModel;
   res.send(err);
   }
   else{
+  mainquery(req.body.data);
   res.send(doc);
   }
   })
