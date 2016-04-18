@@ -15,6 +15,7 @@
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse out" id="dimensions">
                         <!-- submenu started-->
+
                         <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info" data-toggle="collapse">{{dim}}</li>
                     </ul>
                     <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#aggregators">
@@ -42,6 +43,8 @@
         <!-- start #liveQueryWizardForm -->
         <h1> Query on the Go!</h1>
 
+
+
           <div class="container salert alert-info">
               <strong>Example Output</strong><br>
               <span ng-bind-html="output"> </span>
@@ -49,6 +52,8 @@
               <br>
               <span ng-bind-html="answer"> </span>
           </div>
+
+
 
           <div class="alert alert-warning alert-group">
           <div class="form-inline">
@@ -73,7 +78,7 @@
               <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success" ng-disabled="flag" ><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
               <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
               <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>SubmitQuery</button>
-
+        
           </div>
           <div class="group-conditions">
               <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
@@ -96,10 +101,42 @@
               </div>
           </div>
       </div>
-      </script>
 
+      <div class="col-sm-3">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse"  href="#collapse1" ng-click="getDimension()">Dimensions</a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <ul id="dimList" class="list-group">
+                  <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info"  >{{dim}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-
-
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse"  href="#collapse2" ng-click="getMeasure()">Measures</a>
+              </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul id="measList1" class="list-group">
+                  <li ng-repeat="m in measureList" class="list-group-item list-group-item-info">{{m}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+          </script>
+
+
+</div>
 <!-- /#page-content-wrapper -->

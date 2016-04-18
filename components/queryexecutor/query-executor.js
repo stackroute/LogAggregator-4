@@ -75,6 +75,7 @@
           RCCount=0;
       if(query.eval.val1.rolling.over.time){
       temp.val1=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);
+      
       }
       else {
         temp.val1=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
@@ -102,9 +103,8 @@
        tempdata.highlight=eval(condition)
        }
        else {
-      tempdata.highlight=false;
+       tempdata.highlight=false;
        }
-      // console.log(tempdata);
       return tempdata; //object with select parameters and highlight
     }));
     return _.pipeline.apply(this, pipeline);

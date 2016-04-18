@@ -3,6 +3,8 @@ var kk=0;
 var str2="";
 var addConditionCount=0;
 app.controller('liveQueryController', ['$scope','$http', function ($scope,$http) {
+
+
     var data = '{"group": {"operator": "OR","rules": []}}';
     $scope.flag=false;
 
@@ -225,6 +227,48 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
                         console.log(data);
                     });
                 };
+
+
+                  scope.dimensionList = [];
+                  scope.measureList = [];
+
+                scope.getDimension = function () {
+                    $http({method: 'GET', url: '/dimensions'}).
+                    then(function(response) {
+                        var dimArr = response.data;
+                    console.log("array",dimArr);
+                    if (dimArr.length > 0) {
+                      for (var i = 0; i < dimArr.length; i++) {
+                        //console.log("inside loop", dimArr[i].dispName);
+                        scope.dimensionList.push(dimArr[i].displayName);
+                      }
+                    }
+                    });
+
+                };
+
+
+                scope.getMeasure = function () {
+                    $http({method: 'GET', url: '/measures'}).
+                    then(function(response) {
+                        var measArr = response.data;
+                    console.log("array",measArr);
+                    if (measArr.length > 0) {
+                      for (var i = 0; i < measArr.length; i++) {
+                        //console.log("inside loop", dimArr[i].dispName);
+                        scope.measureList.push(measArr[i].displayName);
+                      }
+                    }
+                    });
+
+                };
+
+
+
+
+
+
+
 
                 directive || (directive = $compile(content));
 

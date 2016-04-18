@@ -7,14 +7,14 @@ module.exports = function(time, evalFunc) {
 
   this.evaluate = function(line) {
     //creating array if it doesn't exist
-    //console.log(line);
+    console.log('################## '+line);
     if (typeof lineArr == "undefined" || !(lineArr instanceof Array)) {
       lineArr = [];
     }
     //accumulating data for 10secs
     if (typeof line !== 'undefined') {
       var obj = {};
-      obj.line = line.trim();
+    //  obj.line = line.trim();
       obj.date = new Date();
       lineArr.push(obj);
     }
