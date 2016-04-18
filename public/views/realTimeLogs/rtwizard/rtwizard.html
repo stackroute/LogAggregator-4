@@ -1,11 +1,12 @@
 <link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
 
-<!-- wave 4 code  -->
-<link href="./../../../stylesheets/rt-table.css" rel="stylesheet">
-<!--  wave 4 end -->
-
 <!-- wave4 style sheet for table  -->
-<div id="wrapper" ng-controller="myController">
+
+<!-- <div id="wrapper" ng-controller="myController"> -->
+
+
+  <div id="wrapper" ng-controller="rtcontroller">
+
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -85,48 +86,31 @@
 <!-- /#sidebar-wrapper -->
 
                     <!--  wave4 code start here -->
-                    <div>
-                      <p>
-                        rt wizard code goes here
-                      </p>
-                      <table class="table table-hover" style="margin-top:50px">
 
-                        <thead> <!-- Bootstrap table -->
+<div>
 
-                          <tr>
-                            <th>Remote</th>
-                            <th>Host</th>
-                            <th>User</th>
-                            <th>Method</th>
-                            <th>Path</th>
-                            <th>Code</th>
-                            <th>Size</th>
-                            <th>Agent</th>
-                            <th>Time</th>
-                          </tr>
+          <table class="table table-hover" style="margin-top:50px">
 
-                        </thead> <!-- Bootstrap -->
+              <thead>
+                  <tr>
+                      <th ng-repeat="header in key">{{header}}</th>
+                  </tr>
 
-                        <tbody>  <!-- Bootstrap -->
+              </thead>
 
-                          <tr ng-repeat="data in todos">
-                            <td>{{data.remote}}</td>
-                            <td>{{data.host}}</td>
-                            <td>{{data.user}}</td>
-                            <td>{{data.method}}</td>
-                            <td>{{data.path}}</td>
-                            <td>{{data.code}}</td>
-                            <td>{{data.size}}</td>
-                            <td>{{data.agent}}</td>
-                            <td>{{data.time}}</td>
-                          </tr>
+              <tbody>
+                  <tr ng-repeat="row in val">
+                      <td ng-repeat="header in key">{{row[header]}}</td>
+                  </tr>
 
-                        </tbody> <!-- Bootstrap table-->
+              </tbody>
 
-                      </table>
+          </table>
 
-                    </div>
+      </div>
+
                     <!-- wave4 code end here -->
+
 
 
 </div>
