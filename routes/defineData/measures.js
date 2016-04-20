@@ -2,19 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Namespace = require('../../models/dbConfig').namespaceModel;
-// var measureList = [{
-//   "dispName": "No of Hits"
-// }, {
-//   "dispName": "Failed Requests"
-// }, {
-//   "dispName": "Average Visitor Stay Length"
-// }, {
-//   "dispName": "Average Bandwidth per Day"
-// }]
-// /* GET Measures */
-// measureRouter.get('/', function(req, res){
-//  res.send(measureList);
-//  });
+
 /* GET Measures */
 router.get('/', function(req, res) {
   if (req.session.oid !== null) {

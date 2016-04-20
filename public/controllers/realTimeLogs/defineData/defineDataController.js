@@ -46,13 +46,48 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
                 console.log("Successful");
                 console.log(data);
                   });
-      //console.log(dimobj.displayName);
       $scope.measureList.push(measobj.displaymeasurename);
-    //  $scope.dimensionList.push(dimobj.displayName);
     }
 
 
+    $scope.deleteDimension=function(dim) {
+      // dimobj={
+      //   displayName:$scope.displayname,
+      //   fieldname:$scope.dimVal
+      // }
+      console.log("final array",dimArr);
+      for (var i = 0; i < dimArr.length; i++) {
+        if(dimArr[i].displayName==="dim")
+        {
+            dimArr.pop(dimArr[i]);
+            console.log("final array",dimArr);
+            console.log("deleted object",dimArr[i]);
+        }
+      }
+      console.log("delete",dim);
+      // $http({method: 'Post', url: '/dimensions/delete/:id',data:{data:dimobj}}).
+      //           success(function(data, status, headers, config) {
+      //           console.log("Successful");
+      //           console.log(data);
+      //             });
+      //console.log(dimobj.displayName);
+      $scope.dimensionList.pop(dim);
+    }
 
+    $scope.deleteMeasure=function(measure) {
+      // dimobj={
+      //   displayName:$scope.displayname,
+      //   fieldname:$scope.dimVal
+      // }
+      console.log("delete",measure);
+      // $http({method: 'Post', url: '/dimensions/delete/:id',data:{data:dimobj}}).
+      //           success(function(data, status, headers, config) {
+      //           console.log("Successful");
+      //           console.log(data);
+      //             });
+      //console.log(dimobj.displayName);
+      $scope.measureList.pop(measure);
+    }
 
     $scope.selectedMeas = function(key,val) {
       if (!key) {
@@ -66,7 +101,6 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       if (!obj) {
         return [];
       }
-      //console.log(Object.keys(obj));
       return Object.keys(obj);
     }
     $scope.rowSelected = function(obj) {
@@ -76,15 +110,13 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $scope.selectedRow = obj;
     }
     defineDataService.getDimensionData().then(function(response) {
-      var dimArr = response.data;
-      console.log("array",dimArr);
+      dimArr = response.data;
+      console.log("array",$scope.dimArr);
       if (dimArr.length > 0) {
         for (var i = 0; i < dimArr.length; i++) {
-          //console.log("inside loop", dimArr[i].dispName);
           $scope.dimensionList.push(dimArr[i].displayName);
         }
       }
-      //console.log("scope",$scope.dimensionList);
     });
     defineDataService.getMeasureData().then(function(response) {
       var mArr = response.data;
@@ -98,7 +130,6 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
     defineDataService.getLogData().then(function(response) {
       $scope.namespaceName=response.data.namespaceName;
       $scope.logdataList = response.data.filedata;
-      //console.log($scope.logdataList);
       $scope.cols = Object.keys($scope.logdataList[0]);
 
     });

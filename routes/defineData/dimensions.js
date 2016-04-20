@@ -3,23 +3,6 @@ var dimensionRouter = express.Router();
 var mongoose = require('mongoose');
 var Namespace = require('../../models/dbConfig').namespaceModel;
 
-// var dimList = [{
-//   "dispName": "Path",
-//   "fieldName": "request"
-// }, {
-//   "dispName": "User",
-//   "fieldName": "username"
-// }, {
-//   "dispName": "Browser",
-//   "fieldName": "user_agent"
-// }, {
-//   "dispName": "Timestamp",
-//   "fieldName": "datetime"
-// }];
-//
-// dimensionRouter.get('/', function(req, res) {
-//   res.send(dimList);
-// });
 
 /* GET Dimensions */
 dimensionRouter.get('/', function(req, res) {
@@ -44,7 +27,6 @@ dimensionRouter.post('/addDimension', function(req, res) {
           displayName: req.body.data.displayName,
           fieldName: req.body.data.fieldname
         });
-
         namespace.save(function(err, namespace) {
           console.log('namespace saved:', namespace);
         });

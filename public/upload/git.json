@@ -1,0 +1,137 @@
+[
+	{
+		"authorName": "Brian White ",
+		"authorEmail": "mscdex@mscdex.net",
+		"date": "2016-01-06T04:46:05.000Z",
+		"fileChanged": "1",
+		"insertions": "1",
+		"deletions": "1",
+		"type": "Commit"
+	},
+	{
+		"authorName": "James M Snell ",
+		"authorEmail": "jasnell@gmail.com",
+		"date": "2015-12-27T04:54:01.000Z",
+		"fileChanged": "1",
+		"insertions": "838",
+		"deletions": "399",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Shigeki Ohtsu ",
+		"authorEmail": "ohtsu@iij.ad.jp",
+		"date": "2016-01-05T09:11:19.000Z",
+		"fileChanged": "1",
+		"insertions": "1",
+		"deletions": "1",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Shigeki Ohtsu ",
+		"authorEmail": "ohtsu@iij.ad.jp",
+		"date": "2016-01-05T09:07:09.000Z",
+		"fileChanged": "1",
+		"insertions": "3",
+		"deletions": "3",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2015-12-23T19:32:25.000Z",
+		"fileChanged": "1",
+		"insertions": "2",
+		"deletions": "0",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2015-12-27T06:08:08.000Z",
+		"fileChanged": "24",
+		"insertions": "24",
+		"deletions": "45",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Dave ",
+		"authorEmail": "dave@jut.io",
+		"date": "2016-01-05T00:15:10.000Z",
+		"fileChanged": "1",
+		"insertions": "1",
+		"deletions": "1",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Richard Sun ",
+		"authorEmail": "rsun@media.ucla.edu",
+		"date": "2016-01-05T11:12:56.000Z",
+		"fileChanged": "1",
+		"insertions": "1",
+		"deletions": "1",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Julien Gilli ",
+		"authorEmail": "julien.gilli@joyent.com",
+		"date": "2015-12-12T01:43:04.000Z",
+		"fileChanged": "2",
+		"insertions": "113",
+		"deletions": "31",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2016-01-02T01:37:10.000Z",
+		"fileChanged": "38",
+		"insertions": "14",
+		"deletions": "76",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2016-01-01T21:26:23.000Z",
+		"fileChanged": "2",
+		"insertions": "10",
+		"deletions": "9",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Jose� F. Romaniello ",
+		"authorEmail": "jfromaniello@gmail.com",
+		"date": "2015-12-31T14:51:46.000Z",
+		"fileChanged": "2",
+		"insertions": "65",
+		"deletions": "0",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2016-01-03T05:39:55.000Z",
+		"fileChanged": "1",
+		"insertions": "12",
+		"deletions": "12",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2016-01-04T02:53:27.000Z",
+		"fileChanged": "1",
+		"insertions": "14",
+		"deletions": "14",
+		"type": "Commit"
+	},
+	{
+		"authorName": "Rich Trott ",
+		"authorEmail": "rtrott@gmail.com",
+		"date": "2016-01-03T16:26:31.000Z",
+		"fileChanged": "1",
+		"deletions": "3",
+		"insertions": "0",
+		"type": "Commit"
+	}
+]

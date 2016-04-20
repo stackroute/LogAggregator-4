@@ -53,8 +53,3 @@ WebSocket1.on('connect', function(connection) {
   });
 });
 WebSocket1.connect('ws://172.23.238.253:7070');
-
-// function msg
-/* ending of program*/
-// }
-// module.exports = getMeasure(mList);
