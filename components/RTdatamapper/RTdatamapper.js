@@ -1,16 +1,19 @@
-
 var _ = require('highland');
 var WebSocketClient = require('websocket').client;
+// var WebSocket1 = new WebSocketClient();
 var WebSocketServer = require('ws').Server;
+// var wss = new WebSocketServer({port: 8484});
 var WebSocket1 = new WebSocketClient();
 var wss = new WebSocketServer({
-  port: 6060
+  port: 5050
+>>>>>>> 51667b7b35d61a334e815bb89e46d8e5c539078b
 });
 var serverWs;
 wss.on('connection', function(ws) {
   console.log('CONNECTED');
   ws.send('Connected');
   serverWs = ws;
+<<<<<<< HEAD
 });
 var measures = [];
 module.exports = function(mList) {

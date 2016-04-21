@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var getMeasure = require('../components/RTdatamapper/RTdatamapper');
-
 var namespaceSchema = new mongoose.Schema({
   name:String,
   description:String,

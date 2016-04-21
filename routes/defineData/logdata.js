@@ -63,6 +63,7 @@ router.post('/', function(req, res) {
   });
 });
 
+
 //get the list of namespace
 router.get('/namespaceList', function(req, res) {
 
@@ -70,6 +71,5 @@ router.get('/namespaceList', function(req, res) {
     res.send(namespace);
   });
 });
-
 
 module.exports = router;

@@ -106,13 +106,15 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $scope.selectedRow = obj;
     }
     defineDataService.getDimensionData().then(function(response) {
-      dimArr = response.data;
-      console.log("array",$scope.dimArr);
+      var dimArr = response.data;
+      console.log("array",dimArr);
       if (dimArr.length > 0) {
         for (var i = 0; i < dimArr.length; i++) {
+          //console.log("inside loop", dimArr[i].dispName);
           $scope.dimensionList.push(dimArr[i].displayName);
         }
       }
+      //console.log("scope",$scope.dimensionList);
     });
     defineDataService.getMeasureData().then(function(response) {
       var mArr = response.data;
@@ -127,7 +129,6 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $scope.namespaceName=response.data.namespaceName;
       $scope.logdataList = response.data.filedata;
       $scope.cols = Object.keys($scope.logdataList[0]);
-      
     });
   }
 ]);

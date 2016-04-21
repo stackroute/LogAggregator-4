@@ -1238,14 +1238,6 @@ ul[dnd-list] > li > a{
 padding-bottom: 100px;
 }
 
-
-/*wave4 style sheet*/
-
-
-
-
-
-
 #table-wrapper {
     position:relative;
 }
@@ -1272,8 +1264,6 @@ padding-bottom: 100px;
     width:35%;
     border:1px solid red;
 }
-//
-
 
 #tabLog, #tabLog td, #tabLog th {
     border: 1px solid black;
