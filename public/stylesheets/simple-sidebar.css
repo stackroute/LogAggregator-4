@@ -1,14 +1,6 @@
 
 /* Toggle Styles */
 
-/* wave 4 start */
-
-.highlight {
-background: lightblue;
-}
-
-/* wave 4 end */
-
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
