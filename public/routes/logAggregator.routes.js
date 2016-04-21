@@ -144,5 +144,20 @@ angular.module('logAggregator').config(function($stateProvider, $urlRouterProvid
     url: '/packagecount',
     templateUrl : 'views/aptCache/packageCount/packageCount.html',
     controller: 'packageCountController'
+  })
+  .state('defineData',{
+    url: '/defineData',
+    templateUrl : 'views/realTimeLogs/defineData/defineData.html',
+    controller: 'defineDataController'
+  })
+  .state('rtWizard',{
+    url: '/rtWizard',
+    templateUrl : 'views/realTimeLogs/rtwizard/rtwizard.html',
+    controller: 'rtcontroller'
+  })
+  .state('liveQueryWizard',{
+    url: '/liveQueryWizard',
+    templateUrl: 'views/realTimeLogs/queryBuilder/liveQueryWizard.html',
+    controller : 'liveQueryController'
   });
 });

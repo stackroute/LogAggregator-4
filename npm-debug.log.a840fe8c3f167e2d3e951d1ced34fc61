@@ -1,0 +1,243 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'grunt' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose node symlink /usr/bin/node
+5 verbose install initial load of /usr/lib/package.json
+6 verbose readDependencies loading dependencies from /usr/lib/package.json
+7 silly cache add args [ 'grunt', null ]
+8 verbose cache add spec grunt
+9 silly cache add parsed spec { raw: 'grunt',
+9 silly cache add   scope: null,
+9 silly cache add   name: 'grunt',
+9 silly cache add   rawSpec: '',
+9 silly cache add   spec: '*',
+9 silly cache add   type: 'range' }
+10 silly addNamed grunt@*
+11 verbose addNamed "*" is a valid semver range for grunt
+12 silly addNameRange { name: 'grunt', range: '*', hasData: false }
+13 silly mapToRegistry name grunt
+14 silly mapToRegistry using default registry
+15 silly mapToRegistry registry http://172.23.238.253:4873/
+16 silly mapToRegistry uri http://172.23.238.253:4873/grunt
+17 verbose addNameRange registry:http://172.23.238.253:4873/grunt not in flight; fetching
+18 verbose request uri http://172.23.238.253:4873/grunt
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 12:43:15
+21 verbose request id e4a2101298b55796
+22 http request GET http://172.23.238.253:4873/grunt
+23 http 200 http://172.23.238.253:4873/grunt
+24 silly get cb [ 200,
+24 silly get   { 'x-powered-by': 'Sinopia/1.4.0',
+24 silly get     'content-type': 'application/json; charset=utf-8',
+24 silly get     etag: '"473cd80386b98729ff2e101ab6fc36c3"',
+24 silly get     vary: 'Accept-Encoding',
+24 silly get     'content-encoding': 'gzip',
+24 silly get     'x-status-cat': 'http://flic.kr/p/aVuVsF',
+24 silly get     date: 'Wed, 06 Apr 2016 12:44:05 GMT',
+24 silly get     connection: 'keep-alive',
+24 silly get     'transfer-encoding': 'chunked' } ]
+25 verbose get saving grunt to /home/vagrant/.npm/172.23.238.253_4873/grunt/.cache.json
+26 silly addNameRange number 2 { name: 'grunt', range: '*', hasData: true }
+27 silly addNameRange versions [ 'grunt',
+27 silly addNameRange   [ '0.1.0',
+27 silly addNameRange     '0.1.1',
+27 silly addNameRange     '0.1.2',
+27 silly addNameRange     '0.2.0',
+27 silly addNameRange     '0.2.1',
+27 silly addNameRange     '0.2.2',
+27 silly addNameRange     '0.2.3',
+27 silly addNameRange     '0.2.4',
+27 silly addNameRange     '0.2.5',
+27 silly addNameRange     '0.2.6',
+27 silly addNameRange     '0.2.7',
+27 silly addNameRange     '0.2.8',
+27 silly addNameRange     '0.2.9',
+27 silly addNameRange     '0.2.10',
+27 silly addNameRange     '0.2.11',
+27 silly addNameRange     '0.2.12',
+27 silly addNameRange     '0.2.13',
+27 silly addNameRange     '0.2.14',
+27 silly addNameRange     '0.2.15',
+27 silly addNameRange     '0.3.0',
+27 silly addNameRange     '0.3.1',
+27 silly addNameRange     '0.3.2',
+27 silly addNameRange     '0.3.3',
+27 silly addNameRange     '0.3.4',
+27 silly addNameRange     '0.3.5',
+27 silly addNameRange     '0.3.6',
+27 silly addNameRange     '0.3.7',
+27 silly addNameRange     '0.3.8',
+27 silly addNameRange     '0.3.9',
+27 silly addNameRange     '0.3.10',
+27 silly addNameRange     '0.3.11',
+27 silly addNameRange     '0.3.12',
+27 silly addNameRange     '0.3.13',
+27 silly addNameRange     '0.3.14',
+27 silly addNameRange     '0.3.15',
+27 silly addNameRange     '0.3.16',
+27 silly addNameRange     '0.3.17',
+27 silly addNameRange     '0.4.0',
+27 silly addNameRange     '0.4.1',
+27 silly addNameRange     '0.4.2',
+27 silly addNameRange     '0.4.3',
+27 silly addNameRange     '0.4.4',
+27 silly addNameRange     '0.4.5',
+27 silly addNameRange     '0.3.13-a',
+27 silly addNameRange     '0.4.0-a',
+27 silly addNameRange     '0.4.0-rc1',
+27 silly addNameRange     '0.4.0-rc2',
+27 silly addNameRange     '0.4.0-rc3',
+27 silly addNameRange     '0.4.0-rc4',
+27 silly addNameRange     '0.4.0-rc5',
+27 silly addNameRange     '0.4.0-rc6',
+27 silly addNameRange     '0.4.0-rc7',
+27 silly addNameRange     '0.4.0-rc8',
+27 silly addNameRange     '1.0.0-rc1',
+27 silly addNameRange     '1.0.0',
+27 silly addNameRange     '1.0.1' ] ]
+28 silly addNamed grunt@1.0.1
+29 verbose addNamed "1.0.1" is a plain semver version for grunt
+30 silly mapToRegistry name grunt
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry http://172.23.238.253:4873/
+33 silly mapToRegistry uri http://172.23.238.253:4873/grunt
+34 verbose addRemoteTarball http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz not in flight; adding
+35 verbose addRemoteTarball [ 'http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz',
+35 verbose addRemoteTarball   'e8778764e944b18f32bb0f10b9078475c9dfb56b' ]
+36 info retry fetch attempt 1 at 12:43:17
+37 info attempt registry request try #1 at 12:43:17
+38 http fetch GET http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz
+39 http fetch 200 http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz
+40 silly fetchAndShaCheck shasum e8778764e944b18f32bb0f10b9078475c9dfb56b
+41 verbose addTmpTarball /tmp/npm-2657-2e57f9e9/172.23.238.253_4873/grunt/-/grunt-1.0.1.tgz not in flight; adding
+42 verbose addTmpTarball already have metadata; skipping unpack for grunt@1.0.1
+43 silly cache afterAdd grunt@1.0.1
+44 verbose afterAdd /home/vagrant/.npm/grunt/1.0.1/package/package.json not in flight; writing
+45 verbose afterAdd /home/vagrant/.npm/grunt/1.0.1/package/package.json written
+46 silly install resolved [ { name: 'grunt',
+46 silly install resolved     description: 'The JavaScript Task Runner',
+46 silly install resolved     version: '1.0.1',
+46 silly install resolved     author:
+46 silly install resolved      { name: 'Grunt Development Team',
+46 silly install resolved        url: 'http://gruntjs.com/development-team' },
+46 silly install resolved     homepage: 'http://gruntjs.com/',
+46 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/gruntjs/grunt.git' },
+46 silly install resolved     license: 'MIT',
+46 silly install resolved     engines: { node: '>=0.10.0' },
+46 silly install resolved     scripts: { test: 'grunt test', 'test-tap': 'grunt test:tap' },
+46 silly install resolved     main: 'lib/grunt',
+46 silly install resolved     bin: { grunt: 'bin/grunt' },
+46 silly install resolved     keywords:
+46 silly install resolved      [ 'task',
+46 silly install resolved        'async',
+46 silly install resolved        'cli',
+46 silly install resolved        'minify',
+46 silly install resolved        'uglify',
+46 silly install resolved        'build',
+46 silly install resolved        'lodash',
+46 silly install resolved        'unit',
+46 silly install resolved        'test',
+46 silly install resolved        'qunit',
+46 silly install resolved        'nodeunit',
+46 silly install resolved        'server',
+46 silly install resolved        'init',
+46 silly install resolved        'scaffold',
+46 silly install resolved        'make',
+46 silly install resolved        'jake',
+46 silly install resolved        'tool' ],
+46 silly install resolved     dependencies:
+46 silly install resolved      { 'coffee-script': '~1.10.0',
+46 silly install resolved        dateformat: '~1.0.12',
+46 silly install resolved        eventemitter2: '~0.4.13',
+46 silly install resolved        exit: '~0.1.1',
+46 silly install resolved        'findup-sync': '~0.3.0',
+46 silly install resolved        glob: '~7.0.0',
+46 silly install resolved        'grunt-cli': '~1.2.0',
+46 silly install resolved        'grunt-known-options': '~1.1.0',
+46 silly install resolved        'grunt-legacy-log': '~1.0.0',
+46 silly install resolved        'grunt-legacy-util': '~1.0.0',
+46 silly install resolved        'iconv-lite': '~0.4.13',
+46 silly install resolved        'js-yaml': '~3.5.2',
+46 silly install resolved        minimatch: '~3.0.0',
+46 silly install resolved        nopt: '~3.0.6',
+46 silly install resolved        'path-is-absolute': '~1.0.0',
+46 silly install resolved        rimraf: '~2.2.8' },
+46 silly install resolved     devDependencies:
+46 silly install resolved      { difflet: '~0.2.3',
+46 silly install resolved        'grunt-contrib-jshint': '~1.0.0',
+46 silly install resolved        'grunt-contrib-nodeunit': '~0.4.1',
+46 silly install resolved        'grunt-contrib-watch': '~1.0.0',
+46 silly install resolved        'grunt-jscs': '~2.8.0',
+46 silly install resolved        semver: '2.1.0',
+46 silly install resolved        shelljs: '~0.5.3',
+46 silly install resolved        temporary: '~0.0.4',
+46 silly install resolved        through2: '~2.0.0' },
+46 silly install resolved     files: [ 'lib', 'bin' ],
+46 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+46 silly install resolved     gitHead: '8ada4948b69c6ec9b1e956b5e6b2e6814fa054ca',
+46 silly install resolved     bugs: { url: 'https://github.com/gruntjs/grunt/issues' },
+46 silly install resolved     _id: 'grunt@1.0.1',
+46 silly install resolved     _shasum: 'e8778764e944b18f32bb0f10b9078475c9dfb56b',
+46 silly install resolved     _from: 'grunt@*',
+46 silly install resolved     _npmVersion: '2.15.2',
+46 silly install resolved     _nodeVersion: '4.4.1',
+46 silly install resolved     _npmUser: { name: 'shama', email: 'kyle@dontkry.com' },
+46 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+46 silly install resolved     dist:
+46 silly install resolved      { shasum: 'e8778764e944b18f32bb0f10b9078475c9dfb56b',
+46 silly install resolved        tarball: 'http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz' },
+46 silly install resolved     _npmOperationalInternal:
+46 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+46 silly install resolved        tmp: 'tmp/grunt-1.0.1.tgz_1459880209209_0.8634267684537917' },
+46 silly install resolved     directories: {},
+46 silly install resolved     _resolved: 'http://172.23.238.253:4873/grunt/-/grunt-1.0.1.tgz' } ]
+47 info install grunt@1.0.1 into /usr/lib
+48 info installOne grunt@1.0.1
+49 verbose installOne of grunt to /usr/lib not in flight; installing
+50 verbose lock using /home/vagrant/.npm/_locks/grunt-20d0b752d1cbfb4b.lock for /usr/lib/node_modules/grunt
+51 silly install write writing grunt 1.0.1 to /usr/lib/node_modules/grunt
+52 verbose unbuild lib/node_modules/grunt
+53 silly gentlyRm /usr/lib/node_modules/grunt is being purged from base /usr
+54 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/grunt
+55 verbose tar unpack /home/vagrant/.npm/grunt/1.0.1/package.tgz
+56 verbose tar unpacking to /usr/lib/node_modules/grunt
+57 silly gentlyRm /usr/lib/node_modules/grunt is being purged
+58 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/grunt
+59 silly gunzTarPerm modes [ '775', '664' ]
+60 error tar.unpack untar error /home/vagrant/.npm/grunt/1.0.1/package.tgz
+61 verbose unlock done using /home/vagrant/.npm/_locks/grunt-20d0b752d1cbfb4b.lock for /usr/lib/node_modules/grunt
+62 verbose fstream_path /usr/lib/node_modules/grunt
+63 verbose fstream_type Directory
+64 verbose fstream_class DirWriter
+65 verbose stack Error: EACCES, mkdir '/usr/lib/node_modules/grunt'
+65 verbose stack     at Error (native)
+66 verbose fstream_stack /usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25
+66 verbose fstream_stack /usr/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53
+66 verbose fstream_stack FSReqWrap.oncomplete (fs.js:95:15)
+67 verbose cwd /vagrant
+68 error Linux 3.13.0-65-generic
+69 error argv "/usr/bin/node" "/usr/bin/npm" "install" "-g" "grunt"
+70 error node v0.12.7
+71 error npm  v2.11.3
+72 error path /usr/lib/node_modules/grunt
+73 error code EACCES
+74 error errno -13
+75 error Error: EACCES, mkdir '/usr/lib/node_modules/grunt'
+75 error     at Error (native)
+75 error  { [Error: EACCES, mkdir '/usr/lib/node_modules/grunt']
+75 error   errno: -13,
+75 error   code: 'EACCES',
+75 error   path: '/usr/lib/node_modules/grunt',
+75 error   fstream_type: 'Directory',
+75 error   fstream_path: '/usr/lib/node_modules/grunt',
+75 error   fstream_class: 'DirWriter',
+75 error   fstream_stack:
+75 error    [ '/usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25',
+75 error      '/usr/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53',
+75 error      'FSReqWrap.oncomplete (fs.js:95:15)' ] }
+76 error Please try running this command again as root/Administrator.
+77 verbose exit [ -13, true ]
+78 verbose unbuild lib/node_modules/grunt
+79 silly gentlyRm /usr/lib/node_modules/grunt is being purged from base /usr
+80 verbose gentlyRm don't care about contents; nuking /usr/lib/node_modules/grunt

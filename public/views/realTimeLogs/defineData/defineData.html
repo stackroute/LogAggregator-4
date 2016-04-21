@@ -1,0 +1,220 @@
+<div class="container" style="margin-top:100px">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="panel panel-info mainSection">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-10">
+              <h4 class="panel-title" ng-bind="namespaceName">
+                  </h4>
+            </div>
+            <div class="col-sm-2">
+              <a data-toggle="modal" data-target="#myModal">
+                <i class="glyphicon glyphicon-plus"></i>
+              </a>
+            </div>
+          </div>
+          <!-- <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-align-plus" aria-hidden="true"></span></button> -->
+        </div>
+        <div class="panel-body">
+          <!-- <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#myModal">Create new namespace</button> -->
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Create new namespace</h4>
+                </div>
+                <div class="modal-body">
+                  <!-- enctype="multipart/form-data" -->
+                  <form action="/logdata?form=namespace" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="namespace">Namespace</label>
+                      <input type="name" class="form-control" id="namespace" name="namespace" placeholder="Enter namespace">
+                    </div>
+                    <div class="form-group">
+                      <label for="desc">Description</label>
+                      <textarea class="form-control" rows="3" placeholder="Enter description" name="desc" id="desc"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="fileSource">Source</label>
+                      <input type="fileSource" class="form-control" id="fileSource" name="fileSource" placeholder="Enter source">
+                    </div>
+                    <!-- <div class="form-group">
+                      <label for="exampleInputFile">File input</label>
+                      <input type="file" id="exampleInputFile" required accept=".json" name="file">
+                      <p class="help-block">Upload your log file here.</p>
+                    </div> -->
+
+                    <!--    **************** -->
+                    <div class="form-group">
+                      <label for="radioFile">
+                        <input type="radio" name="namespace1" id="radioFile" ng-model="namespace1" value="radioFile">File Upload</label>
+                      <label for="radioStream">
+                        <input type="radio" name="namespace1" id="radioStream" ng-model="namespace1" value="radioStream">Streaming Data</label>
+                    </div>
+                    <div class="form-group" id="radioFileDiv" ng-show="namespace1=='radioFile'">
+                      <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <input type="file" id="exampleInputFile" required accept=".json" name="file">
+                        <p class="help-block">Upload your log file here.</p>
+                      </div>
+                    </div>
+                    <div class="form-group" id="radioStreamDiv" ng-show="namespace1=='radioStream'">
+                      <h4> Streaming Data</h4>
+                      <!-- <label for="streamSource">Source</label>
+                      <input type="streamSource" class="form-control" id="streamSource" placeholder="Enter Source..">
+                      <label for="streamPort">Port</label>
+                      <input type="streamPort" class="form-control" id="streamPort" placeholder="Enter Port.."> -->
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <!-- <button ng-click="" class="btn btn-success">Submit</button> -->
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="overflow:scroll;">
+            <table id="tabLog" class="hoverTable">
+              <thead>
+                <tr>
+                  <th ng-repeat="header in cols">{{header}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="row in logdataList" ng-click="rowSelected(row)">
+                  <td ng-if="!$last" ng-repeat="dat in getKeys(row)">{{row[dat]}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-info mainSection">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+                Select Entity
+              </h4>
+        </div>
+        <div class="panel-body">
+          <table style="width:100%" id="tabDim">
+            <tbody>
+              <tr ng-repeat="dat in getKeys(selectedRow)" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                <th ng-if="!$last">{{dat}}</th>
+                <td ng-if="!$last">{{selectedRow[dat]}}</td>
+                <td>
+                  <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" ng-click="selectedDim(dat)">D</button>
+                  <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle" ng-click="selectedMeas(dat,selectedRow[dat])">M</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 ">
+      <div class="panel panel-info mainSection">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+                Dimensions  |   Measures
+              </h4>
+        </div>
+        <div class="panel-body">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#menu1">Dimensions</a></li>
+            <li><a data-toggle="tab" href="#menu2">Measures</a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="menu1" class="tab-pane fade in active">
+              <h4>Dimensions</h4>
+              <form action="/dimensions/addDimension?form=dimension" method="post">
+                <div class="form-group">
+                  <label for="displayname">Display Name</label>
+                  <input type="displayname" class="form-control" id="displayname" name="displayname" placeholder="Enter Display Name" ng-model="displayname">
+                </div>
+                <div class="form-group">
+                  <label for="fieldname">Field name</label>
+                  <input type="fieldname" class="form-control" id="fieldname" name="fieldname" placeholder="Enter Field Name" ng-model="dimVal">
+                </div>
+                <!-- <button class="btn btn-success" ng-click="submitDimension()">Save</button> -->
+              </form>
+              <button class="btn btn-success" ng-click="submitDimension()">Save</button>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <h4>Measures</h4>
+              <form action="/measures/addMeasure?form=measure" method="post">
+                <div class="form-group">
+                  <label for="displaymeasurename">Display Name</label>
+                  <input type="displaymeasurename" class="form-control" id="displaymeasurename" name="displaymeasurename" placeholder="Enter Display Name" ng-model="displaymeasurename">
+                </div>
+                <div class="form-group">
+                  <label for="radioField">
+                    <input type="radio" name="measure" id="radioField" ng-model="measure" value="radioField">Fieldname</label>
+                  <label for="radioEvent">
+                    <input type="radio" name="measure" id="radioEvent" ng-model="measure" value="radioEvent">Event</label>
+                </div>
+                <div class="form-group" id="radioFieldDiv" ng-show="measure=='radioField'">
+                  <label for="fieldmeasurename">Fieldname</label>
+                  <select class="form-control" id="fieldmeasurename" name="measureFieldSelector" ng-model= "measureFieldSelector">
+                    <option ng-repeat="dat in getKeys(selectedRow)" ng-if="!$last">{{dat}}</option>
+                  </select>
+                </div>
+                <div class="form-group" id="radioEventDiv" ng-show="measure=='radioEvent'">
+                  <h4>Selected Event</h4>
+                  <label for="eventField">Selected Event Field</label>
+                  <input type="eventField" class="form-control" id="eventField" placeholder="Selected Event Field.." readonly name="measureEventSelector" ng-model="measField">
+                  <label for="eventValue">Selected Event value</label>
+                  <input type="eventField" class="form-control" id="eventValue" placeholder="Selected Event Value.." readonly name="measureEventValueSelector" ng-model="measValue">
+                </div>
+                <!-- <button type="submit" class="btn btn-success">GO..</button> -->
+              </form>
+              <button class="btn btn-success" ng-click="submitMeasure()">GO..</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"  href="#collapse1">Dimensions</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <ul id="dimList" class="list-group">
+                <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info">{{dim}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"  href="#collapse2">Measures</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul id="measList1" class="list-group">
+                <li ng-repeat="m in measureList" class="list-group-item list-group-item-info">{{m}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

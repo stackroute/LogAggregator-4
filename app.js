@@ -61,6 +61,17 @@ var onPageLoadDashBoard = require('./routes/gitLog/onPageLoadDashBoard');
 var gitDashboardConfigData  = require('./routes/gitLog/gitDashboardConfigData');
 //wave 3 routes ends
 
+//wave 4 routes starts
+var dimensionRouter = require('./routes/defineData/dimensions');
+var measuresRouter = require('./routes/defineData/measures');
+var namespaceRouter = require('./routes/defineData/logdata');
+var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
+// wave 4 code starts here
+//require('./database');
+var saveQuery = require('./routes/queryBuilder/saveQuery');
+
+// wave 4 code ends here
+
 var app = express();
 
 // view engine setup
@@ -108,6 +119,7 @@ app.use('/json/userAgent', userAgent);
 app.use('/json/logListing', logListing);
 app.use('/json/trafficRate', trafficRate);
 
+
 //wave 2 code
 app.use('/logRateData',graphRoutes);
 app.use('/dataRateData',dataRateData);
@@ -126,6 +138,15 @@ app.use('/getProfile',getProfile);
 app.use('/getDashBoardJson',getDashBoardJson);
 app.use('/onPageLoadDashBoard',onPageLoadDashBoard);
 //end of wave3 code
+
+//start of wave 4 code
+app.use('/dimensions', dimensionRouter);
+app.use('/measures', measuresRouter);
+app.use('/logdata', namespaceRouter);
+app.use('/exp',expressions);
+app.use('/saveQuery',saveQuery);
+app.use('/exp',expressions);
+// wave 4 code ends
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

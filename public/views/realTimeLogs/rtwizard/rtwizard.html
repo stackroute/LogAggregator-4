@@ -1,0 +1,121 @@
+<link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
+
+
+<!-- wave4 style sheet for table  -->
+
+<!-- <div id="wrapper" ng-controller="myController"> -->
+
+
+  <div id="wrapper" ng-controller="rtcontroller">
+
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
+            <span class="sidebar-secondLink">
+                <li>
+                    <a href="#GitLogStatistics">
+                    <li class="sidebar-brand fa fa-th">
+                        Plot wizard</li>
+                </a>
+            </li>
+        </span>
+        <li class="sidebar-brand fa fa-th">
+            Widget wizard</li>
+        <li>
+            <!-- home item in menu started-->
+            <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#dimensions">
+                <i class="fa fa-circle-o"></i>
+                Dimensions
+            </a>
+
+            <ul class="nav nav-pills nav-stacked collapse out" id="dimensions">
+                <!-- submenu started-->
+                <li ng-repeat="dimension in gitDashboardConfigData.dimensions" data-toggle="collapse ">
+                    <a dnd-type="allowedTypes.primaryFieldType[0]" dnd-draggable="dimension" dnd-effect-allowed="copy" class="active" class="nav-container" data-toggle="collapse" data-parent="#dimensions" href={{makeIdWithHref(dimension.name)}}>
+                        <i class="fa fa-caret-right"></i>
+                        {{dimension.displayName}}
+                    </a>
+                    <!-- start #measures.nav nav-pills nav-stacked collapse out -->
+                    <ul class="nav nav-pills nav-stacked collapse out" id={{makeId(dimension.name)}}>
+                        <li dnd-type="allowedTypes.primaryFieldType[0]" ng-repeat="dimensionValue in dimension.values" dnd-draggable="dimensionValue" dnd-effect-allowed="copy" class="active" data-parent={{makeId(dimension.name)}}>
+                            {{dimensionValue.value}}
+                        </li>
+                    </ul>
+                    <!-- end #measures.nav nav-pills nav-stacked collapse out -->
+                </li>
+            </ul>
+
+            <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#aggregators">
+                <i class="fa fa-circle-o"></i>
+                Aggregators
+            </a>
+            <ul class="nav nav-pills nav-stacked collapse out" id="aggregators">
+                <!-- submenu started-->
+                <li ng-repeat="aggregator in gitDashboardConfigData.aggregators" data-toggle="collapse">
+                    <a
+                        style="padding-left:40px;"
+                        data-parent="#aggregators"
+                        ng-attr-href="{{'#aggregator'+ $index}}"
+                        data-drop="true"
+                        dnd-draggable="aggregator"
+                        dnd-effect-allowed="copy"
+                        class="active"
+                        dnd-type="allowedTypes.aggregatorType[0]"
+                        dnd-dragend='aggregatorHandler({"arrayName":"aggregatorArray", "index":$index, "fieldToMatch":"displayName"}, event,aggregator)'>
+                        {{aggregator.displayName}}
+                    </a>
+                </li>
+            </ul>
+            <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#measures">
+                <i class="fa fa-circle-o"></i>
+                Measures
+            </a>
+            <ul class="nav nav-pills nav-stacked collapse out" id="measures">
+                <!-- submenu started-->
+                <li ng-repeat="measure in gitDashboardConfigData.measures" data-toggle="collapse">
+                    <a style="padding-left:40px;" dnd-draggable="measure" dnd-effect-allowed="copy" class="active" dnd-type="allowedTypes.measureType[0]" dnd-dragend='removeDuplicate({"arrayName":"measureArray", "index":$index, "fieldToMatch":"displayName"}, event)'>
+                        {{measure.displayName}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+<!-- /#sidebar-wrapper -->
+
+                    <!--  wave4 code start here -->
+
+<div>
+
+          <table class="table table-hover" style="margin-top:50px">
+
+              <thead>
+
+                  <tr>
+                      <th ng-repeat="header in key">{{header}}</th>
+                  </tr>
+
+              </thead>
+
+              <tbody>
+                  <!-- <tr ng-repeat="row in val">
+                      <td ng-repeat="header in key">{{row[header]}}</td>
+                  </tr> -->
+                  <tr class="success" ng-repeat="row in val">
+                      <td ng-repeat="header in key">{{row[header]}}</td>
+                  </tr>
+              </tbody>
+
+          </table>
+
+      </div>
+
+                    <!-- wave4 code end here -->
+
+
+
+</div>
+<!-- /#page-content-wrapper -->

@@ -21,7 +21,7 @@ var expect = require('chai').expect;
 var superTest = require('supertest');
 var app = require("../bin/www");
 
-var url = superTest("http://localhost:8080");
+var url = superTest("http://localhost:8585");
 var logSchema = require('../models/dbConfig.js').aptLogModel;
 
 
