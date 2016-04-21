@@ -26,9 +26,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $http({method: 'Post', url: '/dimensions/addDimension',data:{data:dimobj}}).
       success(function(data, status, headers, config) {
       console.log("Successful");
-      // console.log(data);
        });
-      // console.log(dimobj.displayName);
       $scope.dimensionList.push(dimobj.displayName);
     }
 

@@ -57,13 +57,14 @@
   return self.createPipeline(self.query);
   }
   self.createPipeline = function(query) {
+    console.log("$$$$$$$$$$4 "+JSON.stringify(query));
     var pipeline = [];
     if(query.hasOwnProperty('from') && query.from.hasOwnProperty('where')) {
     var sifter = sift(query.from.where);
     pipeline.push(_.filter(sifter));
     }
     pipeline.push(_.map(function(obj) {
-      // console.log('in query exec ');
+
       var siftobj=new Object();
       expkeys=query.select;
       siftobj.filter=function(value) {
@@ -75,7 +76,6 @@
           RCCount=0;
       if(query.eval.val1.rolling.over.time){
       temp.val1=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);
-      
       }
       else {
         temp.val1=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
@@ -86,6 +86,7 @@
       else {
         temp.val2=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
       }
+      console.log("in pipe############### "+JSON.stringify(query));    
       return temp;
       }
       var data={

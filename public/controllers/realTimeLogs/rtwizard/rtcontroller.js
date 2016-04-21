@@ -13,15 +13,15 @@ var app = angular.module('logAggregator');
 
 		$scope.key = [];
 		$scope.val = [];
-	var ws = new WebSocket("ws://172.23.238.253:7070");
+	var ws = new WebSocket("ws://localhost:9000");
 	var isFirstMessage = true;
 
 	ws.onmessage = function(evt){
 
 		$scope.$apply(function(){
 			var received_msg =  JSON.parse(evt.data);
-			var data = received_msg[2];
-
+			// var data = received_msg[2];
+      var data=received_msg;
 			if(isFirstMessage){
 
 				for(var key in data){

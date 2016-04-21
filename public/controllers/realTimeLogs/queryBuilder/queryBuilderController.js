@@ -2,8 +2,8 @@ var app = angular.module('logAggregator');
 var kk=0;
 var str2="";
 var addConditionCount=0;
-app.controller('liveQueryController', ['$scope','$http', function ($scope,$http) {
-
+app.controller('liveQueryController', ['$scope','$http',
+function ($scope,$http) {
 
     var data = '{"group": {"operator": "OR","rules": []}}';
     $scope.flag=false;
@@ -32,11 +32,9 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
             //        computed(group.rules[i].group) :
             //
             //}
-
         }
 
         return " Select  "+$scope.select1 + " from " +$scope.stream + " where "+ str + ")";
-
     }
 
 
@@ -56,21 +54,14 @@ app.controller('liveQueryController', ['$scope','$http', function ($scope,$http)
         var stringA="";
         var count=0;
         var cn=0;
-        for(var j=0;j<strng.length;j++)
-        {
-
+        for(var j=0;j<strng.length;j++) {
             if(strng[j]==",") {
-
                 count++;
             }
-
         }
 
-        for(var j=0;j<strng.length;j++)
-        {
-
-            if(strng[j]!=",")
-            {
+        for(var j=0;j<strng.length;j++) {
+            if(strng[j]!=",") {
                 dummy=dummy+strng[j];
             }
             else {

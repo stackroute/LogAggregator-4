@@ -14,7 +14,9 @@ module.exports = function(time, evalFunc) {
     //accumulating data for 10secs
     if (typeof line !== 'undefined') {
       var obj = {};
-    //  obj.line = line.trim();
+      if(typeof line === 'string'){
+      obj.line = line.trim();
+      }
       obj.date = new Date();
       lineArr.push(obj);
     }

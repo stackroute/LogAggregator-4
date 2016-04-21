@@ -36,8 +36,8 @@ var wss = new WebSocketServer({port: 9000});
 var serverWs;
 
 wss.on('connection', function(ws) {
-  console.log('CONNECTED');
-  ws.send('Connected');
+  //console.log('CONNECTED');
+  // ws.send('Connected');
   serverWs = ws;
   ws.setMaxListeners(ws.getMaxListeners() + 1);
 });
@@ -48,16 +48,32 @@ module.exports=function (queryy) {
 
   var executor = new QueryExecutor(queryy);
   var pipeline = executor.getPipeline();
+  var firstPipeline;
+
+  var getPipeline = function() {
+    return pipeline;
+  }
   if(!isClientConnected) {
-    WebSocket1.on('connect', function(connection) {
+      firstPipeline = pipeline;
+      WebSocket1.on('connect', function(connection) {
       isClientConnected = true;
-      console.log("Connected..Waiting for some message");
+      console.log(" Connected..Waiting for some message ");
       var streamData = {};
       _('message', connection).pipe(_.pipeline(_.map(function(msg) {
-        console.log('data received ');
-        return JSON.parse(msg.utf8Data)[2];
+        streamData=msg;
+        console.log('data received from local '+ JSON.stringify(streamData.utf8Data));
+        return JSON.parse(streamData.utf8Data);
       })
-    ))
+    )).pipe(_.pipeline(_.map(function(msg) {
+     if (pipeline == firstPipeline) {
+       console.log("######## equal");
+     }
+     else {
+       console.log("not equal");
+     }
+      return msg
+    })
+  ))
       .pipe(pipeline)
       .pipe(_.pipeline(
         _.map(function(msg) {
@@ -68,6 +84,6 @@ module.exports=function (queryy) {
       )).done();
       connection.setMaxListeners(connection.getMaxListeners() + 1);
     });
-    WebSocket1.connect('ws://172.23.238.253:7070');
+    WebSocket1.connect('ws://localhost:5050');
   }
 }
