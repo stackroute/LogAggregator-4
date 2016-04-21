@@ -1,5 +1,5 @@
 var app = angular.module('logAggregator');
-app.controller('rtcontroller', function($scope) { // controller - rtcontroller
+app.controller('rtcontroller', function($scope) { 
     $scope.key = [];
     $scope.val = [];
     var ws = new WebSocket("ws://172.23.238.253:7070");
