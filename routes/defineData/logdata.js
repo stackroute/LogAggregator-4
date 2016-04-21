@@ -1,90 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var json = [{
-//     "host": "216.67.1.92",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/Aug/2006:07:01:53 -0700]",
-//     "request": "GET /index1.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Mozilla/5.0",
-//     "cookies": "-"
-//   }, {
-//     "host": "216.67.1.93",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[14/Sep/2006:07:01:53 -0700]",
-//     "request": "GET /index.html HTTP/1.0",
-//     "statuscode": "404",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Mozilla/5.0",
-//     "cookies": "-"
-//   }, {
-//     "host": "216.67.1.95",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/Sep/2006:07:01:53 -0700]",
-//     "request": "GET /index2.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "432",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Mozilla/5.0",
-//     "cookies": "-"
-//   }, {
-//     "host": "218.67.1.97",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/May/2006:07:01:53 -0700]",
-//     "request": "GET /index3.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Mozilla/5.0",
-//     "cookies": "-"
-//   }, {
-//     "host": "217.67.1.91",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/Sep/2006:07:01:53 -0700]",
-//     "request": "GET /index.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Mozilla/5.0",
-//     "cookies": "-"
-//   }, {
-//     "host": "216.67.2.91",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/Sep/2006:07:01:53 -0700]",
-//     "request": "GET /index.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Google Chrome",
-//     "cookies": "-"
-//   },{
-//     "host": "216.67.2.95",
-//     "rfc931": "-",
-//     "username": "-",
-//     "datetime": "[13/Sep/2006:07:01:53 -0700]",
-//     "request": "GET /index.html HTTP/1.0",
-//     "statuscode": "200",
-//     "bytes": "431",
-//     "referrer": "http://www.google.com",
-//     "user_agent": "Google Chrome",
-//     "cookies": "-"
-//   }
-//
-// ];
-//
-// router.get('/', function(req, res){
-//
-//  res.send(json);
-//  });
 
 var formidable = require('formidable');
 var mongoose = require('mongoose');
@@ -147,4 +62,14 @@ router.post('/', function(req, res) {
     });
   });
 });
+
+//get the list of namespace
+router.get('/namespaceList', function(req, res) {
+
+  Namespace.find(function(err,namespace){
+    res.send(namespace);
+  });
+});
+
+
 module.exports = router;

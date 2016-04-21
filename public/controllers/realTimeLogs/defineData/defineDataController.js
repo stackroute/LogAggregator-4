@@ -51,10 +51,6 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
 
 
     $scope.deleteDimension=function(dim) {
-      // dimobj={
-      //   displayName:$scope.displayname,
-      //   fieldname:$scope.dimVal
-      // }
       console.log("final array",dimArr);
       for (var i = 0; i < dimArr.length; i++) {
         if(dimArr[i].displayName==="dim")
@@ -131,7 +127,7 @@ angular.module('logAggregator').controller('defineDataController', ['$scope','$h
       $scope.namespaceName=response.data.namespaceName;
       $scope.logdataList = response.data.filedata;
       $scope.cols = Object.keys($scope.logdataList[0]);
-
+      
     });
   }
 ]);

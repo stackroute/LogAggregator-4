@@ -31,14 +31,14 @@ WebSocket1.on('connect', function(connection) {
           var keyValue = keys[i];
           if (measures[k].measureType === "fieldMeasure") {
             var displayValue = measures[k].displayName;
-            streamData[displayValue] = true;
+            streamData[displayValue] = "1";
           } else {
             if (streamData[keyValue] === measures[k].eventValue) {
               var displayValue = measures[k].displayName;
-              streamData[displayValue] = true;
+              streamData[displayValue] = "1";
             } else {
               var displayValue = measures[k].displayName;
-              streamData[displayValue] = false;
+              streamData[displayValue] = "0";
             }
           }
         }
