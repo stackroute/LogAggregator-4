@@ -8,34 +8,33 @@
 
 var app = angular.module('logAggregator');
 
-	app.controller('rtcontroller',function($scope){
-  // app.controller('myController',function($scope){
+app.controller('rtcontroller', function($scope) {
+    // app.controller('myController',function($scope){
+    $scope.key = [];
+    $scope.val = [];
+    var ws = new WebSocket("ws://172.23.238.253:7070");
+    var isFirstMessage = true;
 
-		$scope.key = [];
-		$scope.val = [];
-	var ws = new WebSocket("ws://172.23.238.253:7070");
-	var isFirstMessage = true;
+    ws.onmessage = function(evt) {
 
-	ws.onmessage = function(evt){
+        $scope.$apply(function() {
+            var received_msg = JSON.parse(evt.data);
+            var data = received_msg[2];
 
-		$scope.$apply(function(){
-			var received_msg =  JSON.parse(evt.data);
-			var data = received_msg[2];
+            if (isFirstMessage) {
 
-			if(isFirstMessage){
+                for (var key in data) {
+                    $scope.key.push(key);
+                }
 
-				for(var key in data){
-					$scope.key.push(key);
-				}
+                isFirstMessage = false;
 
-				isFirstMessage =  false ;
+            } // if(isFirstMessage) end
 
-			}  // if(isFirstMessage) end
+            $scope.val.push(data);
 
-			$scope.val.push(data);
+        }); //$scope.apply end
 
-		}) ;   //$scope.apply end
+    }; //ws.onmessage end
 
-	} ; 	  //ws.onmessage end
-
-	}); 	  //app.controller end
+}); //app.controller end

@@ -1,5 +1,6 @@
 <link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
 
+
 <!-- wave4 style sheet for table  -->
 
 <!-- <div id="wrapper" ng-controller="myController"> -->
@@ -92,6 +93,7 @@
           <table class="table table-hover" style="margin-top:50px">
 
               <thead>
+
                   <tr>
                       <th ng-repeat="header in key">{{header}}</th>
                   </tr>
@@ -99,10 +101,12 @@
               </thead>
 
               <tbody>
-                  <tr ng-repeat="row in val">
+                  <!-- <tr ng-repeat="row in val">
+                      <td ng-repeat="header in key">{{row[header]}}</td>
+                  </tr> -->
+                  <tr class="success" ng-repeat="row in val">
                       <td ng-repeat="header in key">{{row[header]}}</td>
                   </tr>
-
               </tbody>
 
           </table>
