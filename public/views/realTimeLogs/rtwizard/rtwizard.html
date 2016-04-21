@@ -1,14 +1,8 @@
 <link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
 
-
 <!-- wave4 style sheet for table  -->
-
 <!-- <div id="wrapper" ng-controller="myController"> -->
-
-
   <div id="wrapper" ng-controller="rtcontroller">
-
-
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
@@ -95,9 +89,12 @@
                   <!-- <tr ng-repeat="row in val">
                       <td ng-repeat="header in key">{{row[header]}}</td>
                   </tr> -->
-                  <tr ng-class="'success'" ng-repeat="row in val">
+                  <tr ng-class="{'success': true}" ng-repeat="row in val">
                       <td ng-repeat="header in key">{{row[header]}}</td>
                   </tr>
+                  <!-- <tr ng-class="{'success': row.highlight}" ng-repeat="row in val">
+                      <td ng-repeat="header in key">{{row[header]}}</td>
+                  </tr> -->
               </tbody>
           </table>
       </div>
