@@ -38,7 +38,7 @@ expSchema.statics.searchQuery=function searchQuery(searchquery,cb) {
 
 
 module.exports=expSchema;
-=======
+
 var mongoose = require('mongoose');
 var Schema =  mongoose.Schema;
 var mainquery = require('../components/queryexecutor/mainquery');
