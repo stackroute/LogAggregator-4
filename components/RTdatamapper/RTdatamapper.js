@@ -12,32 +12,46 @@ wss.on('connection', function(ws) {
   console.log('CONNECTED');
   ws.send('Connected');
   serverWs = ws;
-  //ws.setMaxListeners(ws.getMaxListeners() + 1);
 });
-
-module.exports = function(namespaceId, measures) {
-  console.log("inside component", measures);
-
-  WebSocket1.on('connect', function(connection) {
-    console.log("Connected..Waiting for some message");
-    var streamData = {};
-    _('message', connection).map(function(msg) {
+var measures = [];
+var source;
+// var forwardPort;
+module.exports = function(namespaceId) {
+  console.log("namespaceeeeeeeeeeeeeeeeeeeeeeee" +namespaceId);
+  Namespace.findNamespace(namespaceId, function(err, namespace) {
+    if (namespace != null) {
+      // console.log("routes",namespace.dimensions);
+      // res.send(namespace.dimensions);
+      measures = [];
+      measures = namespace.measures;
+      source = namespace.source;
+      //console.log(measures);
+    }
+  });
+};
+console.log("inside component", measures);
+WebSocket1.on('connect', function(connection) {
+  console.log("Connected..Waiting for some message");
+  streamData = {};
+  _('message', connection).map(function(msg) {
+    var sourceData = JSON.parse(msg.utf8Data)[0];
+    if (source === sourceData) {
       streamData = JSON.parse(msg.utf8Data)[2];
       var keys = Object.keys(streamData); //array of keys in the streaming data
       for (var k = 0; k < measures.length; k++) {
         for (var i = 0; i < keys.length; i++) {
           if (keys[i] === measures[k].eventField) {
             var keyValue = keys[i];
-            if (measures[k].measureType === "radioField") {
+            if (measures[k].measureType === "fieldMeasure") {
               var displayValue = measures[k].displayName;
-              streamData[displayValue] = true;
+              streamData[displayValue] = "1";
             } else {
               if (streamData[keyValue] === measures[k].eventValue) {
                 var displayValue = measures[k].displayName;
-                streamData[displayValue] = true;
+                streamData[displayValue] = "1";
               } else {
                 var displayValue = measures[k].displayName;
-                streamData[displayValue] = false;
+                streamData[displayValue] = "0";
               }
             }
           }
@@ -46,13 +60,10 @@ module.exports = function(namespaceId, measures) {
       if (serverWs) {
         serverWs.send(JSON.stringify(streamData));
       }
-      console.log(streamData);
-    }).done(function() {
-      console.log('Done');
-    });
+    }
+    // console.log(streamData);
+  }).done(function() {
+    console.log('Done');
   });
-  WebSocket1.connect('ws://172.23.238.253:7070');
-
-  // function msg
-  /* ending of program*/
-}
+});
+WebSocket1.connect('ws://172.23.238.253:7070');

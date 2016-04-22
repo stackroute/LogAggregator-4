@@ -8,6 +8,16 @@
 .group-conditions{
     margin-left: 20px;
 }
+.styleforli{
+    background-color: #C6E746;
+    padding-left: 0px;
+    color: #ffe87c;
+
+}
+
+.namespaceliststyle{
+    padding-left: 0px;
+}
 .widcheck{
 }
 #livequeryform{
@@ -27,4 +37,13 @@
 .condition, .group{
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.innerlicolor{
+    background-color: #bbffbb;
+
+}
+
+.baskya{
+    padding-left: 0px;
 }

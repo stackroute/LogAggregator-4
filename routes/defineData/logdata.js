@@ -147,4 +147,13 @@ router.post('/', function(req, res) {
     });
   });
 });
+
+router.get('/namespaceList', function(req, res) {
+  //creates a new incoming form.
+
+   Namespace.find(function (err,namespace) {
+    res.send(namespace);
+   });
+});
+
 module.exports = router;

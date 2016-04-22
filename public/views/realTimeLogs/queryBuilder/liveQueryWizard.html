@@ -1,7 +1,10 @@
 <link href="./../../../stylesheets/simple-sidebar.css" rel="stylesheet">
 <link href="./../../../stylesheets/queryBuilder/queryBuilder.css" rel="stylesheet">
 
-    <div id="wrapper" ng-controller="liveQueryController">
+
+
+
+<div id="wrapper" ng-controller="liveQueryController">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav nav-pills nav-stacked" id="stacked-menu">
@@ -10,58 +13,84 @@
                 <li class="sidebar-brand fa fa-th"> Widget wizard</li>
                 <li>
                     <!-- home item in menu started-->
-                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#dimensions">
-                        <i class="fa fa-circle-o"></i> Dimensions
+
+                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#dimensions" >
+                        <i class="fa fa-circle-o"></i> NameSpace
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse out" id="dimensions">
                         <!-- submenu started-->
 
-                        <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info" data-toggle="collapse">{{dim}}</li>
+                        <li ng-repeat="dim in nameSpaceList" class="list-group-item list-group-item-info namespaceliststyle" data-toggle="collapse" ng-click="getDimensionAndMeasure(dim._id)" id="{{dim._id}}"   >{{dim._id}}</li>
                     </ul>
-                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#aggregators">
-                        <i class="fa fa-circle-o"></i> Aggregators
-                    </a>
-                    <ul class="nav nav-pills nav-stacked collapse out" id="aggregators">
-                        <!-- submenu started-->
-                        <li ng-repeat="aggregator in gitDashboardConfigData.aggregators" data-toggle="collapse" >
-                            <a style="padding-left:40px;" data-parent="#aggregators" ng-attr-href="{{'#aggregator'+ $index}}" data-drop="true" dnd-draggable="aggregator" dnd-effect-allowed="copy"  class="active" dnd-type="allowedTypes.aggregatorType[0]" dnd-dragend='aggregatorHandler({"arrayName":"aggregatorArray", "index":$index, "fieldToMatch":"displayName"}, event,aggregator)'>
-                        {{aggregator.displayName}}
-                      </a>
-                        </li>
-                    </ul>
-                    <a class="nav-container" data-toggle="collapse" data-parent="#stacked-menu" href="#measures">
-                        <i class="fa fa-circle-o"></i> Measures
-                    </a>
-                    <ul class="nav nav-pills nav-stacked collapse out" id="measures">
-                        <!-- submenu started-->
-                        <li ng-repeat="m in measureList" class="list-group-item list-group-item-info" data-toggle="collapse">{{m}}</li>
-                    </ul>
+
+
                 </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- start #liveQueryWizardForm -->
-        <h1> Query on the Go!</h1>
+    <br>
+        <h1> <center>Query on the Go!</center></h1>
 
 
 
           <div class="container salert alert-info">
-              <strong>Example Output</strong><br>
-              <span ng-bind-html="output"> </span>
+              <strong>Json Output</strong><br>
+              <span ng-bind-html="output2"> </span>
               <br>
-              <br>
-              <span ng-bind-html="answer"> </span>
+
+              <p ng-bind-html="trustedHtml"> </p>
           </div>
 
 
 
           <div class="alert alert-warning alert-group">
           <div class="form-inline">
+
               <label>&nbsp;&nbsp;Select&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="select1" class="form-control input-sm" size="60"/>
 
               <label>&nbsp;&nbsp;Stream From &nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="stream" class="form-control input-sm" s/>
 
+
               <label>&nbsp;&nbsp;Stream To &nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="streamB" class="form-control input-sm" s/>
+
+              <br>
+              <br>
+
+              <p> &nbsp;&nbsp; WHERE </p>
+              <label> Aggregate fn &nbsp;&nbsp;&nbsp; </label>  <select ng-model="selectedAggFn1" ng-options="item for item in aggfn"  class="form-control input-sm"></select>
+
+
+          <label>&nbsp;&nbsp;Measures&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="measure1" class="form-control input-sm"/>
+
+              <label> &nbsp;&nbsp;Accumulator fn&nbsp;&nbsp;&nbsp;</label>
+
+              <select ng-model="selectedAccumFn1" ng-options="item for item in accumfn"  class="form-control input-sm"></select>
+
+
+              <label>&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;</label>  <input style="margin-left: 5px" type="text" ng-model="value1" class="form-control input-sm"/>
+
+              <br>
+              <br>
+              <label> &nbsp;&nbsp;&nbsp;Operator&nbsp;&nbsp;&nbsp;</label>
+              <select ng-model="selectedOperators" ng-options="item for item in operators"  class="form-control input-sm"></select>
+              <br>
+              <br>
+
+              <label> Aggregate fn &nbsp;&nbsp;&nbsp; </label>  <select ng-model="selectedAggFn2" ng-options="item for item in aggfn"  class="form-control input-sm"></select>
+
+              <label>&nbsp;&nbsp;Measures&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="measure2" class="form-control input-sm"/>
+
+              <label> &nbsp;&nbsp;Accumulator fn&nbsp;&nbsp;&nbsp;</label>
+
+              <select ng-model="selectedAccumFn2" ng-options="item for item in accumfn"  class="form-control input-sm"></select>
+
+              <label>&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;</label>  <input style="margin-left: 5px" type="text" ng-model="value2" class="form-control input-sm"/>
+
+
+              <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>Submit Query</button>
+
+              <button style="margin-left: 5px" ng-click="computeJson()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>Compute Json</button>
 
 
           </div>
@@ -70,73 +99,6 @@
           <query-builder group="filter.group"></query-builder>
 
       </div>
-
-      <script type="text/ng-template" id="/queryBuilderDirective.html">
-      <div class="alert alert-warning alert-group">
-          <div class="form-inline ">
-              <select ng-options="o.name as o.name for o in operators" ng-model="group.operator" class="form-control input-sm"></select>
-              <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success" ng-disabled="flag" ><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
-              <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
-              <button style="margin-left: 5px" ng-click="submitQuery()" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-tick-sign"></span>SubmitQuery</button>
-        
-          </div>
-          <div class="group-conditions">
-              <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
-                  <div ng-switch="rule.hasOwnProperty('group')">
-                      <div ng-switch-when="true">
-                          <query-builder group="rule.group"></query-builder>
-                      </div>
-                      <div ng-switch-default="ng-switch-default">
-                          <div class="form-inline">
-                            <label> Aggregate fn &nbsp;&nbsp;&nbsp; </label>  <select ng-options="t.name as t.name for t in fields" ng-model="rule.field" class="form-control input-sm"></select>
-                              <label>&nbsp;&nbsp;Measures&nbsp;&nbsp;&nbsp;</label><input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control input-sm"/>
-                              <label> &nbsp;&nbsp;Accumulator fn&nbsp;&nbsp;&nbsp;</label>
-                              <select ng-options="a.name as a.name for a in accumulators" style="margin-left: 5px"  ng-model="rule.accumulator" class="form-control input-sm"></select>
-
-                            <label>&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;</label>  <input style="margin-left: 5px" type="text" ng-model="rule.value" class="form-control input-sm"/>
-                              <button style="margin-left: 5px" ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span></button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class="panel-group" id="accordion">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                  <a data-toggle="collapse"  href="#collapse1" ng-click="getDimension()">Dimensions</a>
-              </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <ul id="dimList" class="list-group">
-                  <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info"  >{{dim}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                  <a data-toggle="collapse"  href="#collapse2" ng-click="getMeasure()">Measures</a>
-              </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-              <div class="panel-body">
-                <ul id="measList1" class="list-group">
-                  <li ng-repeat="m in measureList" class="list-group-item list-group-item-info">{{m}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-          </script>
-
 
 </div>
 <!-- /#page-content-wrapper -->

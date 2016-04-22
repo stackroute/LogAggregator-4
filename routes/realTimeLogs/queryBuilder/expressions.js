@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Expression = require('../../../models/dbConfig').expressionModel;
 var mainquery=require('../../../components/queryexecutor/mainquery.js')
-
+var datamapper=require('../../../components/RTdatamapper/RTdatamapper.js')
 
   router.post('/save', function(req, res, next) {
   // console.log('****************************in express routes********************* '+ JSON.stringify(req.body.data));
@@ -35,6 +35,11 @@ Expression.searchQuery(search,function(err,doc) {
 
 
 
+});
+router.post('/stream', function(req, res, next) {
+   console.log("rcvd namespace " +JSON.stringify(req.body.data));
+   datamapper(req.body.data);
+  res.send("Success");
 });
 
 module.exports = router;
