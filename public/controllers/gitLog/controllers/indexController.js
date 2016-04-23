@@ -611,7 +611,7 @@ app.controller('myController', function($scope, $http) {
                 filter_details += graph_filters_displayName + "[" + graph_filters_value + "]";
 
                 console.log("filter_details", filter_details);
-            } << << << < HEAD
+            }
             $scope.filteredby = "and filtered by " + filter_details;
         } else {
             $scope.filteredby = "";
@@ -628,9 +628,6 @@ app.controller('myController', function($scope, $http) {
             $scope.description_data = "This graph shows total" + obj["measure"]["primary"]["displayName"] + " vs " + obj["row"]["displayName"];
         }
 
-
-
-        === === =
         $scope.filteredby = " filteredBy " + filter_details;
     }
 
