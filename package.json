@@ -20,7 +20,7 @@
     "formidable": "^1.0.17",
     "highland": "^2.7.4",
     "method-override": "~2.2.0",
-    "mongoose": "~3.8.0",
+    "mongoose": "~3.8.39",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

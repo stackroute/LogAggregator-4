@@ -1,6 +1,7 @@
 /**
  * Created by COMP on 12-04-2016.
  */
+ 
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/test');
