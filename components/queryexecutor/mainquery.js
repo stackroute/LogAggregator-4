@@ -48,32 +48,29 @@ module.exports=function (queryy) {
 
   var executor = new QueryExecutor(queryy);
   var pipeline = executor.getPipeline();
-  var firstPipeline;
-
-  var getPipeline = function() {
-    return pipeline;
+  if (isClientConnected) {
+    isClientConnected=false;
+    console.log("WebSocket1 keys ");
+    for(var l in WebSocket1) {
+      console.log('>>> ' + l);
+    }
+    WebSocket1.abort();
   }
   if(!isClientConnected) {
-      firstPipeline = pipeline;
-      WebSocket1.on('connect', function(connection) {
+
+    WebSocket1.on('connect', function(connection) {
       isClientConnected = true;
       console.log(" Connected..Waiting for some message ");
       var streamData = {};
-      _('message', connection).pipe(_.pipeline(_.map(function(msg) {
+       connection.on('close', function() {
+       console.log('connection closed');
+       });
+       _('message', connection).pipe(_.pipeline(_.map(function(msg) {
         streamData=msg;
         console.log('data received from local '+ JSON.stringify(streamData.utf8Data));
         return JSON.parse(streamData.utf8Data);
-      })
-    )).pipe(_.pipeline(_.map(function(msg) {
-     if (pipeline == firstPipeline) {
-       console.log("######## equal");
-     }
-     else {
-       console.log("not equal");
-     }
-      return msg
-    })
-  ))
+        })
+        ))
       .pipe(pipeline)
       .pipe(_.pipeline(
         _.map(function(msg) {

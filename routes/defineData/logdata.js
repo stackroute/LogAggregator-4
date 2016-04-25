@@ -91,7 +91,16 @@ var mongoose = require('mongoose');
 var Namespace = require('../../models/dbConfig').namespaceModel;
 var fs = require('fs');
 
-
+//get the list of namespace
+router.get('/namespaceList', function(req, res) {
+// Namespace.remove({}, function(){
+//   res.send("deleted");
+// });
+// Namespace.remove();
+  Namespace.find(function(err,namespace){
+    res.send(namespace);
+  });
+});
 
 /* GET log data */
 router.get('/', function(req, res) {

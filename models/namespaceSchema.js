@@ -35,10 +35,10 @@ namespaceSchema.statics.findNamespace=function(name,cb){
     });
   };
 
-  namespaceSchema.post('save',function (namespace) {
-    //  console.log('nid' +namespace._id + '||' +namespace.measures);
-      getMeasure(namespace.measures);
-    });
+  // namespaceSchema.post('save',function (namespace) {
+  //   //  console.log('nid' +namespace._id + '||' +namespace.measures);
+  //     getMeasure(namespace.measures);
+  //   });
 
 
 module.exports=namespaceSchema;

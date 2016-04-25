@@ -1,4 +1,6 @@
 var _ = require('highland');
+//var Namespace = require('../../models/dbConfig').namespaceModel;
+
 var WebSocketClient = require('websocket').client;
 // var WebSocket1 = new WebSocketClient();
 var WebSocketServer = require('ws').Server;
@@ -9,45 +11,57 @@ var wss = new WebSocketServer({
 });
 var serverWs;
 wss.on('connection', function(ws) {
-  //console.log('CONNECTED');
-//  ws.send('Connected');
+  console.log('CONNECTED');
+  // ws.send('Connected');
   serverWs = ws;
-
 });
 var measures = [];
-module.exports = function(mList) {
-  measures = [];
-  measures = mList;
-  console.log(measures);
+var source;
+//console.log("message in rt .........",Namespace);
+// var forwardPort;
+module.exports = function(namespaceId,Namespace) {
+
+  console.log("hello");
+  console.log("message",Namespace);
+  Namespace.findNamespace(namespaceId, function(err, namespace) {
+    if (namespace != null) {
+      measures = [];
+      measures = namespace.measures;
+      source = namespace.source;
+    }
+  });
 };
 console.log("inside component", measures);
 WebSocket1.on('connect', function(connection) {
-  console.log("Connected..Waiting for some message");
+  console.log("Connected..Waiting for some message in RT dataMAPPEr");
   streamData = {};
   _('message', connection).map(function(msg) {
-    streamData = JSON.parse(msg.utf8Data)[2];
-    var keys = Object.keys(streamData); //array of keys in the streaming data
-    for (var k = 0; k < measures.length; k++) {
-      for (var i = 0; i < keys.length; i++) {
-        if (keys[i] === measures[k].eventField) {
-          var keyValue = keys[i];
-          if (measures[k].measureType === "fieldMeasure") {
-            var displayValue = measures[k].displayName;
-            streamData[displayValue] = "1";
-          } else {
-            if (streamData[keyValue] === measures[k].eventValue) {
+    var sourceData = JSON.parse(msg.utf8Data)[0];
+    if (source === sourceData) {
+      streamData = JSON.parse(msg.utf8Data)[2];
+      var keys = Object.keys(streamData); //array of keys in the streaming data
+      for (var k = 0; k < measures.length; k++) {
+        for (var i = 0; i < keys.length; i++) {
+          if (keys[i] === measures[k].eventField) {
+            var keyValue = keys[i];
+            if (measures[k].measureType === "fieldMeasure") {
               var displayValue = measures[k].displayName;
               streamData[displayValue] = "1";
             } else {
-              var displayValue = measures[k].displayName;
-              streamData[displayValue] = "0";
+              if (streamData[keyValue] === measures[k].eventValue) {
+                var displayValue = measures[k].displayName;
+                streamData[displayValue] = "1";
+              } else {
+                var displayValue = measures[k].displayName;
+                streamData[displayValue] = "0";
+              }
             }
           }
         }
       }
-    }
-    if (serverWs) {
-      serverWs.send(JSON.stringify(streamData));
+      if (serverWs) {
+        serverWs.send(JSON.stringify(streamData));
+      }
     }
     // console.log(streamData);
   }).done(function() {

@@ -8,6 +8,13 @@
 .group-conditions{
     margin-left: 20px;
 }
+#operator{
+    text-align: center;
+}
+
+.namespaceliststyle{
+    padding-left: 0px;
+}
 .widcheck{
 }
 #livequeryform{
@@ -27,4 +34,18 @@
 .condition, .group{
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+
+
+
+
+.baskya{
+    padding-left: 0px;
+}
+
+.sidebar-nav li {
+    display: block;
+    text-decoration: none;
+    color: darkblue;
 }
