@@ -1237,36 +1237,64 @@ ul[dnd-list] > li > a{
 .formBottomPad{
 padding-bottom: 100px;
 }
+/*Wave 4 code-start*/
+#table-wrapper {
+    position:relative;
+}
+#table-scroll {
+    height:450px;
+    overflow:auto;
+    margin-top:20px;
+}
 
-/*wave 4*/
+#table-wrapper table {
+    width:100%;
+}
+
+#table-wrapper table * {
+    background:white;
+    color:black;
+}
+
+#table-wrapper table thead th .text {
+    position:absolute;
+    top:-20px;
+    z-index:2;
+    height:20px;
+    width:35%;
+    border:1px solid red;
+}
 
 #tabLog, #tabLog td, #tabLog th {
     border: 1px solid black;
     cursor: pointer;
+
 }
 
 #tabLog {
     border-collapse: collapse;
-    width: 100%;
-    margin-top: 10px;
+    /*width: 100%;*/
+    /*margin-top: 10px;*/
 }
 
-th {
-    height: 50px;
-
-}
-
+/*
 td ,th {
   padding-left: 10px;
   padding-right: 10px;
-}
+}*/
 
 #goBtn{
   margin-top: 10px;
 }
 
+.panelBody{
+  height: 550px;
+}
+
+
 .mainSection {
-  height: 750px;
+border: none;
+box-shadow: none;
 }
 
 .container{
@@ -1330,3 +1358,16 @@ td ,th {
     width: 100%;
     margin-top: 10px;
 }
+.modal-scroll{
+  overflow-x:scroll;
+  overflow-y: scroll;
+  padding-bottom:10px;
+}
+.align-left{
+  text-align:left;
+}
+.wordwrap{
+  text-align:center;
+  word-wrap:break-word;
+}
+/*Wave 4 code end------*/

@@ -3,97 +3,69 @@ var dimensionRouter = express.Router();
 var mongoose = require('mongoose');
 var Namespace = require('../../models/dbConfig').namespaceModel;
 
-// var dimList = [{
-//   "dispName": "Path",
-//   "fieldName": "request"
-// }, {
-//   "dispName": "User",
-//   "fieldName": "username"
-// }, {
-//   "dispName": "Browser",
-//   "fieldName": "user_agent"
-// }, {
-//   "dispName": "Timestamp",
-//   "fieldName": "datetime"
-// }];
-//
-// dimensionRouter.get('/', function(req, res) {
-//   res.send(dimList);
-// });
 
-/* GET Dimensions */
-dimensionRouter.get('/', function(req, res) {
-  if (req.session.oid !== null) {
-    Namespace.findNamespace(req.session.oid, function(err, namespace) {
-      if (namespace != null) {
-        console.log("routes",namespace.dimensions);
-        res.send(namespace.dimensions);
-      }
-    });
-  }
-});
 
 /* POST Dimension */
 
 dimensionRouter.post('/addDimension', function(req, res) {
-  console.log("received  ********************* " +req.body)  ;
-  if (req.session.oid !== null) {
-    Namespace.findNamespace(req.session.oid, function(err, namespace) {
-      if (namespace != null) {
-        namespace.dimensions.push({
-          displayName: req.body.data.displayName,
-          fieldName: req.body.data.fieldname
-        });
-
-        namespace.save(function(err, namespace) {
-          console.log('namespace saved:', namespace);
-        });
-      }
-    });
-  }
+  Namespace.findNamespaceName(req.body.data.namespaceName, function(err, namespace) {
+    if (namespace != null) {
+      namespace.dimensions.push({
+        displayName: req.body.data.displayName,
+        fieldName: req.body.data.fieldname
+      });
+      namespace.save(function(err, namespace) {
+        console.log('namespace saved:', namespace);
+      });
+    }
+  });
+  //}
   res.send(req.body)
-  // res.redirect('/#/defineData');
 });
 
 /*delete*/
-dimensionRouter.post('/delete/:id', function(req, res) {
-  console.log("deleted value is", req.params.id);
-  if (req.session.oid !== null) {
-    Namespace.findByIdAndUpdate(req.session.oid, {
+dimensionRouter.post('/delete', function(req, res) {
+  console.log("deleted value is", req.body.data.dimName);
+  console.log(req.body.data.namespaceName);
+  var namespaceID;
+  Namespace.findNamespaceName(req.body.data.namespaceName, function(err, namespace) {
+    console.log(namespace);
+    namespaceID=namespace._id;
+    console.log(namespaceID);
+    Namespace.findByIdAndUpdate(namespaceID, {
       $pull: {
         dimensions: {
-          _id: req.params.id
+          displayName: req.body.data.dimName
         }
       }
     }, function(err) {
-      console.log(err);
+       if (err) {
+  return res.send(500).json(err);
+}
+console.log(err + "error");
+return res.send(200).send();
     });
-  }
-  res.redirect('/#/defineData');
+  });
+  // console.log(namespaceID);
+  // Namespace.findByIdAndUpdate(namespaceID, {
+  //   $pull: {
+  //     dimensions: {
+  //       displayName: req.body.data.dimName
+  //     }
+  //   }
+  // }, function(err) {
+  //   console.log(err);
+  // });
+
+
+    // Namespace.findAndModify(req.body.data.namespaceName, {
+    //   $pull: {
+    //     dimensions: {
+    //       displayName: req.body.data.dimName
+    //     }
+    //   }
+    // }, function(err) {
+    //   console.log(err);
+    // });
 });
-/*update*/
-dimensionRouter.post('/update/:id', function(req, res) {
-  //console.log("updated value is", req.params.id);
-  if (req.session.oid !== null) {
-
-    Namespace.update({
-      'dimensions._id': req.params.id
-    }, {
-      '$set': {
-        'dimensions.$.displayName': 'updated item2'
-      }
-    }, function(err, dimension) {
-      if (!err) {
-        console.log('updated dimension' + dimension);
-      } else {
-        console.log('error in update');
-      }
-    });
-  }
-
-
-  res.redirect('/');
-});
-
-
 module.exports = dimensionRouter;

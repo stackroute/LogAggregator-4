@@ -43,42 +43,56 @@ wss.on('connection', function(ws) {
 });
 
 var isClientConnected = false;
+var stream;
+var con;
+var pipeline;
+
+
+function bootstrapStream() {
+    console.log("connected in mainQuery");
+    stream=_('message',con);
+    stream.pipe(_.pipeline(_.map(function(msg) {
+    streamData=msg;
+    console.log('data received ');
+    return JSON.parse(streamData.utf8Data);
+  })
+ ))
+ .pipe(pipeline)
+ .pipe(_.pipeline(
+  _.map(function(msg) {
+    if(serverWs) {
+    serverWs.send(JSON.stringify(msg));
+    }
+  })
+ )).done();
+}
 
 module.exports=function (queryy) {
-
   var executor = new QueryExecutor(queryy);
-  var pipeline = executor.getPipeline();
-  if (isClientConnected) {
-    isClientConnected=false;
-    console.log("WebSocket1 keys ");
-    for(var l in WebSocket1) {
-      console.log('>>> ' + l);
-    }
-    WebSocket1.abort();
-  }
-  if(!isClientConnected) {
+  pipeline = executor.getPipeline();
 
-    WebSocket1.on('connect', function(connection) {
+  if (isClientConnected) {
+    // isClientConnected=false;
+    console.log('before stream destroyed ');
+    // for (var variable in stream) {
+    // console.log('>>> '+variable);
+    // }
+    stream.end(function() {
+      console.log('after stream destroyed');
+      bootstrapStream();
+    });
+    console.log('after stream destroyed');
+  }
+else{
+      WebSocket1.on('connect', function(connection) {
       isClientConnected = true;
-      console.log(" Connected..Waiting for some message ");
+      console.log(" Connected..Waiting for some message inQuery");
       var streamData = {};
-       connection.on('close', function() {
-       console.log('connection closed');
-       });
-       _('message', connection).pipe(_.pipeline(_.map(function(msg) {
-        streamData=msg;
-        console.log('data received from local '+ JSON.stringify(streamData.utf8Data));
-        return JSON.parse(streamData.utf8Data);
-        })
-        ))
-      .pipe(pipeline)
-      .pipe(_.pipeline(
-        _.map(function(msg) {
-          if(serverWs) {
-            serverWs.send(JSON.stringify(msg));
-          }
-        })
-      )).done();
+      connection.on('close', function() {
+      console.log('connection closed ***');
+      });
+       con=connection;
+       bootstrapStream();
       connection.setMaxListeners(connection.getMaxListeners() + 1);
     });
     WebSocket1.connect('ws://localhost:5050');

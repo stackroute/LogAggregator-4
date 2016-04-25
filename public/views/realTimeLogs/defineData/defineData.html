@@ -1,7 +1,7 @@
-<!-- <div class="container" style="margin-top:100px"> -->
+<div class="container" style="margin-top:100px">
   <div class="row">
     <div class="col-sm-3">
-      <div class="panel panel-info mainSection">
+      <div class="panel panel-info panelBody ">
         <div class="panel-heading">
           <div class="row">
             <div class="col-sm-10">
@@ -12,11 +12,35 @@
               <a data-toggle="modal" data-target="#myModal">
                 <i class="glyphicon glyphicon-plus"></i>
               </a>
+              <a data-toggle="modal" data-target="#fulltable">
+                <i class="glyphicon glyphicon-resize-full"></i>
+              </a>
+
             </div>
           </div>
           <!-- <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-align-plus" aria-hidden="true"></span></button> -->
         </div>
         <div class="panel-body">
+          <div class="modal fade" id="fulltable" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content" >
+                <div class="modal-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th ng-repeat="header in cols">{{header}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="row in logdataList">
+                      <td ng-if="!$last" ng-repeat="dat in getKeys(row)">{{row[dat]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#myModal">Create new namespace</button> -->
           <!-- Modal -->
           <div class="modal fade" id="myModal" role="dialog">
@@ -30,26 +54,23 @@
                 </div>
                 <div class="modal-body">
                   <!-- enctype="multipart/form-data" -->
-                  <form action="/logdata?form=namespace" method="post" enctype="multipart/form-data">
+                  <form  name="namespaceForm" novalidate ng-submit="getData()">
                     <div class="form-group">
                       <label for="namespace">Namespace</label>
-                      <input type="name" class="form-control" id="namespace" name="namespace" placeholder="Enter namespace">
+                      <input type="name" class="form-control" id="namespace" name="namespace" placeholder="Enter namespace" ng-model="namespace" required>
+                      <span style="color:#990000" ng-show="namespaceForm.namespace.$touched && namespaceForm.namespace.$invalid">Namespace is required.</span>
                     </div>
+                    <!-- namespaceForm.desc.$error.required -->
                     <div class="form-group">
                       <label for="desc">Description</label>
-                      <textarea class="form-control" rows="3" placeholder="Enter description" name="desc" id="desc"></textarea>
+                      <textarea class="form-control" rows="3" placeholder="Enter description" name="desc" id="desc" ng-model="desc" required></textarea>
+                      <span style="color:#990000" ng-show="namespaceForm.desc.$touched && namespaceForm.desc.$invalid">Description is required.</span>
                     </div>
                     <div class="form-group">
-                      <label for="fileSource">Source</label>
-                      <input type="fileSource" class="form-control" id="fileSource" name="fileSource" placeholder="Enter source">
+                      <label for="source">Source</label>
+                      <input type="source" class="form-control" id="source" name="source" placeholder="Enter source" ng-model="source" required>
+                      <span style="color:#990000" ng-show="namespaceForm.source.$touched && namespaceForm.source.$invalid">Source is required.</span>
                     </div>
-                    <!-- <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <input type="file" id="exampleInputFile" required accept=".json" name="file">
-                      <p class="help-block">Upload your log file here.</p>
-                    </div> -->
-
-                    <!--    **************** -->
                     <div class="form-group">
                       <label for="radioFile">
                         <input type="radio" name="namespace1" id="radioFile" ng-model="namespace1" value="radioFile">File Upload</label>
@@ -59,7 +80,9 @@
                     <div class="form-group" id="radioFileDiv" ng-show="namespace1=='radioFile'">
                       <div class="form-group">
                         <label for="exampleInputFile">File input</label>
-                        <input type="file" id="exampleInputFile" required accept=".json" name="file">
+                        <!-- <input type="file" id="exampleInputFile" required accept=".json" name="file" ng-model onchange="angular.element(this).scope().setFiles(this)"> -->
+                        <!-- <input type="file" id="exampleInputFile" required accept=".json" file-model="file"> -->
+                        <input type="file" id="exampleInputFile" required accept=".json" on-read-file="showContent($fileContent)">
                         <p class="help-block">Upload your log file here.</p>
                       </div>
                     </div>
@@ -70,9 +93,12 @@
                       <label for="streamPort">Port</label>
                       <input type="streamPort" class="form-control" id="streamPort" placeholder="Enter Port.."> -->
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <!-- <button type="submit" class="btn btn-success">Submit</button> -->
                     <!-- <button ng-click="" class="btn btn-success">Submit</button> -->
+                    <button type="submit" class="btn btn-success">Submit</button>
+
                   </form>
+
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -80,25 +106,27 @@
               </div>
             </div>
           </div>
-          <div style="overflow:scroll;">
-            <table id="tabLog" class="hoverTable">
-              <thead>
-                <tr>
-                  <th ng-repeat="header in cols">{{header}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="row in logdataList" ng-click="rowSelected(row)">
-                  <td ng-if="!$last" ng-repeat="dat in getKeys(row)">{{row[dat]}}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div id="table-wrapper">
+            <div id="table-scroll">
+              <table id="tabLog" class="hoverTable">
+                <thead>
+                  <tr>
+                    <th ng-repeat="header in cols">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="row in logdataList" ng-click="rowSelected(row)">
+                    <td ng-if="!$last" ng-repeat="dat in getKeys(row)">{{row[dat]}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="panel panel-info mainSection">
+    <div class="col-sm-5">
+      <div class="panel panel-info panelBody">
         <div class="panel-heading">
           <h4 class="panel-title">
                 Select Entity
@@ -108,8 +136,8 @@
           <table style="width:100%" id="tabDim">
             <tbody>
               <tr ng-repeat="dat in getKeys(selectedRow)" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                <th ng-if="!$last">{{dat}}</th>
-                <td ng-if="!$last">{{selectedRow[dat]}}</td>
+                <th ng-if="!$last" class="align-left">{{dat}}</th>
+                <td ng-if="!$last" class="wordwrap">{{selectedRow[dat]}}</td>
                 <td>
                   <button type="submit" name="dim" ng-show="hoverEdit" class="btn btn-warning btn-circle" ng-click="selectedDim(dat)">D</button>
                   <button type="submit" name="meas" ng-show="hoverEdit" class="btn btn-danger btn-circle" ng-click="selectedMeas(dat,selectedRow[dat])">M</button>
@@ -120,8 +148,8 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3 ">
-      <div class="panel panel-info mainSection">
+    <div class="col-sm-2 ">
+      <div class="panel panel-info panelBody">
         <div class="panel-heading">
           <h4 class="panel-title">
                 Dimensions  |   Measures
@@ -135,49 +163,59 @@
           <div class="tab-content">
             <div id="menu1" class="tab-pane fade in active">
               <h4>Dimensions</h4>
-              <form action="/dimensions/addDimension?form=dimension" method="post">
+              <form  name="addDimForm" ng-submit="submitDimension()" novalidate>
                 <div class="form-group">
                   <label for="displayname">Display Name</label>
-                  <input type="displayname" class="form-control" id="displayname" name="displayname" placeholder="Enter Display Name" ng-model="displayname">
+                  <input type="displayname" class="form-control" id="displayname" name="displayname" placeholder="Enter Display Name" ng-model="displayname" required>
+                  <span style="color:#990000" ng-show="addDimForm.displayname.$touched && addDimForm.displayname.$invalid">Display Name is required.</span>
                 </div>
                 <div class="form-group">
                   <label for="fieldname">Field name</label>
-                  <input type="fieldname" class="form-control" id="fieldname" name="fieldname" placeholder="Enter Field Name" ng-model="dimVal">
+                  <input type="fieldname" class="form-control" id="fieldname" name="fieldname" placeholder="Selected Field Name" ng-model="dimVal" readonly>
                 </div>
+                <button class="btn btn-success" type="submit">Save</button>
                 <!-- <button class="btn btn-success" ng-click="submitDimension()">Save</button> -->
               </form>
-              <button class="btn btn-success" ng-click="submitDimension()">Save</button>
+              <!-- <button class="btn btn-success" ng-click="submitDimension()">Save</button> -->
+              <div class="form-group has-error">
+                <label ng-show="displayDimError" class="control-label" for="inputError1">Display Name and Field Name should not match</label>
+              </div>
             </div>
             <div id="menu2" class="tab-pane fade">
               <h4>Measures</h4>
-              <form action="/measures/addMeasure?form=measure" method="post">
+              <form  name="addMeasForm" ng-submit="submitMeasure()" novalidate>
                 <div class="form-group">
                   <label for="displaymeasurename">Display Name</label>
-                  <input type="displaymeasurename" class="form-control" id="displaymeasurename" name="displaymeasurename" placeholder="Enter Display Name" ng-model="displaymeasurename">
+                  <input type="displaymeasurename" class="form-control" id="displaymeasurename" name="displaymeasurename" placeholder="Enter Display Name" ng-model="displaymeasurename" required>
+                  <span style="color:#990000" ng-show="addMeasForm.displaymeasurename.$touched && addMeasForm.displaymeasurename.$invalid">Display Name is required.</span>
                 </div>
                 <div class="form-group">
-                  <label for="radioField">
-                    <input type="radio" name="measure" id="radioField" ng-model="measure" value="radioField">Fieldname</label>
-                  <label for="radioEvent">
-                    <input type="radio" name="measure" id="radioEvent" ng-model="measure" value="radioEvent">Event</label>
+                  <label for="fieldMeasure">
+                    <input type="radio" name="measure" id="fieldMeasure" ng-model="measure" value="fieldMeasure">Fieldname</label>
+                  <label for="eventMeasure">
+                    <input type="radio" name="measure" id="eventMeasure" ng-model="measure" value="eventMeasure">Event</label>
                 </div>
-                <div class="form-group" id="radioFieldDiv" ng-show="measure=='radioField'">
+                <div class="form-group" id="radioFieldDiv" ng-show="measure=='fieldMeasure'">
                   <label for="fieldmeasurename">Fieldname</label>
-                  <select class="form-control" id="fieldmeasurename" name="measureFieldSelector" ng-model= "measureFieldSelector">
+                  <select class="form-control" id="fieldmeasurename" name="measureFieldSelector" ng-model="measureFieldSelector">
                     <option ng-repeat="dat in getKeys(selectedRow)" ng-if="!$last">{{dat}}</option>
                   </select>
                 </div>
-                <div class="form-group" id="radioEventDiv" ng-show="measure=='radioEvent'">
+                <div class="form-group" id="radioEventDiv" ng-show="measure=='eventMeasure'">
                   <h4>Selected Event</h4>
                   <label for="eventField">Selected Event Field</label>
-                  <input type="eventField" class="form-control" id="eventField" placeholder="Selected Event Field.." readonly name="measureEventSelector" ng-model="measField">
+                  <input type="eventField" class="form-control" id="eventField" placeholder="Selected Event Field" readonly name="measureEventSelector" ng-model="measField">
                   <label for="eventValue">Selected Event value</label>
-                  <input type="eventField" class="form-control" id="eventValue" placeholder="Selected Event Value.." readonly name="measureEventValueSelector" ng-model="measValue">
+                  <input type="eventField" class="form-control" id="eventValue" placeholder="Selected Event Value" readonly name="measureEventValueSelector" ng-model="measValue">
                 </div>
+
+                <button class="btn btn-success" type="submit">Save</button>
                 <!-- <button type="submit" class="btn btn-success">GO..</button> -->
               </form>
-              <button class="btn btn-success" ng-click="submitMeasure()">GO..</button>
-
+              <!-- <button class="btn btn-success" ng-click="submitMeasure()">GO..</button> -->
+              <div class="form-group has-error">
+                <label ng-show="displayMeasError" class="control-label" for="inputError1">Display Name and Field Name should not match</label>
+              </div>
             </div>
           </div>
         </div>
@@ -191,10 +229,12 @@
                 <a data-toggle="collapse"  href="#collapse1">Dimensions</a>
             </h4>
           </div>
-          <div id="collapse1" class="panel-collapse collapse in">
+          <div id="collapse1" class="panel-collapse collapse in" aria-expanded="true">
             <div class="panel-body">
               <ul id="dimList" class="list-group">
-                <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info">{{dim}}</li>
+                <li ng-repeat="dim in dimensionList" class="list-group-item list-group-item-info">{{dim}}
+                  <button class="btn btn-danger btn-circle" ng-click="deleteDimension(dim)" ><span class="glyphicon glyphicon-trash"></span></button>
+                </li>
               </ul>
             </div>
           </div>
@@ -206,10 +246,12 @@
                 <a data-toggle="collapse"  href="#collapse2">Measures</a>
             </h4>
           </div>
-          <div id="collapse2" class="panel-collapse collapse">
+          <div id="collapse2" class="panel-collapse collapse in" aria-expanded="true">
             <div class="panel-body">
               <ul id="measList1" class="list-group">
-                <li ng-repeat="m in measureList" class="list-group-item list-group-item-info">{{m}}</li>
+                <li ng-repeat="m in measureList" class="list-group-item list-group-item-info">{{m}}
+                  <button class="btn btn-danger btn-circle" ng-click="deleteMeasure(m)"><span class="glyphicon glyphicon-trash"></span></button>
+                </li>
               </ul>
             </div>
           </div>

@@ -57,7 +57,7 @@
   return self.createPipeline(self.query);
   }
   self.createPipeline = function(query) {
-    console.log("$$$$$$$$$$4 "+JSON.stringify(query));
+    // console.log("$$$$$$$$$$4 "+JSON.stringify(query));
     var pipeline = [];
     if(query.hasOwnProperty('from') && query.from.hasOwnProperty('where')) {
     var sifter = sift(query.from.where);
@@ -76,17 +76,19 @@
           RCCount=0;
       if(query.eval.val1.rolling.over.time){
       temp.val1=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);
+      console.log("over time is "+temp.val1 +'and actual value passed is '+value[query.eval.val1.rolling.on]);
       }
       else {
         temp.val1=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
       }
       if(query.eval.val2.rolling.over.count){
-        temp.val2=RC[RCCount++].evaluate(value[query.eval.val1.rolling.on]); //rollingTime not available
+        temp.val2=RC[RCCount++].evaluate(value[query.eval.val2.rolling.on]); //rollingTime not available
       }
       else {
-        temp.val2=RT[RTCount++].evaluate(value[query.eval.val1.rolling.on]);//assume every computation is either rollingTime or rollingCount
+        temp.val2=RT[RTCount++].evaluate(value[query.eval.val2.rolling.on]);//assume every computation is either rollingTime or rollingCount
+        console.log("over time is "+temp.val2 +'and actual value passed is '+value[query.eval.val2.rolling.on]);      
       }
-      console.log("in pipe############### "+JSON.stringify(query));    
+      // console.log("in pipe############### "+JSON.stringify(query));
       return temp;
       }
       var data={
