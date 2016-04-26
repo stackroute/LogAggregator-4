@@ -85,7 +85,8 @@
               </thead>
               <tbody>
                   <tr ng-class="{'success': true}" ng-repeat="row in val">
-                      <td ng-repeat="header in key">{{row[header]}}</td>
+                    <td ng-repeat="header in key">{{row[header]}}</td>
+                      <!-- <td ng-repeat="header in key">{{row[header]| limitTo:valLimit }}</td> -->
                   </tr>
                   <!--  to highlight element in row
                   <tr ng-class="{'success': row.highlight}" ng-repeat="row in val">

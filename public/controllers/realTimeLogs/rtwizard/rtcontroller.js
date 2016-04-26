@@ -1,7 +1,8 @@
 var app = angular.module('logAggregator');
-app.controller('rtcontroller', function($scope) { 
+app.controller('rtcontroller', function($scope) {
     $scope.key = [];
     $scope.val = [];
+    // $scope.valLimit=[99];
     var ws = new WebSocket("ws://172.23.238.253:7070");
     var isFirstMessage = true;
     ws.onmessage = function(evt) {
