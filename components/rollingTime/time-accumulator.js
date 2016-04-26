@@ -7,7 +7,7 @@ module.exports = function(time, evalFunc) {
 
   this.evaluate = function(line) {
     //creating array if it doesn't exist
-    console.log('################## '+line);
+
     if (typeof lineArr == "undefined" || !(lineArr instanceof Array)) {
       lineArr = [];
     }
@@ -15,8 +15,12 @@ module.exports = function(time, evalFunc) {
     if (typeof line !== 'undefined') {
       var obj = {};
       if(typeof line === 'string'){
-      obj.line = line.trim();
-      }
+      console.log('in time accumulator as string '+line);
+       }
+       else {
+         obj.line=line;
+          console.log('in time accumulator as number '+line);
+       }
       obj.date = new Date();
       lineArr.push(obj);
     }
@@ -55,7 +59,7 @@ module.exports = function(time, evalFunc) {
           break;
         }
       }
-      //console.log(dataArr);
+      console.log('data arrayyyyyyy '+dataArr);
       return this.evalFunc(dataArr);
     }
   }

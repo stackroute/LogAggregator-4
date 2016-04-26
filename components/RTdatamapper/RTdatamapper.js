@@ -26,6 +26,7 @@ module.exports = function(namespaceId,Namespace) {
       measures = namespace.measures;
       source = namespace.source;
       //console.log(measures);
+      console.log("called --------------------------------------------------------------------------------------------------------------");
     }
   });
 };
@@ -37,19 +38,20 @@ WebSocket1.on('connect', function(connection) {
     var sourceData = JSON.parse(msg.utf8Data)[0];
     if (source === sourceData) {
       streamData = JSON.parse(msg.utf8Data)[2];
+      console.log(streamData);
       // var keys = Object.keys(streamData); //array of keys in the streaming data
       var condition;
       var sifter;
       for (var k = 0; k < measures.length; k++)
       {
-      var displayValue=measures[k].eventField;
+      var displayValue=measures[k].displayName;
         // streamdata, keys
         if(measures[k].measureType === "fieldMeasure") {
           condition = {};
 
           condition[measures[k].eventField] = {$exists: true};
           sifter = sift(condition);
-          streamData[displayValue] = sifter(streamData) ? 1 : 0
+          streamData[displayValue] = sifter(streamData) ? streamData[measures[k].eventField] : 0
         } else {
           condition = {};
           condition[measures[k].eventField] = measures[k].eventValue;

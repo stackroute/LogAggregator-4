@@ -16,7 +16,7 @@ module.exports=function AccumulateOverCount(count, evalFunc) {
         //   console.log(arr);
 
             counter++;
-            return undefined;
+            return null;
         }
         else {
             var k = counter%count;
