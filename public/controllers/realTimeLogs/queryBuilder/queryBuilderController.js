@@ -18,7 +18,7 @@ app.controller('liveQueryController', ['$scope','$http', '$compile','$sce',funct
     var data = '{"group": {"operator": "OR","rules": []}}';
     $scope.flag=false;
 
-    $scope.aggfn = ["average", "mean", "max","standard deviation"];
+    $scope.aggfn = ["average", "count", "max","min","sum"];
     $scope.accumfn = ["time", "count"];
     $scope.operators = [">", "<", "==",">=","=<"];
     //$scope.operators = [">", "<", "==",">=","=<"];

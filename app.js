@@ -13,7 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 This code is written by Prateek Reddy Yammanuru, Shiva Manognya Kandikuppa, Uday Kumar Mydam, Nirup TNL, Sandeep Reddy G, Deepak Kumar
- and updated by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan*/
+ and updated by Ashish Gupta, Tarun Mohandas, Suriya Prakash, Srinivasa Burli, Jishnu Surendran and Bhairavi Balakrishnan,
+ enhanced by wave 4 team - Baskaran,Neel,Pallabee,Rahil,Shefali*/
 
 //var mongoose = require('./mongoose');
 //var db = mongoose();
@@ -66,8 +67,6 @@ var dimensionRouter = require('./routes/defineData/dimensions');
 var measuresRouter = require('./routes/defineData/measures');
 var namespaceRouter = require('./routes/defineData/logdata');
 var expressions=require('./routes/realTimeLogs/queryBuilder/expressions.js')
-// wave 4 code starts here
-//require('./database');
 var saveQuery = require('./routes/queryBuilder/saveQuery');
 
 // wave 4 code ends here

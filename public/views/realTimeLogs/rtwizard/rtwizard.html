@@ -89,7 +89,7 @@
               </thead>
 
               <tbody>
-                  <tr ng-class="{'success':row.highlight}" ng-repeat="row in val">
+                  <tr ng-class="{'success':row.highlight}" ng-repeat="row in val | limitTo:25">
                       <td ng-repeat="header in key">{{row[header]}}</td>
                   </tr>
               </tbody>

@@ -35,6 +35,21 @@ namespaceSchema.statics.findNamespace=function(name,cb){
     });
   };
 
+  namespaceSchema.statics.findNamespaceName=function(name,cb){
+   this.findOne(
+   {name : name})
+   .exec(function(err,namespace){
+     if(!err)
+     {
+       cb(null,namespace);
+     }
+     else
+       {
+         cb(err,null);
+       }
+     });
+   };
+
   // namespaceSchema.post('save',function (namespace) {
   //   //  console.log('nid' +namespace._id + '||' +namespace.measures);
   //     getMeasure(namespace.measures);

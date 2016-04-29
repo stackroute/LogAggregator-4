@@ -16,6 +16,7 @@ dimensionRouter.post('/addDimension', function(req, res) {
       });
       namespace.save(function(err, namespace) {
         console.log('namespace saved:', namespace);
+        // res.send(200).send();
       });
     }
   });

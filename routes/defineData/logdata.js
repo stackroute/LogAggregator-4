@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
   });
 
 router.get('/namespaceList', function(req, res) {
-  //
+  // 
   // Namespace.remove({},function(){
   //   console.log("deleted");
   // });

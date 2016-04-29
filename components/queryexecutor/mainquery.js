@@ -39,7 +39,7 @@ wss.on('connection', function(ws) {
   //console.log('CONNECTED');
   // ws.send('Connected');
   serverWs = ws;
-  ws.setMaxListeners(ws.getMaxListeners() + 1);
+  //ws.setMaxListeners(ws.getMaxListeners() + 1);
 });
 
 var isClientConnected = false;
@@ -93,7 +93,7 @@ else{
       });
        con=connection;
        bootstrapStream();
-      connection.setMaxListeners(connection.getMaxListeners() + 1);
+//      connection.setMaxListeners(connection.getMaxListeners() + 1);
     });
     WebSocket1.connect('ws://localhost:5050');
   }
