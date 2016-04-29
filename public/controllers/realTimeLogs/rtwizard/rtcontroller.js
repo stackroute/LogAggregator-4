@@ -13,7 +13,9 @@ var app = angular.module('logAggregator');
 
 		$scope.key = [];
 		$scope.val = [];
-	var ws = new WebSocket("ws://172.23.238.188:9000");
+
+	var ws = new WebSocket("ws://localhost:9000");
+
 	var isFirstMessage = true;
 
 	ws.onmessage = function(evt){
